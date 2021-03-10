@@ -17,7 +17,7 @@ export default {
 <style lang="scss">
 .auth-layout {
   min-height: 100%;
-  .v-application--wrap{
+  .v-application--wrap {
     display: flex;
     align-items: center;
     justify-content: center;

@@ -10,6 +10,14 @@
           outlined
         />
         <v-text-field
+          v-model="authData.phone"
+          v-mask="'+#(###) ###-####'"
+          :rules="rules.phone"
+          label="Введите телефон"
+          placeholder="Placeholder"
+          outlined
+        />
+        <v-text-field
           :append-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
           :type="showPassword ? 'password' : 'text'"
           @click:append="showPassword = !showPassword"
@@ -46,9 +54,10 @@ export default {
       showPassword: true,
       isFormValid: true,
       authData: {
-        email: "admin@gmail.com",
-        password: "224224390sg",
-        passwordRepeat: "224224390sg"
+        email: "test.user@gmail.com",
+        phone: "+2(222) 222-2212",
+        password: "23yg43kvgq",
+        passwordRepeat: "23yg43kvgq"
       },
       rules: {
         email: [
@@ -67,8 +76,9 @@ export default {
     async registration() {
       if (this.$refs.form.validate()) {
         try {
-          await this.$store.dispatch("auth/createNewUser", {
+          await this.$store.dispatch("auth/registration", {
             email: this.authData.email,
+            phone: this.authData.phone,
             password: this.authData.password
           });
         } catch (e) {
