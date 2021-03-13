@@ -1,14 +1,57 @@
+import {io} from "socket.io-client";
 <template>
-  <div class="home"></div>
+  <div class="home">
+    <template v-if="users">
+      <div v-for="(user, index) in users.data" :key="index">{{ user }}</div>
+    </template>
+    {{ sss }}
+  </div>
 </template>
 
 <script>
-// import { api } from "../assets/helpers/api";
-
+import { api } from "../assets/helpers/api";
+import store from "../store";
+import { io } from "socket.io-client";
 export default {
   name: "Home",
+  data() {
+    return {
+      users: null,
+      sss: null
+    };
+  },
   async created() {
-    await this.$store.dispatch("auth/refreshToken");
+    this.users = await api.users.getAllUsers();
+
+    // this.$socket.client.on("msgToClient", message => {
+    //   console.error(message);
+    // });
+    // setInterval(() => {
+    //   console.log("msgToServer");
+    //   this.$socket.client.emit("msgToServer", { msg: "qweqwe" });
+    // }, 1000);
+  },
+  mounted() {
+    const socket = io("ws://localhost:3000", {
+      transports: ["websocket"],
+      query: {
+        "my-key": store.state.auth.user.userId
+      }
+    });
+
+    socket.on("connection", function(socket2) {
+      console.log("Client connected.");
+
+      socket2.on("disconnect", function() {
+        console.log("Client disconnected.");
+      });
+    });
+    socket.on("joinedRoom", (...args) => {
+      console.log("joinedRoom");
+      this.sss = args;
+    });
+
+    socket.emit("joinRoom", "room-id");
   }
 };
 </script>

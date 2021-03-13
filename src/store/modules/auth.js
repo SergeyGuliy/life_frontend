@@ -1,6 +1,6 @@
-import router from "../router";
-import { api } from "../assets/helpers/api";
-import Vue from "vue";
+import router from "../../router";
+import { api } from "../../assets/helpers/api";
+// import { myVue } from "../../main";
 
 export default {
   namespaced: true,
@@ -14,7 +14,7 @@ export default {
     setUser(state, { userData, accessToken, refreshToken }) {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-      localStorage.setItem("userId", userData.id);
+      localStorage.setItem("userId", userData.userId);
       state.user = userData;
     },
 
@@ -22,57 +22,69 @@ export default {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("userId");
-      state.user = "";
-    },
-
-    updateUserInfo(state, newUserInfo) {
-      state.user.userInfo = { ...newUserInfo };
+      state.user = null;
     }
   },
   actions: {
     async refreshToken({ commit, dispatch }) {
-      try {
-        const userId = localStorage.getItem("userId");
-        const refreshToken = localStorage.getItem("refreshToken");
-        if (userId && refreshToken) {
+      const userId = localStorage.getItem("userId");
+      const refreshToken = localStorage.getItem("refreshToken");
+      if (userId && refreshToken) {
+        try {
           const { data } = await api.auth.refreshToken(userId, refreshToken);
           commit("setUser", data);
-        } else {
+        } catch (e) {
           await dispatch("logOut");
         }
-      } catch (e) {
+        // await dispatch("webSocket/socketConnect", "", { root: true });
+      } else {
         await dispatch("logOut");
       }
-    },
-    async registration({ commit, state }, authData) {
-      try {
-        const { data } = await api.auth.registration(authData);
-        commit("setUser", data);
-        await router.push({ name: "Home" });
-        Vue.prototype.$vuetify.theme.dark = state.user.isDarkTheme;
-      } catch (e) {
-        console.log(`Error in store action 'createNewUser': ${e.message}`);
-        throw e.message;
-      }
+      // await dispatch("logOut");
     },
 
-    async logIn({ commit, state }, authData) {
+    async setUserData({ commit, dispatch }, data) {
       try {
-        const { data } = await api.auth.login(authData);
         commit("setUser", data);
+        await dispatch("webSocket/socketConnect", "", { root: true });
+        // myVue.prototype.$vuetify.theme.dark = state.user.isDarkTheme;
         await router.push({ name: "Home" });
-        Vue.prototype.$vuetify.theme.dark = state.user.isDarkTheme;
       } catch (e) {
         console.log(`Error in store action 'logIn': ${e}`);
         throw e;
       }
     },
 
+    async registration({ dispatch }, authData) {
+      try {
+        const { data } = await api.auth.registration(authData);
+        await dispatch("setUserData", data);
+      } catch (e) {
+        console.log(`Error in store action 'createNewUser': ${e.message}`);
+        throw e.message;
+      }
+    },
+
+    async logIn({ dispatch }, authData) {
+      try {
+        const { data } = await api.auth.login(authData);
+        await dispatch("setUserData", data);
+      } catch (e) {
+        console.log(`Error in store action 'logIn': ${e}`);
+        throw e;
+      }
+    },
+
+    setUser({ commit }, data) {
+      commit("setUser", data);
+    },
+
     async logOut({ commit }) {
       try {
         commit("cleanUser");
+        // await dispatch("webSocket/socketDisconnect", "", { root: true });
         await router.push({ name: "Auth" });
-        // Vue.prototype.$vuetify.theme.dark = false;
+        // myVue.prototype.$vuetify.theme.dark = false;
       } catch (e) {
         commit("cleanUser");
       }

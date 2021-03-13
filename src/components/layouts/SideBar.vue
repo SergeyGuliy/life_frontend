@@ -22,7 +22,6 @@
         <v-btn block @click="logout">
           Logout
           <v-icon>mdi-logout</v-icon>
-
         </v-btn>
       </div>
     </template>

@@ -8,6 +8,8 @@
 
 <script>
 // import Vue from "vue";
+// import store from "./store";
+
 export default {
   name: "App",
 
@@ -20,19 +22,7 @@ export default {
       return this.$route.meta.layout;
     }
   },
-  async created() {
-    await this.$store.dispatch("auth/refreshToken");
-    // const userId = localStorage.getItem("userId");
-    // const refreshToken = localStorage.getItem("refreshToken");
-    // const accessToken = localStorage.getItem("accessToken");
-    // console.log(userId);
-    // console.log(refreshToken);
-    // console.log(accessToken);
-    // console.log(this.$route.name)
-    // if (this.$route.name === "Auth") {
-    //   console.log("Auth");
-    // }
-  }
+  async created() {}
 };
 </script>
 

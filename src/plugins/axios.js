@@ -2,6 +2,7 @@
 import store from "../store/index";
 
 import axios from "axios";
+import { api } from "../assets/helpers/api";
 
 let config = {
   baseURL: "http://localhost:3000/"
@@ -30,9 +31,17 @@ _axios.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      return store.dispatch("auth/refreshToken").then(async () => {
-        return await _axios(originalRequest);
-      });
+      const userId = localStorage.getItem("userId");
+      const refreshToken = localStorage.getItem("refreshToken");
+      if (userId && refreshToken) {
+        try {
+          const { data } = await api.auth.refreshToken(userId, refreshToken);
+          await store.dispatch("auth/setUser", data);
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      return await _axios(originalRequest);
     } else if (error.response.status === 401) {
       await store.dispatch("auth/logOut");
     } else {

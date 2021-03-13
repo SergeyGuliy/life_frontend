@@ -1,8 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import requiredAuth from "./middlewares/requiredAuth";
-import isLoggedIn from "./middlewares/isLoggedIn";
-import store from "../store/index";
+import isLoggedIn from "./middlewares/loginStatusMiddleware";
+
+import loginStatusMiddleware from "./middlewares/loginStatusMiddleware";
+import refreshTocken from "./middlewares/refreshTocken";
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -26,7 +27,6 @@ const routes = [
     name: "Home",
     component: () => import("../views/Home"),
     meta: {
-      middleware: [requiredAuth],
       layout: "mainLayout"
     }
   },
@@ -35,7 +35,6 @@ const routes = [
     name: "Cabinet",
     component: () => import("../views/Cabinet/Cabinet"),
     meta: {
-      middleware: [requiredAuth],
       layout: "mainLayout"
     }
   },
@@ -44,7 +43,6 @@ const routes = [
     name: "Users",
     component: () => import("../views/Users/Users"),
     meta: {
-      middleware: [requiredAuth],
       layout: "mainLayout"
     }
   },
@@ -53,7 +51,6 @@ const routes = [
     name: "UserId",
     component: () => import("../views/Users/UserId"),
     meta: {
-      middleware: [requiredAuth],
       layout: "mainLayout"
     }
   },
@@ -62,7 +59,6 @@ const routes = [
     name: "Rooms",
     component: () => import("../views/Rooms/Rooms"),
     meta: {
-      middleware: [requiredAuth],
       layout: "mainLayout"
     }
   },
@@ -71,7 +67,14 @@ const routes = [
     name: "RoomId",
     component: () => import("../views/Rooms/RoomId"),
     meta: {
-      middleware: [requiredAuth],
+      layout: "mainLayout"
+    }
+  },
+  {
+    path: "/404",
+    name: "ErrorPage",
+    component: () => import("../views/ErrorPage"),
+    meta: {
       layout: "mainLayout"
     }
   }
@@ -83,21 +86,9 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
-  if (!to.meta.middleware) {
-    return next();
-  }
-  const middleware = to.meta.middleware;
-
-  const context = {
-    to,
-    from,
-    next,
-    store
-  };
-  return middleware[0]({
-    ...context
-  });
+router.beforeEach(async (to, from, next) => {
+  await refreshTocken();
+  loginStatusMiddleware(to, from, next);
 });
 
 export default router;
