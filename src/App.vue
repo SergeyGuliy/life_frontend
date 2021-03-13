@@ -35,6 +35,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "assets/scc/main";
 .my-wrapper {
   height: 100%;
 }

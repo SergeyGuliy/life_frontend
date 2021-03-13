@@ -1,6 +1,6 @@
 <template>
   <v-card class="RoomsController pa-2">
-    <div class="title">RoomsController</div>
+    <div class="title">{{ $t("key1") }}</div>
     <v-btn block @click="createRoomHandler">Create room</v-btn>
     <RoomFilter />
     <RoomsList />

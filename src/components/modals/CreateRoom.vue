@@ -5,7 +5,7 @@
     width="500"
     @click:outside.prevent.stop="close()"
   >
-    <v-card>
+    <v-card class="CreateRoom">
       <v-card-title class="pb-8">
         Privacy Policy
       </v-card-title>
@@ -24,6 +24,8 @@
           <v-col class="py-0">
             <v-range-slider
               v-model="range"
+              outlined
+              label="К-во пользователей"
               :max="max"
               :min="min"
               hide-details
@@ -87,6 +89,9 @@ export default {
 </script>
 
 <style lang="scss">
-.Test {
+.CreateRoom {
+  .v-input__slider > .v-input__control .v-input__slot {
+    display: block;
+  }
 }
 </style>
