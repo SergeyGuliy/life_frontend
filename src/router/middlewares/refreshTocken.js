@@ -1,7 +1,6 @@
 import store from "../../store/index";
 import { api } from "../../assets/helpers/api";
 import { myVue } from "../../main";
-// import Vue from 'vue'
 
 export default async function() {
   if (store.state.auth.user) {
@@ -13,7 +12,7 @@ export default async function() {
     try {
       const { data } = await api.auth.refreshToken(userId, refreshToken);
       await store.dispatch("auth/setUser", data);
-      console.log(myVue.$vuetify.theme.dark);
+      myVue.$vuetify.theme.dark = store.state.auth.user.isDarkTheme;
     } catch (e) {
       console.log(e);
     }

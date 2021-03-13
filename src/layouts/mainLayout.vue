@@ -1,15 +1,13 @@
 <template>
-  <v-app>
-    <div class="my-wrapper">
-      <SideBar :value="drawer" @updateDrawer="updateDrawer" />
-      <NavBar :value="drawer" @updateDrawer="updateDrawer" />
-      <v-main>
-        <v-container>
-          <slot />
-        </v-container>
-      </v-main>
-    </div>
-  </v-app>
+  <div class="my-wrapper">
+    <SideBar :value="drawer" @updateDrawer="updateDrawer" />
+    <NavBar :value="drawer" @updateDrawer="updateDrawer" />
+    <v-main>
+      <v-container>
+        <slot />
+      </v-container>
+    </v-main>
+  </div>
 </template>
 
 <script>
@@ -47,6 +45,9 @@ export default {
 </script>
 
 <style lang="scss">
-.main-layout {
+.my-wrapper {
+  .v-main {
+    min-height: 100%;
+  }
 }
 </style>

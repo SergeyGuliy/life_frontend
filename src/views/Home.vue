@@ -1,11 +1,16 @@
-import {io} from "socket.io-client";
 <template>
-  <div class="home">
-    <template v-if="users">
-      <div v-for="(user, index) in users.data" :key="index">{{ user }}</div>
-    </template>
-    {{ sss }}
-  </div>
+  <!--    <template v-if="users">-->
+  <!--      <div v-for="(user, index) in users.data" :key="index">{{ user }}</div>-->
+  <!--    </template>-->
+  <!--    {{ sss }}-->
+  <v-container class="home">
+    <v-row>
+      <v-col cols="6"></v-col>
+      <v-col cols="6">
+        <RoomsController />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -14,6 +19,9 @@ import store from "../store";
 import { io } from "socket.io-client";
 export default {
   name: "Home",
+  components: {
+    RoomsController: () => import("../components/RoomsController")
+  },
   data() {
     return {
       users: null,
