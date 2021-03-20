@@ -24,12 +24,12 @@
           append-icon="mdi-email"
         />
         <v-text-field
-          :type="showPassword ? 'password' : 'text'"
           v-model="authData.password"
           :rules="rules.password"
           label="Введите пароль"
           placeholder="Placeholder"
           outlined
+          :type="showPassword ? 'password' : 'text'"
           @click:append="showPassword = !showPassword"
           :append-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
         />
@@ -70,16 +70,20 @@ export default {
     };
   },
   methods: {
-    async login() {
+    login() {
       if (this.$refs.form.validate()) {
-        try {
-          await this.$store.dispatch("auth/logIn", {
+        this.$store
+          .dispatch("auth/logIn", {
             email: this.authData.email,
             password: this.authData.password
+          })
+          .then(() => {
+            this.$vuetify.theme.dark = this.$store.state.user.user.isDarkTheme;
+            this.$router.push({ name: "Home" });
+          })
+          .catch(e => {
+            this.$emit("onError", e);
           });
-        } catch (e) {
-          this.$emit("onError", e);
-        }
       }
     }
   }

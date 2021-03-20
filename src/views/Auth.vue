@@ -8,6 +8,9 @@ export default {
   name: "Auth",
   components: {
     AuthWindow
+  },
+  created() {
+    this.$vuetify.theme.dark = false;
   }
 };
 </script>

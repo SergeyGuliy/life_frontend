@@ -13,7 +13,12 @@
         </v-btn>
       </template>
       <v-list class="lang-selector__list">
-        <v-list-item v-for="(item, index) in items" :key="index">
+        <v-list-item
+          link
+          v-for="(item, index) in items"
+          :key="index"
+          @click="$i18n.locale = item.key"
+        >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </v-list>
@@ -33,30 +38,8 @@ export default {
   data() {
     return {
       items: [
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me 2" },
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me 2" },
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me 2" },
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me 2" },
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me 2" },
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me 2" }
+        { title: "English", key: "en" },
+        { title: "Russian", key: "ru" }
       ]
     };
   },

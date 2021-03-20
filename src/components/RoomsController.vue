@@ -21,7 +21,6 @@ export default {
     async createRoomHandler() {
       await this.$openModal("CreateRoom")
         .then(value => {
-          console.log("closed");
           console.log(value);
         })
         .catch(e => {

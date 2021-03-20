@@ -30,7 +30,7 @@ export default {
   },
   async created() {
     this.users = await api.users.getAllUsers();
-
+    // console.log(this.users);
     // this.$socket.client.on("msgToClient", message => {
     //   console.error(message);
     // });
@@ -43,19 +43,16 @@ export default {
     const socket = io("ws://localhost:3000", {
       transports: ["websocket"],
       query: {
-        "my-key": store.state.auth.user.userId
+        "my-key": store.state.user.user.userId
       }
     });
 
     socket.on("connection", function(socket2) {
-      console.log("Client connected.");
-
       socket2.on("disconnect", function() {
         console.log("Client disconnected.");
       });
     });
     socket.on("joinedRoom", (...args) => {
-      console.log("joinedRoom");
       this.sss = args;
     });
 

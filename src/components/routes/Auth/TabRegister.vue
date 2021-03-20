@@ -73,17 +73,21 @@ export default {
     };
   },
   methods: {
-    async registration() {
+    registration() {
       if (this.$refs.form.validate()) {
-        try {
-          await this.$store.dispatch("auth/registration", {
+        this.$store
+          .dispatch("auth/registration", {
             email: this.authData.email,
             phone: this.authData.phone,
             password: this.authData.password
+          })
+          .then(() => {
+            this.$vuetify.theme.dark = this.$store.state.user.user.isDarkTheme;
+            this.$router.push({ name: "Home" });
+          })
+          .catch(e => {
+            this.$emit("onError", e);
           });
-        } catch (e) {
-          this.$emit("onError", e);
-        }
       }
     }
   }

@@ -3,7 +3,7 @@ import { api } from "../../assets/helpers/api";
 import { myVue } from "../../main";
 
 export default async function() {
-  if (store.state.auth.user) {
+  if (store.state.user.user) {
     return;
   }
   const userId = localStorage.getItem("userId");
@@ -11,8 +11,8 @@ export default async function() {
   if (userId && refreshToken) {
     try {
       const { data } = await api.auth.refreshToken(userId, refreshToken);
-      await store.dispatch("auth/setUser", data);
-      myVue.$vuetify.theme.dark = store.state.auth.user.isDarkTheme;
+      store.commit("user/setUser", data);
+      myVue.$vuetify.theme.dark = store.state.user.user.isDarkTheme;
     } catch (e) {
       console.log(e);
     }

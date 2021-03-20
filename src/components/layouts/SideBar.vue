@@ -12,7 +12,7 @@
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-title>{{ $t(item.title) }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -20,7 +20,7 @@
     <template v-slot:append>
       <div class="pa-2">
         <v-btn block @click="logout">
-          Logout
+          {{ $t("layout.logout") }}
           <v-icon>mdi-logout</v-icon>
         </v-btn>
       </div>
@@ -41,17 +41,17 @@ export default {
     return {
       items: [
         {
-          title: "Главная",
+          title: "layout.main",
           icon: "mdi-view-dashboard",
           linkParams: { name: "Home" }
         },
         {
-          title: "Кабинет",
+          title: "layout.cabinet",
           icon: "mdi-account-settings",
           linkParams: { name: "Cabinet" }
         },
         {
-          title: "Пользователи",
+          title: "layout.users",
           icon: "mdi-account-group",
           linkParams: { name: "Users" }
         },
@@ -61,7 +61,7 @@ export default {
         //   linkParams: { name: "UserId", params: "123" }
         // },
         {
-          title: "Комнаты",
+          title: "layout.rooms",
           icon: "mdi-google-classroom",
           linkParams: { name: "Rooms" }
         }
