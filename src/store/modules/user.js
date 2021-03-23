@@ -1,4 +1,4 @@
-// import { api } from "../../assets/helpers/api";
+import { api } from "../../assets/helpers/api";
 
 export default {
   namespaced: true,
@@ -21,6 +21,12 @@ export default {
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("userId");
       state.user = null;
+    },
+    joinRoom(state, roomId) {
+      state.user.roomJoinedId = roomId;
+    },
+    leaveRoom(state) {
+      state.user.roomJoinedId = null;
     }
   },
   actions: {
@@ -32,7 +38,12 @@ export default {
         console.log(`Error in store action 'setUserData': ${e}`);
         throw e;
       }
-
+    },
+    async leaveRoom({ commit }) {
+      let { status } = await api.rooms.leaveRoom();
+      if (status === 200) {
+        commit("leaveRoom");
+      }
     },
 
     setUser({ commit }, data) {
