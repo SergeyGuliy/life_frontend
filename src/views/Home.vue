@@ -5,7 +5,10 @@
   <!--    {{ sss }}-->
   <v-container class="home">
     <v-row>
-      <v-col cols="6"></v-col>
+      <v-col cols="6">
+        {{ users }}
+<!--        {{ rooms }}-->
+      </v-col>
       <v-col cols="6">
         <RoomsController />
       </v-col>
@@ -14,8 +17,6 @@
 </template>
 
 <script>
-import { api } from "../assets/helpers/api";
-import store from "../store";
 import { io } from "socket.io-client";
 export default {
   name: "Home",
@@ -25,11 +26,11 @@ export default {
   data() {
     return {
       users: null,
-      sss: null
+      sss: null,
     };
   },
   async created() {
-    this.users = await api.users.getAllUsers();
+    // this.users = await api.users.getAllUsers();
     // console.log(this.users);
     // this.$socket.client.on("msgToClient", message => {
     //   console.error(message);
@@ -43,7 +44,7 @@ export default {
     const socket = io("ws://localhost:3000", {
       transports: ["websocket"],
       query: {
-        "my-key": store.state.user.user.userId
+        "my-key": this.$store.state.user.user.userId
       }
     });
 

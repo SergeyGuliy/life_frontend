@@ -1,24 +1,27 @@
 <template>
-  <v-card class="RoomsList pa-2">
-    RoomsList
+  <div class="RoomsList pa-2">
     <RoomBox
       v-for="(roomData, index) in rooms"
       :key="index"
       :roomData="roomData"
     />
-  </v-card>
+  </div>
 </template>
 
 <script>
 export default {
   name: "RoomsList",
+  props: {
+    rooms: {
+      type: Array,
+      default: () => []
+    }
+  },
   components: {
     RoomBox: () => import("./RoomBox")
   },
   data() {
-    return {
-      rooms: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    };
+    return {};
   }
 };
 </script>

@@ -100,7 +100,7 @@
           <v-btn color="danger" @click="close()">
             {{ $t("modals.createRoom.cancel") }}
           </v-btn>
-          <v-btn color="primary" @click="close(true)">
+          <v-btn color="primary" @click="createRoom">
             {{ $t("modals.createRoom.create") }}
           </v-btn>
         </v-card-actions>
@@ -111,6 +111,7 @@
 
 <script>
 import modal from "../../mixins/modal";
+import { api } from "../../assets/helpers/api";
 
 export default {
   name: "CreateRoom",
@@ -118,11 +119,11 @@ export default {
   data() {
     return {
       roomData: {
-        roomName: "",
+        roomName: "12312",
         roomPassword: "",
         typeOfRoom: "PUBLIC",
         minCountOfUsers: 2,
-        maxCountOfUsers: 10,
+        maxCountOfUsers: 10
       },
       showPassword: true,
       min: 2,
@@ -153,6 +154,12 @@ export default {
       set(val) {
         this.roomData.typeOfRoom = val ? "PUBLIC" : "PRIVATE";
       }
+    }
+  },
+  methods: {
+    async createRoom() {
+      const { data } = await api.rooms.create(this.roomData);
+      this.close(data);
     }
   }
 };
