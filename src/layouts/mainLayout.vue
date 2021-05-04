@@ -6,6 +6,7 @@
       <v-container>
         <slot />
       </v-container>
+      <Chat />
     </v-main>
   </div>
 </template>
@@ -15,7 +16,8 @@ export default {
   name: "mainLayout",
   components: {
     SideBar: () => import("../components/layouts/SideBar"),
-    NavBar: () => import("../components/layouts/NavBar")
+    NavBar: () => import("../components/layouts/NavBar"),
+    Chat: () => import("../components/layouts/Chat")
   },
   data() {
     return {
@@ -49,5 +51,8 @@ export default {
   .v-main {
     min-height: 100%;
   }
+  /*.container {*/
+  /*  min-height: 100%;*/
+  /*}*/
 }
 </style>
