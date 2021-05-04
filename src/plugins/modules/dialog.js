@@ -1,5 +1,5 @@
 import Vue from "vue";
-import store from "../store/index";
+import store from "../../store";
 
 Vue.prototype.$openModal = function(modalName, data = {}) {
   store.dispatch("modals/setModal", {

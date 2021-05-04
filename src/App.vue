@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app @click="clickOutside">
     <component :is="layout">
       <router-view />
     </component>
@@ -30,12 +30,38 @@ export default {
       return null;
     }
   },
-  async created() {}
+  sockets: {
+    connect() {
+      console.warn("Socket is connected");
+    },
+    connected(socketId) {
+      console.log(socketId);
+    },
+    disconnect() {
+      console.warn("Socket is disconnected");
+    }
+  },
+  async mounted() {
+    document.querySelector("body").addEventListener("click", this.clickOutside);
+    document
+      .querySelector("body")
+      .addEventListener("contextmenu", this.clickOutsideContext);
+  },
+  methods: {
+    clickOutside() {
+      this.$bus.emit("click-outside");
+    },
+    clickOutsideContext() {
+      // TODO add prevent default on prod
+      // e.preventDefault();
+      this.$bus.emit("click-outside");
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-@import "assets/scc/main";
+@import "assets/styles/main";
 .my-wrapper {
   height: 100%;
 }

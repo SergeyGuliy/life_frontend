@@ -7,7 +7,7 @@
     <v-row>
       <v-col cols="6">
         {{ users }}
-<!--        {{ rooms }}-->
+        <!--        {{ rooms }}-->
       </v-col>
       <v-col cols="6">
         <RoomsController />
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 export default {
   name: "Home",
   components: {
@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       users: null,
-      sss: null,
+      sss: null
     };
   },
   async created() {
@@ -41,23 +41,24 @@ export default {
     // }, 1000);
   },
   mounted() {
-    const socket = io("ws://localhost:3000", {
-      transports: ["websocket"],
-      query: {
-        "my-key": this.$store.state.user.user.userId
-      }
-    });
-
-    socket.on("connection", function(socket2) {
-      socket2.on("disconnect", function() {
-        console.log("Client disconnected.");
-      });
-    });
-    socket.on("joinedRoom", (...args) => {
-      this.sss = args;
-    });
-
-    socket.emit("joinRoom", "room-id");
+    // const socket = io("ws://localhost:3000", {
+    //   transports: ["websocket"],
+    //   query: {
+    //     "my-key": this.$store.state.user.user.userId
+    //   }
+    // });
+    //
+    // socket.on("connection", function(socket2) {
+    //   socket2.on("disconnect", function() {
+    //     console.log("Client disconnected.");
+    //   });
+    // });
+    // socket.on("joinedRoom", (...args) => {
+    //   this.sss = args;
+    // });
+    //
+    // socket.emit("joinRoom", "room-id");
+    // this.$store.dispatch("webSocket/socketConnect");
   }
 };
 </script>

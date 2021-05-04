@@ -1,4 +1,4 @@
-import { mapActions, mapState } from "vuex";
+import { mapActions } from "vuex";
 import Vue from "vue";
 
 Vue.mixin({
@@ -6,7 +6,9 @@ Vue.mixin({
     return {};
   },
   computed: {
-    ...mapState("auth", { $user: "user" })
+    $user() {
+      return this.$store.state.user?.user;
+    }
   },
   methods: {
     ...mapActions("modals", ["setModal"])

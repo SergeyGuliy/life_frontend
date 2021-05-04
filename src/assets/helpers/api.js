@@ -1,4 +1,4 @@
-import axios from "../../plugins/axios";
+import axios from "../../plugins/modules/axios";
 
 export const api = {
   auth: {
