@@ -49,6 +49,14 @@ const routes = [
   },
   {
     path: "/users/:id",
+    name: "User",
+    component: () => import("../views/Users/Users"),
+    meta: {
+      layout: "mainLayout"
+    }
+  },
+  {
+    path: "/users/:id",
     name: "UserId",
     component: () => import("../views/Users/UserId"),
     meta: {

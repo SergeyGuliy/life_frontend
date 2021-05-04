@@ -1,16 +1,17 @@
 import router from "../../router";
 import { api } from "../../assets/helpers/api";
+import Vue from "vue";
 
 export default {
   namespaced: true,
   actions: {
-    async refreshToken({ commit, dispatch }) {
+    async refreshToken({ dispatch }) {
       const userId = localStorage.getItem("userId");
       const refreshToken = localStorage.getItem("refreshToken");
       if (userId && refreshToken) {
         try {
           const { data } = await api.auth.refreshToken(userId, refreshToken);
-          commit("user/setUser", data, { root: true });
+          await dispatch("user/setUserData", data, { root: true });
         } catch (e) {
           await dispatch("logOut");
         }
@@ -42,6 +43,7 @@ export default {
     async logOut({ commit }) {
       try {
         commit("user/cleanUser", "", { root: true });
+        Vue.prototype.$socket.disconnect()
         await router.push({ name: "Auth" });
       } catch (e) {
         commit("user/cleanUser", "", { root: true });

@@ -1,4 +1,5 @@
 import { api } from "../../assets/helpers/api";
+import Vue from "vue";
 
 export default {
   namespaced: true,
@@ -33,7 +34,7 @@ export default {
     async setUserData({ commit }, data) {
       try {
         commit("setUser", data);
-        // await dispatch("webSocket/socketConnect", "", { root: true });
+        Vue.prototype.$socket.connect();
       } catch (e) {
         console.log(`Error in store action 'setUserData': ${e}`);
         throw e;
@@ -44,10 +45,6 @@ export default {
       if (status === 200) {
         commit("leaveRoom");
       }
-    },
-
-    setUser({ commit }, data) {
-      commit("setUser", data);
     }
   }
 };
