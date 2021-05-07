@@ -75,23 +75,10 @@ export default {
               });
             })
           )
-          .catch(e => {
-            console.log(e);
+          .catch(({ response }) => {
+            console.dir(response.data.message);
           });
       }
-
-      // await api.rooms
-      //   .joinRoom(roomData.roomId)
-      //   .then(({ data }) => {
-      //     this.$store.commit("user/joinRoom", data.roomJoinedId);
-      //     this.$router.push({
-      //       name: "RoomId",
-      //       params: { id: data.roomJoinedId }
-      //     });
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
     }
   }
 };

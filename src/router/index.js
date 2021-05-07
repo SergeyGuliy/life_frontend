@@ -6,10 +6,10 @@ import loginStatusMiddleware from "./middlewares/loginStatusMiddleware";
 import refreshTocken from "./middlewares/refreshTocken";
 import isJoinedRoom from "./middlewares/isJoinedRoom";
 
-// const originalPush = VueRouter.prototype.push;
-// VueRouter.prototype.push = function push(location) {
-//   return originalPush.call(this, location).catch(err => err);
-// };
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+};
 
 Vue.use(VueRouter);
 

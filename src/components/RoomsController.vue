@@ -32,7 +32,10 @@ export default {
   },
   sockets: {
     roomInListCreated(roomData) {
-      this.rooms.push(roomData);
+      console.log(roomData);
+      if (this.filterData.typeOfRoom.includes(roomData.typeOfRoom)) {
+        this.rooms.push(roomData);
+      }
     },
     roomInListDeleted(roomId) {
       this.rooms.splice(
@@ -67,9 +70,7 @@ export default {
           this.$store.commit("user/joinRoom", data.roomId);
           this.$router.push({ name: "RoomId", params: { id: data.roomId } });
         })
-        .catch(e => {
-          console.log(e);
-        });
+        .catch(() => {});
     },
     async fetchRooms() {
       localStorage.setItem("typeOfRoom", this.filterData.typeOfRoom);

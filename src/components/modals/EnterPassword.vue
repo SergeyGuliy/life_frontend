@@ -6,7 +6,6 @@
     @click:outside.prevent.stop="close()"
   >
     <v-card class="CreateRoom">
-      <pre>{{ data }}</pre>
       <v-form>
         <v-card-title class="pb-6">
           {{ data.title }}
@@ -57,6 +56,7 @@ export default {
       api.rooms
         .joinRoom(this.data.roomId, this.roomPassword)
         .then(({ data }) => {
+          console.dir(data);
           this.$store.commit("user/joinRoom", data.roomJoinedId);
           this.close(true);
           this.$router.push({
@@ -64,8 +64,8 @@ export default {
             params: { id: data.roomJoinedId }
           });
         })
-        .catch(e => {
-          console.log(e);
+        .catch(({ response }) => {
+          console.dir(response.data.message);
         });
     }
   }
