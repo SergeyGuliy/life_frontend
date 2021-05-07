@@ -23,10 +23,10 @@
     <v-card-text class="text--primary d-flex justify-space-between">
       <div>Min: {{ roomData.minCountOfUsers }}</div>
       <div>Max: {{ roomData.maxCountOfUsers }}</div>
-      <div>Current: {{ roomData.maxCountOfUsers }}</div>
+      <div>Current: {{ roomData.usersInRoom.length }}</div>
     </v-card-text>
     <v-card-actions>
-      <v-btn block @click="joinRoom">
+      <v-btn block @click="joinRoom(roomData)">
         Join
       </v-btn>
     </v-card-actions>
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import { api } from "../assets/helpers/api";
+
 export default {
   name: "RoomBox",
   components: {},
@@ -47,8 +49,49 @@ export default {
     return {};
   },
   methods: {
-    joinRoom() {
+    async joinRoom(roomData) {
+      let { typeOfRoom, roomName, roomId } = roomData;
+      if (typeOfRoom === "PRIVATE") {
+        await this.$openModal("EnterPassword", {
+          title: "To enter room you need to input its password",
+          submit: "enter",
+          cancel: "cancel",
+          roomId
+        })
+          .then(() => {})
+          .catch(() => {});
+      } else {
+        await this.$openModal("Promt", {
+          title: `Enter room ${roomName} ?`,
+          submit: "leave",
+          cancel: "cancel"
+        })
+          .then(() =>
+            api.rooms.joinRoom(roomId).then(({ data }) => {
+              this.$store.commit("user/joinRoom", data.roomJoinedId);
+              this.$router.push({
+                name: "RoomId",
+                params: { id: data.roomJoinedId }
+              });
+            })
+          )
+          .catch(e => {
+            console.log(e);
+          });
+      }
 
+      // await api.rooms
+      //   .joinRoom(roomData.roomId)
+      //   .then(({ data }) => {
+      //     this.$store.commit("user/joinRoom", data.roomJoinedId);
+      //     this.$router.push({
+      //       name: "RoomId",
+      //       params: { id: data.roomJoinedId }
+      //     });
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   });
     }
   }
 };

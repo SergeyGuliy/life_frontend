@@ -17,6 +17,10 @@ export const api = {
     create: async roomData => axios.post("api/rooms/create", roomData),
     getById: async roomId => axios.get(`api/rooms/${roomId}`),
     getRooms: async params => axios.get("api/rooms/", { params }),
-    leaveRoom: async () => axios.patch("api/rooms/leave")
+    leaveRoom: async () => axios.patch("api/rooms/leave"),
+    joinRoom: async (roomId, roomPassword) =>
+      axios.patch(`api/rooms/join/${roomId}`, {
+        roomPassword: roomPassword || ""
+      })
   }
 };

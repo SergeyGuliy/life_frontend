@@ -29,36 +29,5 @@ export default {
       sss: null
     };
   },
-  async created() {
-    // this.users = await api.users.getAllUsers();
-    // console.log(this.users);
-    // this.$socket.client.on("msgToClient", message => {
-    //   console.error(message);
-    // });
-    // setInterval(() => {
-    //   console.log("msgToServer");
-    //   this.$socket.client.emit("msgToServer", { msg: "qweqwe" });
-    // }, 1000);
-  },
-  mounted() {
-    // const socket = io("ws://localhost:3000", {
-    //   transports: ["websocket"],
-    //   query: {
-    //     "my-key": this.$store.state.user.user.userId
-    //   }
-    // });
-    //
-    // socket.on("connection", function(socket2) {
-    //   socket2.on("disconnect", function() {
-    //     console.log("Client disconnected.");
-    //   });
-    // });
-    // socket.on("joinedRoom", (...args) => {
-    //   this.sss = args;
-    // });
-    //
-    // socket.emit("joinRoom", "room-id");
-    // this.$store.dispatch("webSocket/socketConnect");
-  }
 };
 </script>

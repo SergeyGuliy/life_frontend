@@ -2,7 +2,7 @@
   <div class="RoomId">
     RoomId {{ $route.params.id }}
     <br />
-    {{ roomData }}
+    <pre>{{ roomData }}</pre>
   </div>
 </template>
 

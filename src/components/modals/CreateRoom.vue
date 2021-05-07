@@ -6,7 +6,7 @@
     @click:outside.prevent.stop="close()"
   >
     <v-card class="CreateRoom">
-      <v-form>
+      <v-form ref="createRoom">
         <v-card-title class="pb-6">
           {{ $t("modals.createRoom.title") }}
         </v-card-title>
@@ -38,14 +38,18 @@
                 />
               </div>
             </v-col>
-            <v-col cols="12" class="py-0">
+            <v-col
+              cols="12"
+              class="py-0"
+              v-if="roomData.typeOfRoom !== 'PUBLIC'"
+            >
               <div class="label mb-2">
                 {{ $t("modals.createRoom.passwordLabel") }}
               </div>
               <v-text-field
                 v-model="roomData.roomPassword"
-                :disabled="roomData.isPublic"
                 :type="showPassword ? 'password' : 'text'"
+                :rules="rules.password"
                 @click:append="showPassword = !showPassword"
                 :append-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
                 outlined
@@ -54,7 +58,7 @@
             </v-col>
             <v-col class="py-0">
               <div class="label mb-2">
-                {{ $t("modals.createRoom.countOfUsers") }}
+                {{ $t("modals.createRoom.countOfUsers") }}{{calculatedCountUsers}}
               </div>
               <v-range-slider
                 v-model="calculatedCountUsers"
@@ -125,13 +129,19 @@ export default {
         minCountOfUsers: 2,
         maxCountOfUsers: 10
       },
+      rules: {
+        password: [
+          v => !!v || "E-mail is required",
+          v => /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v) || "wrong password"
+        ]
+      },
       showPassword: true,
       min: 2,
       max: 10
     };
   },
   watch: {
-    "roomData.isPublic"(val) {
+    "roomData.typeOfRoom"(val) {
       if (val) {
         this.roomData.roomPassword = "";
       }
@@ -158,8 +168,10 @@ export default {
   },
   methods: {
     async createRoom() {
-      const { data } = await api.rooms.create(this.roomData);
-      this.close(data);
+      if (this.$refs.createRoom.validate()) {
+        const { data } = await api.rooms.create(this.roomData);
+        this.close(data);
+      }
     }
   }
 };

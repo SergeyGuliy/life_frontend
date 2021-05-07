@@ -19,9 +19,6 @@ export default {
   },
   components: {
     RoomBox: () => import("./RoomBox")
-  },
-  data() {
-    return {};
   }
 };
 </script>

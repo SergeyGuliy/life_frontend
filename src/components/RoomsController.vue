@@ -27,11 +27,43 @@ export default {
         roomName: "",
         typeOfRoom: ["PUBLIC"]
       },
-      rooms: null
+      rooms: []
     };
   },
+  sockets: {
+    roomInListCreated(roomData) {
+      this.rooms.push(roomData);
+    },
+    roomInListDeleted(roomId) {
+      console.log(roomId);
+      this.rooms.splice(
+        this.rooms.findIndex(i => i.roomId === roomId),
+        1
+      );
+    },
+    roomInListUpdated({ roomId, roomData }) {
+      console.log(roomId);
+      console.log(roomData);
+      console.log(this.rooms)
+      const roomIndex = this.rooms.findIndex(room => +room.roomId === +roomId);
+      console.log(roomIndex)
+      this.$set(this.rooms, roomIndex, roomData);
+    }
+  },
   async created() {
-    this.fetchRooms();
+    const typeOfRoom = localStorage.getItem("typeOfRoom");
+    if (typeOfRoom) {
+      this.$set(this.filterData, "typeOfRoom", typeOfRoom.split(","));
+    }
+    await this.fetchRooms();
+    this.$socket.emit("subscribeRoomsUpdate", {
+      userId: this.$user.userId
+    });
+  },
+  beforeDestroy() {
+    this.$socket.emit("unSubscribeRoomsUpdate", {
+      userId: this.$user.userId
+    });
   },
   methods: {
     async createRoomHandler() {
@@ -45,6 +77,7 @@ export default {
         });
     },
     async fetchRooms() {
+      localStorage.setItem("typeOfRoom", this.filterData.typeOfRoom);
       this.rooms = (await api.rooms.getRooms(this.filterData)).data;
     }
   }
