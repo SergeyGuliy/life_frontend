@@ -35,18 +35,13 @@ export default {
       this.rooms.push(roomData);
     },
     roomInListDeleted(roomId) {
-      console.log(roomId);
       this.rooms.splice(
         this.rooms.findIndex(i => i.roomId === roomId),
         1
       );
     },
     roomInListUpdated({ roomId, roomData }) {
-      console.log(roomId);
-      console.log(roomData);
-      console.log(this.rooms)
       const roomIndex = this.rooms.findIndex(room => +room.roomId === +roomId);
-      console.log(roomIndex)
       this.$set(this.rooms, roomIndex, roomData);
     }
   },

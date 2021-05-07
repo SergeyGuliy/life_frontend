@@ -54,7 +54,6 @@ export default {
   },
   methods: {
     enterRoom() {
-      console.log(this.data.roomId);
       api.rooms
         .joinRoom(this.data.roomId, this.roomPassword)
         .then(({ data }) => {

@@ -32,13 +32,11 @@ export default {
   },
   sockets: {
     connect() {
-      console.warn("Socket is connected");
     },
     connected(socketId) {
       console.log(socketId);
     },
     disconnect() {
-      console.warn("Socket is disconnected");
     }
   },
   async mounted() {

@@ -95,17 +95,14 @@ export default {
       }, 0);
     },
     hideContextMenu() {
-      console.log("hideContextMenu");
       this.showMenu = false;
       this.x = 0;
       this.y = 0;
     },
     openProfile(userId) {
-      console.log("openProfile");
       this.$router.push({ name: "User", params: { id: userId } });
     },
     addToFriend() {
-      console.log("addToFriend");
     }
   }
 };

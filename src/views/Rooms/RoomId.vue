@@ -18,15 +18,12 @@ export default {
     };
   },
   async created() {
-    console.log("created");
     this.roomData = {
       ...(await api.rooms.getById(this.$route.params.id)).data
     };
   },
   // eslint-disable-next-line no-unused-vars
   async beforeRouteLeave(to, from, next) {
-    console.log("beforeRouteLeave");
-
     await this.$openModal("Promt", {
       title: "Are you shure that you want to leave room?",
       submit: "leave",

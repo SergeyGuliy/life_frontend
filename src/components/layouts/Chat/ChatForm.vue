@@ -62,7 +62,6 @@ export default {
   },
   watch: {
     async isRecording(val) {
-      console.log(val);
       if (val) {
         navigator.mediaDevices.getUserMedia({ audio: true });
         this.recordingInterval = setInterval(() => {
@@ -112,7 +111,6 @@ export default {
       this.isRecording = false;
     },
     recording() {
-      console.warn("recording");
       this.recordingTime = this.recordingTime + 0.1;
     },
     async rec() {
