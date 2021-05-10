@@ -17,12 +17,24 @@ export default {
       roomData: null
     };
   },
-  async created() {
+  sockets: {
+    updateUsersListInRoom(usersInRoom) {
+      this.roomData.usersInRoom = usersInRoom;
+    },
+    updateRoomAdmin(newAdmin) {
+      this.roomData.creator = newAdmin;
+    }
+  },
+  async mounted() {
     this.roomData = {
       ...(await api.rooms.getById(this.$route.params.id)).data
     };
+    this.$socket.emit("userConnectsRoom", {
+      userId: this.$user.userId,
+      roomId: this.roomData.roomId
+    });
   },
-  // eslint-disable-next-line no-unused-vars
+
   async beforeRouteLeave(to, from, next) {
     await this.$openModal("Promt", {
       title: "Are you shure that you want to leave room?",

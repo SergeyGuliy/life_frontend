@@ -22,5 +22,10 @@ export const api = {
       axios.patch(`api/rooms/join/${roomId}`, {
         roomPassword: roomPassword || ""
       })
+  },
+  chats: {
+    getGlobalMessages: async () => axios.get("api/chats/global"),
+    getRoomMessages: async () => axios.get(`api/chats/room`),
+    getPrivateMessages: async () => axios.get(`api/chats/private`)
   }
 };

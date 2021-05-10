@@ -8,8 +8,6 @@
 </template>
 
 <script>
-// import Vue from "vue";
-// import store from "./store";
 import { mapState } from "vuex";
 export default {
   name: "App",
@@ -31,12 +29,13 @@ export default {
     }
   },
   sockets: {
-    connect() {
-    },
-    connected(socketId) {
-      console.log(socketId);
-    },
-    disconnect() {
+    callUserIdToServer(clientId) {
+      if (this.$user?.userId) {
+        this.$socket.emit("giveUserIdToServer", {
+          userId: this.$user.userId,
+          clientId
+        });
+      }
     }
   },
   async mounted() {
