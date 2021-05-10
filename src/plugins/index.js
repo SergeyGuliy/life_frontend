@@ -13,6 +13,7 @@ import "./modules/debounce";
 import "./modules/socket";
 import "./modules/moment";
 import "./modules/globalMixin";
+import "./modules/globalFilters";
 
 Vue.config.productionTip = false;
 
