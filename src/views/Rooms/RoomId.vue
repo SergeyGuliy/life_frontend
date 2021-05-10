@@ -1,7 +1,17 @@
 <template>
   <div class="RoomId">
-    RoomId {{ $route.params.id }}
-    <br />
+    <v-card class="mx-auto" max-width="400">
+      <RoomInfo :roomData="roomData" />
+      <v-card-actions>
+        <v-btn color="orange" text>
+          Share
+        </v-btn>
+
+        <v-btn color="orange" text>
+          Explore
+        </v-btn>
+      </v-card-actions>
+    </v-card>
     <pre>{{ roomData }}</pre>
   </div>
 </template>
@@ -11,7 +21,10 @@ import { api } from "../../assets/helpers/api";
 
 export default {
   name: "RoomId",
-  components: {},
+  components: {
+    RoomInfo: () => import("../../components/Rooms/RoomInfo"),
+    // UserBox: () => import("../../components/Users/UserBox")
+  },
   data() {
     return {
       roomData: null

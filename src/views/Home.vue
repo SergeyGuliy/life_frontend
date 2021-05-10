@@ -21,7 +21,7 @@
 export default {
   name: "Home",
   components: {
-    RoomsController: () => import("../components/RoomsController")
+    RoomsController: () => import("../components/Rooms/RoomsController")
   },
   data() {
     return {
