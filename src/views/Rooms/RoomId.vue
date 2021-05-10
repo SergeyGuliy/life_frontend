@@ -1,17 +1,17 @@
 <template>
-  <div class="RoomId">
+  <div class="RoomId" v-if="roomData">
     <v-card class="mx-auto" max-width="400">
       <RoomInfo :roomData="roomData" />
       <v-card-actions>
         <v-btn color="orange" text>
-          Share
+          Block room
         </v-btn>
-
         <v-btn color="orange" text>
-          Explore
+          Delete room
         </v-btn>
       </v-card-actions>
     </v-card>
+    <UsersList :users="usersInRoom" :showUserRoomInfo="true"></UsersList>
     <pre>{{ roomData }}</pre>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
   name: "RoomId",
   components: {
     RoomInfo: () => import("../../components/Rooms/RoomInfo"),
-    // UserBox: () => import("../../components/Users/UserBox")
+    UsersList: () => import("../../components/Users/UsersList")
   },
   data() {
     return {
@@ -61,6 +61,16 @@ export default {
       .catch(e => {
         console.log(e);
       });
+  },
+  computed: {
+    usersInRoom() {
+      return [...this.roomData.usersInRoom].sort((a, b) => {
+        return (
+          (a.roomJoinedId === a.createdRoomId) +
+          (b.roomJoinedId === b.createdRoomId)
+        );
+      });
+    }
   }
 };
 </script>

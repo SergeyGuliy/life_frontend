@@ -23,9 +23,6 @@ export default {
       type: Object
     }
   },
-  data() {
-    return {};
-  },
   methods: {
     async joinRoom(roomData) {
       let { typeOfRoom, roomName, roomId } = roomData;
