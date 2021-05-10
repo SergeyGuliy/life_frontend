@@ -3,7 +3,7 @@
     <RoomInfo :roomData="roomData" />
     <v-card-actions>
       <v-btn block @click="joinRoom(roomData)">
-        Join
+        {{ $t("btns.join") }}
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -37,9 +37,9 @@ export default {
           .catch(() => {});
       } else {
         await this.$openModal("Promt", {
-          title: `Enter room ${roomName} ?`,
-          submit: "leave",
-          cancel: "cancel"
+          title: `${this.$t("modals.enterRoom")} ${roomName} ?`,
+          submit: this.$t("btns.join"),
+          cancel: this.$t("btns.cancel")
         })
           .then(() =>
             api.rooms.joinRoom(roomId).then(({ data }) => {

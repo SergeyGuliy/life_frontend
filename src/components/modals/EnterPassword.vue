@@ -8,12 +8,12 @@
     <v-card class="CreateRoom">
       <v-form>
         <v-card-title class="pb-6">
-          {{ data.title }}
+          {{ $t("modals.enterRoomWithPassword") }}
         </v-card-title>
 
         <v-card-text>
           <div class="label mb-2">
-            {{ $t("modals.createRoom.passwordLabel") }}
+            {{ $t("forms.labels.passwordLabel") }}
           </div>
           <v-text-field
             v-model="roomPassword"
@@ -27,10 +27,10 @@
         <v-card-actions class="py-4 px-6">
           <v-spacer></v-spacer>
           <v-btn color="danger" @click="close()">
-            {{ $t("modals.createRoom.cancel") }}
+            {{ $t("btns.cancel") }}
           </v-btn>
           <v-btn color="primary" @click="enterRoom">
-            {{ $t("modals.createRoom.create") }}
+            {{ $t("btns.join") }}
           </v-btn>
         </v-card-actions>
       </v-form>

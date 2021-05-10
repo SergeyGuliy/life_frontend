@@ -1,7 +1,9 @@
 <template>
   <v-card class="RoomsController pa-2">
     <div class="title">{{ $t("key1") }}</div>
-    <v-btn block @click="createRoomHandler" class="mb-2">Create room</v-btn>
+    <v-btn block @click="createRoomHandler" class="mb-2">{{
+      $t("btns.createRoom")
+    }}</v-btn>
     <RoomFilter
       :filterData="filterData"
       @submit="fetchRooms"

@@ -1,13 +1,18 @@
 <template>
   <div class="RoomId" v-if="roomData">
     <v-card class="mx-auto" max-width="400">
-      <RoomInfo :roomData="roomData" />
+      <RoomInfo
+        :roomData="{
+          ...roomData,
+          usersInRoomLength: usersInRoom.length
+        }"
+      />
       <v-card-actions>
         <v-btn color="orange" text>
-          Block room
+          {{ $t("btns.blockRoom") }}
         </v-btn>
         <v-btn color="orange" text>
-          Delete room
+          {{ $t("btns.deleteRoom") }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -50,9 +55,9 @@ export default {
 
   async beforeRouteLeave(to, from, next) {
     await this.$openModal("Promt", {
-      title: "Are you shure that you want to leave room?",
-      submit: "leave",
-      cancel: "cancel"
+      title: this.$t("modals.wantLeaveRoom"),
+      submit: this.$t("btns.leave"),
+      cancel: this.$t("btns.cancel")
     })
       .then(async () => {
         await this.$store.dispatch("user/leaveRoom");

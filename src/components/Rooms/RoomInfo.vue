@@ -19,11 +19,13 @@
         {{ roomData.typeOfRoom }}
       </v-chip>
     </div>
-    <v-card-subtitle class="py-0">ID: {{ roomData.roomId }}</v-card-subtitle>
+    <v-card-subtitle class="py-0">
+      {{ $t("misc.roomId") }} {{ roomData.roomId }}
+    </v-card-subtitle>
     <v-card-text class="text--primary d-flex justify-space-between">
-      <div>Min: {{ roomData.minCountOfUsers }}</div>
-      <div>Max: {{ roomData.maxCountOfUsers }}</div>
-      <div>Current: {{ roomData.usersInRoom.length }}</div>
+      <div>{{ $t("misc.min") }} {{ roomData.minCountOfUsers }}</div>
+      <div>{{ $t("misc.max") }} {{ roomData.maxCountOfUsers }}</div>
+      <div>{{ $t("misc.current") }} {{ roomData.usersInRoomLength }}</div>
     </v-card-text>
   </div>
 </template>

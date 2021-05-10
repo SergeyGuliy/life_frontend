@@ -5,7 +5,7 @@
     width="500"
     @click:outside.prevent.stop="close()"
   >
-    <v-card class="CreateRoom">
+    <v-card>
       <v-form>
         <v-card-title class="pb-6">
           {{ data.title }}
@@ -14,10 +14,10 @@
         <v-card-actions class="py-4 px-6">
           <v-spacer></v-spacer>
           <v-btn color="danger" @click="close()">
-            {{ $t("modals.createRoom.cancel") }}
+            {{ data.cancel }}
           </v-btn>
           <v-btn color="primary" @click="close(true)">
-            {{ $t("modals.createRoom.create") }}
+            {{ data.submit }}
           </v-btn>
         </v-card-actions>
       </v-form>
@@ -36,8 +36,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.Promt {
-}
-</style>

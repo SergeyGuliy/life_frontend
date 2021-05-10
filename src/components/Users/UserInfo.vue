@@ -11,7 +11,7 @@
         small
         class="mx-2"
       >
-        ROOM ADMIN
+        {{ $t(`enums.ROOM_ADMIN`) }}
       </v-chip>
       <v-chip
         :color="userData.role === 'PUBLIC' ? 'primary' : 'warning'"
@@ -19,7 +19,7 @@
         small
         class="mx-2"
       >
-        {{ userData.role }}
+        {{ $t(`enums.${userData.role}`) }}
       </v-chip>
       <v-chip
         :color="userData.userOnlineStatus === 'OFFLINE' ? 'red' : 'green'"
@@ -27,16 +27,15 @@
         small
         class="mx-2"
       >
-        {{ userData.userOnlineStatus }}
+        {{ $t(`enums.${userData.userOnlineStatus}`) }}
       </v-chip>
     </div>
     <v-card-subtitle class="py-0">
-      User ID: {{ userData.userId }}
+      {{ $t(`misc.userId`) }} {{ userData.userId }}
     </v-card-subtitle>
     <v-card-text class="text--primary" v-if="showUserRoomInfo">
-      <div>userGameStatus: {{ userData.userGameStatus }}</div>
-      <div>isRoomAdmin: {{ isRoomAdmin }}</div>
-      <div>roomJoinedId: {{ userData.roomJoinedId }}</div>
+      <div>{{ $t(`misc.userGameStatus`) }} {{ $t(`enums.${userData.userGameStatus}`) }}</div>
+      <div>{{ $t(`misc.roomJoinedId`) }} {{ userData.roomJoinedId }}</div>
     </v-card-text>
   </div>
 </template>

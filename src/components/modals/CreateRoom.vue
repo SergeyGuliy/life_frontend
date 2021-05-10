@@ -8,21 +8,19 @@
     <v-card class="CreateRoom">
       <v-form ref="createRoom">
         <v-card-title class="pb-6">
-          {{ $t("modals.createRoom.title") }}
+          {{ $t("modals.createRoom") }}
         </v-card-title>
 
         <v-card-text>
           <v-row>
             <v-col cols="12" class="py-0">
               <div class="label mb-2">
-                {{ $t("modals.createRoom.nameLabel") }}
+                {{ $t("forms.labels.nameRoomLabel") }}
               </div>
               <v-text-field dense outlined v-model="roomData.roomName" />
             </v-col>
             <v-col cols="12" class="py-0">
-              <div class="label mb-2">
-                {{ $t("modals.createRoom.typeOfRoom") }}
-              </div>
+              <div class="label mb-2">{{ $t("forms.labels.typeOfRoom") }}</div>
               <div class="d-flex">
                 <v-switch
                   inset
@@ -30,8 +28,8 @@
                   v-model="calculatedTypeOfRoom"
                   :label="
                     calculatedTypeOfRoom
-                      ? $t('modals.createRoom.public')
-                      : $t('modals.createRoom.private')
+                      ? $t('enums.PUBLIC')
+                      : $t('enums.PRIVATE')
                   "
                   color="blue"
                   hide-details
@@ -44,7 +42,7 @@
               v-if="roomData.typeOfRoom !== 'PUBLIC'"
             >
               <div class="label mb-2">
-                {{ $t("modals.createRoom.passwordLabel") }}
+                {{ $t("forms.labels.passwordLabel") }}
               </div>
               <v-text-field
                 v-model="roomData.roomPassword"
@@ -58,7 +56,7 @@
             </v-col>
             <v-col class="py-0">
               <div class="label mb-2">
-                {{ $t("modals.createRoom.countOfUsers") }}{{calculatedCountUsers}}
+                {{ $t("forms.labels.countOfUsers") }}
               </div>
               <v-range-slider
                 v-model="calculatedCountUsers"
@@ -73,7 +71,7 @@
                     outlined
                     dense
                     disabled
-                    :label="$t('modals.createRoom.min')"
+                    :label="$t('misc.min')"
                     :value="calculatedCountUsers[0]"
                     class="mt-0 pt-0 mr-3"
                     hide-details
@@ -86,7 +84,7 @@
                     outlined
                     dense
                     disabled
-                    :label="$t('modals.createRoom.max')"
+                    :label="$t('misc.max')"
                     :value="calculatedCountUsers[1]"
                     class="mt-0 pt-0 ml-3"
                     hide-details
@@ -102,10 +100,10 @@
         <v-card-actions class="py-4 px-6">
           <v-spacer></v-spacer>
           <v-btn color="danger" @click="close()">
-            {{ $t("modals.createRoom.cancel") }}
+            {{ $t("btns.cancel") }}
           </v-btn>
           <v-btn color="primary" @click="createRoom">
-            {{ $t("modals.createRoom.create") }}
+            {{ $t("btns.create") }}
           </v-btn>
         </v-card-actions>
       </v-form>

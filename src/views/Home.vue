@@ -1,13 +1,8 @@
 <template>
-  <!--    <template v-if="users">-->
-  <!--      <div v-for="(user, index) in users.data" :key="index">{{ user }}</div>-->
-  <!--    </template>-->
-  <!--    {{ sss }}-->
   <v-container class="home">
     <v-row>
       <v-col cols="6">
         {{ users }}
-        <!--        {{ rooms }}-->
       </v-col>
       <v-col cols="6">
         <RoomsController />
@@ -17,7 +12,6 @@
 </template>
 
 <script>
-// import { io } from "socket.io-client";
 export default {
   name: "Home",
   components: {

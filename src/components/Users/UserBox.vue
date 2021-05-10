@@ -1,11 +1,20 @@
 <template>
   <v-card class="UserBox pa-2 mb-2">
-    <UserInfo :userData="userData" :showUserRoomInfo="showUserRoomInfo"/>
-    <!--    <v-card-actions>-->
-    <!--      <v-btn block @click="joinRoom(roomData)">-->
-    <!--        Join-->
-    <!--      </v-btn>-->
-    <!--    </v-card-actions>-->
+    <UserInfo :userData="userData" :showUserRoomInfo="showUserRoomInfo" />
+    <v-card-actions>
+      <v-btn>
+        {{ $t("btns.kickUser") }}
+      </v-btn>
+      <v-btn>
+        {{ $t("btns.writeMessage") }}
+      </v-btn>
+      <v-btn>
+        {{ $t("btns.setAdmin") }}
+      </v-btn>
+      <v-btn>
+        {{ $t("btns.addToFriend") }}
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 

@@ -6,20 +6,22 @@
         <v-checkbox
           class="mt-0"
           v-model="typeOfRoom"
-          label="Public"
+          :label="$t(`enums.${'PUBLIC'}`)"
           value="PUBLIC"
           multiple
         />
         <v-checkbox
           class="mt-0 ml-2"
           v-model="typeOfRoom"
-          label="Private"
+          :label="$t(`enums.${'PRIVATE'}`)"
           value="PRIVATE"
           multiple
         />
       </v-col>
       <v-col cols="6">
-        <v-btn small block @click="$emit('submit')">Search</v-btn>
+        <v-btn small block @click="$emit('submit')">
+          {{ $t("btns.search") }}
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>
