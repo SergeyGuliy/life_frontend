@@ -10,7 +10,7 @@
         <v-card-text class="chat-body pa-0">
           <v-list ref="chat" id="logs" class="chat-body__inner">
             <ChatMessage
-              v-for="(message, index) in chats[activeChat]"
+              v-for="(message, index) in chats[activeChat].messages"
               :key="index"
               :message="message"
             />

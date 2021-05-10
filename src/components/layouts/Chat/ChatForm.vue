@@ -38,8 +38,8 @@
 </template>
 
 <script>
-// import vueDebounce, { PluginConfig, debounce } from 'vue-debounce'
 import { debounce } from "vue-debounce";
+import { MessageReceiverTypes } from "../../../assets/helpers/enums";
 
 export default {
   name: "ChatForm",
@@ -47,6 +47,10 @@ export default {
     activeChat: {
       required: true,
       type: String
+    },
+    chats: {
+      required: true,
+      type: Object
     }
   },
   data() {
@@ -83,31 +87,25 @@ export default {
     submit() {
       if (!this.newMessage.length) return;
       const messageData = {
-        author: {
-          id: this.$user.userId,
-          name: this.$user.firstName || this.$user.email,
-          avatar:
-            "https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-        },
-        status: "online",
-        date: "22.02.2022",
-        message: this.newMessage
+        messageSender: this.$user.userId,
+        messageReceiverType: this.activeChat,
+        messageText: this.newMessage
       };
-      this.$socket.emit("messageToServer", {
-        target: this.activeChat,
-        messageData
-      });
+      if (this.activeChat === MessageReceiverTypes.ROOM) {
+        messageData.messageReceiverRoomId = this.chats[
+          MessageReceiverTypes.ROOM
+        ].roomId;
+      }
+      this.$socket.emit("messageToServer", messageData);
       this.newMessage = "";
     },
     startRecording() {
-      // console.log("startRecording");
       this.isRecording = true;
       debounce(() => {
         this.isRecording = false;
       }, "100ms");
     },
     stopRecording() {
-      // console.log("stopRecording");
       this.isRecording = false;
     },
     recording() {

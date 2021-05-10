@@ -3,22 +3,27 @@
     dark
     max-width="80%"
     outlined
-    :class="message.author.id === $user.userId ? 'ml-auto mr-2' : 'mr-auto'"
-    :color="message.author.id === $user.userId ? 'primary' : ''"
+    :class="
+      message.messageSender.userId === $user.userId ? 'ml-auto mr-2' : 'mr-auto'
+    "
+    :color="message.messageSender.userId === $user.userId ? 'primary' : ''"
     class="mb-2"
     @contextmenu="showContextMenu"
   >
     <v-card-actions>
       <v-list-item class="pa-0">
         <v-list-item-avatar color="grey darken-3 my-0">
-          <v-img class="elevation-6" :src="message.author.avatar" />
+          <v-img class="elevation-6" :src="message.messageSender" />
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>
-            {{
-              message.author.id === $user.userId ? "Me" : message.author.name
-            }}
+          <v-list-item-title class="d-flex justify-space-between">
+            <span>{{
+              message.messageSender.userId === $user.userId
+                ? "Me"
+                : message.messageSender.firstName
+            }}</span>
+            <span>{{ message.createdAt | chatDate }}</span>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -36,7 +41,7 @@
               v-if="item.action === 'openProfile'"
               :key="index"
               link
-              @click="openProfile(message.author.id)"
+              @click="openProfile(message.messageSender.userId)"
             >
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
@@ -44,7 +49,7 @@
               v-if="item.action === 'addToFriend'"
               :key="index"
               link
-              @click="addToFriend(message.author.id)"
+              @click="addToFriend(message.messageSender.userId)"
             >
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
@@ -53,7 +58,7 @@
       </v-menu>
     </v-card-actions>
     <v-card-text class="py-2">
-      <p>{{ message.message }}</p>
+      <p>{{ message.messageText }}</p>
     </v-card-text>
   </v-card>
 </template>
@@ -102,8 +107,7 @@ export default {
     openProfile(userId) {
       this.$router.push({ name: "User", params: { id: userId } });
     },
-    addToFriend() {
-    }
+    addToFriend() {}
   }
 };
 </script>
