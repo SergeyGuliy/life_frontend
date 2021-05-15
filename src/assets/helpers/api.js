@@ -11,7 +11,8 @@ export const api = {
       })
   },
   users: {
-    getAllUsers: () => axios.get("api/users")
+    getAllUsers: () => axios.get("api/users"),
+    getById: userId => axios.get(`api/users/${userId}`)
   },
   rooms: {
     create: async roomData => axios.post("api/rooms/create", roomData),

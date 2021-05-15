@@ -7,13 +7,14 @@ import { i18n } from "./modules/i18n";
 
 import "./modules/bus";
 import "./modules/mask";
-import "./modules/long-click";
+import "./modules/longClick";
 import "./modules/dialog";
 import "./modules/debounce";
 import "./modules/socket";
 import "./modules/moment";
 import "./modules/globalMixin";
 import "./modules/globalFilters";
+import "./modules/vuePropotype";
 
 Vue.config.productionTip = false;
 
