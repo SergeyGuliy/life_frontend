@@ -1,5 +1,6 @@
 <template>
   <v-card-actions>
+<!--    <pre>{{ chats[activeChat] }}</pre>-->
     <v-form @submit.prevent="submit" class="d-flex" style="width: 100%">
       <v-textarea
         v-if="!isRecording"
@@ -40,6 +41,7 @@
 <script>
 import { debounce } from "vue-debounce";
 import { MessageReceiverTypes } from "../../../assets/helpers/enums";
+const { ROOM, PRIVATE } = MessageReceiverTypes;
 
 export default {
   name: "ChatForm",
@@ -85,16 +87,20 @@ export default {
   },
   methods: {
     submit() {
+      const activeChat = this.$chat.getTypeFromChatKey(this.activeChat);
       if (!this.newMessage.length) return;
       const messageData = {
         messageSender: this.$user.userId,
-        messageReceiverType: this.activeChat,
+        messageReceiverType: activeChat,
         messageText: this.newMessage
       };
-      if (this.activeChat === MessageReceiverTypes.ROOM) {
-        messageData.messageReceiverRoomId = this.chats[
-          MessageReceiverTypes.ROOM
-        ].roomId;
+      if (activeChat === ROOM) {
+        messageData.messageReceiverRoomId = this.chats[ROOM].roomId;
+      }
+      if (activeChat === PRIVATE) {
+        messageData.messageReceiverUserId = this.$chat.getUserIdFromChatKey(
+          this.activeChat
+        );
       }
       this.$socket.emit("messageToServer", messageData);
       this.newMessage = "";

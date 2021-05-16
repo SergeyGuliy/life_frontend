@@ -4,8 +4,12 @@ const { PRIVATE } = MessageReceiverTypes;
 import store from "../../store/index";
 
 Vue.prototype.$chat = {
-  getUserChatKey(userData) {
-    return `${PRIVATE}_${userData.userId}`;
+  getUserChatKey(user) {
+    if (typeof user === "number") {
+      return `${PRIVATE}_${user}`;
+    } else {
+      return `${PRIVATE}_${user.userId}`;
+    }
   },
   getUserIdFromChatKey(chatKey) {
     return chatKey.split("_")[1];
@@ -26,6 +30,13 @@ Vue.prototype.$dictionares = {
     return await store.dispatch("dictionaries/getUserById", userId);
   },
   updateUserData(userData) {
-    return store.dispatch("dictionaries/updateUserData", userData)
+    return store.dispatch("dictionaries/updateUserData", userData);
+  },
+  async getOrUpdateUser(user) {
+    if (typeof user === "number") {
+      return await this.getUserById(user);
+    } else {
+      return await this.updateUserData(user);
+    }
   }
 };

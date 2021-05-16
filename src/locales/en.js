@@ -48,6 +48,11 @@ export const en = {
     WAITING_GAME_STARTING: "Waiting game starting",
     GAME_IN_PROGRESS: "Game in progress"
   },
+  chat: {
+    openProfile: "Open profile",
+    addToFriend: "Add to friend List",
+    writeMessage: "Write message"
+  },
   forms: {
     labels: {
       passwordLabel: "Enter password",
