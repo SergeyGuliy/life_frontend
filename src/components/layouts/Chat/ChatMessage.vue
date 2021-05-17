@@ -47,15 +47,23 @@
         </v-list>
       </v-menu>
     </v-card-actions>
-    <v-card-text class="py-2">
+    <v-card-text class="py-2" v-if="message.messageType === 'TEXT'">
       <p>{{ message.messageText }}</p>
     </v-card-text>
+    <ChatAudio
+      class="mt-1"
+      v-else
+      :file="`http://localhost:3000/api/uploader/voiceMessages/${message.messageVoice}`"
+    ></ChatAudio>
   </v-card>
 </template>
 
 <script>
 export default {
   name: "ChatMessage",
+  components: {
+    ChatAudio: () => import("./ChatAudio")
+  },
   props: {
     message: {
       required: true,

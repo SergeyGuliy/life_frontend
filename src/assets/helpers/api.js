@@ -28,5 +28,11 @@ export const api = {
     getGlobalMessages: async () => axios.get("api/chats/global"),
     getRoomMessages: async () => axios.get(`api/chats/room`),
     getPrivateMessages: async () => axios.get(`api/chats/private`)
+  },
+  uploader: {
+    uploadVoice: async formData =>
+      axios.post(`api/uploader/uploadVoice`, formData),
+    getVoice: async voiceMessageId =>
+      axios.post(`api/uploader/${voiceMessageId}`)
   }
 };

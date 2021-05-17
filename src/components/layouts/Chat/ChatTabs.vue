@@ -43,7 +43,7 @@ export default {
     }
   },
   created() {
-    console.log(this.chatTabs);
+    // console.log(this.chatTabs);
   },
   methods: {
     chatTabName(chatTab) {
