@@ -25,20 +25,6 @@ export default {
     };
   },
   methods: {
-    async changeTheme() {
-      try {
-        this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-      } catch (e) {
-        console.log(`Error while trying to change theme: ${e}`);
-      }
-    },
-    async logout() {
-      try {
-        await this.$store.dispatch("auth/logOut");
-      } catch (e) {
-        this.$emit("onError", e);
-      }
-    },
     updateDrawer(value) {
       this.drawer = value;
     }

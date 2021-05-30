@@ -19,7 +19,7 @@
 
     <template v-slot:append>
       <div class="pa-2">
-        <v-btn block @click="logout">
+        <v-btn block @click="$logOutMiddleware">
           {{ $t("layout.logout") }}
           <v-icon>mdi-logout</v-icon>
         </v-btn>
@@ -74,14 +74,6 @@ export default {
     };
   },
   methods: {
-    async logout() {
-      try {
-        await this.$store.dispatch("auth/logOut");
-        this.$vuetify.theme.dark = false;
-      } catch (e) {
-        this.$emit("onError", e);
-      }
-    },
     updateDrawer(value) {
       this.$emit("updateDrawer", value);
     }

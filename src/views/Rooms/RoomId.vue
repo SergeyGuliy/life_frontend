@@ -1,22 +1,53 @@
 <template>
   <div class="RoomId" v-if="roomData">
-    <v-card class="mx-auto" max-width="400">
-      <RoomInfo
-        :roomData="{
-          ...roomData,
-          usersInRoomLength: usersInRoom.length
-        }"
-      />
-      <v-card-actions>
-        <v-btn color="orange" text>
-          {{ $t("btns.blockRoom") }}
-        </v-btn>
-        <v-btn color="orange" text>
-          {{ $t("btns.deleteRoom") }}
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-    <UsersList :users="usersInRoom" :showUserRoomInfo="true"></UsersList>
+    <v-row>
+      <v-col cols="6">
+        <v-card>
+          <RoomInfo
+            :roomData="{
+              ...roomData,
+              usersInRoomLength: usersInRoom.length
+            }"
+          >
+            <template #actions>
+              <v-btn>
+                {{ $t("btns.blockRoom") }}
+              </v-btn>
+              <v-btn>
+                {{ $t("btns.deleteRoom") }}
+              </v-btn>
+            </template>
+          </RoomInfo>
+        </v-card>
+      </v-col>
+      <v-col cols="6">
+        <UsersList :users="usersInRoom" :showUserRoomInfo="true">
+          <template #actions="{userData}">
+            <v-btn
+              v-if="userData.roomJoinedId === userData.createdRoomId"
+              @click="kickUserFromRoom(userData.userId)"
+            >
+              {{ $t("btns.kickUser") }}
+            </v-btn>
+            <v-btn
+              v-if="userData.userId !== $user.userId"
+              @click="$writeMessageToUser(userData.userId)"
+            >
+              {{ $t("btns.writeMessage") }}
+            </v-btn>
+            <v-btn
+              v-if="userData.roomJoinedId === userData.createdRoomId"
+              @click="setNewAdminInRoom(userData.userId)"
+            >
+              {{ $t("btns.setAdmin") }}
+            </v-btn>
+            <v-btn @click="$addUserToFriendsList(userData.userId)">
+              {{ $t("btns.addToFriend") }}
+            </v-btn>
+          </template>
+        </UsersList>
+      </v-col>
+    </v-row>
     <pre>{{ roomData }}</pre>
   </div>
 </template>
@@ -54,18 +85,22 @@ export default {
   },
 
   async beforeRouteLeave(to, from, next) {
-    await this.$openModal("Promt", {
-      title: this.$t("modals.wantLeaveRoom"),
-      submit: this.$t("btns.leave"),
-      cancel: this.$t("btns.cancel")
-    })
-      .then(async () => {
-        await this.$store.dispatch("user/leaveRoom");
-        next();
+    if (!this.$user) {
+      next();
+    } else {
+      await this.$openModal("Promt", {
+        title: this.$t("modals.wantLeaveRoom"),
+        submit: this.$t("btns.leave"),
+        cancel: this.$t("btns.cancel")
       })
-      .catch(e => {
-        console.log(e);
-      });
+        .then(async () => {
+          await this.$store.dispatch("user/leaveRoom");
+          next();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
   },
   computed: {
     usersInRoom() {
@@ -75,6 +110,14 @@ export default {
           (b.roomJoinedId === b.createdRoomId)
         );
       });
+    }
+  },
+  methods: {
+    kickUserFromRoom(userId) {
+      console.log(userId);
+    },
+    setNewAdminInRoom(userId) {
+      console.log(userId);
     }
   }
 };

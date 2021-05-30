@@ -23,10 +23,10 @@
         </v-list-item>
       </v-list>
     </v-menu>
-    <v-btn icon @click="changeTheme">
+    <v-btn icon @click="$changeTheme">
       <v-icon>mdi-invert-colors</v-icon>
     </v-btn>
-    <v-btn icon @click="logout">
+    <v-btn icon @click="$logOutMiddleware">
       <v-icon>mdi-logout</v-icon>
     </v-btn>
   </v-app-bar>
@@ -47,23 +47,6 @@ export default {
     value: {
       type: Boolean,
       required: true
-    }
-  },
-  methods: {
-    async changeTheme() {
-      try {
-        this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-      } catch (e) {
-        console.log(`Error while trying to change theme: ${e}`);
-      }
-    },
-    async logout() {
-      try {
-        await this.$store.dispatch("auth/logOut");
-        this.$vuetify.theme.dark = false;
-      } catch (e) {
-        this.$emit("onError", e);
-      }
     }
   }
 };
