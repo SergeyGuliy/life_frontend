@@ -107,6 +107,10 @@ export default {
     await this.fetchGlobalMessages();
     await this.fetchRoomMessages();
     await this.fetchPrivateMessages();
+    this.$bus.on("writeMessageToUser", this.writeMessageToUser);
+  },
+  beforeDestroy() {
+    this.$bus.off("writeMessageToUser", this.writeMessageToUser);
   },
   methods: {
     async fetchGlobalMessages() {
@@ -153,6 +157,7 @@ export default {
     },
 
     async writeMessageToUser(userData) {
+      this.isChatOpened = true;
       await this.createUserChat(userData);
       this.activeChat = this.$chat.getUserChatKey(userData);
     },

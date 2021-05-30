@@ -5,7 +5,11 @@
       :key="index"
       :userData="userData"
       :showUserRoomInfo="showUserRoomInfo"
-    />
+    >
+      <template #actions="{userData}">
+        <slot name="actions" :userData="userData"></slot>
+      </template>
+    </UserBox>
   </div>
 </template>
 

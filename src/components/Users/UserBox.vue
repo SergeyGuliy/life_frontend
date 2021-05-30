@@ -1,19 +1,8 @@
 <template>
-  <v-card class="UserBox pa-2 mb-2">
+  <v-card class="UserBox">
     <UserInfo :userData="userData" :showUserRoomInfo="showUserRoomInfo" />
     <v-card-actions>
-      <v-btn>
-        {{ $t("btns.kickUser") }}
-      </v-btn>
-      <v-btn>
-        {{ $t("btns.writeMessage") }}
-      </v-btn>
-      <v-btn>
-        {{ $t("btns.setAdmin") }}
-      </v-btn>
-      <v-btn>
-        {{ $t("btns.addToFriend") }}
-      </v-btn>
+      <slot name="actions" :userData="userData"></slot>
     </v-card-actions>
   </v-card>
 </template>

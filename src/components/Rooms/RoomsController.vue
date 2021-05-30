@@ -62,7 +62,7 @@ export default {
   },
   beforeDestroy() {
     this.$socket.emit("unSubscribeRoomsUpdate", {
-      userId: this.$user.userId
+      userId: this.$user?.userId
     });
   },
   methods: {

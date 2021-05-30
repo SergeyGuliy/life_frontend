@@ -1,11 +1,13 @@
 <template>
   <v-card class="RoomBox pa-2 mb-2">
-    <RoomInfo :roomData="roomData" />
-    <v-card-actions>
-      <v-btn block @click="joinRoom(roomData)">
-        {{ $t("btns.join") }}
-      </v-btn>
-    </v-card-actions>
+    <RoomInfo :roomData="roomData">
+      <template #actions="{ roomData }">
+        <v-btn block @click="joinRoom(roomData)">
+          {{ $t("btns.join") }}
+        </v-btn>
+        <slot name="actions" :roomData="roomData"></slot>
+      </template>
+    </RoomInfo>
   </v-card>
 </template>
 

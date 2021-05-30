@@ -22,11 +22,21 @@
     <v-card-subtitle class="py-0">
       {{ $t("misc.roomId") }} {{ roomData.roomId }}
     </v-card-subtitle>
-    <v-card-text class="text--primary d-flex justify-space-between">
-      <div>{{ $t("misc.min") }} {{ roomData.minCountOfUsers }}</div>
-      <div>{{ $t("misc.max") }} {{ roomData.maxCountOfUsers }}</div>
-      <div>{{ $t("misc.current") }} {{ roomData.usersInRoomLength }}</div>
+    <v-card-text class="text--primary d-flex">
+      <div class="mr-2">
+        {{ $t("misc.min") }} {{ roomData.minCountOfUsers }}
+      </div>
+      <div class="mr-2">
+        {{ $t("misc.max") }} {{ roomData.maxCountOfUsers }}
+      </div>
+      <div class="mr-2">
+        {{ $t("misc.current") }} {{ roomData.usersInRoomLength }}
+      </div>
     </v-card-text>
+
+    <v-card-actions>
+      <slot name="actions" :roomData="roomData"></slot>
+    </v-card-actions>
   </div>
 </template>
 
