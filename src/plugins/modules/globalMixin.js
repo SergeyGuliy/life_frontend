@@ -1,9 +1,14 @@
 import { mapActions } from "vuex";
 import Vue from "vue";
+import { locales, countries } from "../../assets/helpers/enums";
 
 Vue.mixin({
   data() {
     return {};
+  },
+  enums: {
+    locales,
+    countries
   },
   computed: {
     $user() {
@@ -46,6 +51,9 @@ Vue.mixin({
       this.$bus.emit("writeMessageToUser", userId);
     },
     $addUserToFriendsList(userId) {
+      console.log(userId);
+    },
+    $openUserProfile(userId) {
       console.log(userId);
     }
   }

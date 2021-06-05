@@ -5,12 +5,12 @@
     :flat="flat == undefined || flat == false ? false : true"
   >
     <v-card-text class="py-0" v-if="loaded">
-      <v-row class="align-center">
-        <v-col cols="2" class="px-0">
+      <v-row class="align-center py-2">
+        <v-col cols="2" class="pa-0">
           <v-btn
             outlined
             icon
-            class="ma-2 mb-0"
+            class=""
             :color="color"
             @click.native="playing ? pause() : play()"
             :disabled="!loaded"
@@ -19,7 +19,7 @@
             <v-icon v-else>mdi-pause</v-icon>
           </v-btn>
         </v-col>
-        <v-col class="px-0">
+        <v-col class="pa-0">
           <v-progress-linear
             v-model="percentage"
             class="my-2"
@@ -30,7 +30,7 @@
           />
           <p class="mb-0">{{ currentTime }} / {{ duration }}</p>
         </v-col>
-        <v-col cols="2" class="py-0 px-0">
+        <v-col cols="2" class="pa-0" v-if="showVoiceControls">
           <v-slider
             class="sound-volume"
             height="50px"
@@ -43,6 +43,7 @@
             min="0"
           ></v-slider>
         </v-col>
+        <slot name="prepend"></slot>
       </v-row>
 
       <!--      <v-btn-->
@@ -92,6 +93,10 @@ export default {
     file: {
       type: String,
       default: null
+    },
+    showVoiceControls: {
+      type: Boolean,
+      default: () => true
     },
     autoPlay: {
       type: Boolean,
@@ -207,7 +212,6 @@ export default {
 
 <style lang="scss">
 .ChatAudio {
-  height: 72px;
   .sound-volume {
     min-height: 100%;
     .v-input__control {

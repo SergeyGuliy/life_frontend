@@ -58,7 +58,19 @@ export const en = {
       passwordLabel: "Enter password",
       nameRoomLabel: "Enter room name",
       typeOfRoom: "Select type of room",
-      countOfUsers: "Count of users in room"
+      countOfUsers: "Count of users in room",
+      newEmail: "Enter new Email",
+      newPhone: "Enter new Phone",
+      firstName: "Enter your first name",
+      lastName: "Enter your last name",
+      country: "Select your country",
+      locale: "Select your in game language",
+      globalVoiceDisabled: "Global chat messages sound turned on",
+      globalVoiceEnabled: "Global chat messages sound turned off",
+      roomVoiceDisabled: "Room chat messages sound turned on",
+      roomVoiceEnabled: "Room chat messages sound turned off",
+      privateVoiceDisabled: "Private chat messages sound turned on",
+      privateVoiceEnabled: "Private chat messages sound turned off"
     },
     rules: {}
   },

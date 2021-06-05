@@ -15,7 +15,7 @@
       <v-list class="lang-selector__list">
         <v-list-item
           link
-          v-for="(item, index) in items"
+          v-for="(item, index) in $options.enums.locales"
           :key="index"
           @click="$i18n.locale = item.key"
         >
