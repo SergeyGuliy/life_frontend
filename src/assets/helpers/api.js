@@ -10,6 +10,17 @@ export const api = {
         refreshToken
       })
   },
+  friendship: {
+    getYourFriends: () => axios.get("api/friendship/friends"),
+    getYourConnections: () => axios.get("api/friendship/requests"),
+    sendRequest: receiverId => axios.post(`api/friendship/add/${receiverId}`),
+    acceptRequest: receiverId =>
+      axios.put(`api/friendship/accept/${receiverId}`),
+    ignoreRequest: receiverId =>
+      axios.put(`api/friendship/ignore/${receiverId}`),
+    deleteFromFriends: receiverId =>
+      axios.delete(`api/friendship/delete/${receiverId}`)
+  },
   users: {
     getAllUsers: () => axios.get("api/users"),
     getById: userId => axios.get(`api/users/${userId}`)

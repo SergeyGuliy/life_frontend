@@ -1,6 +1,7 @@
 import { mapActions } from "vuex";
 import Vue from "vue";
 import { locales, countries } from "../../assets/helpers/enums";
+import { api } from "../../assets/helpers/api";
 
 Vue.mixin({
   data() {
@@ -52,9 +53,17 @@ Vue.mixin({
     },
     $addUserToFriendsList(userId) {
       console.log(userId);
+      api.friendship
+        .sendRequest(userId)
+        .then(data => {
+          console.log(data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
-    $openUserProfile(userId) {
-      console.log(userId);
+    async $openUserProfile(userId) {
+      await this.$router.push({ name: "User", params: { id: userId } });
     }
   }
 });

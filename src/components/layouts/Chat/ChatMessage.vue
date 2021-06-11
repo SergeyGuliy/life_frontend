@@ -53,7 +53,9 @@
     <ChatAudio
       class="mt-1"
       v-else
-      :file="`http://localhost:3000/api/uploader/voiceMessages/${message.messageVoice}`"
+      :file="
+        `http://localhost:3000/api/uploader/voiceMessages/${message.messageVoice}`
+      "
     ></ChatAudio>
   </v-card>
 </template>
@@ -76,9 +78,9 @@ export default {
       x: 0,
       y: 0,
       items: [
-        { title: "chat.openProfile", action: "openProfile" },
-        { title: "chat.writeMessage", action: "writeMessage" },
-        { title: "chat.addToFriend", action: "addToFriend" }
+        { title: "btns.openProfile", action: "$openUserProfile" },
+        { title: "btns.writeMessage", action: "$writeMessageToUser" },
+        { title: "btns.addToFriend", action: "$addUserToFriendsList" }
       ]
     };
   },
@@ -107,16 +109,6 @@ export default {
     },
     actionHandler(action, userId) {
       this[action](userId);
-    },
-    openProfile(userId) {
-      this.$router.push({ name: "User", params: { id: userId } });
-    },
-    writeMessage() {
-      this.$emit("writeMessageToUser", this.message.messageSender);
-    },
-    addToFriend(userId) {
-      console.log("addToFriend");
-      console.log(userId);
     }
   }
 };

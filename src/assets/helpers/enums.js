@@ -8,6 +8,12 @@ export const MessageTypes = {
   VOICE: "VOICE"
 };
 
+export const FriendshipStatuses = {
+  PENDING: "PENDING",
+  APPROVED: "APPROVED",
+  IGNORED: "IGNORED"
+};
+
 export const locales = [
   { title: "English", key: "en" },
   { title: "Russian", key: "ru" }

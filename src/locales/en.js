@@ -32,7 +32,14 @@ export const en = {
     setAdmin: "Set admin",
     addToFriend: "Add to friends",
     createRoom: "Create room",
-    search: "Search"
+    search: "Search",
+    acceptFriendRequest: "Accept request",
+    ignoreFriendRequest: "Ignore request",
+    openProfile: "Open profile",
+    deleteFromFriends: "Delete friend",
+    connectsIncomingPending: "Incoming Requests",
+    connectsOutgoingPending: "Outgoing requests",
+    connectsIncomingIgnored: "Ignored list"
   },
   enums: {
     ROOM_ADMIN: "Room Admin",
@@ -47,11 +54,6 @@ export const en = {
     NOT_IN_GAME: "Not in game",
     WAITING_GAME_STARTING: "Waiting game starting",
     GAME_IN_PROGRESS: "Game in progress"
-  },
-  chat: {
-    openProfile: "Open profile",
-    addToFriend: "Add to friend List",
-    writeMessage: "Write message"
   },
   forms: {
     labels: {
