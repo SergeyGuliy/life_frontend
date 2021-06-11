@@ -53,10 +53,6 @@ export default {
 </script>
 
 <style lang="scss">
-/*.lang-selector__list {*/
-/*  max-height: 500px;*/
-/*  overflow: auto;*/
-/*}*/
 .NavBar {
   .lang-selector {
   }

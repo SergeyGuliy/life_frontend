@@ -51,6 +51,11 @@ export default {
           linkParams: { name: "Cabinet" }
         },
         {
+          title: "layout.friends",
+          icon: "mdi-account-group",
+          linkParams: { name: "Friends" }
+        },
+        {
           title: "layout.users",
           icon: "mdi-account-group",
           linkParams: { name: "Users" }

@@ -48,6 +48,14 @@ const routes = [
     }
   },
   {
+    path: "/friends",
+    name: "Friends",
+    component: () => import("../views/Users/Friends"),
+    meta: {
+      layout: "mainLayout"
+    }
+  },
+  {
     path: "/users/:id",
     name: "User",
     component: () => import("../views/Users/Users"),

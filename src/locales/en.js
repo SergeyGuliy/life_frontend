@@ -4,11 +4,17 @@ export const en = {
     main: "Main",
     cabinet: "Cabinet",
     users: "Users",
+    friends: "Friends",
     rooms: "Rooms",
     logout: "LogOut"
   },
-  pages: {},
-  components: {},
+  pages: {
+    rooms: {
+      connectsIncomingPending: "Your incoming list or requests is empty.",
+      connectsIncomingIgnored: "Your ignored list or requests is empty.",
+      connectsOutgoingPending: "Your outgoing requests."
+    }
+  },
   misc: {
     roomAdmin: "Room Admin",
     min: "Min:",
@@ -80,7 +86,7 @@ export const en = {
     enterRoom: "Enter room",
     enterRoomWithPassword: "To enter room you need to input its password",
     createRoom: "Creating game room",
-    wantLeaveRoom: "Are you shure that you want to leave room?",
+    wantLeaveRoom: "Are you sure that you want to leave room?",
     min: "Min",
     max: "Max"
   }
