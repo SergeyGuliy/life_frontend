@@ -7,6 +7,7 @@ import { i18n } from "./modules/i18n";
 
 import "./modules/bus";
 import "./modules/mask";
+import "./modules/notify";
 import "./modules/longClick";
 import "./modules/dialog";
 import "./modules/debounce";

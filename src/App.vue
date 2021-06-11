@@ -4,6 +4,7 @@
       <router-view />
     </component>
     <component v-if="getComponent" :is="getComponent"></component>
+    <notifications group="foo" />
   </v-app>
 </template>
 

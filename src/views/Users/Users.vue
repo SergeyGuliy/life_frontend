@@ -86,7 +86,6 @@ export default {
       );
     },
     connectsIncomingPending() {
-      console.log(this.connectsInPending)
       return this.connectsInPending
         .filter(i => {
           return i.friendshipReceiver.userId === this.$user.userId;
@@ -145,7 +144,11 @@ export default {
           this.friends.push(data.data);
         })
         .catch(e => {
-          console.log(e);
+          this.$notify({
+            group: "foo",
+            type: "warn",
+            title: e.response.data.message
+          });
         });
     },
     async ignoreFriendRequest(userId) {
@@ -159,7 +162,11 @@ export default {
           this.$set(this.connects, indexToUpdate, data.data);
         })
         .catch(e => {
-          console.log(e);
+          this.$notify({
+            group: "foo",
+            type: "warn",
+            title: e.response.data.message
+          });
         });
     },
     async deleteFromFriends(userId) {
@@ -173,7 +180,11 @@ export default {
           this.$delete(this.friends, indexToDelete);
         })
         .catch(e => {
-          console.log(e);
+          this.$notify({
+            group: "foo",
+            type: "warn",
+            title: e.response.data.message
+          });
         });
     }
   }

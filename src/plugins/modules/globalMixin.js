@@ -27,9 +27,7 @@ Vue.mixin({
           cancel: this.$t("btns.cancel")
         })
           .then(this.$logOut)
-          .catch(e => {
-            console.log(e);
-          });
+          .catch(() => {});
       } else {
         this.$logOut();
       }
@@ -52,14 +50,17 @@ Vue.mixin({
       this.$bus.emit("writeMessageToUser", userId);
     },
     $addUserToFriendsList(userId) {
-      console.log(userId);
       api.friendship
         .sendRequest(userId)
         .then(data => {
           console.log(data);
         })
         .catch(e => {
-          console.log(e);
+          this.$notify({
+            group: "foo",
+            type: "warn",
+            title: e.response.data.message
+          });
         });
     },
     async $openUserProfile(userId) {
