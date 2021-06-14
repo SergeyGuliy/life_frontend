@@ -54,6 +54,7 @@
 
 <script>
 import { api } from "../../assets/helpers/api";
+import socketMixin from "../../mixins/socketMixin";
 
 export default {
   name: "RoomId",
@@ -61,6 +62,7 @@ export default {
     RoomInfo: () => import("../../components/Rooms/RoomInfo"),
     UsersList: () => import("../../components/Users/UsersList")
   },
+  mixins: [socketMixin],
   data() {
     return {
       roomData: null

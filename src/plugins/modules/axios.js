@@ -2,6 +2,7 @@
 import store from "../../store";
 
 import axios from "axios";
+import { clearLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
 // import { api } from "../assets/helpers/api";
 // import { myVue } from "../main";
 
@@ -38,6 +39,7 @@ _axios.interceptors.response.use(
       }
     } else if (error.response.status === 401) {
       await store.dispatch("auth/logOut");
+      clearLocalStorageKeys();
     } else {
       return Promise.reject(error);
     }

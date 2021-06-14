@@ -12,16 +12,18 @@
 </template>
 
 <script>
+// import socketMixin from "../mixins/socketMixin";
+
 export default {
   name: "Home",
+  // mixins: [socketMixin],
   components: {
     RoomsController: () => import("../components/Rooms/RoomsController")
   },
   data() {
     return {
-      users: null,
-      sss: null
+      users: null
     };
-  },
+  }
 };
 </script>

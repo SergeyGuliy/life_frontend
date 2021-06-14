@@ -228,11 +228,7 @@
                             <v-btn
                               icon
                               @click="
-                                selectSound(
-                                  'roomVoiceSelected',
-                                  'room',
-                                  item
-                                )
+                                selectSound('roomVoiceSelected', 'room', item)
                               "
                             >
                               <v-icon>mdi-alarm-plus</v-icon>
@@ -323,6 +319,7 @@
 </template>
 
 <script>
+import socketMixin from "../../mixins/socketMixin";
 const sounds = [
   {
     name: "message_1",
@@ -350,6 +347,7 @@ export default {
   components: {
     ChatAudio: () => import("../../components/layouts/Chat/ChatAudio")
   },
+  mixins: [socketMixin],
   methods: {
     selectSound(target, menuToogl, sound) {
       this.$set(this.chatSettings, target, sound);

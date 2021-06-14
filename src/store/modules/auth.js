@@ -1,6 +1,7 @@
 import router from "../../router";
 import { api } from "../../assets/helpers/api";
 import Vue from "vue";
+import { clearLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
 
 export default {
   namespaced: true,
@@ -14,9 +15,11 @@ export default {
           await dispatch("user/setUserData", data, { root: true });
         } catch (e) {
           await dispatch("logOut");
+          clearLocalStorageKeys();
         }
       } else {
         await dispatch("logOut");
+        clearLocalStorageKeys();
       }
     },
 
@@ -43,7 +46,7 @@ export default {
     async logOut({ commit }) {
       try {
         commit("user/cleanUser", "", { root: true });
-        Vue.prototype.$socket.disconnect()
+        Vue.prototype.$socket.close();
         await router.push({ name: "Auth" });
       } catch (e) {
         commit("user/cleanUser", "", { root: true });

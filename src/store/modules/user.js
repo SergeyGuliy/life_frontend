@@ -1,5 +1,6 @@
 import { api } from "../../assets/helpers/api";
 import Vue from "vue";
+import { setLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
 
 export default {
   namespaced: true,
@@ -11,16 +12,11 @@ export default {
   },
   mutations: {
     setUser(state, { userData, accessToken, refreshToken }) {
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-      localStorage.setItem("userId", userData.userId);
+      setLocalStorageKeys({ accessToken, refreshToken, userData });
       state.user = { ...userData };
     },
 
     cleanUser(state) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("userId");
       state.user = null;
     },
     joinRoom(state, roomId) {

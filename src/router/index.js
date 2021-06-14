@@ -24,6 +24,14 @@ const routes = [
     }
   },
   {
+    path: "/closer",
+    name: "Closer",
+    component: () => import("../views/Closer"),
+    meta: {
+      layout: "authLayout"
+    }
+  },
+  {
     path: "/",
     name: "Home",
     component: () => import("../views/Home"),
@@ -104,7 +112,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  await refreshTocken();
+  await refreshTocken(to, from, next);
   loginStatusMiddleware(to, from, next);
   isJoinedRoom(to, from, next);
 });

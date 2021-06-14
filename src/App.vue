@@ -37,6 +37,9 @@ export default {
           clientId
         });
       }
+    },
+    async forceDisconnect() {
+      await this.forceDisconnect();
     }
   },
   async mounted() {
@@ -44,8 +47,16 @@ export default {
     document
       .querySelector("body")
       .addEventListener("contextmenu", this.clickOutsideContext);
+    await this.forceDisconnect();
   },
   methods: {
+    async forceDisconnect() {
+      if (this.$route.meta.layout === "mainLayout") {
+        this.$socket.close();
+        await this.$store.dispatch("auth/logOut");
+        await this.$router.push({ name: "Closer" });
+      }
+    },
     clickOutside() {
       this.$bus.emit("click-outside");
     },

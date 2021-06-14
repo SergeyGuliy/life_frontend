@@ -54,9 +54,11 @@
 <script>
 import { FriendshipStatuses } from "../../assets/helpers/enums";
 import { api } from "../../assets/helpers/api";
+import socketMixin from "../../mixins/socketMixin";
 
 export default {
   name: "Friends",
+  mixins: [socketMixin],
   components: {
     UsersList: () => import("../../components/Users/UsersList")
   },
@@ -140,7 +142,6 @@ export default {
   },
   methods: {
     async acceptFriendRequest(userId) {
-      console.log(userId);
       await api.friendship
         .acceptRequest(userId)
         .then(data => {
@@ -159,7 +160,6 @@ export default {
         });
     },
     async ignoreFriendRequest(userId) {
-      console.log(userId);
       await api.friendship
         .ignoreRequest(userId)
         .then(data => {
@@ -180,7 +180,6 @@ export default {
       await api.friendship
         .deleteFromFriends(userId)
         .then(data => {
-          console.log(data.data);
           const indexToDelete = this.friends.findIndex(
             i => i.friendshipsId === data.data.friendshipsId
           );

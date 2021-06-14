@@ -6,9 +6,11 @@
 </template>
 
 <script>
+import socketMixin from "../../mixins/socketMixin";
 export default {
   name: "Rooms",
   components: {},
+  mixins: [socketMixin],
   data() {
     return {};
   },

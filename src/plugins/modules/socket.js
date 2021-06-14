@@ -10,6 +10,6 @@ const socketOptions = {
 Vue.use(
   new VueSocketIO({
     debug: false,
-    connection: io("ws://localhost:3000", socketOptions),
+    connection: io("ws://localhost:3000", socketOptions)
   })
 );

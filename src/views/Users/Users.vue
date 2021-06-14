@@ -5,8 +5,10 @@
 </template>
 
 <script>
+import socketMixin from "../../mixins/socketMixin";
 export default {
-  name: "Users"
+  name: "Users",
+  mixins: [socketMixin]
 };
 </script>
 

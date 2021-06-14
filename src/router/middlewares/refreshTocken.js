@@ -2,8 +2,11 @@ import store from "../../store/index";
 import { api } from "../../assets/helpers/api";
 import { myVue } from "../../main";
 
-export default async function() {
+export default async function(to) {
   if (store.state.user.user) {
+    return;
+  }
+  if (["Auth", "Closer"].includes(to.name)) {
     return;
   }
   const userId = localStorage.getItem("userId");

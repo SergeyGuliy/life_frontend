@@ -2,11 +2,9 @@ import { mapActions } from "vuex";
 import Vue from "vue";
 import { locales, countries } from "../../assets/helpers/enums";
 import { api } from "../../assets/helpers/api";
+import { clearLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
 
 Vue.mixin({
-  data() {
-    return {};
-  },
   enums: {
     locales,
     countries
@@ -38,6 +36,8 @@ Vue.mixin({
       } catch (e) {
         this.$emit("onError", e);
       }
+      clearLocalStorageKeys();
+      await this.$router.push({ name: "Auth" });
     },
     async $changeTheme() {
       try {
@@ -52,9 +52,7 @@ Vue.mixin({
     $addUserToFriendsList(userId) {
       api.friendship
         .sendRequest(userId)
-        .then(data => {
-          console.log(data);
-        })
+        .then(() => {})
         .catch(e => {
           this.$notify({
             group: "foo",
