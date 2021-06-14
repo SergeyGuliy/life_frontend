@@ -52,9 +52,7 @@ export default {
               });
             })
           )
-          .catch(({ response }) => {
-            console.dir(response.data.message);
-          });
+          .catch(() => {});
       }
     }
   }

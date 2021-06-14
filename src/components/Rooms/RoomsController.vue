@@ -34,7 +34,6 @@ export default {
   },
   sockets: {
     roomInListCreated(roomData) {
-      console.log(roomData);
       if (this.filterData.typeOfRoom.includes(roomData.typeOfRoom)) {
         this.rooms.push(roomData);
       }

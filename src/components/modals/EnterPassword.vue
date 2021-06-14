@@ -56,7 +56,6 @@ export default {
       api.rooms
         .joinRoom(this.data.roomId, this.roomPassword)
         .then(({ data }) => {
-          console.dir(data);
           this.$store.commit("user/joinRoom", data.roomJoinedId);
           this.close(true);
           this.$router.push({
@@ -64,9 +63,7 @@ export default {
             params: { id: data.roomJoinedId }
           });
         })
-        .catch(({ response }) => {
-          console.dir(response.data.message);
-        });
+        .catch(() => {});
     }
   }
 };

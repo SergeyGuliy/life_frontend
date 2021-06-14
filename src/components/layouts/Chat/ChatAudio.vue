@@ -148,13 +148,11 @@ export default {
       this.audio.currentTime = 0;
     },
     play() {
-      console.log("play");
       if (this.playing) return;
       this.audio.play().then(() => (this.playing = true));
       this.paused = false;
     },
     pause() {
-      console.log("pause");
       this.paused = !this.paused;
       this.paused ? this.audio.pause() : this.audio.play();
     },

@@ -120,7 +120,6 @@ export default {
         const formData = new FormData();
         formData.append("messageVoiceFile", messageVoiceFile);
         let audioId = (await api.uploader.uploadVoice(formData)).data;
-        console.log(audioId);
         messageData.messageVoice = audioId;
       } else {
         messageData.messageText = this.newMessage;

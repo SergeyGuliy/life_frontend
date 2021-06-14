@@ -34,7 +34,10 @@
       {{ $t(`misc.userId`) }} {{ userData.userId }}
     </v-card-subtitle>
     <v-card-text class="text--primary" v-if="showUserRoomInfo">
-      <div>{{ $t(`misc.userGameStatus`) }} {{ $t(`enums.${userData.userGameStatus}`) }}</div>
+      <div>
+        {{ $t(`misc.userGameStatus`) }}
+        {{ $t(`enums.${userData.userGameStatus}`) }}
+      </div>
       <div>{{ $t(`misc.roomJoinedId`) }} {{ userData.roomJoinedId }}</div>
     </v-card-text>
   </div>
