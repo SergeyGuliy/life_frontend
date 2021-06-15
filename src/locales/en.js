@@ -63,6 +63,7 @@ export const en = {
   },
   forms: {
     labels: {
+      avatarLabel: "Select avatar image",
       passwordLabel: "Enter password",
       nameRoomLabel: "Enter room name",
       typeOfRoom: "Select type of room",
