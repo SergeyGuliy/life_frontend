@@ -20,3 +20,26 @@ export const locales = [
 ];
 
 export const countries = ["England", "Russia", "Ukraine", "Hungary", "Italy"];
+
+export const sounds = [
+  {
+    name: "message_1",
+    sound: require("../sounds/message_1.mp3")
+  },
+  {
+    name: "message_2",
+    sound: require("../sounds/message_2.mp3")
+  },
+  {
+    name: "message_3",
+    sound: require("../sounds/message_3.mp3")
+  },
+  {
+    name: "message_4",
+    sound: require("../sounds/message_4.mp3")
+  },
+  {
+    name: "message_5",
+    sound: require("../sounds/message_5.mp3")
+  }
+];

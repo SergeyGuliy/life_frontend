@@ -54,11 +54,9 @@
 <script>
 import { FriendshipStatuses } from "../../assets/helpers/enums";
 import { api } from "../../assets/helpers/api";
-import socketMixin from "../../mixins/socketMixin";
 
 export default {
   name: "Friends",
-  mixins: [socketMixin],
   components: {
     UsersList: () => import("../../components/Users/UsersList")
   },

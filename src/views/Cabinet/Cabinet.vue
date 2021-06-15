@@ -319,35 +319,13 @@
 </template>
 
 <script>
-import socketMixin from "../../mixins/socketMixin";
-const sounds = [
-  {
-    name: "message_1",
-    sound: require("../../assets/sounds/message_1.mp3")
-  },
-  {
-    name: "message_2",
-    sound: require("../../assets/sounds/message_2.mp3")
-  },
-  {
-    name: "message_3",
-    sound: require("../../assets/sounds/message_3.mp3")
-  },
-  {
-    name: "message_4",
-    sound: require("../../assets/sounds/message_4.mp3")
-  },
-  {
-    name: "message_5",
-    sound: require("../../assets/sounds/message_5.mp3")
-  }
-];
+import { sounds } from "../../assets/helpers/enums";
+
 export default {
   name: "Cabinet",
   components: {
     ChatAudio: () => import("../../components/layouts/Chat/ChatAudio")
   },
-  mixins: [socketMixin],
   methods: {
     selectSound(target, menuToogl, sound) {
       this.$set(this.chatSettings, target, sound);
