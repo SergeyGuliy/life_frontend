@@ -15,7 +15,7 @@
 export default {
   name: "Home",
   components: {
-    RoomsController: () => import("../components/Rooms/RoomsController")
+    RoomsController: () => import("../components/logic/Rooms/RoomsController")
   },
   data() {
     return {

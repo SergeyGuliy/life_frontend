@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { api } from "../../assets/helpers/api";
+import { api } from "../../../assets/helpers/api";
 
 export default {
   name: "RoomBox",
