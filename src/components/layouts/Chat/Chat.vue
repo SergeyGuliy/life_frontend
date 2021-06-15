@@ -39,16 +39,16 @@
 </template>
 
 <script>
-import { MessageReceiverTypes } from "../../assets/helpers/enums";
+import { MessageReceiverTypes } from "../../../assets/helpers/enums";
 const { GLOBAL, ROOM, PRIVATE } = MessageReceiverTypes;
-import { api } from "../../assets/helpers/api";
+import { api } from "../../../assets/helpers/api";
 export default {
   name: "Chat",
   components: {
-    ChatForm: () => import("./Chat/ChatForm"),
-    ChatBody: () => import("./Chat/ChatBody"),
-    ChatTabs: () => import("./Chat/ChatTabs"),
-    ChatHeader: () => import("./Chat/ChatHeader")
+    ChatForm: () => import("./ChatForm"),
+    ChatBody: () => import("./ChatBody"),
+    ChatTabs: () => import("./ChatTabs"),
+    ChatHeader: () => import("./ChatHeader")
   },
   data() {
     return {

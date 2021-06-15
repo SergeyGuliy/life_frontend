@@ -107,209 +107,18 @@
                   Chat settings
                 </div>
               </v-col>
-
-              <v-col cols="6" class="py-0">
-                <v-switch
-                  inset
-                  v-model="chatSettings.globalVoice"
-                  flat
-                  :label="
-                    chatSettings.globalVoice
-                      ? $t('forms.labels.globalVoiceDisabled')
-                      : $t('forms.labels.globalVoiceEnabled')
-                  "
-                ></v-switch>
-              </v-col>
-              <v-col cols="6">
-                <v-menu
-                  v-if="chatSettings.globalVoice"
-                  :close-on-content-click="false"
-                  class="lang-selector"
-                  auto
-                  v-model="visible.global"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-list-item class="pa-0">
-                      <ChatAudio
-                        :showVoiceControls="false"
-                        :file="chatSettings.globalVoiceSelected.sound"
-                      >
-                        <template #prepend>
-                          <v-col cols="2" class="px-0">
-                            <v-btn icon v-bind="attrs" v-on="on">
-                              <v-icon>mdi-arrow-down</v-icon>
-                            </v-btn>
-                          </v-col>
-                        </template>
-                      </ChatAudio>
-                    </v-list-item>
-                  </template>
-                  <v-list class="lang-selector__list">
-                    <v-list-item
-                      link
-                      class="pa-0"
-                      v-for="(item, index) in sounds.filter(
-                        i => i.name !== chatSettings.globalVoiceSelected.name
-                      )"
-                      :key="index"
-                    >
-                      <ChatAudio :showVoiceControls="false" :file="item.sound">
-                        <template #prepend>
-                          <v-col cols="2" class="px-0">
-                            <v-btn
-                              icon
-                              @click="
-                                selectSound(
-                                  'globalVoiceSelected',
-                                  'global',
-                                  item
-                                )
-                              "
-                            >
-                              <v-icon>mdi-alarm-plus</v-icon>
-                            </v-btn>
-                          </v-col>
-                        </template>
-                      </ChatAudio>
-                      <!--                      <v-list-item-title>{{ item.name }}</v-list-item-title>-->
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </v-col>
-
-              <v-col cols="6" class="py-0">
-                <v-switch
-                  inset
-                  v-model="chatSettings.roomVoice"
-                  flat
-                  :label="
-                    chatSettings.roomVoice
-                      ? $t('forms.labels.globalVoiceDisabled')
-                      : $t('forms.labels.globalVoiceEnabled')
-                  "
-                ></v-switch>
-              </v-col>
-              <v-col cols="6">
-                <v-menu
-                  v-if="chatSettings.roomVoice"
-                  :close-on-content-click="false"
-                  class="lang-selector"
-                  auto
-                  v-model="visible.room"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-list-item class="pa-0">
-                      <ChatAudio
-                        :showVoiceControls="false"
-                        :file="chatSettings.roomVoiceSelected.sound"
-                      >
-                        <template #prepend>
-                          <v-col cols="2" class="px-0">
-                            <v-btn icon v-bind="attrs" v-on="on">
-                              <v-icon>mdi-arrow-down</v-icon>
-                            </v-btn>
-                          </v-col>
-                        </template>
-                      </ChatAudio>
-                    </v-list-item>
-                  </template>
-                  <v-list class="lang-selector__list">
-                    <v-list-item
-                      link
-                      class="pa-0"
-                      v-for="(item, index) in sounds.filter(
-                        i => i.name !== chatSettings.roomVoiceSelected.name
-                      )"
-                      :key="index"
-                    >
-                      <ChatAudio :showVoiceControls="false" :file="item.sound">
-                        <template #prepend>
-                          <v-col cols="2" class="px-0">
-                            <v-btn
-                              icon
-                              @click="
-                                selectSound('roomVoiceSelected', 'room', item)
-                              "
-                            >
-                              <v-icon>mdi-alarm-plus</v-icon>
-                            </v-btn>
-                          </v-col>
-                        </template>
-                      </ChatAudio>
-                      <!--                      <v-list-item-title>{{ item.name }}</v-list-item-title>-->
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </v-col>
-
-              <v-col cols="6" class="py-0">
-                <v-switch
-                  inset
-                  v-model="chatSettings.privateVoice"
-                  flat
-                  :label="
-                    chatSettings.privateVoice
-                      ? $t('forms.labels.globalVoiceDisabled')
-                      : $t('forms.labels.globalVoiceEnabled')
-                  "
-                ></v-switch>
-              </v-col>
-              <v-col cols="6">
-                <v-menu
-                  v-if="chatSettings.privateVoice"
-                  :close-on-content-click="false"
-                  class="lang-selector"
-                  auto
-                  v-model="visible.private"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-list-item class="pa-0">
-                      <ChatAudio
-                        :showVoiceControls="false"
-                        :file="chatSettings.privateVoiceSelected.sound"
-                      >
-                        <template #prepend>
-                          <v-col cols="2" class="px-0">
-                            <v-btn icon v-bind="attrs" v-on="on">
-                              <v-icon>mdi-arrow-down</v-icon>
-                            </v-btn>
-                          </v-col>
-                        </template>
-                      </ChatAudio>
-                    </v-list-item>
-                  </template>
-                  <v-list class="lang-selector__list">
-                    <v-list-item
-                      link
-                      class="pa-0"
-                      v-for="(item, index) in sounds.filter(
-                        i => i.name !== chatSettings.privateVoiceSelected.name
-                      )"
-                      :key="index"
-                    >
-                      <ChatAudio :showVoiceControls="false" :file="item.sound">
-                        <template #prepend>
-                          <v-col cols="2" class="px-0">
-                            <v-btn
-                              icon
-                              @click="
-                                selectSound(
-                                  'privateVoiceSelected',
-                                  'private',
-                                  item
-                                )
-                              "
-                            >
-                              <v-icon>mdi-alarm-plus</v-icon>
-                            </v-btn>
-                          </v-col>
-                        </template>
-                      </ChatAudio>
-                      <!--                      <v-list-item-title>{{ item.name }}</v-list-item-title>-->
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </v-col>
+              <VoiceSettings
+                :chatSettings.sync="chatSettings.global"
+                type="global"
+              />
+              <VoiceSettings
+                :chatSettings.sync="chatSettings.room"
+                type="room"
+              />
+              <VoiceSettings
+                :chatSettings.sync="chatSettings.private"
+                type="private"
+              />
             </v-row>
           </v-card-actions>
         </v-card>
@@ -324,7 +133,7 @@ import { sounds } from "../../assets/helpers/enums";
 export default {
   name: "Cabinet",
   components: {
-    ChatAudio: () => import("../../components/layouts/Chat/ChatAudio")
+    VoiceSettings: () => import("../../components/logic/Cabinet/VoiceSettings")
   },
   methods: {
     selectSound(target, menuToogl, sound) {
@@ -353,12 +162,21 @@ export default {
         isDarkTheme: null
       },
       chatSettings: {
-        globalVoice: true,
-        globalVoiceSelected: sounds[0],
-        roomVoice: true,
-        roomVoiceSelected: sounds[0],
-        privateVoice: true,
-        privateVoiceSelected: sounds[0]
+        global: {
+          isTurnedOn: false,
+          autoplay: false,
+          soundSelected: sounds[0]
+        },
+        room: {
+          isTurnedOn: false,
+          autoplay: false,
+          soundSelected: sounds[0]
+        },
+        private: {
+          isTurnedOn: false,
+          autoplay: false,
+          soundSelected: sounds[0]
+        }
       }
     };
   }

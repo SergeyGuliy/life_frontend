@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import auth from "./modules/auth";
 import user from "./modules/user";
+import userSettings from "./modules/userSettings";
 import dictionaries from "./modules/dictionaries";
 import modals from "./modules/modals";
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     auth,
     modals,
     user,
+    userSettings,
     dictionaries
   }
 });

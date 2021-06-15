@@ -73,12 +73,36 @@ export const en = {
       lastName: "Enter your last name",
       country: "Select your country",
       locale: "Select your in game language",
-      globalVoiceDisabled: "Global chat messages sound turned on",
-      globalVoiceEnabled: "Global chat messages sound turned off",
-      roomVoiceDisabled: "Room chat messages sound turned on",
-      roomVoiceEnabled: "Room chat messages sound turned off",
-      privateVoiceDisabled: "Private chat messages sound turned on",
-      privateVoiceEnabled: "Private chat messages sound turned off"
+      global: {
+        soundEnabling: {
+          enable: "Global chat messages sound turned on",
+          disable: "Global chat messages sound turned off"
+        },
+        autoplayEnabling: {
+          enable: "Global chat messages autoplay turned on",
+          disable: "Global chat messages autoplay turned off"
+        }
+      },
+      room: {
+        soundEnabling: {
+          enable: "Room chat messages sound turned on",
+          disable: "Room chat messages sound turned off"
+        },
+        autoplayEnabling: {
+          enable: "Room chat messages autoplay turned on",
+          disable: "Room chat messages autoplay turned off"
+        }
+      },
+      private: {
+        soundEnabling: {
+          enable: "Private chat messages sound turned on",
+          disable: "Private chat messages sound turned off"
+        },
+        autoplayEnabling: {
+          enable: "Private chat messages autoplay turned on",
+          disable: "Private chat messages autoplay turned off"
+        }
+      }
     },
     rules: {}
   },

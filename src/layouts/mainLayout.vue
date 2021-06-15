@@ -17,7 +17,7 @@ export default {
   components: {
     SideBar: () => import("../components/layouts/SideBar"),
     NavBar: () => import("../components/layouts/NavBar"),
-    Chat: () => import("../components/layouts/Chat")
+    Chat: () => import("../components/layouts/Chat/Chat")
   },
   data() {
     return {
