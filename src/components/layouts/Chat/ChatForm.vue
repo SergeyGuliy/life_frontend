@@ -62,14 +62,14 @@
 
 <script>
 import {
-  MessageReceiverTypes,
-  MessageTypes
+  MESSAGE_RECEIVER_TYPES,
+  MESSAGE_TYPES
 } from "../../../assets/helpers/enums";
 import recordingMixin from "../../../mixins/recordingMixin";
 import { api } from "../../../assets/helpers/api";
 
-const { ROOM, PRIVATE } = MessageReceiverTypes;
-const { TEXT, VOICE } = MessageTypes;
+const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
+const { TEXT, VOICE } = MESSAGE_TYPES;
 
 export default {
   name: "ChatForm",

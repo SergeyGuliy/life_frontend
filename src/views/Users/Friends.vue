@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { FriendshipStatuses } from "../../assets/helpers/enums";
+import { FRIENDSHIP_STATUSES } from "../../assets/helpers/enums";
 import { api } from "../../assets/helpers/api";
 
 export default {
@@ -89,7 +89,7 @@ export default {
     },
     connectsInPending() {
       return this.connects.filter(
-        i => i.friendshipsStatus === FriendshipStatuses.PENDING
+        i => i.friendshipsStatus === FRIENDSHIP_STATUSES.PENDING
       );
     },
     connectsIncomingPending() {
@@ -106,7 +106,7 @@ export default {
     },
     connectsInIgnored() {
       return this.connects.filter(
-        i => i.friendshipsStatus === FriendshipStatuses.IGNORED
+        i => i.friendshipsStatus === FRIENDSHIP_STATUSES.IGNORED
       );
     },
     connectsIncomingIgnored() {

@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import { MessageReceiverTypes } from "../../../assets/helpers/enums";
-const { GLOBAL, ROOM, PRIVATE } = MessageReceiverTypes;
+import { MESSAGE_RECEIVER_TYPES } from "../../../assets/helpers/enums";
+const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 import { api } from "../../../assets/helpers/api";
 export default {
   name: "Chat",

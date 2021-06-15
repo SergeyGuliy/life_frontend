@@ -1,6 +1,6 @@
 import Vue from "vue";
-import { MessageReceiverTypes } from "../../assets/helpers/enums";
-const { PRIVATE } = MessageReceiverTypes;
+import { MESSAGE_RECEIVER_TYPES } from "../../assets/helpers/enums";
+const { PRIVATE } = MESSAGE_RECEIVER_TYPES;
 import store from "../../store/index";
 
 Vue.prototype.$chat = {

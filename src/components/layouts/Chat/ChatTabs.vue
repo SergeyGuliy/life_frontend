@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import { MessageReceiverTypes } from "../../../assets/helpers/enums";
-const { GLOBAL, ROOM, PRIVATE } = MessageReceiverTypes;
+import { MESSAGE_RECEIVER_TYPES } from "../../../assets/helpers/enums";
+const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 export default {
   name: "ChatTabs",
   props: {

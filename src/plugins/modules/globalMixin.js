@@ -1,13 +1,13 @@
 import { mapActions } from "vuex";
 import Vue from "vue";
-import { locales, countries } from "../../assets/helpers/enums";
+import { LOCALES, COUNTRIES } from "../../assets/helpers/enums";
 import { api } from "../../assets/helpers/api";
 import { clearLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
 
 Vue.mixin({
   enums: {
-    locales,
-    countries
+    LOCALES,
+    COUNTRIES
   },
   computed: {
     $user() {

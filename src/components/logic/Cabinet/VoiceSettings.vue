@@ -51,7 +51,7 @@
             <v-list-item
               link
               class="pa-0"
-              v-for="(item, index) in sounds.filter(
+              v-for="(item, index) in SOUNDS.filter(
                 i => i.name !== soundSelected.name
               )"
               :key="index"
@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { sounds } from "../../../assets/helpers/enums";
+import { SOUNDS } from "../../../assets/helpers/enums";
 
 export default {
   name: "VoiceSettings",
@@ -120,7 +120,6 @@ export default {
         return this.chatSettings.soundSelected;
       },
       set(val) {
-        console.log(val);
         this.$emit("update:chatSettings", {
           ...this.chatSettings,
           soundSelected: val
@@ -130,7 +129,7 @@ export default {
   },
   data() {
     return {
-      sounds,
+      SOUNDS,
       isOpen: false
     };
   },

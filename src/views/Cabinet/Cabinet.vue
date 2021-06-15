@@ -45,7 +45,7 @@
               <v-col cols="12" class="py-0">
                 <v-autocomplete
                   v-model="profileSettings.country"
-                  :items="$options.enums.countries"
+                  :items="COUNTRIES"
                   :label="$t('forms.labels.country')"
                   outlined
                   clearable
@@ -58,7 +58,7 @@
                   :menu-props="{ bottom: true, offsetY: true }"
                   :label="$t('forms.labels.locale')"
                   item-value="key"
-                  :items="$options.enums.locales"
+                  :items="LOCALES"
                   outlined
                   clearable
                 >
@@ -128,30 +128,18 @@
 </template>
 
 <script>
-import { sounds } from "../../assets/helpers/enums";
+import { COUNTRIES, SOUNDS, LOCALES } from "../../assets/helpers/enums";
 
 export default {
   name: "Cabinet",
   components: {
     VoiceSettings: () => import("../../components/logic/Cabinet/VoiceSettings")
   },
-  methods: {
-    selectSound(target, menuToogl, sound) {
-      this.$set(this.chatSettings, target, sound);
-      this.visible[menuToogl] = false;
-    },
-    log(e) {
-      console.log(e);
-    }
-  },
   data() {
     return {
-      visible: {
-        global: false,
-        room: false,
-        private: false
-      },
-      sounds,
+      COUNTRIES,
+      LOCALES,
+      SOUNDS,
       profileSettings: {
         email: null,
         phone: null,
@@ -165,20 +153,29 @@ export default {
         global: {
           isTurnedOn: false,
           autoplay: false,
-          soundSelected: sounds[0]
+          soundSelected: SOUNDS[0]
         },
         room: {
           isTurnedOn: false,
           autoplay: false,
-          soundSelected: sounds[0]
+          soundSelected: SOUNDS[0]
         },
         private: {
           isTurnedOn: false,
           autoplay: false,
-          soundSelected: sounds[0]
+          soundSelected: SOUNDS[0]
         }
       }
     };
+  },
+  methods: {
+    selectSound(target, menuToogl, sound) {
+      this.$set(this.chatSettings, target, sound);
+      this.visible[menuToogl] = false;
+    },
+    log(e) {
+      console.log(e);
+    }
   }
 };
 </script>

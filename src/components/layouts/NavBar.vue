@@ -15,9 +15,9 @@
       <v-list class="lang-selector__list">
         <v-list-item
           link
-          v-for="(item, index) in $options.enums.locales"
+          v-for="(item, index) in LOCALES"
           :key="index"
-          @click="$i18n.locale = item.key"
+          @click="localLocale = item.key"
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
@@ -33,15 +33,29 @@
 </template>
 
 <script>
+import { LOCALES } from "../../assets/helpers/enums";
+
 export default {
   name: "NavBar",
   data() {
     return {
+      LOCALES,
       items: [
         { title: "English", key: "en" },
         { title: "Russian", key: "ru" }
       ]
     };
+  },
+  computed: {
+    localLocale: {
+      get() {
+        return this.$i18n.locale;
+      },
+      set(val) {
+        console.log(val);
+        this.$i18n.locale = val;
+      }
+    }
   },
   props: {
     value: {
