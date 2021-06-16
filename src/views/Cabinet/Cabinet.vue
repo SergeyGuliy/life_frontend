@@ -24,28 +24,47 @@
                   Profile settings
                 </div>
               </v-col>
+              <!--              <pre>{{ profileSettings }}</pre>-->
               <v-col cols="12" class="pt-0">
                 <v-card class="pa-4">
                   <v-hover v-slot="{ hover }" open-delay="200">
                     <v-avatar width="200" height="200" class="mx-auto d-flex">
-                      <img :src="imgSrc" alt="" v-if="imgSrc" />
+                      <v-img :src="imgSrc" alt="" v-if="imgSrc" cover />
+                      <v-img
+                        :src="profileSettings.avatarBig | avatarLink"
+                        alt=""
+                        cover
+                        v-else-if="profileSettings.avatarBig"
+                      />
                       <v-btn class="green" v-else icon @click="clickInput">
                         <v-icon dark>
                           mdi-image-plus
                         </v-icon>
                       </v-btn>
-                      <v-btn
-                        class="red"
-                        icon
-                        @click="clearAvatar"
-                        v-show="imgSrc && hover"
-                        :class="{ 'on-hover': hover }"
-                        absolute
-                      >
-                        <v-icon dark>
-                          mdi-image-remove
-                        </v-icon>
-                      </v-btn>
+                      <template v-if="hover">
+                        <v-btn
+                          class="red"
+                          icon
+                          @click="clearAvatar"
+                          v-if="imgSrc"
+                          absolute
+                        >
+                          <v-icon dark>
+                            mdi-image-remove
+                          </v-icon>
+                        </v-btn>
+                        <v-btn
+                          class="red"
+                          icon
+                          @click="clearAvatar"
+                          v-else-if="profileSettings.avatarBig"
+                          absolute
+                        >
+                          <v-icon dark>
+                            mdi-image-remove
+                          </v-icon>
+                        </v-btn>
+                      </template>
                     </v-avatar>
                   </v-hover>
                 </v-card>
@@ -197,6 +216,7 @@
 <script>
 import { COUNTRIES, SOUNDS, LOCALES } from "../../assets/helpers/enums";
 import { api } from "../../assets/helpers/api";
+import { ProfileSettingsParser } from "../../assets/helpers/parsers";
 
 export default {
   name: "Cabinet",
@@ -210,17 +230,7 @@ export default {
       SOUNDS,
       imgSrc: "",
       imgFile: null,
-      profileSettings: {
-        avatarImgBig: null,
-        avatarImgSmall: null,
-        email: null,
-        phone: null,
-        firstName: null,
-        lastName: null,
-        country: null,
-        locale: null,
-        isDarkTheme: null
-      },
+      profileSettings: null,
       chatSettings: {
         global: {
           isTurnedOn: false,
@@ -240,6 +250,9 @@ export default {
       }
     };
   },
+  created() {
+    this.parseDefaultData();
+  },
   watch: {
     imgFile(val) {
       if (val && typeof val === "object") {
@@ -250,11 +263,16 @@ export default {
     }
   },
   methods: {
+    parseDefaultData() {
+      let profileSettings = new ProfileSettingsParser(this.$user);
+      this.$set(this, "profileSettings", profileSettings.getProfileSettings);
+    },
     clickInput() {
       document.querySelector("#avatarInput").click();
     },
     clearAvatar() {
       this.imgSrc = "";
+      this.profileSettings.avatarBig = "";
       this.imgFile = "";
     },
     async uploadAvatar() {

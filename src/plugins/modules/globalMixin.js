@@ -63,12 +63,6 @@ Vue.mixin({
     },
     async $openUserProfile(userId) {
       await this.$router.push({ name: "User", params: { id: userId } });
-    },
-    $getVoiceLink(voiceId) {
-      return `http://localhost:3000/api/uploader/voiceMessages/${voiceId}`;
-    },
-    $getAvatarLink(avatarId) {
-      return `http://localhost:3000/api/uploader/images/avatars/${avatarId}`;
     }
   }
 });

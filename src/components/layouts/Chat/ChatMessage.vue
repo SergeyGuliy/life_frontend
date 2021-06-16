@@ -53,7 +53,7 @@
     <ChatAudio
       class="mt-1"
       v-else
-      :file="$getVoiceLink(message.messageVoice)"
+      :file="message.messageVoice | voiceLink"
     ></ChatAudio>
   </v-card>
 </template>
