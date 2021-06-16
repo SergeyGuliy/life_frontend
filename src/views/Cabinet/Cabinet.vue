@@ -7,7 +7,7 @@
             <div class="body-1">
               Profile settings
             </div>
-            <v-btn>
+            <v-btn @click="saveSettings">
               <v-icon>
                 mdi-content-save
               </v-icon>
@@ -38,7 +38,8 @@
                         class="red"
                         icon
                         @click="clearAvatar"
-                        v-if="imgSrc && hover"
+                        v-show="imgSrc && hover"
+                        :class="{ 'on-hover': hover }"
                         absolute
                       >
                         <v-icon dark>
@@ -104,7 +105,7 @@
                 </v-btn-toggle>
               </v-col>
               <v-col cols="12">
-                <v-btn block>Change password</v-btn>
+                <v-btn block @click="changePassword">Change password</v-btn>
               </v-col>
             </v-row>
           </v-card-actions>
@@ -195,6 +196,7 @@
 
 <script>
 import { COUNTRIES, SOUNDS, LOCALES } from "../../assets/helpers/enums";
+import { api } from "../../assets/helpers/api";
 
 export default {
   name: "Cabinet",
@@ -209,7 +211,8 @@ export default {
       imgSrc: "",
       imgFile: null,
       profileSettings: {
-        avatarImg: null,
+        avatarImgBig: null,
+        avatarImgSmall: null,
         email: null,
         phone: null,
         firstName: null,
@@ -253,6 +256,16 @@ export default {
     clearAvatar() {
       this.imgSrc = "";
       this.imgFile = "";
+    },
+    async uploadAvatar() {
+      const formData = new FormData();
+      formData.append("avatarImg", this.imgFile);
+      let audioId = (await api.uploader.uploadAvatar(formData)).data;
+      console.log(audioId);
+    },
+    changePassword() {},
+    saveSettings() {
+      this.uploadAvatar();
     }
   }
 };

@@ -53,9 +53,7 @@
     <ChatAudio
       class="mt-1"
       v-else
-      :file="
-        `http://localhost:3000/api/uploader/voiceMessages/${message.messageVoice}`
-      "
+      :file="$getVoiceLink(message.messageVoice)"
     ></ChatAudio>
   </v-card>
 </template>

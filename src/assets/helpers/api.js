@@ -43,6 +43,7 @@ export const api = {
   uploader: {
     uploadVoice: async formData =>
       axios.post(`api/uploader/uploadVoice`, formData),
+    uploadAvatar: async formData => axios.post(`api/uploader/images/avatars`, formData),
     getVoice: async voiceMessageId =>
       axios.post(`api/uploader/${voiceMessageId}`)
   }
