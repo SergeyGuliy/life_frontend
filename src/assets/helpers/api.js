@@ -1,50 +1,60 @@
 import axios from "../../plugins/modules/axios";
-
+const { axiosWithAuth, axiosWithoutAuth } = axios;
 export const api = {
   auth: {
-    login: async body => axios.post("api/auth/login", body),
-    registration: async body => axios.post("api/auth/registration", body),
+    login: async body => axiosWithoutAuth.post("api/auth/login", body),
+    registration: async body =>
+      axiosWithoutAuth.post("api/auth/registration", body),
     refreshToken: async (userId, refreshToken) =>
-      axios.post("api/auth/refresh-token", {
+      axiosWithoutAuth.post("api/auth/refresh-token", {
         userId,
         refreshToken
       })
   },
+  userSettings: {
+    changePassword: async ({ oldPassword, newPassword }) =>
+      axiosWithAuth.post("api/auth/change-password", {
+        oldPassword,
+        newPassword
+      })
+  },
   friendship: {
-    getYourFriends: () => axios.get("api/friendship/friends"),
-    getYourConnections: () => axios.get("api/friendship/requests"),
-    sendRequest: receiverId => axios.post(`api/friendship/add/${receiverId}`),
+    getYourFriends: () => axiosWithAuth.get("api/friendship/friends"),
+    getYourConnections: () => axiosWithAuth.get("api/friendship/requests"),
+    sendRequest: receiverId =>
+      axiosWithAuth.post(`api/friendship/add/${receiverId}`),
     acceptRequest: receiverId =>
-      axios.put(`api/friendship/accept/${receiverId}`),
+      axiosWithAuth.put(`api/friendship/accept/${receiverId}`),
     ignoreRequest: receiverId =>
-      axios.put(`api/friendship/ignore/${receiverId}`),
+      axiosWithAuth.put(`api/friendship/ignore/${receiverId}`),
     deleteFromFriends: receiverId =>
-      axios.delete(`api/friendship/delete/${receiverId}`)
+      axiosWithAuth.delete(`api/friendship/delete/${receiverId}`)
   },
   users: {
-    getAllUsers: () => axios.get("api/users"),
-    getById: userId => axios.get(`api/users/${userId}`)
+    getAllUsers: () => axiosWithAuth.get("api/users"),
+    getById: userId => axiosWithAuth.get(`api/users/${userId}`)
   },
   rooms: {
-    create: async roomData => axios.post("api/rooms/create", roomData),
-    getById: async roomId => axios.get(`api/rooms/${roomId}`),
-    getRooms: async params => axios.get("api/rooms/", { params }),
-    leaveRoom: async () => axios.patch("api/rooms/leave"),
+    create: async roomData => axiosWithAuth.post("api/rooms/create", roomData),
+    getById: async roomId => axiosWithAuth.get(`api/rooms/${roomId}`),
+    getRooms: async params => axiosWithAuth.get("api/rooms/", { params }),
+    leaveRoom: async () => axiosWithAuth.patch("api/rooms/leave"),
     joinRoom: async (roomId, roomPassword) =>
-      axios.patch(`api/rooms/join/${roomId}`, {
+      axiosWithAuth.patch(`api/rooms/join/${roomId}`, {
         roomPassword: roomPassword || ""
       })
   },
   chats: {
-    getGlobalMessages: async () => axios.get("api/chats/global"),
-    getRoomMessages: async () => axios.get(`api/chats/room`),
-    getPrivateMessages: async () => axios.get(`api/chats/private`)
+    getGlobalMessages: async () => axiosWithAuth.get("api/chats/global"),
+    getRoomMessages: async () => axiosWithAuth.get(`api/chats/room`),
+    getPrivateMessages: async () => axiosWithAuth.get(`api/chats/private`)
   },
   uploader: {
     uploadVoice: async formData =>
-      axios.post(`api/uploader/uploadVoice`, formData),
-    uploadAvatar: async formData => axios.post(`api/uploader/images/avatars`, formData),
+      axiosWithAuth.post(`api/uploader/uploadVoice`, formData),
+    uploadAvatar: async formData =>
+      axiosWithAuth.post(`api/uploader/images/avatars`, formData),
     getVoice: async voiceMessageId =>
-      axios.post(`api/uploader/${voiceMessageId}`)
+      axiosWithAuth.post(`api/uploader/${voiceMessageId}`)
   }
 };

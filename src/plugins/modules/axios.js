@@ -10,9 +10,10 @@ let config = {
   baseURL: "http://localhost:3000/"
 };
 
-const _axios = axios.create(config);
+const axiosWithAuth = axios.create(config);
+const axiosWithoutAuth = axios.create(config);
 
-_axios.interceptors.request.use(
+axiosWithAuth.interceptors.request.use(
   function(config) {
     const token = localStorage.getItem("accessToken");
     if (token) {
@@ -25,7 +26,7 @@ _axios.interceptors.request.use(
   }
 );
 
-_axios.interceptors.response.use(
+axiosWithAuth.interceptors.response.use(
   function(response) {
     return response;
   },
@@ -35,7 +36,7 @@ _axios.interceptors.response.use(
       originalRequest._retry = true;
       await store.dispatch("auth/refreshToken");
       if (store.state.user.user) {
-        return _axios(originalRequest);
+        return axiosWithAuth(originalRequest);
       }
     } else if (error.response.status === 401) {
       await store.dispatch("auth/logOut");
@@ -45,4 +46,7 @@ _axios.interceptors.response.use(
     }
   }
 );
-export default _axios;
+export default {
+  axiosWithAuth,
+  axiosWithoutAuth
+};

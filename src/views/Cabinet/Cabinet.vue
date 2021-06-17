@@ -1,7 +1,7 @@
 <template>
   <div class="Cabinet">
-<!--    <pre>{{ $user }}</pre>-->
-<!--    <pre>{{ chatSettings }}</pre>-->
+    <!--    <pre>{{ $user }}</pre>-->
+    <!--    <pre>{{ chatSettings }}</pre>-->
     <v-row>
       <v-col cols="12" class="pb-0">
         <v-card class="px-4 py-2">
@@ -267,7 +267,11 @@ export default {
       let audioId = (await api.uploader.uploadAvatar(formData)).data;
       console.log(audioId);
     },
-    changePassword() {},
+    async changePassword() {
+      await this.$openModal("ChangePassword")
+        .then(() => {})
+        .catch(() => {});
+    },
     saveSettings() {
       this.uploadAvatar();
     }
