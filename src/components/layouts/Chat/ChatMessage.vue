@@ -76,9 +76,9 @@ export default {
       x: 0,
       y: 0,
       items: [
-        { title: "btns.openProfile", action: "$openUserProfile" },
-        { title: "btns.writeMessage", action: "$writeMessageToUser" },
-        { title: "btns.addToFriend", action: "$addUserToFriendsList" }
+        { title: "buttons.openProfile", action: "$openUserProfile" },
+        { title: "buttons.writeMessage", action: "$writeMessageToUser" },
+        { title: "buttons.addToFriend", action: "$addUserToFriendsList" }
       ]
     };
   },

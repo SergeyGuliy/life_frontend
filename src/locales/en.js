@@ -26,10 +26,11 @@ export const en = {
     userGameStatus: "User in game status:",
     roomJoinedId: "Room joined ID:"
   },
-  btns: {
+  buttons: {
     join: "Join",
     cancel: "Cancel",
     create: "Create",
+    change: "Change",
     leave: "Leave",
     blockRoom: "Block room",
     deleteRoom: "Delete room",
@@ -65,6 +66,9 @@ export const en = {
     labels: {
       avatarLabel: "Select avatar image",
       passwordLabel: "Enter password",
+      enterOldPassword: "Enter old password",
+      enterNewPassword: "Enter new password",
+      repeatNewPassword: "Repeat new password",
       nameRoomLabel: "Enter room name",
       typeOfRoom: "Select type of room",
       countOfUsers: "Count of users in room",
@@ -111,6 +115,7 @@ export const en = {
     enterRoom: "Enter room",
     enterRoomWithPassword: "To enter room you need to input its password",
     createRoom: "Creating game room",
+    changePassword: "Change password",
     wantLeaveRoom: "Are you sure that you want to leave room?",
     min: "Min",
     max: "Max"

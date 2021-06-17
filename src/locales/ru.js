@@ -26,7 +26,7 @@ export const en = {
     userGameStatus: "User in game status:",
     roomJoinedId: "Room joined ID:"
   },
-  btns: {
+  buttons: {
     join: "Join",
     cancel: "Cancel",
     create: "Create",

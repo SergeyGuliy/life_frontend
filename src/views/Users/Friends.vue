@@ -5,10 +5,10 @@
         <UsersList :users="sortedFriends">
           <template #actions="{userData}">
             <v-btn @click="$openUserProfile(userData.userId)">
-              {{ $t("btns.openProfile") }}
+              {{ $t("buttons.openProfile") }}
             </v-btn>
             <v-btn @click="deleteFromFriends(userData.userId)">
-              {{ $t("btns.deleteFromFriends") }}
+              {{ $t("buttons.deleteFromFriends") }}
             </v-btn>
           </template>
         </UsersList>
@@ -16,7 +16,7 @@
       <v-col cols="6">
         <v-tabs v-model="tab" dark centered>
           <v-tab v-for="(item, index) in tabs" :key="index">
-            {{ $t(`btns.${item}`) }}
+            {{ $t(`buttons.${item}`) }}
           </v-tab>
         </v-tabs>
         <UsersList
@@ -26,7 +26,7 @@
         >
           <template #actions="{userData}">
             <v-btn @click="$openUserProfile(userData.userId)">
-              {{ $t("btns.openProfile") }}
+              {{ $t("buttons.openProfile") }}
             </v-btn>
             <v-btn
               @click="acceptFriendRequest(userData.userId)"
@@ -36,13 +36,13 @@
                 )
               "
             >
-              {{ $t("btns.acceptFriendRequest") }}
+              {{ $t("buttons.acceptFriendRequest") }}
             </v-btn>
             <v-btn
               @click="ignoreFriendRequest(userData.userId)"
               v-if="['connectsIncomingPending'].includes(tabs[tab])"
             >
-              {{ $t("btns.ignoreFriendRequest") }}
+              {{ $t("buttons.ignoreFriendRequest") }}
             </v-btn>
           </template>
         </UsersList>

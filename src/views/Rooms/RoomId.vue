@@ -11,10 +11,10 @@
           >
             <template #actions>
               <v-btn>
-                {{ $t("btns.blockRoom") }}
+                {{ $t("buttons.blockRoom") }}
               </v-btn>
               <v-btn>
-                {{ $t("btns.deleteRoom") }}
+                {{ $t("buttons.deleteRoom") }}
               </v-btn>
             </template>
           </RoomInfo>
@@ -27,22 +27,22 @@
               v-if="userData.roomJoinedId === userData.createdRoomId"
               @click="kickUserFromRoom(userData.userId)"
             >
-              {{ $t("btns.kickUser") }}
+              {{ $t("buttons.kickUser") }}
             </v-btn>
             <v-btn
               v-if="userData.userId !== $user.userId"
               @click="$writeMessageToUser(userData.userId)"
             >
-              {{ $t("btns.writeMessage") }}
+              {{ $t("buttons.writeMessage") }}
             </v-btn>
             <v-btn
               v-if="userData.roomJoinedId === userData.createdRoomId"
               @click="setNewAdminInRoom(userData.userId)"
             >
-              {{ $t("btns.setAdmin") }}
+              {{ $t("buttons.setAdmin") }}
             </v-btn>
             <v-btn @click="$addUserToFriendsList(userData.userId)">
-              {{ $t("btns.addToFriend") }}
+              {{ $t("buttons.addToFriend") }}
             </v-btn>
           </template>
         </UsersList>
@@ -90,8 +90,8 @@ export default {
     } else {
       await this.$openModal("Promt", {
         title: this.$t("modals.wantLeaveRoom"),
-        submit: this.$t("btns.leave"),
-        cancel: this.$t("btns.cancel")
+        submit: this.$t("buttons.leave"),
+        cancel: this.$t("buttons.cancel")
       })
         .then(async () => {
           await this.$store.dispatch("user/leaveRoom");

@@ -27,10 +27,10 @@
         <v-card-actions class="py-4 px-6">
           <v-spacer></v-spacer>
           <v-btn color="danger" @click="close()">
-            {{ $t("btns.cancel") }}
+            {{ $t("buttons.cancel") }}
           </v-btn>
           <v-btn color="primary" @click="enterRoom">
-            {{ $t("btns.join") }}
+            {{ $t("buttons.join") }}
           </v-btn>
         </v-card-actions>
       </v-form>

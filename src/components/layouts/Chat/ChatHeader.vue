@@ -28,8 +28,8 @@ export default {
     async openChatSettingsModal() {
       await this.$openModal("VoiceSettingsModal", {
         title: this.$t("modals.wantLeaveRoom"),
-        submit: this.$t("btns.leave"),
-        cancel: this.$t("btns.cancel")
+        submit: this.$t("buttons.leave"),
+        cancel: this.$t("buttons.cancel")
       })
         .then(async () => {})
         .catch(e => {

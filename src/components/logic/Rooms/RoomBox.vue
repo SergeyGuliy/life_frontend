@@ -3,7 +3,7 @@
     <RoomInfo :roomData="roomData">
       <template #actions="{ roomData }">
         <v-btn block @click="joinRoom(roomData)">
-          {{ $t("btns.join") }}
+          {{ $t("buttons.join") }}
         </v-btn>
         <slot name="actions" :roomData="roomData"></slot>
       </template>
@@ -40,8 +40,8 @@ export default {
       } else {
         await this.$openModal("Promt", {
           title: `${this.$t("modals.enterRoom")} ${roomName} ?`,
-          submit: this.$t("btns.join"),
-          cancel: this.$t("btns.cancel")
+          submit: this.$t("buttons.join"),
+          cancel: this.$t("buttons.cancel")
         })
           .then(() =>
             api.rooms.joinRoom(roomId).then(({ data }) => {

@@ -20,7 +20,7 @@
       </v-col>
       <v-col cols="6">
         <v-btn small block @click="$emit('submit')">
-          {{ $t("btns.search") }}
+          {{ $t("buttons.search") }}
         </v-btn>
       </v-col>
     </v-row>
