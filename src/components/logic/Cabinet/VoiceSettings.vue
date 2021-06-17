@@ -63,7 +63,7 @@
                 <ChatAudio :showVoiceControls="false" :file="item.sound">
                   <template #prepend>
                     <v-col cols="2" class="px-0">
-                      <v-btn icon @click="selectSound(item)">
+                      <v-btn icon @click="selectSound(item.name)">
                         <v-icon>mdi-alarm-plus</v-icon>
                       </v-btn>
                     </v-col>
@@ -122,7 +122,9 @@ export default {
     },
     soundSelected: {
       get() {
-        return this.chatSettings.soundSelected;
+        return this.SOUNDS.find(
+          i => i.name === this.chatSettings.soundSelected
+        );
       },
       set(val) {
         this.$emit("update:chatSettings", {

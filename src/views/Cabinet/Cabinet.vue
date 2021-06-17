@@ -1,5 +1,7 @@
 <template>
   <div class="Cabinet">
+<!--    <pre>{{ $user }}</pre>-->
+<!--    <pre>{{ chatSettings }}</pre>-->
     <v-row>
       <v-col cols="12" class="pb-0">
         <v-card class="px-4 py-2">
@@ -214,7 +216,7 @@
 </template>
 
 <script>
-import { COUNTRIES, SOUNDS, LOCALES } from "../../assets/helpers/enums";
+import { COUNTRIES, LOCALES } from "../../assets/helpers/enums";
 import { api } from "../../assets/helpers/api";
 import { ProfileSettingsParser } from "../../assets/helpers/parsers";
 
@@ -227,27 +229,10 @@ export default {
     return {
       COUNTRIES,
       LOCALES,
-      SOUNDS,
       imgSrc: "",
       imgFile: null,
       profileSettings: null,
-      chatSettings: {
-        global: {
-          isTurnedOn: false,
-          autoplay: false,
-          soundSelected: SOUNDS[0]
-        },
-        room: {
-          isTurnedOn: false,
-          autoplay: false,
-          soundSelected: SOUNDS[0]
-        },
-        private: {
-          isTurnedOn: false,
-          autoplay: false,
-          soundSelected: SOUNDS[0]
-        }
-      }
+      chatSettings: null
     };
   },
   created() {
@@ -266,6 +251,7 @@ export default {
     parseDefaultData() {
       let profileSettings = new ProfileSettingsParser(this.$user);
       this.$set(this, "profileSettings", profileSettings.getProfileSettings);
+      this.$set(this, "chatSettings", profileSettings.getChatSettings);
     },
     clickInput() {
       document.querySelector("#avatarInput").click();
