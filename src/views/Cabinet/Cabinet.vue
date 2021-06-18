@@ -1,16 +1,7 @@
 <template>
   <div class="Cabinet">
     <v-row>
-      <v-col cols="12" class="px-1 pb-1">
-        <v-card class="px-4 py-2">
-          <v-card-text class="d-flex align-center justify-space-between pa-0">
-            <div class="body-1 my-1">
-              {{ $t("pages.cabinet.userProfile") }}
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col class="px-1 pt-0" cols="4">
+      <v-col class="px-1" cols="4">
         <v-card class="pa-2">
           <v-card-actions class="pt-4">
             <v-row>
@@ -75,22 +66,24 @@
               </v-col>
 
               <v-col cols="12" class="py-0">
-                <v-combobox
-                  v-model="profileSettings.locale"
+                <v-select
+                  v-model="$i18n.locale"
                   :menu-props="{ bottom: true, offsetY: true }"
                   :label="$t('forms.labels.locale')"
-                  item-value="key"
-                  :items="LOCALES"
+                  :items="$i18n.availableLocales"
                   outlined
-                  clearable
                 >
                   <template v-slot:selection="slotData">
-                    <v-list-item-content v-text="slotData.item.title" />
+                    <v-list-item-content
+                      v-text="LOCALES.find(i => i.key === slotData.item).title"
+                    />
                   </template>
                   <template v-slot:item="slotData">
-                    <v-list-item-content v-text="slotData.item.title" />
+                    <v-list-item-content
+                      v-text="LOCALES.find(i => i.key === slotData.item).title"
+                    />
                   </template>
-                </v-combobox>
+                </v-select>
               </v-col>
               <v-col
                 cols="12"
@@ -122,7 +115,7 @@
           </v-card-actions>
         </v-card>
       </v-col>
-      <v-col class="px-1 pt-0" cols="8">
+      <v-col class="px-1" cols="8">
         <v-card class="pa-2">
           <v-card-actions class="pt-4">
             <v-row>
@@ -131,7 +124,7 @@
                 class="pt-0 d-flex justify-space-between align-center"
               >
                 <div class="body-1">
-                  {{ $t("pages.cabinet.profileSettings") }}
+                  {{ $t("pages.cabinet.userProfile") }}
                 </div>
                 <v-btn @click="saveSettings">
                   <v-icon>

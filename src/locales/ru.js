@@ -1,5 +1,5 @@
-export const en = {
-  key1: "this is message1",
+export const ru = {
+  key1: "this is",
   layout: {
     main: "Main",
     cabinet: "Cabinet",
@@ -10,9 +10,15 @@ export const en = {
   },
   pages: {
     rooms: {
+      yourFriendsListIsEmpty: "Your friends list is empty.",
       connectsIncomingPending: "Your incoming list or requests is empty.",
       connectsIncomingIgnored: "Your ignored list or requests is empty.",
       connectsOutgoingPending: "Your outgoing requests."
+    },
+    cabinet: {
+      userProfile: "User profile",
+      profileSettings: "Profile settings",
+      chatSettings: "Chat settings"
     }
   },
   misc: {
@@ -28,8 +34,10 @@ export const en = {
   },
   buttons: {
     join: "Join",
+    changePassword: "Изменить пароль",
     cancel: "Cancel",
     create: "Create",
+    change: "Change",
     leave: "Leave",
     blockRoom: "Block room",
     deleteRoom: "Delete room",
@@ -37,7 +45,7 @@ export const en = {
     writeMessage: "Write message",
     setAdmin: "Set admin",
     addToFriend: "Add to friends",
-    createRoom: "Create room",
+    createRoom: "Создать комнату",
     search: "Search",
     acceptFriendRequest: "Accept request",
     ignoreFriendRequest: "Ignore request",
@@ -65,6 +73,9 @@ export const en = {
     labels: {
       avatarLabel: "Select avatar image",
       passwordLabel: "Enter password",
+      enterOldPassword: "Enter old password",
+      enterNewPassword: "Enter new password",
+      repeatNewPassword: "Repeat new password",
       nameRoomLabel: "Enter room name",
       typeOfRoom: "Select type of room",
       countOfUsers: "Count of users in room",
@@ -111,6 +122,7 @@ export const en = {
     enterRoom: "Enter room",
     enterRoomWithPassword: "To enter room you need to input its password",
     createRoom: "Creating game room",
+    changePassword: "Change password",
     wantLeaveRoom: "Are you sure that you want to leave room?",
     min: "Min",
     max: "Max"

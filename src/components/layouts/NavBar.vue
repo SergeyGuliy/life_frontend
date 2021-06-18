@@ -17,7 +17,7 @@
           link
           v-for="(item, index) in LOCALES"
           :key="index"
-          @click="localLocale = item.key"
+          @click="$i18n.locale = item.key"
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
@@ -45,17 +45,6 @@ export default {
         { title: "Russian", key: "ru" }
       ]
     };
-  },
-  computed: {
-    localLocale: {
-      get() {
-        return this.$i18n.locale;
-      },
-      set(val) {
-        console.log(val);
-        this.$i18n.locale = val;
-      }
-    }
   },
   props: {
     value: {

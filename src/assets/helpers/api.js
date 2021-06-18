@@ -16,7 +16,11 @@ export const api = {
       axiosWithAuth.post("api/auth/change-password", {
         oldPassword,
         newPassword
-      })
+      }),
+    changeLocale: async locale =>
+      axiosWithAuth.post("api/auth/change-locale", { locale }),
+    changeTheme: async isDarkTheme =>
+      axiosWithAuth.post("api/auth/change-theme", { isDarkTheme })
   },
   friendship: {
     getYourFriends: () => axiosWithAuth.get("api/friendship/friends"),

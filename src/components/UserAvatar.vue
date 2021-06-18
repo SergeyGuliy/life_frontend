@@ -30,9 +30,6 @@ export default {
         return `${email[0]}`.toUpperCase();
       }
     }
-  },
-  mounted() {
-    console.log(this.userData);
   }
 };
 </script>

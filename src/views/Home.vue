@@ -2,7 +2,7 @@
   <v-container class="home">
     <v-row>
       <v-col cols="6">
-        {{ users }}
+        <pre>{{ $user }}</pre>
       </v-col>
       <v-col cols="6">
         <RoomsController />

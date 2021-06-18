@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { api } from "../assets/helpers/api";
+
 export default {
   name: "mainLayout",
   components: {
@@ -23,6 +25,32 @@ export default {
     return {
       drawer: false
     };
+  },
+  watch: {
+    "$vuetify.theme.dark"(val) {
+      if (this.$user) {
+        api.userSettings
+          .changeTheme(val)
+          .then(data => {
+            console.log(data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      }
+    },
+    "$i18n.locale"(val) {
+      if (this.$user) {
+        api.userSettings
+          .changeLocale(val)
+          .then(data => {
+            console.log(data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      }
+    }
   },
   methods: {
     updateDrawer(value) {
