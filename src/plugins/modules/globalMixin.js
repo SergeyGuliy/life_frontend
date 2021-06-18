@@ -17,6 +17,39 @@ Vue.mixin({
   methods: {
     ...mapActions("modals", ["setModal"]),
 
+    $noti() {
+      const that = this;
+      return {
+        error(message) {
+          that.$notify({
+            group: "foo",
+            type: "error",
+            title: message
+          });
+        },
+        warning(message) {
+          that.$notify({
+            group: "foo",
+            type: "warn",
+            title: message
+          });
+        },
+        success(message) {
+          that.$notify({
+            group: "foo",
+            type: "success",
+            title: message
+          });
+        },
+        info(message) {
+          that.$notify({
+            group: "foo",
+            type: "info",
+            title: message
+          });
+        },
+      };
+    },
     async $logOutMiddleware() {
       if (this.$route.name === "RoomId") {
         await this.$openModal("Promt", {

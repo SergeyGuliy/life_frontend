@@ -13,6 +13,11 @@ export const en = {
       connectsIncomingPending: "Your incoming list or requests is empty.",
       connectsIncomingIgnored: "Your ignored list or requests is empty.",
       connectsOutgoingPending: "Your outgoing requests."
+    },
+    cabinet: {
+      userProfile: "User profile",
+      profileSettings: "Profile settings",
+      chatSettings: "Chat settings"
     }
   },
   misc: {
@@ -28,6 +33,7 @@ export const en = {
   },
   buttons: {
     join: "Join",
+    changePassword: "Change password",
     cancel: "Cancel",
     create: "Create",
     change: "Change",

@@ -1,82 +1,77 @@
 <template>
-  <v-card>
-    <v-row class="VoiceSettings px-4">
+  <v-row class="VoiceSettings px-4">
+    <v-col cols="12" class="py-0">
+      <v-switch
+        class="mt-0"
+        inset
+        v-model="isTurnedOn"
+        flat
+        :label="
+          isTurnedOn
+            ? $t(`forms.labels.${type}.soundEnabling.enable`)
+            : $t(`forms.labels.${type}.soundEnabling.disable`)
+        "
+      ></v-switch>
+    </v-col>
+    <template v-if="isTurnedOn">
       <v-col cols="12" class="py-0">
         <v-switch
           class="mt-0"
           inset
-          v-model="isTurnedOn"
+          v-model="autoplay"
           flat
           :label="
-            isTurnedOn
-              ? $t(`forms.labels.${type}.soundEnabling.enable`)
-              : $t(`forms.labels.${type}.soundEnabling.disable`)
+            autoplay
+              ? $t(`forms.labels.${type}.autoplayEnabling.enable`)
+              : $t(`forms.labels.${type}.autoplayEnabling.disable`)
           "
         ></v-switch>
       </v-col>
-      <template v-if="isTurnedOn">
-        <v-col cols="12" class="py-0">
-          <v-switch
-            class="mt-0"
-            inset
-            v-model="autoplay"
-            flat
-            :label="
-              autoplay
-                ? $t(`forms.labels.${type}.autoplayEnabling.enable`)
-                : $t(`forms.labels.${type}.autoplayEnabling.disable`)
-            "
-          ></v-switch>
-        </v-col>
-        <v-col cols="12" class="">
-          <v-menu
-            :close-on-content-click="false"
-            class="lang-selector"
-            auto
-            v-model="isOpen"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-list-item class="pa-0">
-                <ChatAudio
-                  :showVoiceControls="false"
-                  :file="soundSelected.sound"
-                >
-                  <template #prepend>
-                    <v-col cols="2" class="px-0">
-                      <v-btn icon v-bind="attrs" v-on="on">
-                        <v-icon>mdi-arrow-down</v-icon>
-                      </v-btn>
-                    </v-col>
-                  </template>
-                </ChatAudio>
-              </v-list-item>
-            </template>
-            <v-list class="lang-selector__list">
-              <v-list-item
-                link
-                class="pa-0"
-                v-for="(item, index) in SOUNDS.filter(
-                  i => i.name !== soundSelected.name
-                )"
-                :key="index"
-              >
-                <ChatAudio :showVoiceControls="false" :file="item.sound">
-                  <template #prepend>
-                    <v-col cols="2" class="px-0">
-                      <v-btn icon @click="selectSound(item.name)">
-                        <v-icon>mdi-alarm-plus</v-icon>
-                      </v-btn>
-                    </v-col>
-                  </template>
-                </ChatAudio>
-                <!--                      <v-list-item-title>{{ item.name }}</v-list-item-title>-->
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-col>
-      </template>
-    </v-row>
-  </v-card>
+      <v-col cols="12" class="">
+        <v-menu
+          :close-on-content-click="false"
+          class="lang-selector"
+          auto
+          v-model="isOpen"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-list-item class="pa-0">
+              <ChatAudio :showVoiceControls="false" :file="soundSelected.sound">
+                <template #prepend>
+                  <v-col cols="2" class="px-0">
+                    <v-btn icon v-bind="attrs" v-on="on">
+                      <v-icon>mdi-arrow-down</v-icon>
+                    </v-btn>
+                  </v-col>
+                </template>
+              </ChatAudio>
+            </v-list-item>
+          </template>
+          <v-list class="lang-selector__list">
+            <v-list-item
+              link
+              class="pa-0"
+              v-for="(item, index) in SOUNDS.filter(
+                i => i.name !== soundSelected.name
+              )"
+              :key="index"
+            >
+              <ChatAudio :showVoiceControls="false" :file="item.sound">
+                <template #prepend>
+                  <v-col cols="2" class="px-0">
+                    <v-btn icon @click="selectSound(item.name)">
+                      <v-icon>mdi-alarm-plus</v-icon>
+                    </v-btn>
+                  </v-col>
+                </template>
+              </ChatAudio>
+              <!--                      <v-list-item-title>{{ item.name }}</v-list-item-title>-->
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-col>
+    </template>
+  </v-row>
 </template>
 
 <script>

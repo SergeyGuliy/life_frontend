@@ -124,9 +124,15 @@ export default {
   methods: {
     async changePassword() {
       if (this.$refs.changePassword.validate()) {
-        const { data } = await api.userSettings.changePassword(this.formData);
-        console.log(data);
-        // this.close(data);
+        await api.userSettings
+          .changePassword(this.formData)
+          .then(() => {
+            this.$noti().info("ffff");
+            this.close(true);
+          })
+          .catch(() => {
+            this.$noti().error("ffff");
+          });
       }
     }
   }
