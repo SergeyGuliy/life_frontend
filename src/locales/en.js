@@ -10,6 +10,7 @@ export const en = {
   },
   pages: {
     rooms: {
+      yourFriendsListIsEmpty: "Your friends list is empty.",
       connectsIncomingPending: "Your incoming list or requests is empty.",
       connectsIncomingIgnored: "Your ignored list or requests is empty.",
       connectsOutgoingPending: "Your outgoing requests."

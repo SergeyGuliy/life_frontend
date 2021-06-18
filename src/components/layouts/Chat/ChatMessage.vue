@@ -13,15 +13,11 @@
     <v-card-actions>
       <v-list-item class="pa-0">
         <v-list-item-avatar color="grey darken-3 my-0">
-          <v-img class="elevation-6" :src="message.messageSender" />
+          <UserAvatar :userData="message.messageSender" />
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="d-flex justify-space-between">
-            <span>{{
-              message.messageSender.userId === $user.userId
-                ? "Me"
-                : message.messageSender.firstName
-            }}</span>
+            <span>{{ getChatWriterName }}</span>
             <span>{{ message.createdAt | chatDate }}</span>
           </v-list-item-title>
         </v-list-item-content>
@@ -50,11 +46,9 @@
     <v-card-text class="py-2" v-if="message.messageType === 'TEXT'">
       <p>{{ message.messageText }}</p>
     </v-card-text>
-    <ChatAudio
-      class="mt-1"
-      v-else
-      :file="message.messageVoice | voiceLink"
-    ></ChatAudio>
+    <v-card-text class="pt-1 pb-4 px-1" v-else>
+      <ChatAudio class="mt-1" :file="message.messageVoice | voiceLink" />
+    </v-card-text>
   </v-card>
 </template>
 
@@ -62,7 +56,8 @@
 export default {
   name: "ChatMessage",
   components: {
-    ChatAudio: () => import("./ChatAudio")
+    ChatAudio: () => import("./ChatAudio"),
+    UserAvatar: () => import("../../UserAvatar")
   },
   props: {
     message: {
@@ -87,6 +82,13 @@ export default {
   },
   beforeDestroy() {
     this.$bus.off("click-outside", this.hideContextMenu);
+  },
+  computed: {
+    getChatWriterName() {
+      return this.message.messageSender.userId === this.$user.userId
+        ? "Me"
+        : this.message.messageSender.firstName;
+    }
   },
   methods: {
     showContextMenu(e) {

@@ -1,51 +1,66 @@
 <template>
   <div class="Friends">
     <v-row>
-      <v-col cols="6">
-        <UsersList :users="sortedFriends">
-          <template #actions="{userData}">
-            <v-btn @click="$openUserProfile(userData.userId)">
-              {{ $t("buttons.openProfile") }}
-            </v-btn>
-            <v-btn @click="deleteFromFriends(userData.userId)">
-              {{ $t("buttons.deleteFromFriends") }}
-            </v-btn>
-          </template>
-        </UsersList>
+      <v-col cols="4" class="px-1">
+        <v-card class="pa-0">
+          <v-card-text class="pa-0">
+            <div class="body-1 py-3 px-4">
+              {{ $t("pages.cabinet.profileSettings") }}
+            </div>
+            <UsersList
+              :users="sortedFriends"
+              :emptyText="$t(`pages.rooms.yourFriendsListIsEmpty`)"
+            >
+              <template #actions="{userData}">
+                <v-btn @click="$openUserProfile(userData.userId)">
+                  {{ $t("buttons.openProfile") }}
+                </v-btn>
+                <v-btn @click="deleteFromFriends(userData.userId)">
+                  {{ $t("buttons.deleteFromFriends") }}
+                </v-btn>
+              </template>
+            </UsersList>
+          </v-card-text>
+        </v-card>
       </v-col>
-      <v-col cols="6">
-        <v-tabs v-model="tab" dark centered>
-          <v-tab v-for="(item, index) in tabs" :key="index">
-            {{ $t(`buttons.${item}`) }}
-          </v-tab>
-        </v-tabs>
-        <UsersList
-          v-if="activeTabList"
-          :users="activeTabList"
-          :emptyText="activeTabListEmptyList"
-        >
-          <template #actions="{userData}">
-            <v-btn @click="$openUserProfile(userData.userId)">
-              {{ $t("buttons.openProfile") }}
-            </v-btn>
-            <v-btn
-              @click="acceptFriendRequest(userData.userId)"
-              v-if="
-                ['connectsIncomingPending', 'connectsIncomingIgnored'].includes(
-                  tabs[tab]
-                )
-              "
+      <v-col cols="8" class="px-1">
+        <v-card class="pa-0">
+          <v-card-text class="pa-0">
+            <v-tabs v-model="tab" centered>
+              <v-tab v-for="(item, index) in tabs" :key="index">
+                {{ $t(`buttons.${item}`) }}
+              </v-tab>
+            </v-tabs>
+            <UsersList
+              v-if="activeTabList"
+              :users="activeTabList"
+              :emptyText="activeTabListEmptyList"
             >
-              {{ $t("buttons.acceptFriendRequest") }}
-            </v-btn>
-            <v-btn
-              @click="ignoreFriendRequest(userData.userId)"
-              v-if="['connectsIncomingPending'].includes(tabs[tab])"
-            >
-              {{ $t("buttons.ignoreFriendRequest") }}
-            </v-btn>
-          </template>
-        </UsersList>
+              <template #actions="{userData}">
+                <v-btn @click="$openUserProfile(userData.userId)">
+                  {{ $t("buttons.openProfile") }}
+                </v-btn>
+                <v-btn
+                  @click="acceptFriendRequest(userData.userId)"
+                  v-if="
+                    [
+                      'connectsIncomingPending',
+                      'connectsIncomingIgnored'
+                    ].includes(tabs[tab])
+                  "
+                >
+                  {{ $t("buttons.acceptFriendRequest") }}
+                </v-btn>
+                <v-btn
+                  @click="ignoreFriendRequest(userData.userId)"
+                  v-if="['connectsIncomingPending'].includes(tabs[tab])"
+                >
+                  {{ $t("buttons.ignoreFriendRequest") }}
+                </v-btn>
+              </template>
+            </UsersList>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </div>
