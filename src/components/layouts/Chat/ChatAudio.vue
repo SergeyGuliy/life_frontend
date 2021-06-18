@@ -4,9 +4,9 @@
     style="text-align: center; flex: 1 1 auto"
     :flat="flat == undefined || flat == false ? false : true"
   >
-    <v-card-text class="" v-if="loaded">
-      <v-row class="align-center py-2">
-        <v-col cols="2" class="pa-0">
+    <v-card-text class="pa-0" v-if="loaded">
+      <v-row class="align-center px-2 py-1">
+        <v-col cols="2" class="pa-0 ">
           <v-btn
             outlined
             icon

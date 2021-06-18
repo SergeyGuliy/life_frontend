@@ -27,7 +27,7 @@
           "
         ></v-switch>
       </v-col>
-      <v-col cols="12" class="">
+      <v-col cols="12" class="pt-0">
         <v-menu
           :close-on-content-click="false"
           class="lang-selector"

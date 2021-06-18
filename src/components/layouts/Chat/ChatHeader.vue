@@ -4,7 +4,7 @@
     <v-spacer></v-spacer>
     <v-btn @click="openChatSettingsModal" color="blue darken-2" class="mr-2">
       <v-icon>
-        mdi-message-cog
+        mdi-message-settings-variant
       </v-icon>
     </v-btn>
     <v-btn @click="$emit('input', !value)" color="blue darken-2">

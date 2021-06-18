@@ -12,9 +12,9 @@
         </template>
       </UserBox>
     </template>
-    <v-card class="UserBox" v-else-if="emptyText">
+    <div class="UserBox" v-else-if="emptyText">
       <v-card-text>{{ emptyText }}</v-card-text>
-    </v-card>
+    </div>
   </div>
 </template>
 

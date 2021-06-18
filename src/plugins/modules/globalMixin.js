@@ -47,7 +47,7 @@ Vue.mixin({
             type: "info",
             title: message
           });
-        },
+        }
       };
     },
     async $logOutMiddleware() {
