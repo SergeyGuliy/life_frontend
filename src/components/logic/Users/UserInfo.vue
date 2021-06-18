@@ -1,7 +1,7 @@
 <template>
   <div class="UserInfo">
     <div class="d-flex align-center">
-      <v-card-title class="py-0">{{ getUserName }} </v-card-title>
+      <v-card-title class="py-0">{{ userData | getUserName }} </v-card-title>
       <v-spacer></v-spacer>
 
       <v-chip
@@ -57,14 +57,6 @@ export default {
     }
   },
   computed: {
-    getUserName() {
-      if (this.userData.firstName || this.userData.lastName) {
-        return `
-        ${this.userData.firstName || ""} ${this.userData.lastName || ""}
-        `;
-      }
-      return this.userData.email;
-    },
     isRoomAdmin() {
       return (
         typeof this.userData.roomJoinedId === "number" &&
