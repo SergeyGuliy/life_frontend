@@ -56,6 +56,14 @@ const routes = [
     }
   },
   {
+    path: "/messages",
+    name: "Messages",
+    component: () => import("../views/Messages"),
+    meta: {
+      layout: "mainLayout"
+    }
+  },
+  {
     path: "/friends",
     name: "Friends",
     component: () => import("../views/Users/Friends"),

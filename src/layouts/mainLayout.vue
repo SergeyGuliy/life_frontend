@@ -17,7 +17,7 @@ import { api } from "../assets/helpers/api";
 export default {
   name: "mainLayout",
   components: {
-    SideBar: () => import("../components/layouts/SideBar"),
+    SideBar: () => import("../components/layouts/SideBar/SideBar"),
     NavBar: () => import("../components/layouts/NavBar"),
     Chat: () => import("../components/layouts/Chat/Chat")
   },

@@ -8,10 +8,6 @@
 <script>
 export default {
   name: "Closer",
-  components: {},
-  async mounted() {
-    this.$vuetify.theme.dark = false;
-  },
   methods: {
     async goForward() {
       await this.$store.dispatch("auth/refreshToken");
