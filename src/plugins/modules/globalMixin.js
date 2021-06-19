@@ -72,18 +72,24 @@ Vue.mixin({
       clearLocalStorageKeys();
       await this.$router.push({ name: "Auth" });
     },
-    async $changeTheme() {
-      try {
-        this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-      } catch (e) {
-        console.log(`Error while trying to change theme: ${e}`);
-      }
+    $changeTheme(theme) {
+      setTimeout(() => {
+        if (typeof theme === "boolean") {
+          this.$vuetify.theme.dark = theme;
+        } else {
+          this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+        }
+      }, 0);
     },
+    $changeLocale(locale) {
+      this.$i18n.locale = locale
+    },
+
     $writeMessageToUser(userId) {
       this.$bus.emit("writeMessageToUser", userId);
     },
-    $addUserToFriendsList(userId) {
-      api.friendship
+    async $addUserToFriendsList(userId) {
+      await api.friendship
         .sendRequest(userId)
         .then(() => {})
         .catch(e => {

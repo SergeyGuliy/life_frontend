@@ -7,9 +7,8 @@
 <script>
 export default {
   name: "authLayout",
-  components: {},
-  data() {
-    return {};
+  mounted() {
+    this.$vuetify.theme.dark = false;
   }
 };
 </script>

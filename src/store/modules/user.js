@@ -1,5 +1,5 @@
 import { api } from "../../assets/helpers/api";
-import Vue from "vue";
+import { myVue } from "../../main";
 import { setLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
 
 export default {
@@ -29,11 +29,13 @@ export default {
   actions: {
     async setUserData({ commit }, data) {
       try {
+        const { locale, isDarkTheme } = data.userData.userSettings;
+        myVue.$changeTheme(isDarkTheme);
+        myVue.$changeLocale(locale);
         commit("setUser", data);
-        Vue.prototype.$socket.connect();
+        myVue.$socket.connect();
       } catch (e) {
-        console.log(`Error in store action 'setUserData': ${e}`);
-        throw e;
+        console.log(e);
       }
     },
     async leaveRoom({ commit }) {

@@ -1,6 +1,6 @@
 import router from "../../router";
 import { api } from "../../assets/helpers/api";
-import Vue from "vue";
+import { myVue } from "../../main";
 import { clearLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
 
 export default {
@@ -46,7 +46,7 @@ export default {
     async logOut({ commit }) {
       try {
         commit("user/cleanUser", "", { root: true });
-        Vue.prototype.$socket.close();
+        myVue.$socket.close();
         await router.push({ name: "Auth" });
       } catch (e) {
         commit("user/cleanUser", "", { root: true });

@@ -17,7 +17,7 @@
           link
           v-for="(item, index) in LOCALES"
           :key="index"
-          @click="$i18n.locale = item.key"
+          @click="$changeLocale(item.key)"
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>

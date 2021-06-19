@@ -13,6 +13,6 @@ export default {
   },
   actions: {
     // eslint-disable-next-line no-unused-vars
-    async setUserData({ commit }, data) {}
+    async fff({ commit }, data) {}
   }
 };

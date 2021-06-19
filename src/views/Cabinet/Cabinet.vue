@@ -72,6 +72,7 @@
                   :label="$t('forms.labels.locale')"
                   :items="$i18n.availableLocales"
                   outlined
+                  @input="$changeLocale"
                 >
                   <template v-slot:selection="slotData">
                     <v-list-item-content
