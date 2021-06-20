@@ -1,5 +1,5 @@
 <template>
-  <v-tabs v-model="activeChatLocal">
+  <v-tabs v-model="activeChatLocal" :vertical="vertical">
     <v-tabs-slider color="yellow"></v-tabs-slider>
 
     <v-tab
@@ -30,6 +30,10 @@ export default {
     value: {
       required: true,
       type: String
+    },
+    vertical: {
+      default: () => false,
+      type: Boolean
     }
   },
   computed: {
