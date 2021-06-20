@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="RoomFilter pa-0">
+  <div fluid class="RoomFilter pa-0">
     <v-text-field v-model="roomName" dense label="Outlined" outlined />
     <v-row class="my-1">
       <v-col cols="6" class="d-flex">
@@ -24,7 +24,7 @@
         </v-btn>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>

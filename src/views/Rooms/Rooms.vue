@@ -1,5 +1,5 @@
 <template>
-  <div class="Rooms">
+  <div class="Rooms container__inner">
     Rooms
     <pre>{{ $store.getters["dictionaries/getUsers"][2] }}</pre>
   </div>

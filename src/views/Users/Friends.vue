@@ -1,5 +1,5 @@
 <template>
-  <div class="Friends">
+  <div class="Friends container__inner">
     <v-row>
       <v-col cols="4" class="px-1">
         <v-card class="pa-0">

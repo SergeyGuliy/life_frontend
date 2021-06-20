@@ -1,5 +1,5 @@
 <template>
-  <div class="Users">
+  <div class="Users container__inner">
     Users
   </div>
 </template>

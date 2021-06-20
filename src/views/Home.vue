@@ -1,5 +1,5 @@
 <template>
-  <v-container class="home">
+  <div class="home container__inner">
     <v-row>
       <v-col cols="6">
         <pre>{{ $user }}</pre>
@@ -8,14 +8,15 @@
         <RoomsController />
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
 export default {
   name: "Home",
   components: {
-    RoomsController: () => import("../components/components/Rooms/RoomsController")
+    RoomsController: () =>
+      import("../components/components/Rooms/RoomsController")
   },
   data() {
     return {

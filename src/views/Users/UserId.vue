@@ -1,5 +1,5 @@
 <template>
-  <div class="UserId">UsersId {{ $route.params.id }}</div>
+  <div class="UserId container__inner">UsersId {{ $route.params.id }}</div>
 </template>
 
 <script>

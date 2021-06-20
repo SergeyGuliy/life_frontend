@@ -1,5 +1,5 @@
 <template>
-  <div class="Cabinet">
+  <div class="cabinet container__inner">
     <v-row>
       <v-col class="px-1" cols="4">
         <v-card class="pa-2">
@@ -220,7 +220,8 @@ import { ProfileSettingsParser } from "../../assets/helpers/parsers";
 export default {
   name: "Cabinet",
   components: {
-    VoiceSettings: () => import("../../components/components/Cabinet/VoiceSettings")
+    VoiceSettings: () =>
+      import("../../components/components/Cabinet/VoiceSettings")
   },
   data() {
     return {
@@ -275,8 +276,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.Cabinet {
-}
-</style>

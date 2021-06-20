@@ -1,5 +1,5 @@
 <template>
-  <div class="RoomId" v-if="roomData">
+  <div class="RoomId container__inner" v-if="roomData">
     <v-row>
       <v-col cols="6">
         <v-card>
