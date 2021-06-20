@@ -8,7 +8,11 @@
         :href="`#${chatTab}`"
       >
         <v-card-text class="chat-body pa-0">
-          <v-list ref="chat" id="logs" class="chat-body__inner">
+          <v-list
+            ref="chat"
+            id="logs"
+            :class="{ 'chat-body__inner-small': isSmall }"
+          >
             <ChatMessage
               v-for="(message, index) in $chats[activeChat].messages"
               :key="index"
@@ -31,6 +35,10 @@ export default {
     activeChat: {
       required: true,
       type: String
+    },
+    isSmall: {
+      default: () => true,
+      type: Boolean
     }
   }
 };
@@ -38,10 +46,10 @@ export default {
 
 <style lang="scss">
 .chat-body {
-  &__inner {
-    /*min-height: 500px;*/
-    /*max-height: 500px;*/
-    /*overflow: auto;*/
+  .chat-body__inner-small {
+    min-height: 500px;
+    max-height: 500px;
+    overflow: auto;
   }
 }
 </style>
