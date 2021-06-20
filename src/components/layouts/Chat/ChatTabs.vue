@@ -3,7 +3,7 @@
     <v-tabs-slider color="yellow"></v-tabs-slider>
 
     <v-tab
-      v-for="(chatTab, index) in chatTabs"
+      v-for="(chatTab, index) in $chatTabs"
       :key="index"
       class="ma-0"
       :href="`#${chatTab}`"
@@ -19,14 +19,6 @@ const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 export default {
   name: "ChatTabs",
   props: {
-    chatTabs: {
-      required: true,
-      type: Array
-    },
-    chats: {
-      required: true,
-      type: Object
-    },
     value: {
       required: true,
       type: String
@@ -51,12 +43,12 @@ export default {
   },
   methods: {
     chatTabName(chatTab) {
-      if (this.chats[chatTab].key === GLOBAL) {
+      if (this.$chats[chatTab].key === GLOBAL) {
         return this.$t(`enums.${GLOBAL}`);
-      } else if (this.chats[chatTab].key === ROOM) {
+      } else if (this.$chats[chatTab].key === ROOM) {
         return this.$t(`enums.${ROOM}`);
-      } else if (this.chats[chatTab].key === PRIVATE) {
-        return this.$getUserName(this.chats[chatTab].userData);
+      } else if (this.$chats[chatTab].key === PRIVATE) {
+        return this.$getUserName(this.$chats[chatTab].userData);
       }
     }
   }

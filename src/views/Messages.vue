@@ -1,27 +1,18 @@
 <template>
-  <div class="Messages">
-    <v-row>
-      <v-col class="px-1" cols="4">
+  <div class="messages container__inner">
+    <v-row class="messages__row fill-height">
+      <v-col class="px-1 messages__col" cols="4">
         <v-card class="pa-2">
           <v-card-text class="pa-1">
-            <ChatTabs
-              v-model="activeChat"
-              :vertical="true"
-              :chatTabs="$chatTabs"
-              :chats="$chats"
-            />
+            <ChatTabs v-model="activeChat" :vertical="true" />
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col class="px-1" cols="8">
-        <v-card class="pa-2">
-          <v-card-text class="pa-1">
-            <ChatBody
-              :activeChat="activeChat"
-              :chatTabs="$chatTabs"
-              :chats="$chats"
-            />
-            <ChatForm :activeChat="activeChat" :chats="$chats" />
+      <v-col class="px-1 messages__col" cols="8">
+        <v-card class="pa-2 messages__card">
+          <v-card-text class="pa-1 messages__card-text">
+            <ChatBody :activeChat="activeChat" />
+            <ChatForm :activeChat="activeChat" />
           </v-card-text>
         </v-card>
       </v-col>
@@ -64,6 +55,26 @@ export default {
 </script>
 
 <style lang="scss">
-.Messages {
+.messages {
+  width: 100%;
+  .messages__row {
+  }
+  .messages__col {
+    max-height: 100%;
+    height: 100%;
+  }
+  .messages__card {
+    max-height: 100%;
+    height: 100%;
+  }
+  .messages__card-text{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .py-2.px-4{
+      overflow: auto;
+      flex: 1 1 auto;
+    }
+  }
 }
 </style>

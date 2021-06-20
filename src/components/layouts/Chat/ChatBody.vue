@@ -3,14 +3,14 @@
     <v-tabs-items v-model="activeChat">
       <v-tab-item
         :value="chatTab"
-        v-for="(chatTab, index) in chatTabs"
+        v-for="(chatTab, index) in $chatTabs"
         :key="index"
         :href="`#${chatTab}`"
       >
         <v-card-text class="chat-body pa-0">
           <v-list ref="chat" id="logs" class="chat-body__inner">
             <ChatMessage
-              v-for="(message, index) in chats[activeChat].messages"
+              v-for="(message, index) in $chats[activeChat].messages"
               :key="index"
               :message="message"
             />
@@ -31,15 +31,17 @@ export default {
     activeChat: {
       required: true,
       type: String
-    },
-    chats: {
-      required: true,
-      type: Object
-    },
-    chatTabs: {
-      required: true,
-      type: Array
     }
   }
 };
 </script>
+
+<style lang="scss">
+.chat-body {
+  &__inner {
+    /*min-height: 500px;*/
+    /*max-height: 500px;*/
+    /*overflow: auto;*/
+  }
+}
+</style>

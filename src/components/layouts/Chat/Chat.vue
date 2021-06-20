@@ -20,16 +20,12 @@
         </v-icon>
       </v-btn>
     </template>
-<!--    <pre>{{$chatTabs}}</pre>-->
+    <!--    <pre>{{$chatTabs}}</pre>-->
     <v-card class="elevation-12" width="500">
       <ChatHeader v-model="isChatOpened" />
-      <ChatTabs v-model="activeChat" :chatTabs="$chatTabs" :chats="$chats" />
-      <ChatBody
-        :activeChat="activeChat"
-        :chatTabs="$chatTabs"
-        :chats="$chats"
-      />
-      <ChatForm :activeChat="activeChat" :chats="$chats" />
+      <ChatTabs v-model="activeChat" />
+      <ChatBody :activeChat="activeChat" />
+      <ChatForm :activeChat="activeChat" />
     </v-card>
   </v-menu>
 </template>
@@ -68,13 +64,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.chat-body {
-  &__inner {
-    min-height: 500px;
-    max-height: 500px;
-    overflow: auto;
-  }
-}
-</style>

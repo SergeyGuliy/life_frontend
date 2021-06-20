@@ -81,10 +81,6 @@ export default {
     activeChat: {
       required: true,
       type: String
-    },
-    chats: {
-      required: true,
-      type: Object
     }
   },
   data() {
@@ -125,7 +121,7 @@ export default {
         messageData.messageText = this.newMessage;
       }
       if (activeChat === ROOM) {
-        messageData.messageReceiverRoomId = this.chats[ROOM].roomId;
+        messageData.messageReceiverRoomId = this.$chats[ROOM].roomId;
       }
       if (activeChat === PRIVATE) {
         messageData.messageReceiverUserId = this.$chat.getUserIdFromChatKey(

@@ -67,8 +67,15 @@ export default {
   .v-main {
     min-height: 100%;
   }
-  /*.container {*/
-  /*  min-height: 100%;*/
-  /*}*/
+  .container {
+    width: 100%;
+    min-height: 100%;
+    max-height: calc(100vh - 64px);
+    display: flex;
+    /*overflow: auto;*/
+  }
+  .container__inner{
+    width: 100%;
+  }
 }
 </style>
