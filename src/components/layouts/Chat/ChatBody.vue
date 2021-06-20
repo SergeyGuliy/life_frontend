@@ -13,7 +13,6 @@
               v-for="(message, index) in chats[activeChat].messages"
               :key="index"
               :message="message"
-              @writeMessageToUser="$emit('writeMessageToUser', $event)"
             />
           </v-list>
         </v-card-text>

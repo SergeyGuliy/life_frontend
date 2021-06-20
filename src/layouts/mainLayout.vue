@@ -6,16 +6,18 @@
       <v-container>
         <slot />
       </v-container>
-      <Chat />
+      <Chat v-if="$route.name !== 'Messages'" />
     </v-main>
   </div>
 </template>
 
 <script>
 import { api } from "../assets/helpers/api";
+import chatLogic from "../mixins/chatLogic";
 
 export default {
   name: "mainLayout",
+  mixins: [chatLogic],
   components: {
     SideBar: () => import("../components/layouts/SideBar/SideBar"),
     NavBar: () => import("../components/layouts/NavBar"),
@@ -32,7 +34,7 @@ export default {
         api.userSettings
           .changeTheme(val)
           .then(data => {
-            console.log(data);
+            console.log(data.data);
           })
           .catch(e => {
             console.log(e);
@@ -44,7 +46,7 @@ export default {
         api.userSettings
           .changeLocale(val)
           .then(data => {
-            console.log(data);
+            console.log(data.data);
           })
           .catch(e => {
             console.log(e);

@@ -12,6 +12,12 @@ Vue.mixin({
   computed: {
     $user() {
       return this.$store.state.user?.user;
+    },
+    $chats() {
+      return this.$store.state.chats?.chats;
+    },
+    $chatTabs() {
+      return Object.keys(this.$chats);
     }
   },
   methods: {
@@ -82,7 +88,7 @@ Vue.mixin({
       }, 0);
     },
     $changeLocale(locale) {
-      this.$i18n.locale = locale
+      this.$i18n.locale = locale;
     },
 
     $writeMessageToUser(userId) {
