@@ -90,7 +90,7 @@ export default {
     }
   },
   components: {
-    ChatAudio: () => import("../../../components/layouts/Chat/ChatAudio")
+    ChatAudio: () => import("../../layouts/Chat/ChatAudio")
   },
   computed: {
     isTurnedOn: {

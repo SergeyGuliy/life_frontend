@@ -58,8 +58,8 @@ import { api } from "../../assets/helpers/api";
 export default {
   name: "RoomId",
   components: {
-    RoomInfo: () => import("../../components/logic/Rooms/RoomInfo"),
-    UsersList: () => import("../../components/logic/Users/UsersList")
+    RoomInfo: () => import("../../components/components/Rooms/RoomInfo"),
+    UsersList: () => import("../../components/components/Users/UsersList")
   },
   data() {
     return {

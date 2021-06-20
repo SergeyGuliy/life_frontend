@@ -220,7 +220,7 @@ import { ProfileSettingsParser } from "../../assets/helpers/parsers";
 export default {
   name: "Cabinet",
   components: {
-    VoiceSettings: () => import("../../components/logic/Cabinet/VoiceSettings")
+    VoiceSettings: () => import("../../components/components/Cabinet/VoiceSettings")
   },
   data() {
     return {

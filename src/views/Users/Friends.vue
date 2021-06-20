@@ -73,7 +73,7 @@ import { api } from "../../assets/helpers/api";
 export default {
   name: "Friends",
   components: {
-    UsersList: () => import("../../components/logic/Users/UsersList")
+    UsersList: () => import("../../components/components/Users/UsersList")
   },
   data() {
     return {

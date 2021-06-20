@@ -38,7 +38,7 @@ export default {
   name: "VoiceSettingsModal",
   mixins: [modal],
   components: {
-    VoiceSettings: () => import("../logic/Cabinet/VoiceSettings")
+    VoiceSettings: () => import("../components/Cabinet/VoiceSettings")
   },
   data() {
     return {
