@@ -20,17 +20,17 @@
       </v-chip>
     </div>
     <v-card-subtitle class="py-0">
-      {{ $t("misc.roomId") }} {{ roomData.roomId }}
+      {{ $t("UI.roomId") }} {{ roomData.roomId }}
     </v-card-subtitle>
     <v-card-text class="text--primary d-flex">
       <div class="mr-2">
-        {{ $t("misc.min") }} {{ roomData.minCountOfUsers }}
+        {{ $t("UI.min") }} {{ roomData.minCountOfUsers }}
       </div>
       <div class="mr-2">
-        {{ $t("misc.max") }} {{ roomData.maxCountOfUsers }}
+        {{ $t("UI.max") }} {{ roomData.maxCountOfUsers }}
       </div>
       <div class="mr-2">
-        {{ $t("misc.current") }} {{ roomData.usersInRoomLength }}
+        {{ $t("UI.current") }} {{ roomData.usersInRoomLength }}
       </div>
     </v-card-text>
 

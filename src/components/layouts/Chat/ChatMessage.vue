@@ -57,7 +57,7 @@ export default {
   name: "ChatMessage",
   components: {
     ChatAudio: () => import("./ChatAudio"),
-    UserAvatar: () => import("../../UserAvatar")
+    UserAvatar: () => import("../../UI/UserAvatar")
   },
   props: {
     message: {

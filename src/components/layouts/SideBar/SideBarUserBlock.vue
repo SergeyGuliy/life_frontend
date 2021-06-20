@@ -15,7 +15,7 @@
 export default {
   name: "SideBarUserBlock",
   components: {
-    UserAvatar: () => import("../../UserAvatar")
+    UserAvatar: () => import("../../UI/UserAvatar")
   }
 };
 </script>
