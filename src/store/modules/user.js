@@ -7,9 +7,6 @@ export default {
   state: {
     user: null
   },
-  getters: {
-    isLoggedIn: state => !!state.user
-  },
   mutations: {
     setUser(state, { userData, accessToken, refreshToken }) {
       setLocalStorageKeys({ accessToken, refreshToken, userData });
@@ -24,6 +21,18 @@ export default {
     },
     leaveRoom(state) {
       state.user.roomJoinedId = null;
+    },
+    setProfileSettings(state, settings) {
+      state.user = {
+        ...state.user,
+        ...settings
+      };
+    },
+    setUserSettings(state, settings) {
+      state.user.userSettings = {
+        ...state.user.userSettings,
+        ...settings
+      };
     }
   },
   actions: {
@@ -36,6 +45,14 @@ export default {
         myVue.$socket.connect();
       } catch (e) {
         console.log(e);
+      }
+    },
+    async updateUserSettings({ commit }, { profileSettings, userSettings }) {
+      if (profileSettings) {
+        commit("setProfileSettings", profileSettings);
+      }
+      if (userSettings) {
+        commit("setUserSettings", userSettings);
       }
     },
     async leaveRoom({ commit }) {

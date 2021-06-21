@@ -22,7 +22,7 @@
     </template>
     <!--    <pre>{{$chatTabs}}</pre>-->
     <v-card class="elevation-12" width="500">
-      <ChatHeader v-model="isChatOpened" />
+      <ChatHeader v-model="isChatOpened" :activeChat="activeChat" />
       <ChatTabs v-model="activeChat" />
       <ChatBody :activeChat="activeChat" />
       <ChatForm :activeChat="activeChat" />

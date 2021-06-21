@@ -3,6 +3,7 @@ import Vue from "vue";
 import { LOCALES, COUNTRIES } from "../../assets/helpers/enums";
 import { api } from "../../assets/helpers/api";
 import { clearLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
+import { ProfileSettingsParser } from "../../assets/helpers/parsers";
 
 Vue.mixin({
   enums: {
@@ -23,6 +24,9 @@ Vue.mixin({
   methods: {
     ...mapActions("modals", ["setModal"]),
 
+    async $updateUserSettings(settings) {
+      await ProfileSettingsParser.pushNewUserSettings(settings);
+    },
     $noti() {
       const that = this;
       return {

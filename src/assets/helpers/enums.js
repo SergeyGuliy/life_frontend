@@ -3,6 +3,11 @@ export const MESSAGE_RECEIVER_TYPES = {
   ROOM: "ROOM",
   PRIVATE: "PRIVATE"
 };
+export const MESSAGES_TYPES_MAP = {
+  GLOBAL: "global",
+  ROOM: "room",
+  PRIVATE: "private"
+};
 export const MESSAGE_TYPES = {
   TEXT: "TEXT",
   VOICE: "VOICE"

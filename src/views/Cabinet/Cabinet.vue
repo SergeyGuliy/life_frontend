@@ -52,10 +52,10 @@
               </v-col>
               <v-col cols="12" class="py-0">
                 <v-file-input
+                  v-if="!(imgFile || profileSettings.avatarBig)"
                   id="avatarInput"
                   :label="$t('forms.labels.avatarLabel')"
                   outlined
-                  clearable
                   show-size
                   prepend-icon=""
                   append-icon="mdi-camera"
@@ -63,6 +63,24 @@
                   accept="image/png, image/jpeg, image/bmp"
                   v-model="imgFile"
                 ></v-file-input>
+                <div v-else class="d-flex mb-8">
+                  <v-btn
+                    x-large
+                    class="flex-grow-1 mr-1"
+                    color="error"
+                    @click="clearAvatar"
+                  >
+                    {{ $t("buttons.delete") }}
+                  </v-btn>
+                  <v-btn
+                    x-large
+                    class="flex-grow-1 ml-1"
+                    color="green"
+                    @click="uploadAvatar"
+                  >
+                    {{ $t("buttons.upload") }}
+                  </v-btn>
+                </div>
               </v-col>
 
               <v-col cols="12" class="py-0">
@@ -86,29 +104,36 @@
                   </template>
                 </v-select>
               </v-col>
-              <v-col
-                cols="12"
-                class="d-flex align-center justify-space-between"
-              >
-                <div class="body-1">
-                  Select theme color
-                </div>
-                <v-btn-toggle
+              <v-col cols="12" class="py-0">
+                <v-select
                   v-model="$vuetify.theme.dark"
-                  dense
-                  mandatory
-                  type="Boolean"
+                  :menu-props="{ bottom: true, offsetY: true }"
+                  :label="$t('forms.labels.theme')"
+                  :items="[true, false]"
+                  outlined
                 >
-                  <v-btn light :value="false" class="black--text">
-                    Light
-                  </v-btn>
-                  <v-btn dark :value="true">
-                    Dark
-                  </v-btn>
-                </v-btn-toggle>
+                  <template v-slot:selection="{ item }">
+                    <v-list-item-content
+                      v-text="
+                        item
+                          ? $t('forms.labels.dark')
+                          : $t('forms.labels.light')
+                      "
+                    />
+                  </template>
+                  <template v-slot:item="{ item }">
+                    <v-list-item-content
+                      v-text="
+                        item
+                          ? $t('forms.labels.dark')
+                          : $t('forms.labels.light')
+                      "
+                    />
+                  </template>
+                </v-select>
               </v-col>
               <v-col cols="12">
-                <v-btn block @click="changePassword">
+                <v-btn color="primary" large block @click="changePassword">
                   {{ $t("buttons.changePassword") }}
                 </v-btn>
               </v-col>
@@ -127,7 +152,7 @@
                 <div class="body-1">
                   {{ $t("pages.cabinet.userProfile") }}
                 </div>
-                <v-btn @click="saveSettings">
+                <v-btn color="green" @click="saveSettings">
                   <v-icon>
                     mdi-content-save
                   </v-icon>
@@ -237,6 +262,12 @@ export default {
     this.parseDefaultData();
   },
   watch: {
+    $user: {
+      deep: true,
+      handler() {
+        this.parseDefaultData();
+      }
+    },
     imgFile(val) {
       if (val && typeof val === "object") {
         this.imgSrc = URL.createObjectURL(val);
@@ -258,20 +289,22 @@ export default {
       this.imgSrc = "";
       this.profileSettings.avatarBig = "";
       this.imgFile = "";
+      this.uploadAvatar();
     },
     async uploadAvatar() {
       const formData = new FormData();
       formData.append("avatarImg", this.imgFile);
-      let audioId = (await api.uploader.uploadAvatar(formData)).data;
-      console.log(audioId);
+      let data = (await api.uploader.uploadAvatar(formData)).data;
+      this.$store.commit("user/setProfileSettings", data);
     },
     async changePassword() {
-      await this.$openModal("ChangePassword")
-        .then(() => {})
-        .catch(() => {});
+      await this.$openModal("ChangePassword").catch(() => {});
     },
-    saveSettings() {
-      this.uploadAvatar();
+    async saveSettings() {
+      await this.$updateUserSettings({
+        chatSettings: this.chatSettings,
+        profileSettings: this.profileSettings
+      });
     }
   }
 };

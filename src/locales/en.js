@@ -34,10 +34,13 @@ export const en = {
   },
   buttons: {
     join: "Join",
+    delete: "delete",
+    upload: "upload",
     changePassword: "Change password",
     cancel: "Cancel",
     create: "Create",
     change: "Change",
+    save: "Save",
     leave: "Leave",
     blockRoom: "Block room",
     deleteRoom: "Delete room",
@@ -71,6 +74,8 @@ export const en = {
   },
   forms: {
     labels: {
+      dark: 'Dark',
+      light: 'Light',
       avatarLabel: "Select avatar image",
       passwordLabel: "Enter password",
       enterOldPassword: "Enter old password",
@@ -85,6 +90,7 @@ export const en = {
       lastName: "Enter your last name",
       country: "Select your country",
       locale: "Select your in game language",
+      theme: "Select theme color",
       global: {
         soundEnabling: {
           enable: "Global chat messages sound turned on",
@@ -120,6 +126,7 @@ export const en = {
   },
   modals: {
     enterRoom: "Enter room",
+    voiceTitle: "Sound settings of chat",
     enterRoomWithPassword: "To enter room you need to input its password",
     createRoom: "Creating game room",
     changePassword: "Change password",

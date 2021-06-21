@@ -20,8 +20,13 @@
 </template>
 
 <script>
-import { MESSAGE_RECEIVER_TYPES } from "../../../assets/helpers/enums";
+import {
+  MESSAGE_RECEIVER_TYPES,
+  MESSAGES_TYPES_MAP
+} from "../../../assets/helpers/enums";
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
+import { ProfileSettingsParser } from "../../../assets/helpers/parsers";
+
 export default {
   name: "ChatHeader",
   props: {
@@ -57,16 +62,22 @@ export default {
         return this.$getUserName(this.$chats[chatTab].userData);
       }
     },
+    getChatType(chatKey) {
+      if ([GLOBAL, ROOM].includes(chatKey)) {
+        return MESSAGES_TYPES_MAP[chatKey];
+      } else {
+        return MESSAGES_TYPES_MAP[PRIVATE];
+      }
+    },
     async openChatSettingsModal() {
+      const chatType = this.getChatType(this.activeChat);
+      let { chatSettings } = new ProfileSettingsParser(this.$user);
       await this.$openModal("VoiceSettingsModal", {
-        title: this.$t("modals.wantLeaveRoom"),
-        submit: this.$t("buttons.leave"),
-        cancel: this.$t("buttons.cancel")
-      })
-        .then(async () => {})
-        .catch(e => {
-          console.log(e);
-        });
+        chatType,
+        chatSettings
+      }).catch(e => {
+        console.log(e);
+      });
     }
   }
 };

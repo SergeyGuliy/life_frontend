@@ -8,21 +8,22 @@
     <v-card>
       <v-form>
         <v-card-title class="pb-6">
-          {{ data.title }}
+          {{ $t("modals.voiceTitle") }}
         </v-card-title>
         <v-card-text>
           <VoiceSettings
-            :chatSettings.sync="chatSettings.global"
-            type="global"
+            v-if="chatSettings"
+            :chatSettings.sync="getActiveChat"
+            :type="data.chatType"
           />
         </v-card-text>
         <v-card-actions class="py-4 px-6">
           <v-spacer></v-spacer>
           <v-btn color="danger" @click="close()">
-            {{ data.cancel }}
+            {{ $t("buttons.cancel") }}
           </v-btn>
-          <v-btn color="primary" @click="close(true)">
-            {{ data.submit }}
+          <v-btn color="primary" @click="updateUserSettings">
+            {{ $t("buttons.save") }}
           </v-btn>
         </v-card-actions>
       </v-form>
@@ -32,7 +33,8 @@
 
 <script>
 import modal from "../../mixins/modal";
-import { sounds } from "../../assets/helpers/enums";
+import { SOUNDS } from "../../assets/helpers/enums";
+import { cloneDeep } from "lodash";
 
 export default {
   name: "VoiceSettingsModal",
@@ -42,14 +44,29 @@ export default {
   },
   data() {
     return {
-      chatSettings: {
-        global: {
-          isTurnedOn: false,
-          autoplay: false,
-          soundSelected: sounds[0]
-        }
-      }
+      SOUNDS,
+      chatSettings: null
     };
+  },
+  computed: {
+    getActiveChat: {
+      get() {
+        return this.chatSettings[this.data.chatType];
+      },
+      set(val) {
+        this.$set(this.chatSettings, this.data.chatType, cloneDeep(val));
+      }
+    }
+  },
+  created() {
+    this.$set(this, "chatSettings", cloneDeep(this.data.chatSettings));
+  },
+  methods: {
+    updateUserSettings() {
+      this.$updateUserSettings({ chatSettings: this.chatSettings }).then(() =>
+        this.close()
+      );
+    }
   }
 };
 </script>

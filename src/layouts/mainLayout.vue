@@ -33,8 +33,8 @@ export default {
       if (this.$user) {
         api.userSettings
           .changeTheme(val)
-          .then(data => {
-            console.log(data.data);
+          .then(({ data }) => {
+            this.$store.commit("user/setUserSettings", data);
           })
           .catch(e => {
             console.log(e);
@@ -45,8 +45,8 @@ export default {
       if (this.$user) {
         api.userSettings
           .changeLocale(val)
-          .then(data => {
-            console.log(data.data);
+          .then(({ data }) => {
+            this.$store.commit("user/setUserSettings", data);
           })
           .catch(e => {
             console.log(e);
@@ -74,7 +74,7 @@ export default {
     display: flex;
     /*overflow: auto;*/
   }
-  .container__inner{
+  .container__inner {
     width: 100%;
   }
 }
