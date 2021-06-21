@@ -1,8 +1,5 @@
 <template>
-  <v-card class="RoomsController pa-2">
-    <div class="body-1 mb-4">
-      List of Chats
-    </div>
+  <div class="RoomsController">
     <v-btn block @click="createRoomHandler" class="mb-2">
       {{ $t("buttons.createRoom") }}
     </v-btn>
@@ -19,7 +16,7 @@
         </v-btn>
       </template>
     </RoomsList>
-  </v-card>
+  </div>
 </template>
 
 <script>

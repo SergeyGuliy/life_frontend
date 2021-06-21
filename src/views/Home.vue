@@ -1,13 +1,11 @@
 <template>
-  <div class="home container__inner">
-    <v-row>
-      <v-col cols="6">
-      </v-col>
-      <v-col cols="6">
-        <RoomsController />
-      </v-col>
-    </v-row>
-  </div>
+  <Grid>
+    <template #leftCol> </template>
+    <template #rightCol>
+      <Title :title="$t('pages.rooms.roomsList')" />
+      <RoomsController />
+    </template>
+  </Grid>
 </template>
 
 <script>

@@ -1,27 +1,17 @@
 <template>
-  <div class="messages container__inner">
-    <v-row class="messages__row fill-height">
-      <v-col class="px-1 messages__col" cols="4">
-        <v-card class="pa-2">
-          <v-card-text class="pa-1">
-            <div class="body-1 mb-4">
-              List of Chats
-            </div>
-            <ChatTabs v-model="activeChat" :vertical="true" />
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col class="px-1 messages__col" cols="8">
-        <v-card class="pa-0 messages__card">
-          <v-card-text class="pa-0 messages__card-text">
-            <ChatHeader :showClose="false" :activeChat="activeChat" />
-            <ChatBody :activeChat="activeChat" :isSmall="false" />
-            <ChatForm :activeChat="activeChat" />
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </div>
+  <Grid class="messages" :leftCol="[4]" :rightCol="[8]">
+    <template #leftCol>
+      <Title :title="$t('pages.rooms.roomsFilter')" />
+      <ChatTabs v-model="activeChat" :vertical="true" />
+    </template>
+    <template #rightCol>
+      <div class="messages__body">
+        <ChatHeader :showClose="false" :activeChat="activeChat" />
+        <ChatBody :activeChat="activeChat" :isSmall="false" />
+        <ChatForm :activeChat="activeChat" />
+      </div>
+    </template>
+  </Grid>
 </template>
 
 <script>
@@ -62,18 +52,10 @@ export default {
 <style lang="scss">
 .messages {
   width: 100%;
-  .messages__row {
+  .grid__card--rightCol {
+    padding: 0 !important;
   }
-  .messages__col {
-    max-height: 100%;
-    height: 100%;
-  }
-  .messages__card {
-    max-height: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-  .messages__card-text {
+  .messages__body {
     height: 100%;
     display: flex;
     flex-direction: column;

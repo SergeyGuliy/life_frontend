@@ -74,8 +74,5 @@ export default {
     display: flex;
     /*overflow: auto;*/
   }
-  .container__inner {
-    width: 100%;
-  }
 }
 </style>

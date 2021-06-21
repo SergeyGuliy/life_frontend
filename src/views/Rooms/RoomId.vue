@@ -1,55 +1,50 @@
 <template>
-  <div class="RoomId container__inner" v-if="roomData">
-    <v-row>
-      <v-col cols="6">
-        <v-card>
-          <RoomInfo
-            :roomData="{
-              ...roomData,
-              usersInRoomLength: usersInRoom.length
-            }"
+  <Grid v-if="roomData">
+    <template #leftCol>
+      <RoomInfo
+        :roomData="{
+          ...roomData,
+          usersInRoomLength: usersInRoom.length
+        }"
+      >
+        <template #actions>
+          <v-btn>
+            {{ $t("buttons.blockRoom") }}
+          </v-btn>
+          <v-btn>
+            {{ $t("buttons.deleteRoom") }}
+          </v-btn>
+        </template>
+      </RoomInfo>
+    </template>
+    <template #rightCol>
+      <UsersList :users="usersInRoom" :showUserRoomInfo="true">
+        <template #actions="{userData}">
+          <v-btn
+            v-if="userData.roomJoinedId === userData.createdRoomId"
+            @click="kickUserFromRoom(userData.userId)"
           >
-            <template #actions>
-              <v-btn>
-                {{ $t("buttons.blockRoom") }}
-              </v-btn>
-              <v-btn>
-                {{ $t("buttons.deleteRoom") }}
-              </v-btn>
-            </template>
-          </RoomInfo>
-        </v-card>
-      </v-col>
-      <v-col cols="6">
-        <UsersList :users="usersInRoom" :showUserRoomInfo="true">
-          <template #actions="{userData}">
-            <v-btn
-              v-if="userData.roomJoinedId === userData.createdRoomId"
-              @click="kickUserFromRoom(userData.userId)"
-            >
-              {{ $t("buttons.kickUser") }}
-            </v-btn>
-            <v-btn
-              v-if="userData.userId !== $user.userId"
-              @click="$writeMessageToUser(userData.userId)"
-            >
-              {{ $t("buttons.writeMessage") }}
-            </v-btn>
-            <v-btn
-              v-if="userData.roomJoinedId === userData.createdRoomId"
-              @click="setNewAdminInRoom(userData.userId)"
-            >
-              {{ $t("buttons.setAdmin") }}
-            </v-btn>
-            <v-btn @click="$addUserToFriendsList(userData.userId)">
-              {{ $t("buttons.addToFriend") }}
-            </v-btn>
-          </template>
-        </UsersList>
-      </v-col>
-    </v-row>
-    <pre>{{ roomData }}</pre>
-  </div>
+            {{ $t("buttons.kickUser") }}
+          </v-btn>
+          <v-btn
+            v-if="userData.userId !== $user.userId"
+            @click="$writeMessageToUser(userData.userId)"
+          >
+            {{ $t("buttons.writeMessage") }}
+          </v-btn>
+          <v-btn
+            v-if="userData.roomJoinedId === userData.createdRoomId"
+            @click="setNewAdminInRoom(userData.userId)"
+          >
+            {{ $t("buttons.setAdmin") }}
+          </v-btn>
+          <v-btn @click="$addUserToFriendsList(userData.userId)">
+            {{ $t("buttons.addToFriend") }}
+          </v-btn>
+        </template>
+      </UsersList>
+    </template>
+  </Grid>
 </template>
 
 <script>
@@ -122,8 +117,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.RoomId {
-}
-</style>

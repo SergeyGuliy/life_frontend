@@ -8,21 +8,20 @@ export const en = {
     logout: "LogOut"
   },
   pages: {
-    rooms: {
+    friends: {
       yourFriendsListIsEmpty: "Your friends list is empty.",
       connectsIncomingPending: "Your incoming list or requests is empty.",
       connectsIncomingIgnored: "Your ignored list or requests is empty.",
       connectsOutgoingPending: "Your outgoing requests."
     },
+    rooms: {
+      roomsFilter: "Rooms filter",
+      roomsList: "List of rooms"
+    },
     cabinet: {
       userProfile: "User profile",
       profileSettings: "Profile settings",
       chatSettings: "Chat settings"
-    }
-  },
-  components: {
-    rooms: {
-
     }
   },
   misc: {
@@ -125,8 +124,7 @@ export const en = {
           disable: "Private chat messages autoplay turned off"
         }
       }
-    },
-    rules: {}
+    }
   },
   modals: {
     enterRoom: "Enter room",
@@ -135,7 +133,5 @@ export const en = {
     createRoom: "Creating game room",
     changePassword: "Change password",
     wantLeaveRoom: "Are you sure that you want to leave room?",
-    min: "Min",
-    max: "Max"
   }
 };

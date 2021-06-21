@@ -16,6 +16,7 @@ import "./modules/moment";
 import "./modules/globalMixin";
 import "./modules/globalFilters";
 import "./modules/vuePropotype";
+import "./modules/globalComponents";
 
 Vue.config.productionTip = false;
 

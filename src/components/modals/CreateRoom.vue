@@ -71,7 +71,7 @@
                     outlined
                     dense
                     disabled
-                    :label="$t('UI.min')"
+                    :label="$t('misc.min')"
                     :value="calculatedCountUsers[0]"
                     class="mt-0 pt-0 mr-3"
                     hide-details
@@ -84,7 +84,7 @@
                     outlined
                     dense
                     disabled
-                    :label="$t('UI.max')"
+                    :label="$t('misc.max')"
                     :value="calculatedCountUsers[1]"
                     class="mt-0 pt-0 ml-3"
                     hide-details

@@ -1,38 +1,28 @@
 <template>
-  <div class="rooms container__inner">
-    <v-row>
-      <v-col class="px-1" cols="6">
-        <v-card class="pa-2">
-          <div class="body-1 mb-4">
-            List of Chats
-          </div>
-          <v-btn block @click="createRoomHandler" class="mb-2">
-            {{ $t("buttons.createRoom") }}
+  <Grid>
+    <template #leftCol>
+      <Title :title="$t('pages.rooms.roomsFilter')" />
+      <v-btn block @click="createRoomHandler" class="mb-2">
+        {{ $t("buttons.createRoom") }}
+      </v-btn>
+      <RoomFilter
+        :filterData="filterData"
+        @submit="fetchRooms"
+        @update:roomName="filterData.roomName = $event"
+        @update:typeOfRoom="filterData.typeOfRoom = $event"
+      />
+    </template>
+    <template #rightCol>
+      <Title :title="$t('pages.rooms.roomsList')" />
+      <RoomsList :rooms="rooms">
+        <template #actions="{ roomData }">
+          <v-btn @click="joinRoom(roomData)">
+            {{ $t("buttons.join") }}
           </v-btn>
-          <RoomFilter
-            :filterData="filterData"
-            @submit="fetchRooms"
-            @update:roomName="filterData.roomName = $event"
-            @update:typeOfRoom="filterData.typeOfRoom = $event"
-          />
-        </v-card>
-      </v-col>
-      <v-col class="px-1" cols="6">
-        <v-card class="pa-2">
-          <div class="body-1 mb-4">
-            List of Chats
-          </div>
-          <RoomsList :rooms="rooms">
-            <template #actions="{ roomData }">
-              <v-btn @click="joinRoom(roomData)">
-                {{ $t("buttons.join") }}
-              </v-btn>
-            </template>
-          </RoomsList>
-        </v-card>
-      </v-col>
-    </v-row>
-  </div>
+        </template>
+      </RoomsList>
+    </template>
+  </Grid>
 </template>
 
 <script>
@@ -47,8 +37,3 @@ export default {
   mixins: [roomLogic]
 };
 </script>
-
-<style lang="scss">
-.rooms {
-}
-</style>

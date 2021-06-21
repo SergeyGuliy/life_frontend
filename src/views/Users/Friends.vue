@@ -1,69 +1,56 @@
 <template>
-  <div class="Friends container__inner">
-    <v-row>
-      <v-col cols="4" class="px-1">
-        <v-card class="pa-0">
-          <v-card-text class="pa-0">
-            <div class="body-1 py-3 px-4">
-              {{ $t("pages.cabinet.profileSettings") }}
-            </div>
-            <UsersList
-              :users="sortedFriends"
-              :emptyText="$t(`pages.rooms.yourFriendsListIsEmpty`)"
-            >
-              <template #actions="{userData}">
-                <v-btn @click="$openUserProfile(userData.userId)">
-                  {{ $t("buttons.openProfile") }}
-                </v-btn>
-                <v-btn @click="deleteFromFriends(userData.userId)">
-                  {{ $t("buttons.deleteFromFriends") }}
-                </v-btn>
-              </template>
-            </UsersList>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="8" class="px-1">
-        <v-card class="pa-0">
-          <v-card-text class="pa-0">
-            <v-tabs v-model="tab" centered>
-              <v-tab v-for="(item, index) in tabs" :key="index">
-                {{ $t(`buttons.${item}`) }}
-              </v-tab>
-            </v-tabs>
-            <UsersList
-              v-if="activeTabList"
-              :users="activeTabList"
-              :emptyText="activeTabListEmptyList"
-            >
-              <template #actions="{userData}">
-                <v-btn @click="$openUserProfile(userData.userId)">
-                  {{ $t("buttons.openProfile") }}
-                </v-btn>
-                <v-btn
-                  @click="acceptFriendRequest(userData.userId)"
-                  v-if="
-                    [
-                      'connectsIncomingPending',
-                      'connectsIncomingIgnored'
-                    ].includes(tabs[tab])
-                  "
-                >
-                  {{ $t("buttons.acceptFriendRequest") }}
-                </v-btn>
-                <v-btn
-                  @click="ignoreFriendRequest(userData.userId)"
-                  v-if="['connectsIncomingPending'].includes(tabs[tab])"
-                >
-                  {{ $t("buttons.ignoreFriendRequest") }}
-                </v-btn>
-              </template>
-            </UsersList>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </div>
+  <Grid>
+    <template #leftCol>
+      <Title :title="$t('pages.cabinet.profileSettings')" />
+      <UsersList
+        :users="sortedFriends"
+        :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
+      >
+        <template #actions="{userData}">
+          <v-btn @click="$openUserProfile(userData.userId)">
+            {{ $t("buttons.openProfile") }}
+          </v-btn>
+          <v-btn @click="deleteFromFriends(userData.userId)">
+            {{ $t("buttons.deleteFromFriends") }}
+          </v-btn>
+        </template>
+      </UsersList>
+    </template>
+    <template #rightCol>
+      <v-tabs v-model="tab" centered>
+        <v-tab v-for="(item, index) in tabs" :key="index">
+          {{ $t(`buttons.${item}`) }}
+        </v-tab>
+      </v-tabs>
+      <UsersList
+        v-if="activeTabList"
+        :users="activeTabList"
+        :emptyText="activeTabListEmptyList"
+      >
+        <template #actions="{userData}">
+          <v-btn @click="$openUserProfile(userData.userId)">
+            {{ $t("buttons.openProfile") }}
+          </v-btn>
+          <v-btn
+            @click="acceptFriendRequest(userData.userId)"
+            v-if="
+              ['connectsIncomingPending', 'connectsIncomingIgnored'].includes(
+                tabs[tab]
+              )
+            "
+          >
+            {{ $t("buttons.acceptFriendRequest") }}
+          </v-btn>
+          <v-btn
+            @click="ignoreFriendRequest(userData.userId)"
+            v-if="['connectsIncomingPending'].includes(tabs[tab])"
+          >
+            {{ $t("buttons.ignoreFriendRequest") }}
+          </v-btn>
+        </template>
+      </UsersList>
+    </template>
+  </Grid>
 </template>
 
 <script>
@@ -89,7 +76,7 @@ export default {
   },
   computed: {
     activeTabListEmptyList() {
-      return this.$t(`pages.rooms.${this.tabs[this.tab]}`);
+      return this.$t(`pages.friends.${this.tabs[this.tab]}`);
     },
     activeTabList() {
       return this[this.tabs[this.tab]];
@@ -209,8 +196,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.Friends {
-}
-</style>
