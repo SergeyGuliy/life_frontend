@@ -14,6 +14,18 @@ export default {
     },
     setConnections(state, connects) {
       Vue.set(state, "connects", connects);
+    },
+    addFriend(state, friend) {
+      state.friends.push(friend);
+    },
+    deleteConnection(state, indexToDelete) {
+      Vue.delete(state.connects, indexToDelete);
+    },
+    updateConnection(state, { indexToUpdate, data }) {
+      Vue.set(state.connects, indexToUpdate, data);
+    },
+    deleteFriend(state, indexToDelete) {
+      Vue.delete(state.friends, indexToDelete);
     }
   }
 };

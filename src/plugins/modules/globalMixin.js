@@ -122,11 +122,11 @@ Vue.mixin({
     async $deleteFromFriends(userId) {
       await api.friendship
         .deleteFromFriends(userId)
-        .then(data => {
-          const indexToDelete = this.friends.findIndex(
-            i => i.friendshipsId === data.data.friendshipsId
+        .then(({ data }) => {
+          const indexToDelete = this.$friendsRequests.findIndex(
+            i => i.friendshipsId === data.friendshipsId
           );
-          this.$delete(this.friends, indexToDelete);
+          this.$store.commit("friends/deleteFriend", indexToDelete);
         })
         .catch(e => {
           this.$notify({

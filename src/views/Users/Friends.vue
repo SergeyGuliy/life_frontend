@@ -64,8 +64,6 @@ export default {
   },
   data() {
     return {
-      friends: [],
-      connects: [],
       tabs: [
         "connectsIncomingPending",
         "connectsIncomingIgnored",
@@ -75,14 +73,14 @@ export default {
     };
   },
   computed: {
-    activeTabListEmptyList() {
-      return this.$t(`pages.friends.${this.tabs[this.tab]}`);
-    },
     activeTabList() {
       return this[this.tabs[this.tab]];
     },
+    activeTabListEmptyList() {
+      return this.$t(`pages.friends.${this.tabs[this.tab]}`);
+    },
     connectsInPending() {
-      return this.connects.filter(
+      return this.$connects.filter(
         i => i.friendshipsStatus === FRIENDSHIP_STATUSES.PENDING
       );
     },
@@ -99,7 +97,7 @@ export default {
         .map(i => i.friendshipReceiver);
     },
     connectsInIgnored() {
-      return this.connects.filter(
+      return this.$connects.filter(
         i => i.friendshipsStatus === FRIENDSHIP_STATUSES.IGNORED
       );
     },
@@ -113,12 +111,12 @@ export default {
     async acceptFriendRequest(userId) {
       await api.friendship
         .acceptRequest(userId)
-        .then(data => {
-          const indexToDelete = this.connects.findIndex(
-            i => i.friendshipsId === data.data.friendshipsId
+        .then(({ data }) => {
+          const indexToDelete = this.$connects.findIndex(
+            i => i.friendshipsId === data.friendshipsId
           );
-          this.$delete(this.connects, indexToDelete);
-          this.friends.push(data.data);
+          this.$store.commit("friends/deleteConnection", indexToDelete);
+          this.$store.commit("friends/addFriend", data);
         })
         .catch(e => {
           this.$notify({
@@ -131,11 +129,14 @@ export default {
     async ignoreFriendRequest(userId) {
       await api.friendship
         .ignoreRequest(userId)
-        .then(data => {
-          const indexToUpdate = this.connects.findIndex(
-            i => i.friendshipsId === data.data.friendshipsId
+        .then(({ data }) => {
+          const indexToUpdate = this.$connects.findIndex(
+            i => i.friendshipsId === data.friendshipsId
           );
-          this.$set(this.connects, indexToUpdate, data.data);
+          this.$store.commit("friends/updateConnection", {
+            indexToUpdate,
+            data
+          });
         })
         .catch(e => {
           this.$notify({
