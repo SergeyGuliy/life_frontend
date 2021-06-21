@@ -1,6 +1,21 @@
 <template>
   <Grid>
-    <template #leftCol> </template>
+    <template #leftCol>
+      <Title :title="$t('pages.cabinet.profileSettings')" />
+      <UsersList
+        :users="$friends"
+        :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
+      >
+        <template #actions="{userData}">
+          <v-btn @click="$openUserProfile(userData.userId)">
+            {{ $t("buttons.openProfile") }}
+          </v-btn>
+          <v-btn @click="$deleteFromFriends(userData.userId)">
+            {{ $t("buttons.deleteFromFriends") }}
+          </v-btn>
+        </template>
+      </UsersList>
+    </template>
     <template #rightCol>
       <Title :title="$t('pages.rooms.roomsList')" />
       <RoomsController />
@@ -13,7 +28,8 @@ export default {
   name: "Home",
   components: {
     RoomsController: () =>
-      import("../components/components/Rooms/RoomsController")
+      import("../components/components/Rooms/RoomsController"),
+    UsersList: () => import("../components/components/Users/UsersList")
   },
   data() {
     return {

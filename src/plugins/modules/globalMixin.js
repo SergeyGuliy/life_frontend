@@ -1,15 +1,10 @@
 import { mapActions } from "vuex";
 import Vue from "vue";
-import { LOCALES, COUNTRIES } from "../../assets/helpers/enums";
 import { api } from "../../assets/helpers/api";
 import { clearLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
 import { ProfileSettingsParser } from "../../assets/helpers/parsers";
 
 Vue.mixin({
-  enums: {
-    LOCALES,
-    COUNTRIES
-  },
   computed: {
     $user() {
       return this.$store.state.user?.user;
@@ -19,6 +14,20 @@ Vue.mixin({
     },
     $chatTabs() {
       return Object.keys(this.$chats);
+    },
+    $friendsRequests() {
+      return this.$store.state.friends?.friends;
+    },
+    $friends() {
+      return this.$friendsRequests.map(i => {
+        const { friendshipReceiver, friendshipSender } = i;
+        return +friendshipReceiver.userId === +this.$user.userId
+          ? friendshipSender
+          : friendshipReceiver;
+      });
+    },
+    $connects() {
+      return this.$store.state.friends?.connects;
     }
   },
   methods: {
@@ -102,6 +111,23 @@ Vue.mixin({
       await api.friendship
         .sendRequest(userId)
         .then(() => {})
+        .catch(e => {
+          this.$notify({
+            group: "foo",
+            type: "warn",
+            title: e.response.data.message
+          });
+        });
+    },
+    async $deleteFromFriends(userId) {
+      await api.friendship
+        .deleteFromFriends(userId)
+        .then(data => {
+          const indexToDelete = this.friends.findIndex(
+            i => i.friendshipsId === data.data.friendshipsId
+          );
+          this.$delete(this.friends, indexToDelete);
+        })
         .catch(e => {
           this.$notify({
             group: "foo",

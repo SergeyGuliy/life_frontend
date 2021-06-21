@@ -132,6 +132,6 @@ export const en = {
     enterRoomWithPassword: "To enter room you need to input its password",
     createRoom: "Creating game room",
     changePassword: "Change password",
-    wantLeaveRoom: "Are you sure that you want to leave room?",
+    wantLeaveRoom: "Are you sure that you want to leave room?"
   }
 };

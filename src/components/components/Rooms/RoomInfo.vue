@@ -23,8 +23,12 @@
       {{ $t("misc.roomId") }} {{ roomData.roomId }}
     </v-card-subtitle>
     <v-card-text class="text--primary d-flex">
-      <div class="mr-2">{{ $t("misc.min") }} {{ roomData.minCountOfUsers }}</div>
-      <div class="mr-2">{{ $t("misc.max") }} {{ roomData.maxCountOfUsers }}</div>
+      <div class="mr-2">
+        {{ $t("misc.min") }} {{ roomData.minCountOfUsers }}
+      </div>
+      <div class="mr-2">
+        {{ $t("misc.max") }} {{ roomData.maxCountOfUsers }}
+      </div>
       <div class="mr-2">
         {{ $t("misc.current") }} {{ roomData.usersInRoomLength }}
       </div>

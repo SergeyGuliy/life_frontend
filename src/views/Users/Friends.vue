@@ -3,14 +3,14 @@
     <template #leftCol>
       <Title :title="$t('pages.cabinet.profileSettings')" />
       <UsersList
-        :users="sortedFriends"
+        :users="$friends"
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
       >
         <template #actions="{userData}">
           <v-btn @click="$openUserProfile(userData.userId)">
             {{ $t("buttons.openProfile") }}
           </v-btn>
-          <v-btn @click="deleteFromFriends(userData.userId)">
+          <v-btn @click="$deleteFromFriends(userData.userId)">
             {{ $t("buttons.deleteFromFriends") }}
           </v-btn>
         </template>
@@ -81,14 +81,6 @@ export default {
     activeTabList() {
       return this[this.tabs[this.tab]];
     },
-    sortedFriends() {
-      return this.friends.map(i => {
-        const { friendshipReceiver, friendshipSender } = i;
-        return +friendshipReceiver.userId === +this.$user.userId
-          ? friendshipSender
-          : friendshipReceiver;
-      });
-    },
     connectsInPending() {
       return this.connects.filter(
         i => i.friendshipsStatus === FRIENDSHIP_STATUSES.PENDING
@@ -115,30 +107,7 @@ export default {
       return this.connectsInIgnored
         .filter(i => i.friendshipReceiver.userId === this.$user.userId)
         .map(i => i.friendshipSender);
-    },
-    connectsOutgoingIgnored() {
-      return this.connectsInIgnored
-        .filter(i => i.friendshipSender.userId === this.$user.userId)
-        .map(i => i.friendshipReceiver);
     }
-  },
-  async mounted() {
-    await api.friendship
-      .getYourFriends()
-      .then(data => {
-        this.$set(this, "friends", data.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-    await api.friendship
-      .getYourConnections()
-      .then(data => {
-        this.$set(this, "connects", data.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
   },
   methods: {
     async acceptFriendRequest(userId) {
@@ -167,23 +136,6 @@ export default {
             i => i.friendshipsId === data.data.friendshipsId
           );
           this.$set(this.connects, indexToUpdate, data.data);
-        })
-        .catch(e => {
-          this.$notify({
-            group: "foo",
-            type: "warn",
-            title: e.response.data.message
-          });
-        });
-    },
-    async deleteFromFriends(userId) {
-      await api.friendship
-        .deleteFromFriends(userId)
-        .then(data => {
-          const indexToDelete = this.friends.findIndex(
-            i => i.friendshipsId === data.data.friendshipsId
-          );
-          this.$delete(this.friends, indexToDelete);
         })
         .catch(e => {
           this.$notify({

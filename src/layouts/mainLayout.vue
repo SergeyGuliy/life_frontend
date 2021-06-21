@@ -14,10 +14,11 @@
 <script>
 import { api } from "../assets/helpers/api";
 import chatLogic from "../mixins/chatLogic";
+import friendsLogic from "../mixins/friendsLogic";
 
 export default {
   name: "mainLayout",
-  mixins: [chatLogic],
+  mixins: [chatLogic, friendsLogic],
   components: {
     SideBar: () => import("../components/layouts/SideBar/SideBar"),
     NavBar: () => import("../components/layouts/NavBar"),

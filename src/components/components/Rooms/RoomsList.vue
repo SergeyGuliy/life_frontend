@@ -1,5 +1,5 @@
 <template>
-  <div class="RoomsList pa-2">
+  <div class="RoomsList pa-0">
     <RoomBox
       v-for="(roomData, index) in rooms"
       :key="index"
