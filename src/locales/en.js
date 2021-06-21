@@ -1,5 +1,4 @@
 export const en = {
-  key1: "this is message1",
   layout: {
     main: "Main",
     cabinet: "Cabinet",
@@ -19,6 +18,11 @@ export const en = {
       userProfile: "User profile",
       profileSettings: "Profile settings",
       chatSettings: "Chat settings"
+    }
+  },
+  components: {
+    rooms: {
+
     }
   },
   misc: {
@@ -74,8 +78,8 @@ export const en = {
   },
   forms: {
     labels: {
-      dark: 'Dark',
-      light: 'Light',
+      dark: "Dark",
+      light: "Light",
       avatarLabel: "Select avatar image",
       passwordLabel: "Enter password",
       enterOldPassword: "Enter old password",

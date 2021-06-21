@@ -1,8 +1,5 @@
-// eslint-disable-next-line no-unused-vars
-import { myVue } from "../../main";
 import { MESSAGE_RECEIVER_TYPES } from "../../assets/helpers/enums";
-// eslint-disable-next-line no-unused-vars
-const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
+const { GLOBAL } = MESSAGE_RECEIVER_TYPES;
 import Vue from "vue";
 
 export default {
@@ -25,9 +22,5 @@ export default {
     deleteChat(state, chatName) {
       Vue.delete(state.chats, chatName);
     }
-  },
-  actions: {
-    // eslint-disable-next-line no-unused-vars
-    // async ffff({ commit }, data) {}
   }
 };

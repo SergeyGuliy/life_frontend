@@ -42,7 +42,7 @@ const routes = [
   {
     path: "/cabinet",
     name: "Cabinet",
-    component: () => import("../views/Cabinet/Cabinet"),
+    component: () => import("../views/Cabinet"),
     meta: {
       layout: "mainLayout"
     }

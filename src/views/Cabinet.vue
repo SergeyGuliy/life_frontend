@@ -238,15 +238,15 @@
 </template>
 
 <script>
-import { COUNTRIES, LOCALES } from "../../assets/helpers/enums";
-import { api } from "../../assets/helpers/api";
-import { ProfileSettingsParser } from "../../assets/helpers/parsers";
+import { COUNTRIES, LOCALES } from "../assets/helpers/enums";
+import { api } from "../assets/helpers/api";
+import { ProfileSettingsParser } from "../assets/helpers/parsers";
 
 export default {
   name: "Cabinet",
   components: {
     VoiceSettings: () =>
-      import("../../components/components/Cabinet/VoiceSettings")
+      import("../components/components/Cabinet/VoiceSettings")
   },
   data() {
     return {

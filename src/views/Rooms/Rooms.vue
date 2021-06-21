@@ -1,44 +1,54 @@
 <template>
-  <div class="Rooms container__inner">
-    Rooms
-    <pre>{{ $store.getters["dictionaries/getUsers"][2] }}</pre>
+  <div class="rooms container__inner">
+    <v-row>
+      <v-col class="px-1" cols="6">
+        <v-card class="pa-2">
+          <div class="body-1 mb-4">
+            List of Chats
+          </div>
+          <v-btn block @click="createRoomHandler" class="mb-2">
+            {{ $t("buttons.createRoom") }}
+          </v-btn>
+          <RoomFilter
+            :filterData="filterData"
+            @submit="fetchRooms"
+            @update:roomName="filterData.roomName = $event"
+            @update:typeOfRoom="filterData.typeOfRoom = $event"
+          />
+        </v-card>
+      </v-col>
+      <v-col class="px-1" cols="6">
+        <v-card class="pa-2">
+          <div class="body-1 mb-4">
+            List of Chats
+          </div>
+          <RoomsList :rooms="rooms">
+            <template #actions="{ roomData }">
+              <v-btn @click="joinRoom(roomData)">
+                {{ $t("buttons.join") }}
+              </v-btn>
+            </template>
+          </RoomsList>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
+import roomLogic from "../../mixins/roomLogic";
+
 export default {
   name: "Rooms",
-  components: {},
-  data() {
-    return {};
+  components: {
+    RoomsList: () => import("../../components/components/Rooms/RoomsList"),
+    RoomFilter: () => import("../../components/components/Rooms/RoomFilter")
   },
-  created() {
-    setTimeout(() => {
-      this.$dictionares.updateUserData({
-        createdAt: "2021-05-10T21:26:38.520Z",
-        updatedAt: "2021-05-10T23:01:39.585Z",
-        userId: 2,
-        email: "te111st.user1@gmail.com",
-        phone: "+2(222) 222-2211",
-        password:
-          "$2b$04$wyYgt/YJe68MWwjs1yMeQuCJpsrRsRs8DwfPYkLxuWfqXELLJbmsO",
-        role: "CASUAL",
-        userOnlineStatus: "OFFLINE",
-        userGameStatus: "NOT_IN_GAME",
-        firstName: null,
-        lastName: null,
-        country: "MRT1111",
-        refreshToken: "8c967daf-9da4-4a1f-8a2a-491834e401d1",
-        isDarkTheme: true,
-        createdRoomId: null,
-        roomJoinedId: null
-      });
-    }, 3000);
-  }
+  mixins: [roomLogic]
 };
 </script>
 
 <style lang="scss">
-.Rooms {
+.rooms {
 }
 </style>
