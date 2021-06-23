@@ -1,7 +1,7 @@
 <template>
   <Grid>
     <template #leftCol>
-      <Title :title="$t('pages.cabinet.profileSettings')" />
+      <Title :title="$t('pages.friends.yourFriendsListIsEmpty')" />
       <UsersList
         :users="$friends"
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
