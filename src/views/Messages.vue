@@ -1,7 +1,7 @@
 <template>
-  <Grid class="messages" :leftCol="[4]" :rightCol="[8]">
+  <Grid class="messages" :leftCol="[2]" :rightCol="[10]">
     <template #leftCol>
-      <Title :title="$t('pages.rooms.roomsFilter')" />
+      <Title :title="$t('pages.chats.chatsList')" />
       <ChatTabs v-model="activeChat" :vertical="true" />
     </template>
     <template #rightCol>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { MESSAGE_RECEIVER_TYPES } from "../assets/helpers/enums";
+import { MESSAGE_RECEIVER_TYPES } from "../utils/enums";
 const { GLOBAL } = MESSAGE_RECEIVER_TYPES;
 
 export default {
@@ -59,7 +59,7 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-    .py-2.px-4 {
+    #chat_body {
       overflow: auto;
       flex: 1 1 auto;
     }

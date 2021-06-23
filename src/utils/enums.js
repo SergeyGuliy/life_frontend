@@ -29,22 +29,22 @@ export const COUNTRIES = ["England", "Russia", "Ukraine", "Hungary", "Italy"];
 export const SOUNDS = [
   {
     name: "SOUNDS_1",
-    sound: require("../sounds/SOUNDS_1.mp3")
+    sound: require("../assets/sounds/SOUNDS_1.mp3")
   },
   {
     name: "SOUNDS_2",
-    sound: require("../sounds/SOUNDS_2.mp3")
+    sound: require("../assets/sounds/SOUNDS_2.mp3")
   },
   {
     name: "SOUNDS_3",
-    sound: require("../sounds/SOUNDS_3.mp3")
+    sound: require("../assets/sounds/SOUNDS_3.mp3")
   },
   {
     name: "SOUNDS_4",
-    sound: require("../sounds/SOUNDS_4.mp3")
+    sound: require("../assets/sounds/SOUNDS_4.mp3")
   },
   {
     name: "SOUNDS_5",
-    sound: require("../sounds/SOUNDS_5.mp3")
+    sound: require("../assets/sounds/SOUNDS_5.mp3")
   }
 ];

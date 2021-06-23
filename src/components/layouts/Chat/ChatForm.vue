@@ -64,9 +64,9 @@
 import {
   MESSAGE_RECEIVER_TYPES,
   MESSAGE_TYPES
-} from "../../../assets/helpers/enums";
+} from "../../../utils/enums";
 import recordingMixin from "../../../mixins/recordingMixin";
-import { api } from "../../../assets/helpers/api";
+import { api } from "../../../utils/api";
 
 const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 const { TEXT, VOICE } = MESSAGE_TYPES;

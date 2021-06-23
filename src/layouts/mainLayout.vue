@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { api } from "../assets/helpers/api";
+import { api } from "../utils/api";
 import chatLogic from "../mixins/chatLogic";
 import friendsLogic from "../mixins/friendsLogic";
 

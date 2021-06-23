@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { SOUNDS } from "../../../assets/helpers/enums";
+import { SOUNDS } from "../../../utils/enums";
 
 export default {
   name: "VoiceSettings",

@@ -13,6 +13,9 @@
           <v-btn @click="$deleteFromFriends(userData.userId)">
             {{ $t("buttons.deleteFromFriends") }}
           </v-btn>
+          <v-btn @click="$writeMessageToUser(userData.userId)">
+            {{ $t("buttons.writeMessage") }}
+          </v-btn>
         </template>
       </UsersList>
     </template>
@@ -54,8 +57,8 @@
 </template>
 
 <script>
-import { FRIENDSHIP_STATUSES } from "../../assets/helpers/enums";
-import { api } from "../../assets/helpers/api";
+import { FRIENDSHIP_STATUSES } from "../../utils/enums";
+import { api } from "../../utils/api";
 
 export default {
   name: "Friends",

@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { api } from "../../assets/helpers/api";
+import { api } from "../../utils/api";
 
 export default {
   name: "RoomId",

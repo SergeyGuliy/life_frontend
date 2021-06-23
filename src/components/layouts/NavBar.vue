@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { LOCALES } from "../../assets/helpers/enums";
+import { LOCALES } from "../../utils/enums";
 
 export default {
   name: "NavBar",

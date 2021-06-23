@@ -23,9 +23,9 @@
 import {
   MESSAGE_RECEIVER_TYPES,
   MESSAGES_TYPES_MAP
-} from "../../../assets/helpers/enums";
+} from "../../../utils/enums";
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
-import { ProfileSettingsParser } from "../../../assets/helpers/parsers";
+import { ProfileSettingsParser } from "../../../utils/parsers";
 
 export default {
   name: "ChatHeader",

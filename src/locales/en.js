@@ -22,6 +22,9 @@ export const en = {
       userProfile: "User profile",
       profileSettings: "Profile settings",
       chatSettings: "Chat settings"
+    },
+    chats: {
+      chatsList: "List of chats"
     }
   },
   misc: {

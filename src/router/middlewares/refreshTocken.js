@@ -1,5 +1,5 @@
 import store from "../../store/index";
-import { api } from "../../assets/helpers/api";
+import { api } from "../../utils/api";
 import { myVue } from "../../main";
 
 export default async function(to) {

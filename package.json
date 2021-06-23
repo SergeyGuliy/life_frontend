@@ -45,6 +45,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.12.0",
     "prettier": "^1.19.1",
+    "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.32.0",
     "sass-loader": "^10.0.0",
     "socket.io": "^4.0.0",

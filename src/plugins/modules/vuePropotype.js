@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { MESSAGE_RECEIVER_TYPES } from "../../assets/helpers/enums";
+import { MESSAGE_RECEIVER_TYPES } from "../../utils/enums";
 const { PRIVATE } = MESSAGE_RECEIVER_TYPES;
 import store from "../../store/index";
 

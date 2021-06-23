@@ -1,6 +1,6 @@
-import { api } from "../../assets/helpers/api";
+import { api } from "../../utils/api";
 import { myVue } from "../../main";
-import { setLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
+import { setLocalStorageKeys } from "../../utils/localStorageKeys";
 
 export default {
   namespaced: true,

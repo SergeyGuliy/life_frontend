@@ -1,4 +1,4 @@
-import { api } from "../assets/helpers/api";
+import { api } from "../utils/api";
 
 export default {
   data() {

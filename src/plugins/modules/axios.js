@@ -2,8 +2,8 @@
 import store from "../../store";
 
 import axios from "axios";
-import { clearLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
-// import { api } from "../assets/helpers/api";
+import { clearLocalStorageKeys } from "../../utils/localStorageKeys";
+// import { api } from "../assets/utils/api";
 // import { myVue } from "../main";
 
 let config = {

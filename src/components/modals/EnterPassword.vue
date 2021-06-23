@@ -40,7 +40,7 @@
 
 <script>
 import modal from "../../mixins/modal";
-import { api } from "../../assets/helpers/api";
+import { api } from "../../utils/api";
 
 export default {
   name: "EnterPassword",

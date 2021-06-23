@@ -1,8 +1,8 @@
 import { mapActions } from "vuex";
 import Vue from "vue";
-import { api } from "../../assets/helpers/api";
-import { clearLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
-import { ProfileSettingsParser } from "../../assets/helpers/parsers";
+import { api } from "../../utils/api";
+import { clearLocalStorageKeys } from "../../utils/localStorageKeys";
+import { ProfileSettingsParser } from "../../utils/parsers";
 
 Vue.mixin({
   computed: {

@@ -33,7 +33,7 @@
 
 <script>
 import modal from "../../mixins/modal";
-import { SOUNDS } from "../../assets/helpers/enums";
+import { SOUNDS } from "../../utils/enums";
 import { cloneDeep } from "lodash";
 
 export default {

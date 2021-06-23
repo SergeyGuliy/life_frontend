@@ -1,7 +1,7 @@
 import router from "../../router";
-import { api } from "../../assets/helpers/api";
+import { api } from "../../utils/api";
 import { myVue } from "../../main";
-import { clearLocalStorageKeys } from "../../assets/helpers/localStorageKeys";
+import { clearLocalStorageKeys } from "../../utils/localStorageKeys";
 
 export default {
   namespaced: true,

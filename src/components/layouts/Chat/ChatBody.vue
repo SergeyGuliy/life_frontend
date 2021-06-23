@@ -1,6 +1,6 @@
 <template>
-  <div class="py-2 px-4">
-    <v-tabs-items v-model="activeChat">
+  <div class="py-2 px-4" id="chat_body">
+    <v-tabs-items v-model="activeChat" id="chat_body_inner">
       <v-tab-item
         :value="chatTab"
         v-for="(chatTab, index) in $chatTabs"
@@ -8,11 +8,7 @@
         :href="`#${chatTab}`"
       >
         <v-card-text class="chat-body pa-0">
-          <v-list
-            ref="chat"
-            id="logs"
-            :class="{ 'chat-body__inner-small': isSmall }"
-          >
+          <v-list :class="{ 'chat-body__inner-small': isSmall }">
             <ChatMessage
               v-for="(message, index) in $chats[activeChat].messages"
               :key="index"
@@ -26,6 +22,8 @@
 </template>
 
 <script>
+import ResizeObserver from "resize-observer-polyfill";
+
 export default {
   name: "ChatBody",
   components: {
@@ -40,6 +38,16 @@ export default {
       default: () => true,
       type: Boolean
     }
+  },
+
+  mounted() {
+    const chatBody = document.querySelector("#chat_body");
+    const chatBodyInner = document.querySelector("#chat_body_inner");
+    function scrollToBottom() {
+      console.log(chatBodyInner.scrollHeight);
+      chatBody.scrollTo(0, chatBodyInner.scrollHeight);
+    }
+    new ResizeObserver(scrollToBottom).observe(chatBodyInner);
   }
 };
 </script>

@@ -13,6 +13,9 @@
           <v-btn @click="$deleteFromFriends(userData.userId)">
             {{ $t("buttons.deleteFromFriends") }}
           </v-btn>
+          <v-btn @click="$writeMessageToUser(userData.userId)">
+            {{ $t("buttons.writeMessage") }}
+          </v-btn>
         </template>
       </UsersList>
     </template>
