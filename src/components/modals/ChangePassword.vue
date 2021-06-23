@@ -127,11 +127,11 @@ export default {
         await api.userSettings
           .changePassword(this.formData)
           .then(() => {
-            this.$noti().info("ffff");
+            this.$noti.info("ffff");
             this.close(true);
           })
           .catch(() => {
-            this.$noti().error("ffff");
+            this.$noti.error("ffff");
           });
       }
     }

@@ -36,7 +36,7 @@ export default {
             ? messageReceiverUserId
             : messageSender.userId;
         await this.createUserChat(userId);
-        const userChatKey = this.$chat.getUserChatKey(userId);
+        const userChatKey = this.$chatKeys.getUserChatKey(userId);
         this.pushMessageToChatChat(userChatKey, messageToClient);
       }
     },
@@ -44,9 +44,9 @@ export default {
       this.$bus.emit("userLeaveChat");
       this.$store.commit("chats/deleteChat", ROOM);
     },
-    async writeMessageToUser(userData) {
-      await this.createUserChat(userData);
-      const chatTab = this.$chat.getUserChatKey(userData);
+    async writeMessageToUser(userId) {
+      await this.createUserChat(userId);
+      const chatTab = this.$chatKeys.getUserChatKey(userId);
       this.$bus.emit("openChat");
       this.$bus.emit("activateChat", chatTab);
     },
@@ -60,15 +60,14 @@ export default {
         messageData
       });
     },
-    async createUserChat(user) {
-      const userData = await this.$dictionares.getOrUpdateUser(user);
-      const userChatKey = this.$chat.getUserChatKey(userData);
+    async createUserChat(userId) {
+      const userChatKey = this.$chatKeys.getUserChatKey(userId);
       if (!this.$chats[userChatKey]) {
         this.setChat(userChatKey, {
           messages: [],
           key: PRIVATE,
-          userId: userData.userId,
-          userData
+          userId,
+          userData: await this.$dictionares.getOrUpdateUser(userId)
         });
       }
     },
@@ -110,7 +109,7 @@ export default {
             message.messageSender.userId === userId
         );
         await this.createUserChat(userId);
-        const userChatKey = this.$chat.getUserChatKey(userId);
+        const userChatKey = this.$chatKeys.getUserChatKey(userId);
         this.setChat(userChatKey, {
           key: PRIVATE,
           userId:

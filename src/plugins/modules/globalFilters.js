@@ -1,5 +1,9 @@
 import Vue from "vue";
 import moment from "moment";
+import store from "../../store";
+import { myVue } from "../../main";
+import { MESSAGE_RECEIVER_TYPES } from "../../utils/enums";
+const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 
 Vue.filter("chatDate", function(value) {
   let date = moment(value);
@@ -29,3 +33,24 @@ Vue.filter("getUserName", function(userData) {
   }
   return email;
 });
+
+Vue.filter("getChatTabName", function(chatTab) {
+  if (myVue.$chats[chatTab].key === GLOBAL) {
+    return myVue.$t(`enums.${GLOBAL}`);
+  } else if (myVue.$chats[chatTab].key === ROOM) {
+    return myVue.$t(`enums.${ROOM}`);
+  } else if (myVue.$chats[chatTab].key === PRIVATE) {
+    return myVue.$filters.getUserName(myVue.$chats[chatTab].userData);
+  }
+});
+
+Vue.filter("dictionariesGetUserById", function(user) {
+  if (typeof user === "number") {
+    store.dispatch("dictionaries/getUserById", user);
+  } else if (typeof user === "object") {
+    store.dispatch("dictionaries/updateUserData", user);
+  }
+  return store.state.dictionaries.users[user];
+});
+
+Vue.prototype.$filters = Vue.options.filters;

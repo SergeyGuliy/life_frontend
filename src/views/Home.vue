@@ -7,13 +7,13 @@
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
       >
         <template #actions="{userData}">
-          <v-btn @click="$openUserProfile(userData.userId)">
+          <v-btn @click="$usersActions.openUserProfile(userData.userId)">
             {{ $t("buttons.openProfile") }}
           </v-btn>
-          <v-btn @click="$deleteFromFriends(userData.userId)">
+          <v-btn @click="$usersActions.deleteFromFriends(userData.userId)">
             {{ $t("buttons.deleteFromFriends") }}
           </v-btn>
-          <v-btn @click="$writeMessageToUser(userData.userId)">
+          <v-btn @click="$usersActions.writeMessageToUser(userData.userId)">
             {{ $t("buttons.writeMessage") }}
           </v-btn>
         </template>

@@ -8,14 +8,12 @@
       class="ma-0"
       :href="`#${chatTab}`"
     >
-      {{ chatTabName(chatTab) }}
+      {{ chatTab | getChatTabName }}
     </v-tab>
   </v-tabs>
 </template>
 
 <script>
-import { MESSAGE_RECEIVER_TYPES } from "../../../utils/enums";
-const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 export default {
   name: "ChatTabs",
   props: {
@@ -35,20 +33,6 @@ export default {
       },
       set(val) {
         this.$emit("input", val);
-      }
-    }
-  },
-  created() {
-    // console.log(this.chatTabs);
-  },
-  methods: {
-    chatTabName(chatTab) {
-      if (this.$chats[chatTab].key === GLOBAL) {
-        return this.$t(`enums.${GLOBAL}`);
-      } else if (this.$chats[chatTab].key === ROOM) {
-        return this.$t(`enums.${ROOM}`);
-      } else if (this.$chats[chatTab].key === PRIVATE) {
-        return this.$getUserName(this.$chats[chatTab].userData);
       }
     }
   }

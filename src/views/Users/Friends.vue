@@ -7,13 +7,13 @@
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
       >
         <template #actions="{userData}">
-          <v-btn @click="$openUserProfile(userData.userId)">
+          <v-btn @click="$usersActions.openUserProfile(userData.userId)">
             {{ $t("buttons.openProfile") }}
           </v-btn>
-          <v-btn @click="$deleteFromFriends(userData.userId)">
+          <v-btn @click="$usersActions.deleteFromFriends(userData.userId)">
             {{ $t("buttons.deleteFromFriends") }}
           </v-btn>
-          <v-btn @click="$writeMessageToUser(userData.userId)">
+          <v-btn @click="$usersActions.writeMessageToUser(userData.userId)">
             {{ $t("buttons.writeMessage") }}
           </v-btn>
         </template>
@@ -31,7 +31,7 @@
         :emptyText="activeTabListEmptyList"
       >
         <template #actions="{userData}">
-          <v-btn @click="$openUserProfile(userData.userId)">
+          <v-btn @click="$usersActions.openUserProfile(userData.userId)">
             {{ $t("buttons.openProfile") }}
           </v-btn>
           <v-btn
@@ -121,13 +121,7 @@ export default {
           this.$store.commit("friends/deleteConnection", indexToDelete);
           this.$store.commit("friends/addFriend", data);
         })
-        .catch(e => {
-          this.$notify({
-            group: "foo",
-            type: "warn",
-            title: e.response.data.message
-          });
-        });
+        .catch(() => {});
     },
     async ignoreFriendRequest(userId) {
       await api.friendship
@@ -141,13 +135,7 @@ export default {
             data
           });
         })
-        .catch(e => {
-          this.$notify({
-            group: "foo",
-            type: "warn",
-            title: e.response.data.message
-          });
-        });
+        .catch(() => {});
     }
   }
 };

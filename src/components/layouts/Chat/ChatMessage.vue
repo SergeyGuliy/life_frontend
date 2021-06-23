@@ -13,7 +13,10 @@
     <v-card-actions>
       <v-list-item class="pa-0">
         <v-list-item-avatar color="grey darken-3 my-0">
-          <UserAvatar :userData="message.messageSender" />
+          <UserAvatar
+            v-if="$users[message.messageSender.userId]"
+            :userData="message.messageSender.userId | dictionariesGetUserById"
+          />
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="d-flex justify-space-between">
@@ -70,9 +73,18 @@ export default {
       x: 0,
       y: 0,
       items: [
-        { title: "buttons.openProfile", action: "$openUserProfile" },
-        { title: "buttons.writeMessage", action: "$writeMessageToUser" },
-        { title: "buttons.addToFriend", action: "$addUserToFriendsList" }
+        {
+          title: "buttons.openProfile",
+          action: "$usersActions.openUserProfile"
+        },
+        {
+          title: "buttons.writeMessage",
+          action: "$usersActions.writeMessageToUser"
+        },
+        {
+          title: "buttons.addToFriend",
+          action: "$usersActions.addUserToFriendsList"
+        }
       ]
     };
   },
@@ -84,9 +96,16 @@ export default {
   },
   computed: {
     getChatWriterName() {
-      return this.message.messageSender.userId === this.$user.userId
-        ? "Me"
-        : this.message.messageSender.firstName;
+      const user = this.$filters.dictionariesGetUserById(
+        this.message.messageSender.userId
+      );
+      if (user) {
+        return this.message.messageSender.userId === this.$user.userId
+          ? "Me"
+          : this.$filters.getUserName(user);
+      } else {
+        return "";
+      }
     }
   },
   methods: {

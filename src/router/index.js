@@ -72,7 +72,7 @@ const routes = [
     }
   },
   {
-    path: "/users/:id",
+    path: "/users",
     name: "User",
     component: () => import("../views/Users/Users"),
     meta: {

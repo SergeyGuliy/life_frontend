@@ -5,6 +5,8 @@ import store from "../store";
 import vuetify from "./modules/vuetify";
 import { i18n } from "./modules/i18n";
 
+import "./modules/globalFilters";
+import "./modules/vuePropotype/index";
 import "./modules/bus";
 import "./modules/mask";
 import "./modules/notify";
@@ -14,8 +16,6 @@ import "./modules/debounce";
 import "./modules/socket";
 import "./modules/moment";
 import "./modules/globalMixin";
-import "./modules/globalFilters";
-import "./modules/vuePropotype";
 import "./modules/globalComponents";
 
 Vue.config.productionTip = false;

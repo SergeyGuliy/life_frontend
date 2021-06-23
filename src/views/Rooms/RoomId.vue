@@ -28,7 +28,7 @@
           </v-btn>
           <v-btn
             v-if="userData.userId !== $user.userId"
-            @click="$writeMessageToUser(userData.userId)"
+            @click="$usersActions.writeMessageToUser(userData.userId)"
           >
             {{ $t("buttons.writeMessage") }}
           </v-btn>
@@ -38,7 +38,7 @@
           >
             {{ $t("buttons.setAdmin") }}
           </v-btn>
-          <v-btn @click="$addUserToFriendsList(userData.userId)">
+          <v-btn @click="$usersActions.addUserToFriendsList(userData.userId)">
             {{ $t("buttons.addToFriend") }}
           </v-btn>
         </template>

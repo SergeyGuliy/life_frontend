@@ -1,8 +1,14 @@
 <template>
   <v-card class="UserBox">
-    <UserInfo :userData="userData" :showUserRoomInfo="showUserRoomInfo" />
+    <UserInfo
+      :userData="userData.userId | dictionariesGetUserById"
+      :showUserRoomInfo="showUserRoomInfo"
+    />
     <v-card-actions>
-      <slot name="actions" :userData="userData"></slot>
+      <slot
+        name="actions"
+        :userData="userData.userId | dictionariesGetUserById"
+      ></slot>
     </v-card-actions>
   </v-card>
 </template>

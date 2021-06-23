@@ -4,11 +4,14 @@
       <UserBox
         v-for="(userData, index) in users"
         :key="index"
-        :userData="userData"
+        :userData="userData.userId | dictionariesGetUserById"
         :showUserRoomInfo="showUserRoomInfo"
       >
         <template #actions="{userData}">
-          <slot name="actions" :userData="userData"></slot>
+          <slot
+            name="actions"
+            :userData="userData.userId | dictionariesGetUserById"
+          ></slot>
         </template>
       </UserBox>
     </template>

@@ -46,22 +46,13 @@ export default {
   computed: {
     getChatName() {
       if (this.activeChat) {
-        return this.chatTabName(this.activeChat);
+        return this.$filters.getChatTabName(this.activeChat);
       } else {
         return "Chat";
       }
     }
   },
   methods: {
-    chatTabName(chatTab) {
-      if (this.$chats[chatTab].key === GLOBAL) {
-        return this.$t(`enums.${GLOBAL}`);
-      } else if (this.$chats[chatTab].key === ROOM) {
-        return this.$t(`enums.${ROOM}`);
-      } else if (this.$chats[chatTab].key === PRIVATE) {
-        return this.$getUserName(this.$chats[chatTab].userData);
-      }
-    },
     getChatType(chatKey) {
       if ([GLOBAL, ROOM].includes(chatKey)) {
         return MESSAGES_TYPES_MAP[chatKey];

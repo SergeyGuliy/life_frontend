@@ -1,13 +1,14 @@
 import { mapActions } from "vuex";
 import Vue from "vue";
-import { api } from "../../utils/api";
 import { clearLocalStorageKeys } from "../../utils/localStorageKeys";
 import { ProfileSettingsParser } from "../../utils/parsers";
-
 Vue.mixin({
   computed: {
     $user() {
       return this.$store.state.user?.user;
+    },
+    $users() {
+      return this.$store.state.dictionaries?.users;
     },
     $chats() {
       return this.$store.state.chats?.chats;
@@ -35,39 +36,6 @@ Vue.mixin({
 
     async $updateUserSettings(settings) {
       await ProfileSettingsParser.pushNewUserSettings(settings);
-    },
-    $noti() {
-      const that = this;
-      return {
-        error(message) {
-          that.$notify({
-            group: "foo",
-            type: "error",
-            title: message
-          });
-        },
-        warning(message) {
-          that.$notify({
-            group: "foo",
-            type: "warn",
-            title: message
-          });
-        },
-        success(message) {
-          that.$notify({
-            group: "foo",
-            type: "success",
-            title: message
-          });
-        },
-        info(message) {
-          that.$notify({
-            group: "foo",
-            type: "info",
-            title: message
-          });
-        }
-      };
     },
     async $logOutMiddleware() {
       if (this.$route.name === "RoomId") {
@@ -102,42 +70,6 @@ Vue.mixin({
     },
     $changeLocale(locale) {
       this.$i18n.locale = locale;
-    },
-
-    $writeMessageToUser(userId) {
-      this.$bus.emit("writeMessageToUser", userId);
-    },
-    async $addUserToFriendsList(userId) {
-      await api.friendship
-        .sendRequest(userId)
-        .then(() => {})
-        .catch(e => {
-          this.$notify({
-            group: "foo",
-            type: "warn",
-            title: e.response.data.message
-          });
-        });
-    },
-    async $deleteFromFriends(userId) {
-      await api.friendship
-        .deleteFromFriends(userId)
-        .then(({ data }) => {
-          const indexToDelete = this.$friendsRequests.findIndex(
-            i => i.friendshipsId === data.friendshipsId
-          );
-          this.$store.commit("friends/deleteFriend", indexToDelete);
-        })
-        .catch(e => {
-          this.$notify({
-            group: "foo",
-            type: "warn",
-            title: e.response.data.message
-          });
-        });
-    },
-    async $openUserProfile(userId) {
-      await this.$router.push({ name: "User", params: { id: userId } });
     }
   }
 });

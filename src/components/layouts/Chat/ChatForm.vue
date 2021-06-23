@@ -94,7 +94,7 @@ export default {
     async sendMessage(event) {
       event.preventDefault();
       if (!(this.newMessage.length || this.audio)) return;
-      const activeChat = this.$chat.getTypeFromChatKey(this.activeChat);
+      const activeChat = this.$chatKeys.getTypeFromChatKey(this.activeChat);
       const messageData = {
         messageSender: this.$user.userId,
         messageReceiverType: activeChat,
@@ -121,7 +121,7 @@ export default {
         messageData.messageReceiverRoomId = this.$chats[ROOM].roomId;
       }
       if (activeChat === PRIVATE) {
-        messageData.messageReceiverUserId = this.$chat.getUserIdFromChatKey(
+        messageData.messageReceiverUserId = this.$chatKeys.getUserIdFromChatKey(
           this.activeChat
         );
       }
