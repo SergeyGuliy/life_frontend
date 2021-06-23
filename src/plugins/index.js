@@ -11,7 +11,6 @@ import "./modules/bus";
 import "./modules/mask";
 import "./modules/notify";
 import "./modules/longClick";
-import "./modules/dialog";
 import "./modules/debounce";
 import "./modules/socket";
 import "./modules/moment";

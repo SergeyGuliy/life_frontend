@@ -1,7 +1,6 @@
-import Vue from "vue";
-import store from "../../store";
+import store from "../../../../store";
 
-Vue.prototype.$openModal = function(modalName, data = {}) {
+export const $openModal = (modalName, data = {}) => {
   store.dispatch("modals/setModal", {
     component: modalName,
     data: data
