@@ -73,7 +73,7 @@ export default {
     this.roomData = {
       ...(await api.rooms.getById(this.$route.params.id)).data
     };
-    this.$socket.emit("userConnectsRoom", {
+    this.$socket.client.emit("userConnectsRoom", {
       userId: this.$user.userId,
       roomId: this.roomData.roomId
     });

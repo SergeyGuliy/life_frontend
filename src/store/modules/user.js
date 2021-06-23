@@ -42,7 +42,7 @@ export default {
         myVue.$changeTheme(isDarkTheme);
         myVue.$changeLocale(locale);
         commit("setUser", data);
-        myVue.$socket.connect();
+        myVue.$socket.client.connect();
       } catch (e) {
         console.log(e);
       }

@@ -1,33 +1,36 @@
 <template>
   <v-row class="VoiceSettings px-4">
-    <v-col cols="12" class="py-0">
-      <v-switch
-        class="mt-0"
-        inset
-        v-model="isTurnedOn"
-        flat
-        :label="
+    <v-col
+      cols="12"
+      class="py-0 d-flex align-center justify-space-between my-2"
+    >
+      <div class="label">
+        {{
           isTurnedOn
             ? $t(`forms.labels.${type}.soundEnabling.enable`)
             : $t(`forms.labels.${type}.soundEnabling.disable`)
-        "
-      ></v-switch>
+        }}
+      </div>
+      <v-switch class="mt-0" inset v-model="isTurnedOn" flat hide-details />
     </v-col>
     <template v-if="isTurnedOn">
-      <v-col cols="12" class="py-0">
-        <v-switch
-          class="mt-0"
-          inset
-          v-model="autoplay"
-          flat
-          :label="
+      <v-col
+        cols="12"
+        class="py-0 d-flex align-center justify-space-between my-2"
+      >
+        <div class="label">
+          {{
             autoplay
               ? $t(`forms.labels.${type}.autoplayEnabling.enable`)
               : $t(`forms.labels.${type}.autoplayEnabling.disable`)
-          "
-        ></v-switch>
+          }}
+        </div>
+        <v-switch class="mt-0" inset v-model="autoplay" flat hide-details />
       </v-col>
-      <v-col cols="12" class="pt-0">
+      <v-col cols="12" class="pt-0 my-2">
+        <div class="label mb-2">
+          {{ $t(`forms.labels.${type}.selectMessageVoice`) }}
+        </div>
         <v-menu
           :close-on-content-click="false"
           class="lang-selector"
@@ -146,5 +149,6 @@ export default {
 
 <style lang="scss">
 .VoiceSettings {
+  width: 100%;
 }
 </style>

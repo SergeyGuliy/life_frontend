@@ -16,7 +16,7 @@
 
 <script>
 import { MESSAGE_RECEIVER_TYPES } from "../utils/enums";
-const { GLOBAL } = MESSAGE_RECEIVER_TYPES;
+const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
 
 export default {
   name: "Messages",
@@ -28,10 +28,14 @@ export default {
   },
 
   mounted() {
-    this.$bus.on("writeMessageToUser", this.writeMessageToUser);
+    this.$bus.on("activateChat", this.activateChat);
+    this.$bus.on("openChat", this.openChat);
+    this.$bus.on("userLeaveChat", this.userLeaveChat);
   },
   beforeDestroy() {
-    this.$bus.off("writeMessageToUser", this.writeMessageToUser);
+    this.$bus.off("activateChat", this.activateChat);
+    this.$bus.off("openChat", this.openChat);
+    this.$bus.off("userLeaveChat", this.userLeaveChat);
   },
   data() {
     return {
@@ -39,11 +43,16 @@ export default {
     };
   },
   methods: {
-    async writeMessageToUser(userData) {
-      setTimeout(() => {
-        this.isChatOpened = true;
-        this.activeChat = this.$chat.getUserChatKey(userData);
-      }, 1);
+    async openChat() {
+      this.isChatOpened = true;
+    },
+    activateChat(chatName) {
+      this.activeChat = chatName;
+    },
+    userLeaveChat() {
+      if (this.activeChat === ROOM) {
+        this.activeChat = GLOBAL;
+      }
     }
   }
 };

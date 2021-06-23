@@ -33,12 +33,12 @@ export default {
       this.$set(this.filterData, "typeOfRoom", typeOfRoom.split(","));
     }
     await this.fetchRooms();
-    this.$socket.emit("subscribeRoomsUpdate", {
+    this.$socket.client.emit("subscribeRoomsUpdate", {
       userId: this.$user.userId
     });
   },
   beforeDestroy() {
-    this.$socket.emit("unSubscribeRoomsUpdate", {
+    this.$socket.client.emit("unSubscribeRoomsUpdate", {
       userId: this.$user?.userId
     });
   },

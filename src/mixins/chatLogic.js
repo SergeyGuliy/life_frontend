@@ -6,14 +6,20 @@ export default {
   async mounted() {
     await this.fetchGlobalMessages();
     await this.fetchPrivateMessages();
+    await this.fetchRoomMessages();
     this.$bus.on("writeMessageToUser", this.writeMessageToUser);
+    this.$socket.$subscribe("messageToClient", this.messageToClient);
+    this.$socket.$subscribe("userJoinRoom", this.fetchRoomMessages);
+    this.$socket.$subscribe("userLeaveRoom", this.userLeaveRoom);
   },
 
   beforeDestroy() {
     this.$bus.off("writeMessageToUser", this.writeMessageToUser);
+    this.$socket.$unsubscribe("messageToClient");
+    this.$socket.$unsubscribe("userJoinRoom");
+    this.$socket.$unsubscribe("userLeaveRoom");
   },
-
-  sockets: {
+  methods: {
     async messageToClient(messageToClient) {
       const {
         messageSender,
@@ -34,17 +40,15 @@ export default {
         this.pushMessageToChatChat(userChatKey, messageToClient);
       }
     },
-    async userJoinRoom() {
-      console.log("userJoinRoom");
-      await this.fetchRoomMessages();
-    },
     userLeaveRoom() {
+      this.$bus.emit("userLeaveChat");
       this.$store.commit("chats/deleteChat", ROOM);
-    }
-  },
-  methods: {
+    },
     async writeMessageToUser(userData) {
       await this.createUserChat(userData);
+      const chatTab = this.$chat.getUserChatKey(userData);
+      this.$bus.emit("openChat");
+      this.$bus.emit("activateChat", chatTab);
     },
 
     setChat(chatName, chatData) {
@@ -55,6 +59,18 @@ export default {
         chatName,
         messageData
       });
+    },
+    async createUserChat(user) {
+      const userData = await this.$dictionares.getOrUpdateUser(user);
+      const userChatKey = this.$chat.getUserChatKey(userData);
+      if (!this.$chats[userChatKey]) {
+        this.setChat(userChatKey, {
+          messages: [],
+          key: PRIVATE,
+          userId: userData.userId,
+          userData
+        });
+      }
     },
     async fetchGlobalMessages() {
       const messages = (await api.chats.getGlobalMessages()).data;
@@ -112,18 +128,6 @@ export default {
               message.messageReceiverUserId === userId ||
               message.messageSender.userId === userId
           )
-        });
-      }
-    },
-    async createUserChat(user) {
-      const userData = await this.$dictionares.getOrUpdateUser(user);
-      const userChatKey = this.$chat.getUserChatKey(userData);
-      if (!this.$chats[userChatKey]) {
-        this.setChat(userChatKey, {
-          messages: [],
-          key: PRIVATE,
-          userId: userData.userId,
-          userData
         });
       }
     }

@@ -98,6 +98,7 @@ export const en = {
       locale: "Select your in game language",
       theme: "Select theme color",
       global: {
+        selectMessageVoice: "Select global chat sound",
         soundEnabling: {
           enable: "Global chat messages sound turned on",
           disable: "Global chat messages sound turned off"
@@ -108,6 +109,7 @@ export const en = {
         }
       },
       room: {
+        selectMessageVoice: "Select room chat sound",
         soundEnabling: {
           enable: "Room chat messages sound turned on",
           disable: "Room chat messages sound turned off"
@@ -118,6 +120,7 @@ export const en = {
         }
       },
       private: {
+        selectMessageVoice: "Select private chat sound",
         soundEnabling: {
           enable: "Private chat messages sound turned on",
           disable: "Private chat messages sound turned off"

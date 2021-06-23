@@ -61,10 +61,7 @@
 </template>
 
 <script>
-import {
-  MESSAGE_RECEIVER_TYPES,
-  MESSAGE_TYPES
-} from "../../../utils/enums";
+import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "../../../utils/enums";
 import recordingMixin from "../../../mixins/recordingMixin";
 import { api } from "../../../utils/api";
 
@@ -128,7 +125,7 @@ export default {
           this.activeChat
         );
       }
-      this.$socket.emit("messageToServer", messageData);
+      this.$socket.client.emit("messageToServer", messageData);
       this.newMessage = "";
       this.audio = null;
     }

@@ -1,15 +1,10 @@
 import Vue from "vue";
-import VueSocketIO from "vue-socket.io";
+import VueSocketIOExt from "vue-socket.io-extended";
 import { io } from "socket.io-client";
 
-const socketOptions = {
+const socket = io("ws://localhost:3000", {
   transports: ["websocket"],
   autoConnect: false
-};
+});
 
-Vue.use(
-  new VueSocketIO({
-    debug: false,
-    connection: io("ws://localhost:3000", socketOptions)
-  })
-);
+Vue.use(VueSocketIOExt, socket);
