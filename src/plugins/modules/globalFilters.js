@@ -52,5 +52,3 @@ Vue.filter("dictionariesGetUserById", function(user) {
   }
   return store.state.dictionaries.users[user];
 });
-
-Vue.prototype.$filters = Vue.options.filters;
