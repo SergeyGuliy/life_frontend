@@ -5,7 +5,7 @@ import store from "../store";
 import vuetify from "./modules/vuetify";
 import { i18n } from "./modules/i18n";
 
-import "./modules/globalFilters";
+import "./modules/globalFilters/index";
 import "./modules/vuePropotype/index";
 import "./modules/bus";
 import "./modules/mask";
