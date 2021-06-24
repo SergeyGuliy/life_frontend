@@ -11,7 +11,7 @@
 
     <template v-slot:append>
       <div class="pa-2">
-        <v-btn block @click="$logOutMiddleware">
+        <v-btn block @click="$currentUserActions.logOutMiddleware">
           {{ $t("layout.logout") }}
           <v-icon>mdi-logout</v-icon>
         </v-btn>

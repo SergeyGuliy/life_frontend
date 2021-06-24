@@ -17,16 +17,16 @@
           link
           v-for="(item, index) in LOCALES"
           :key="index"
-          @click="$changeLocale(item.key)"
+          @click="$currentUserActions.changeLocale(item.key)"
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
-    <v-btn icon @click="$changeTheme">
+    <v-btn icon @click="$currentUserActions.changeTheme">
       <v-icon>mdi-invert-colors</v-icon>
     </v-btn>
-    <v-btn icon @click="$logOutMiddleware">
+    <v-btn icon @click="$currentUserActions.logOutMiddleware">
       <v-icon>mdi-logout</v-icon>
     </v-btn>
   </v-app-bar>

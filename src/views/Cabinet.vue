@@ -101,7 +101,7 @@
             outlined
             hide-details
             class="mb-4"
-            @input="$changeLocale"
+            @input="$currentUserActions.changeLocale"
           >
             <template v-slot:selection="slotData">
               <v-list-item-content
@@ -291,7 +291,7 @@ export default {
       await this.$openModal("ChangePassword").catch(() => {});
     },
     async saveSettings() {
-      await this.$updateUserSettings({
+      await this.$currentUserActions.updateUserSettings({
         chatSettings: this.chatSettings,
         profileSettings: this.profileSettings
       });

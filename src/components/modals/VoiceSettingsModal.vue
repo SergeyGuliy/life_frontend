@@ -63,9 +63,9 @@ export default {
   },
   methods: {
     updateUserSettings() {
-      this.$updateUserSettings({ chatSettings: this.chatSettings }).then(() =>
-        this.close()
-      );
+      this.$currentUserActions
+        .updateUserSettings({ chatSettings: this.chatSettings })
+        .then(() => this.close());
     }
   }
 };

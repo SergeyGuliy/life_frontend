@@ -39,8 +39,8 @@ export default {
     async setUserData({ commit }, data) {
       try {
         const { locale, isDarkTheme } = data.userData.userSettings;
-        myVue.$changeTheme(isDarkTheme);
-        myVue.$changeLocale(locale);
+        myVue.$currentUserActions.changeTheme(isDarkTheme);
+        myVue.$currentUserActions.changeLocale(locale);
         commit("setUser", data);
         myVue.$socket.client.connect();
       } catch (e) {

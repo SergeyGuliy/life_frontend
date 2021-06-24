@@ -126,13 +126,9 @@ export default {
       this.y = 0;
     },
     actionHandler(action, userId) {
-      this[action](userId);
+      const keys = action.split(".");
+      this[keys[0]][keys[1]](userId);
     }
   }
 };
 </script>
-
-<style lang="scss">
-.ChatMessage {
-}
-</style>
