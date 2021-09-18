@@ -29,7 +29,16 @@ export default {
       return null;
     }
   },
-  sockets: {
+  async mounted() {
+    document.querySelector("body").addEventListener("click", this.clickOutside);
+    document
+      .querySelector("body")
+      .addEventListener("contextmenu", this.clickOutsideContext);
+    await this.forceDisconnect();
+    this.$socket.$subscribe("callUserIdToServer", this.callUserIdToServer);
+    this.$socket.$subscribe("forceDisconnect", this.forceDisconnect);
+  },
+  methods: {
     callUserIdToServer(clientId) {
       if (this.$user?.userId) {
         this.$socket.client.emit("giveUserIdToServer", {
@@ -39,20 +48,8 @@ export default {
       }
     },
     async forceDisconnect() {
-      await this.forceDisconnect();
-    }
-  },
-  async mounted() {
-    document.querySelector("body").addEventListener("click", this.clickOutside);
-    document
-      .querySelector("body")
-      .addEventListener("contextmenu", this.clickOutsideContext);
-    await this.forceDisconnect();
-  },
-  methods: {
-    async forceDisconnect() {
       if (this.$route.meta.layout === "mainLayout") {
-        this.$socket.close();
+        this.$socket.client.close();
         await this.$store.dispatch("auth/logOut");
         await this.$router.push({ name: "Closer" });
       }

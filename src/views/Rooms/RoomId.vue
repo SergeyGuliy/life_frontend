@@ -61,14 +61,6 @@ export default {
       roomData: null
     };
   },
-  sockets: {
-    updateUsersListInRoom(usersInRoom) {
-      this.roomData.usersInRoom = usersInRoom;
-    },
-    updateRoomAdmin(newAdmin) {
-      this.roomData.creator = newAdmin;
-    }
-  },
   async mounted() {
     this.roomData = {
       ...(await api.rooms.getById(this.$route.params.id)).data
@@ -77,6 +69,11 @@ export default {
       userId: this.$user.userId,
       roomId: this.roomData.roomId
     });
+    this.$socket.$subscribe(
+      "updateUsersListInRoom",
+      this.updateUsersListInRoom
+    );
+    this.$socket.$subscribe("updateRoomAdmin", this.updateRoomAdmin);
   },
 
   async beforeRouteLeave(to, from, next) {
@@ -108,6 +105,12 @@ export default {
     }
   },
   methods: {
+    updateUsersListInRoom(usersInRoom) {
+      this.roomData.usersInRoom = usersInRoom;
+    },
+    updateRoomAdmin(newAdmin) {
+      this.roomData.creator = newAdmin;
+    },
     kickUserFromRoom(userId) {
       console.log(userId);
     },
