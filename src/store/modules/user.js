@@ -41,8 +41,8 @@ export default {
         const { locale, isDarkTheme } = data.userData.userSettings;
         myVue.$currentUserActions.changeTheme(isDarkTheme);
         myVue.$currentUserActions.changeLocale(locale);
+        myVue.$currentUserActions.socketConnect();
         commit("setUser", data);
-        myVue.$socket.client.connect();
       } catch (e) {
         console.log(e);
       }

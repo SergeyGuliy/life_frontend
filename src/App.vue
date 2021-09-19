@@ -1,5 +1,5 @@
 <template>
-  <v-app @click="clickOutside">
+  <v-app>
     <component :is="layout">
       <router-view />
     </component>
@@ -30,15 +30,23 @@ export default {
     }
   },
   async mounted() {
-    document.querySelector("body").addEventListener("click", this.clickOutside);
-    document
-      .querySelector("body")
-      .addEventListener("contextmenu", this.clickOutsideContext);
-    await this.forceDisconnect();
-    this.$socket.$subscribe("callUserIdToServer", this.callUserIdToServer);
-    this.$socket.$subscribe("forceDisconnect", this.forceDisconnect);
+    this.intiComponent();
+    this.$watch("$socket.connected", this.intiComponent);
+    this.$watch("$socket.connected", val => {
+      if (!val) {
+        this.$socket.client.off("callUserIdToServer", this.callUserIdToServer);
+        this.$socket.client.off("forceDisconnect", this.forceDisconnect);
+      }
+    });
   },
   methods: {
+    async intiComponent() {
+      if (!this.$socket.connected) return;
+
+      this.$socket.client.on("callUserIdToServer", this.callUserIdToServer);
+      this.$socket.client.on("forceDisconnect", this.forceDisconnect);
+    },
+
     callUserIdToServer(clientId) {
       if (this.$user?.userId) {
         this.$socket.client.emit("giveUserIdToServer", {
@@ -49,15 +57,21 @@ export default {
     },
     async forceDisconnect() {
       if (this.$route.meta.layout === "mainLayout") {
-        this.$socket.client.close();
         await this.$store.dispatch("auth/logOut");
         await this.$router.push({ name: "Closer" });
       }
     },
+
+    initClickObservers() {
+      const body = document.querySelector("body");
+      body.addEventListener("click", this.clickOutside);
+      body.addEventListener("contextmenu", this.clickOutsideContext);
+    },
     clickOutside() {
       this.$bus.emit("click-outside");
     },
-    clickOutsideContext() {
+    // eslint-disable-next-line no-unused-vars
+    clickOutsideContext(e) {
       // TODO add prevent default on prod
       // e.preventDefault();
       this.$bus.emit("click-outside");

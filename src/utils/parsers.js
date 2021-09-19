@@ -33,6 +33,13 @@ export class ProfileSettingsParser {
     };
   }
 
+  get getProfileSettings() {
+    return cloneDeep(this.profileSettings);
+  }
+  get getChatSettings() {
+    return cloneDeep(this.chatSettings);
+  }
+
   static get nameMap() {
     return {
       profileSettings: {
@@ -60,13 +67,6 @@ export class ProfileSettingsParser {
         }
       }
     };
-  }
-
-  get getProfileSettings() {
-    return cloneDeep(this.profileSettings);
-  }
-  get getChatSettings() {
-    return cloneDeep(this.chatSettings);
   }
 
   static parseUserSettings(data) {

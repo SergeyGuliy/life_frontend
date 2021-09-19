@@ -46,7 +46,7 @@ export default {
     async logOut({ commit }) {
       try {
         commit("user/cleanUser", "", { root: true });
-        myVue.$socket.client.close();
+        myVue.$currentUserActions.socketDisconnect();
         await router.push({ name: "Auth" });
       } catch (e) {
         commit("user/cleanUser", "", { root: true });

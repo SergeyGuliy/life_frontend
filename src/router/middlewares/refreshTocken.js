@@ -11,6 +11,7 @@ export default async function(to) {
   }
   const userId = localStorage.getItem("userId");
   const refreshToken = localStorage.getItem("refreshToken");
+
   if (userId && refreshToken) {
     try {
       const { data } = await api.auth.refreshToken(userId, refreshToken);

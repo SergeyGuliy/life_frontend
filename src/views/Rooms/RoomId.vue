@@ -62,18 +62,13 @@ export default {
     };
   },
   async mounted() {
-    this.roomData = {
-      ...(await api.rooms.getById(this.$route.params.id)).data
-    };
-    this.$socket.client.emit("userConnectsRoom", {
-      userId: this.$user.userId,
-      roomId: this.roomData.roomId
-    });
-    this.$socket.$subscribe(
-      "updateUsersListInRoom",
-      this.updateUsersListInRoom
-    );
-    this.$socket.$subscribe("updateRoomAdmin", this.updateRoomAdmin);
+    this.intiComponent();
+    this.$watch("$socket.connected", this.intiComponent);
+  },
+
+  beforeDestroy() {
+    this.$socket.client.off("updateUserListInRoom", this.updateUserListInRoom);
+    this.$socket.client.off("updateRoomAdmin", this.updateRoomAdmin);
   },
 
   async beforeRouteLeave(to, from, next) {
@@ -105,7 +100,21 @@ export default {
     }
   },
   methods: {
-    updateUsersListInRoom(usersInRoom) {
+    async intiComponent() {
+      if (!this.$socket.connected) return;
+
+      this.roomData = {
+        ...(await api.rooms.getById(this.$route.params.id)).data
+      };
+      this.$socket.client.emit("userConnectsRoom", {
+        userId: this.$user.userId,
+        roomId: this.roomData.roomId
+      });
+      this.$socket.client.on("updateUserListInRoom", this.updateUserListInRoom);
+      this.$socket.client.on("updateRoomAdmin", this.updateRoomAdmin);
+    },
+
+    updateUserListInRoom(usersInRoom) {
       this.roomData.usersInRoom = usersInRoom;
     },
     updateRoomAdmin(newAdmin) {

@@ -14,10 +14,10 @@ export const $currentUserActions = {
           submit: myVue.$t("buttons.leave"),
           cancel: myVue.$t("buttons.cancel")
         })
-        .then(this.logOut)
+        .then(myVue.$currentUserActions.logOut)
         .catch(() => {});
     } else {
-      this.logOut();
+      myVue.$currentUserActions.logOut();
     }
   },
   async logOut() {
@@ -40,5 +40,11 @@ export const $currentUserActions = {
   },
   changeLocale(locale) {
     myVue.$i18n.locale = locale;
+  },
+  socketConnect() {
+    myVue.$socket.client.connect();
+  },
+  socketDisconnect() {
+    myVue.$socket.client.close();
   }
 };

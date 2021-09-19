@@ -10,25 +10,35 @@ export default {
       rooms: []
     };
   },
-  async created() {
-    const typeOfRoom = localStorage.getItem("typeOfRoom");
-    if (typeOfRoom) {
-      this.$set(this.filterData, "typeOfRoom", typeOfRoom.split(","));
-    }
-    await this.fetchRooms();
-    this.$socket.client.emit("subscribeRoomsUpdate", {
-      userId: this.$user.userId
-    });
-    this.$socket.$subscribe("roomInListCreated", this.roomInListCreated);
-    this.$socket.$subscribe("roomInListDeleted", this.roomInListDeleted);
-    this.$socket.$subscribe("roomInListUpdated", this.roomInListUpdated);
+  async mounted() {
+    this.intiComponent();
+    this.$watch("$socket.connected", this.intiComponent);
   },
   beforeDestroy() {
     this.$socket.client.emit("unSubscribeRoomsUpdate", {
       userId: this.$user?.userId
     });
+    this.$socket.client.off("roomInListCreated", this.roomInListCreated);
+    this.$socket.client.off("roomInListDeleted", this.roomInListDeleted);
+    this.$socket.client.off("roomInListUpdated", this.roomInListUpdated);
   },
   methods: {
+    async intiComponent() {
+      if (!this.$socket.connected) return;
+
+      const typeOfRoom = localStorage.getItem("typeOfRoom");
+      if (typeOfRoom) {
+        this.$set(this.filterData, "typeOfRoom", typeOfRoom.split(","));
+      }
+      await this.fetchRooms();
+      this.$socket.client.emit("subscribeRoomsUpdate", {
+        userId: this.$user.userId
+      });
+      this.$socket.client.on("roomInListCreated", this.roomInListCreated);
+      this.$socket.client.on("roomInListDeleted", this.roomInListDeleted);
+      this.$socket.client.on("roomInListUpdated", this.roomInListUpdated);
+    },
+
     roomInListCreated(roomData) {
       if (this.filterData.typeOfRoom.includes(roomData.typeOfRoom)) {
         this.rooms.push(roomData);

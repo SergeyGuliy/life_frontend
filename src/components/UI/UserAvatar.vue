@@ -1,10 +1,10 @@
 <template>
   <v-avatar color="indigo" size="40">
     <v-img
-      v-if="userData.avatarSmall"
+      v-if="userData && userData.avatarSmall"
       :src="userData.avatarSmall | avatarLink"
     />
-    <span v-else class="white--text">{{ getAbriature }}</span>
+    <span v-else class="white--text">{{ getAbs }}</span>
   </v-avatar>
 </template>
 
@@ -13,12 +13,12 @@ export default {
   name: "UserAvatar",
   props: {
     userData: {
-      required: true,
-      type: Object
+      required: true
     }
   },
   computed: {
-    getAbriature() {
+    getAbs() {
+      if (!this.userData) return "";
       const { firstName, lastName, email } = this.userData;
       if (firstName && lastName) {
         return `${firstName[0]} ${lastName[0]}`.toUpperCase();

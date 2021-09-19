@@ -4,22 +4,29 @@ const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 
 export default {
   async mounted() {
-    await this.fetchGlobalMessages();
-    await this.fetchPrivateMessages();
-    await this.fetchRoomMessages();
-    this.$bus.on("writeMessageToUser", this.writeMessageToUser);
-    this.$socket.$subscribe("messageToClient", this.messageToClient);
-    this.$socket.$subscribe("userJoinRoom", this.fetchRoomMessages);
-    this.$socket.$subscribe("userLeaveRoom", this.userLeaveRoom);
+    this.intiComponent();
+    this.$watch("$socket.connected", this.intiComponent);
   },
 
   beforeDestroy() {
     this.$bus.off("writeMessageToUser", this.writeMessageToUser);
-    this.$socket.$unsubscribe("messageToClient");
-    this.$socket.$unsubscribe("userJoinRoom");
-    this.$socket.$unsubscribe("userLeaveRoom");
+    this.$socket.client.off("messageToClient");
+    this.$socket.client.off("userJoinRoom");
+    this.$socket.client.off("userLeaveRoom");
   },
   methods: {
+    async intiComponent() {
+      if (!this.$socket.connected) return;
+
+      await this.fetchGlobalMessages();
+      await this.fetchPrivateMessages();
+      await this.fetchRoomMessages();
+      this.$bus.on("writeMessageToUser", this.writeMessageToUser);
+      this.$socket.client.on("messageToClient", this.messageToClient);
+      this.$socket.client.on("userJoinRoom", this.fetchRoomMessages);
+      this.$socket.client.on("userLeaveRoom", this.userLeaveRoom);
+    },
+
     async messageToClient(messageToClient) {
       const {
         messageSender,
