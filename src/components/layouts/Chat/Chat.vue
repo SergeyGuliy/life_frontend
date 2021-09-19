@@ -53,7 +53,7 @@ export default {
     this.$bus.on("openChat", this.openChat);
     this.$bus.on("userLeaveChat", this.userLeaveChat);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.$bus.off("activateChat", this.activateChat);
     this.$bus.off("openChat", this.openChat);
     this.$bus.off("userLeaveChat", this.userLeaveChat);

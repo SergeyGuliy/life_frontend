@@ -212,12 +212,15 @@
           <v-row>
             <Title :title="$t('pages.cabinet.chatSettings')" />
             <VoiceSettings
-              :chatSettings.sync="chatSettings.global"
+              v-model:chatSettings="chatSettings.global"
               type="global"
             />
-            <VoiceSettings :chatSettings.sync="chatSettings.room" type="room" />
             <VoiceSettings
-              :chatSettings.sync="chatSettings.private"
+              v-model:chatSettings="chatSettings.room"
+              type="room"
+            />
+            <VoiceSettings
+              v-model:chatSettings="chatSettings.private"
               type="private"
             />
           </v-row>

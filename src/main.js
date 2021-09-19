@@ -1,12 +1,12 @@
-import Vue from "vue";
+import { createApp } from "vue";
+import vuetify from "./plugins/vuetify";
 import App from "./App.vue";
+import router from "./router";
+import store from "./store";
 
-import { router, store, vuetify, i18n } from "./plugins";
+const app = createApp(App);
+app.use(router);
+app.use(store);
+app.use(vuetify);
 
-export const myVue = new Vue({
-  store,
-  vuetify,
-  i18n,
-  router,
-  render: h => h(App)
-}).$mount("#app");
+app.mount("#app");

@@ -198,7 +198,7 @@ export default {
     this.audio.addEventListener("play", this._handlePlayPause);
     this.audio.addEventListener("ended", this._handleEnded);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.audio.removeEventListener("timeupdate", this._handlePlayingUI);
     this.audio.removeEventListener("loadeddata", this._handleLoaded);
     this.audio.removeEventListener("pause", this._handlePlayPause);

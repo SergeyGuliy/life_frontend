@@ -56,7 +56,7 @@ export default {
     }
     this.ro = new ResizeObserver(scrollToBottom).observe(chatBodyInner);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     delete this.ro;
   }
 };

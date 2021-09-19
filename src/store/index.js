@@ -1,4 +1,3 @@
-import Vue from "vue";
 import Vuex from "vuex";
 import auth from "./modules/auth";
 import user from "./modules/user";
@@ -7,9 +6,7 @@ import modals from "./modules/modals";
 import chats from "./modules/chats";
 import friends from "./modules/friends";
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export default Vuex.createStore({
   strict: true,
   modules: {
     auth,

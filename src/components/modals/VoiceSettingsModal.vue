@@ -13,7 +13,7 @@
         <v-card-text>
           <VoiceSettings
             v-if="chatSettings"
-            :chatSettings.sync="getActiveChat"
+            v-model:chatSettings="getActiveChat"
             :type="data.chatType"
           />
         </v-card-text>

@@ -91,7 +91,7 @@ export default {
   mounted() {
     this.$bus.on("click-outside", this.hideContextMenu);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.$bus.off("click-outside", this.hideContextMenu);
   },
   computed: {

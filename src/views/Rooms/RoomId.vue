@@ -66,7 +66,7 @@ export default {
     this.$watch("$socket.connected", this.intiComponent);
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.$socket.client.off("updateUserListInRoom", this.updateUserListInRoom);
     this.$socket.client.off("updateRoomAdmin", this.updateRoomAdmin);
   },
