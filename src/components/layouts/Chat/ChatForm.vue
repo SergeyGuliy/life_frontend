@@ -64,6 +64,7 @@
 import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "../../../utils/enums";
 import recordingMixin from "../../../mixins/recordingMixin";
 import { api } from "../../../utils/api";
+import { $chatKeys } from "../../../composable/$chatKeys";
 
 const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 const { TEXT, VOICE } = MESSAGE_TYPES;
@@ -71,6 +72,9 @@ const { TEXT, VOICE } = MESSAGE_TYPES;
 export default {
   name: "ChatForm",
   mixins: [recordingMixin],
+  setup() {
+    return $chatKeys();
+  },
   components: {
     ChatAudio: () => import("./ChatAudio")
   },
@@ -94,7 +98,7 @@ export default {
     async sendMessage(event) {
       event.preventDefault();
       if (!(this.newMessage.length || this.audio)) return;
-      const activeChat = this.$chatKeys.getTypeFromChatKey(this.activeChat);
+      const activeChat = this.getTypeFromChatKey(this.activeChat);
       const messageData = {
         messageSender: this.$user.userId,
         messageReceiverType: activeChat,
@@ -121,7 +125,7 @@ export default {
         messageData.messageReceiverRoomId = this.$chats[ROOM].roomId;
       }
       if (activeChat === PRIVATE) {
-        messageData.messageReceiverUserId = this.$chatKeys.getUserIdFromChatKey(
+        messageData.messageReceiverUserId = this.getUserIdFromChatKey(
           this.activeChat
         );
       }

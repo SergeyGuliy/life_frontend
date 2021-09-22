@@ -28,5 +28,64 @@ Vue.mixin({
     $connects() {
       return this.$store.state.friends?.connects;
     }
+  },
+  methods: {
+    $openModal(modalName, data = {}) {
+      this.$store.dispatch("modals/setModal", {
+        component: modalName,
+        data: data
+      });
+
+      return new Promise(function(resolve, reject) {
+        let callback = data => {
+          if (data.detail !== null) {
+            resolve(data.detail);
+          } else {
+            reject();
+          }
+          window.removeEventListener("modalClose", callback);
+        };
+        window.addEventListener("modalClose", callback);
+      });
+    },
+    $noti() {
+      function error(message) {
+        this.$notify({
+          group: "foo",
+          type: "error",
+          title: message
+        });
+      }
+
+      function warning(message) {
+        this.$notify({
+          group: "foo",
+          type: "warn",
+          title: message
+        });
+      }
+
+      function success(message) {
+        this.$notify({
+          group: "foo",
+          type: "success",
+          title: message
+        });
+      }
+
+      function info(message) {
+        this.$notify({
+          group: "foo",
+          type: "info",
+          title: message
+        });
+      }
+      return {
+        error,
+        warning,
+        success,
+        info
+      };
+    }
   }
 });

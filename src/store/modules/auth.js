@@ -1,7 +1,9 @@
 import router from "../../router";
 import { api } from "../../utils/api";
-import { myVue } from "../../main";
 import { clearLocalStorageKeys } from "../../utils/localStorageKeys";
+import { $currentUserActions } from "../../composable/$currentUserActions";
+
+const { socketDisconnect } = $currentUserActions();
 
 export default {
   namespaced: true,
@@ -46,7 +48,7 @@ export default {
     async logOut({ commit }) {
       try {
         commit("user/cleanUser", "", { root: true });
-        myVue.$currentUserActions.socketDisconnect();
+        socketDisconnect();
         await router.push({ name: "Auth" });
       } catch (e) {
         commit("user/cleanUser", "", { root: true });

@@ -56,8 +56,13 @@
 </template>
 
 <script>
+import {$usersActions} from "../../../composable/$usersActions";
+
 export default {
   name: "ChatMessage",
+  setup() {
+    return $usersActions();
+  },
   components: {
     ChatAudio: () => import("./ChatAudio")
   },
@@ -75,15 +80,15 @@ export default {
       items: [
         {
           title: "buttons.openProfile",
-          action: "$usersActions.openUserProfile"
+          action: "openUserProfile"
         },
         {
           title: "buttons.writeMessage",
-          action: "$usersActions.writeMessageToUser"
+          action: "writeMessageToUser"
         },
         {
           title: "buttons.addToFriend",
-          action: "$usersActions.addUserToFriendsList"
+          action: "addUserToFriendsList"
         }
       ]
     };
@@ -126,8 +131,7 @@ export default {
       this.y = 0;
     },
     actionHandler(action, userId) {
-      const keys = action.split(".");
-      this[keys[0]][keys[1]](userId);
+      this[action](userId);
     }
   }
 };

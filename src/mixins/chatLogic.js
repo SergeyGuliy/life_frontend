@@ -1,8 +1,12 @@
 import { api } from "../utils/api";
 import { MESSAGE_RECEIVER_TYPES } from "../utils/enums";
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
+import { $chatKeys } from "../composable/$chatKeys";
 
 export default {
+  setup() {
+    return $chatKeys();
+  },
   async mounted() {
     this.intiComponent();
     this.$watch("$socket.connected", this.intiComponent);
@@ -43,7 +47,7 @@ export default {
             ? messageReceiverUserId
             : messageSender.userId;
         await this.createUserChat(userId);
-        const userChatKey = this.$chatKeys.getUserChatKey(userId);
+        const userChatKey = this.getUserChatKey(userId);
         this.pushMessageToChatChat(userChatKey, messageToClient);
       }
     },
@@ -53,7 +57,7 @@ export default {
     },
     async writeMessageToUser(userId) {
       await this.createUserChat(userId);
-      const chatTab = this.$chatKeys.getUserChatKey(userId);
+      const chatTab = this.getUserChatKey(userId);
       this.$bus.emit("openChat");
       this.$bus.emit("activateChat", chatTab);
     },
@@ -68,7 +72,7 @@ export default {
       });
     },
     async createUserChat(userId) {
-      const userChatKey = this.$chatKeys.getUserChatKey(userId);
+      const userChatKey = this.getUserChatKey(userId);
       if (!this.$chats[userChatKey]) {
         this.setChat(userChatKey, {
           messages: [],
@@ -116,7 +120,7 @@ export default {
             message.messageSender.userId === userId
         );
         await this.createUserChat(userId);
-        const userChatKey = this.$chatKeys.getUserChatKey(userId);
+        const userChatKey = this.getUserChatKey(userId);
         this.setChat(userChatKey, {
           key: PRIVATE,
           userId:

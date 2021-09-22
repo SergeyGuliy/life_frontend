@@ -101,7 +101,7 @@
             outlined
             hide-details
             class="mb-4"
-            @input="$currentUserActions.changeLocale"
+            @input="changeLocale"
           >
             <template v-slot:selection="slotData">
               <v-list-item-content
@@ -231,9 +231,13 @@
 import { COUNTRIES, LOCALES } from "../utils/enums";
 import { api } from "../utils/api";
 import { ProfileSettingsParser } from "../utils/parsers";
+import { $currentUserActions } from "../composable/$currentUserActions";
 
 export default {
   name: "Cabinet",
+  setup() {
+    return $currentUserActions();
+  },
   components: {
     VoiceSettings: () =>
       import("../components/components/Cabinet/VoiceSettings")
@@ -291,7 +295,7 @@ export default {
       await this.$openModal("ChangePassword").catch(() => {});
     },
     async saveSettings() {
-      await this.$currentUserActions.updateUserSettings({
+      await this.updateUserSettings({
         chatSettings: this.chatSettings,
         profileSettings: this.profileSettings
       });

@@ -17,16 +17,16 @@
           link
           v-for="(item, index) in LOCALES"
           :key="index"
-          @click="$currentUserActions.changeLocale(item.key)"
+          @click="changeLocale(item.key)"
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
-    <v-btn icon @click="$currentUserActions.changeTheme">
+    <v-btn icon @click="changeTheme">
       <v-icon>mdi-invert-colors</v-icon>
     </v-btn>
-    <v-btn icon @click="$currentUserActions.logOutMiddleware">
+    <v-btn icon @click="logOutMiddleware">
       <v-icon>mdi-logout</v-icon>
     </v-btn>
   </v-app-bar>
@@ -34,9 +34,13 @@
 
 <script>
 import { LOCALES } from "../../utils/enums";
+import { $currentUserActions } from "../../composable/$currentUserActions";
 
 export default {
   name: "NavBar",
+  setup() {
+    return $currentUserActions();
+  },
   data() {
     return {
       LOCALES,

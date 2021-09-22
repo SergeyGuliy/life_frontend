@@ -7,13 +7,13 @@
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
       >
         <template #actions="{userData}">
-          <v-btn @click="$usersActions.openUserProfile(userData.userId)">
+          <v-btn @click="openUserProfile(userData.userId)">
             {{ $t("buttons.openProfile") }}
           </v-btn>
-          <v-btn @click="$usersActions.deleteFromFriends(userData.userId)">
+          <v-btn @click="deleteFromFriends(userData.userId)">
             {{ $t("buttons.deleteFromFriends") }}
           </v-btn>
-          <v-btn @click="$usersActions.writeMessageToUser(userData.userId)">
+          <v-btn @click="writeMessageToUser(userData.userId)">
             {{ $t("buttons.writeMessage") }}
           </v-btn>
         </template>
@@ -31,7 +31,7 @@
         :emptyText="activeTabListEmptyList"
       >
         <template #actions="{userData}">
-          <v-btn @click="$usersActions.openUserProfile(userData.userId)">
+          <v-btn @click="openUserProfile(userData.userId)">
             {{ $t("buttons.openProfile") }}
           </v-btn>
           <v-btn
@@ -59,9 +59,13 @@
 <script>
 import { FRIENDSHIP_STATUSES } from "../../utils/enums";
 import { api } from "../../utils/api";
+import {$usersActions} from "../../composable/$usersActions";
 
 export default {
   name: "Friends",
+  setup() {
+    return $usersActions();
+  },
   components: {
     UsersList: () => import("../../components/components/Users/UsersList")
   },

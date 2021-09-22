@@ -11,7 +11,7 @@
 
     <template v-slot:append>
       <div class="pa-2">
-        <v-btn block @click="$currentUserActions.logOutMiddleware">
+        <v-btn block @click="logOutMiddleware">
           {{ $t("layout.logout") }}
           <v-icon>mdi-logout</v-icon>
         </v-btn>
@@ -21,8 +21,13 @@
 </template>
 
 <script>
+import {$currentUserActions} from "../../../composable/$currentUserActions";
+
 export default {
   name: "SideBar",
+  setup() {
+    return $currentUserActions();
+  },
   components: {
     SideBarList: () => import("./SideBarList"),
     SideBarUserBlock: () => import("./SideBarUserBlock")

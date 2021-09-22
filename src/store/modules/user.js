@@ -1,6 +1,8 @@
 import { api } from "../../utils/api";
-import { myVue } from "../../main";
 import { setLocalStorageKeys } from "../../utils/localStorageKeys";
+import { $currentUserActions } from "../../composable/$currentUserActions";
+
+const { changeTheme, changeLocale, socketConnect } = $currentUserActions();
 
 export default {
   namespaced: true,
@@ -39,9 +41,9 @@ export default {
     async setUserData({ commit }, data) {
       try {
         const { locale, isDarkTheme } = data.userData.userSettings;
-        myVue.$currentUserActions.changeTheme(isDarkTheme);
-        myVue.$currentUserActions.changeLocale(locale);
-        myVue.$currentUserActions.socketConnect();
+        changeTheme(isDarkTheme);
+        changeLocale(locale);
+        socketConnect();
         commit("setUser", data);
       } catch (e) {
         console.log(e);

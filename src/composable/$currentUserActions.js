@@ -1,12 +1,12 @@
-import { ProfileSettingsParser } from "../../../../utils/parsers";
-import { clearLocalStorageKeys } from "../../../../utils/localStorageKeys";
-import { myVue } from "../../../../main";
+import { ProfileSettingsParser } from "../utils/parsers";
+import { clearLocalStorageKeys } from "../utils/localStorageKeys";
+import { myVue } from "../main";
 
-export const $currentUserActions = {
-  async updateUserSettings(settings) {
+export function $currentUserActions() {
+  async function updateUserSettings(settings) {
     await ProfileSettingsParser.pushNewUserSettings(settings);
-  },
-  async logOutMiddleware() {
+  }
+  async function logOutMiddleware() {
     if (myVue.$route.name === "RoomId") {
       await myVue
         .$openModal("Promt", {
@@ -14,13 +14,13 @@ export const $currentUserActions = {
           submit: myVue.$t("buttons.leave"),
           cancel: myVue.$t("buttons.cancel")
         })
-        .then(myVue.$currentUserActions.logOut)
+        .then(logOut)
         .catch(() => {});
     } else {
-      myVue.$currentUserActions.logOut();
+      logOut();
     }
-  },
-  async logOut() {
+  }
+  async function logOut() {
     try {
       await myVue.$store.dispatch("auth/logOut");
     } catch (e) {
@@ -28,8 +28,8 @@ export const $currentUserActions = {
     }
     clearLocalStorageKeys();
     await myVue.$router.push({ name: "Auth" });
-  },
-  changeTheme(theme) {
+  }
+  function changeTheme(theme) {
     setTimeout(() => {
       if (typeof theme === "boolean") {
         myVue.$vuetify.theme.dark = theme;
@@ -37,14 +37,24 @@ export const $currentUserActions = {
         myVue.$vuetify.theme.dark = !myVue.$vuetify.theme.dark;
       }
     }, 0);
-  },
-  changeLocale(locale) {
+  }
+  function changeLocale(locale) {
     myVue.$i18n.locale = locale;
-  },
-  socketConnect() {
+  }
+  function socketConnect() {
     myVue.$socket.client.connect();
-  },
-  socketDisconnect() {
+  }
+  function socketDisconnect() {
     myVue.$socket.client.close();
   }
-};
+
+  return {
+    updateUserSettings,
+    logOutMiddleware,
+    logOut,
+    changeTheme,
+    changeLocale,
+    socketConnect,
+    socketDisconnect
+  };
+}

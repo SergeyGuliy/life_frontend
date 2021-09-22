@@ -1,18 +1,18 @@
-import { myVue } from "../../../../main";
-import { api } from "../../../../utils/api";
-import store from "../../../../store";
+import { myVue } from "../main";
+import { api } from "../utils/api";
+import store from "../store";
 
-export const $usersActions = {
-  writeMessageToUser(userId) {
+export function $usersActions() {
+  function writeMessageToUser(userId) {
     myVue.$bus.emit("writeMessageToUser", userId);
-  },
-  async addUserToFriendsList(userId) {
+  }
+  async function addUserToFriendsList(userId) {
     await api.friendship
       .sendRequest(userId)
       .then(() => {})
       .catch(() => {});
-  },
-  async deleteFromFriends(userId) {
+  }
+  async function deleteFromFriends(userId) {
     await api.friendship
       .deleteFromFriends(userId)
       .then(({ data }) => {
@@ -22,8 +22,14 @@ export const $usersActions = {
         store.commit("friends/deleteFriend", indexToDelete);
       })
       .catch(() => {});
-  },
-  async openUserProfile(userId) {
+  }
+  async function openUserProfile(userId) {
     await myVue.$router.push({ name: "UserId", params: { id: userId } });
   }
-};
+  return {
+    writeMessageToUser,
+    addUserToFriendsList,
+    deleteFromFriends,
+    openUserProfile
+  };
+}

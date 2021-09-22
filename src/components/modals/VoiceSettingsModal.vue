@@ -35,10 +35,14 @@
 import modal from "../../mixins/modal";
 import { SOUNDS } from "../../utils/enums";
 import { cloneDeep } from "lodash";
+import { $currentUserActions } from "../../composable/$currentUserActions";
 
 export default {
   name: "VoiceSettingsModal",
   mixins: [modal],
+  setup() {
+    return $currentUserActions();
+  },
   components: {
     VoiceSettings: () => import("../components/Cabinet/VoiceSettings")
   },
@@ -63,9 +67,9 @@ export default {
   },
   methods: {
     updateUserSettings() {
-      this.$currentUserActions
-        .updateUserSettings({ chatSettings: this.chatSettings })
-        .then(() => this.close());
+      this.updateUserSettings({ chatSettings: this.chatSettings }).then(() =>
+        this.close()
+      );
     }
   }
 };

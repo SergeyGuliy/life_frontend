@@ -16,6 +16,7 @@ import "./modules/socket";
 import "./modules/moment";
 import "./modules/globalMixin";
 import "./modules/globalComponents";
+import "./modules/compositionAPI";
 
 Vue.config.productionTip = false;
 
