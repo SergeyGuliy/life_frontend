@@ -57,8 +57,8 @@ export default {
     return $usersActions();
   },
   components: {
-    RoomInfo: () => import("../../components/components/Rooms/RoomInfo"),
-    UsersList: () => import("../../components/components/Users/UsersList")
+    RoomInfo: () => import("../../components/elements/Rooms/RoomInfo"),
+    UsersList: () => import("../../components/elements/Users/UsersList")
   },
   data() {
     return {

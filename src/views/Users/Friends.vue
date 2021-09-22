@@ -67,7 +67,7 @@ export default {
     return $usersActions();
   },
   components: {
-    UsersList: () => import("../../components/components/Users/UsersList")
+    UsersList: () => import("../../components/elements/Users/UsersList")
   },
   data() {
     return {

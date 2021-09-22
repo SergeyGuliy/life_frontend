@@ -1,8 +1,8 @@
 import Vue from "vue";
 
-import Grid from "../../components/UI/Grid";
-import Title from "../../components/UI/Title";
-import UserAvatar from "../../components/UI/UserAvatar";
+import Grid from "../../components/global/Grid";
+import Title from "../../components/global/Title";
+import UserAvatar from "../../components/global/UserAvatar";
 
 const globalComponents = [Grid, UserAvatar, Title];
 

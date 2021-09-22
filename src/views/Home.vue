@@ -36,8 +36,8 @@ export default {
   },
   components: {
     RoomsController: () =>
-      import("../components/components/Rooms/RoomsController"),
-    UsersList: () => import("../components/components/Users/UsersList")
+      import("../components/elements/Rooms/RoomsController"),
+    UsersList: () => import("../components/elements/Users/UsersList")
   },
   data() {
     return {

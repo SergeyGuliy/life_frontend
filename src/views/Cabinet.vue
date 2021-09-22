@@ -240,7 +240,7 @@ export default {
   },
   components: {
     VoiceSettings: () =>
-      import("../components/components/Cabinet/VoiceSettings")
+      import("../components/elements/Cabinet/VoiceSettings")
   },
   data() {
     return {
