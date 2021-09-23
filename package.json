@@ -63,11 +63,11 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
-      "eslint . --fix",
+      "vue-cli-service lint",
       "git add"
     ],
     "src/**/*.scss": [
-      "stylelint --syntax scss --fix",
+      "vue-cli-service lint",
       "git add"
     ]
   },
