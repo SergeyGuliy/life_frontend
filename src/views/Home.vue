@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import {$usersActions} from "../composable/$usersActions";
+import { $usersActions } from "../composable/$usersActions";
 
 export default {
   name: "Home",

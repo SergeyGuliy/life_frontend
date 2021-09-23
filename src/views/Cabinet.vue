@@ -239,8 +239,7 @@ export default {
     return $currentUserActions();
   },
   components: {
-    VoiceSettings: () =>
-      import("../components/elements/Cabinet/VoiceSettings")
+    VoiceSettings: () => import("../components/elements/Cabinet/VoiceSettings")
   },
   data() {
     return {

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import {$currentUserActions} from "../../../composable/$currentUserActions";
+import { $currentUserActions } from "../../../composable/$currentUserActions";
 
 export default {
   name: "SideBar",

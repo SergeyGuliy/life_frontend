@@ -59,7 +59,7 @@
 <script>
 import { FRIENDSHIP_STATUSES } from "../../utils/enums";
 import { api } from "../../utils/api";
-import {$usersActions} from "../../composable/$usersActions";
+import { $usersActions } from "../../composable/$usersActions";
 
 export default {
   name: "Friends",
