@@ -11,6 +11,7 @@ import "./modules/bus";
 import "./modules/mask";
 import "./modules/notify";
 import "./modules/longClick";
+import "./modules/vueWorker";
 import "./modules/debounce";
 import "./modules/socket";
 import "./modules/moment";
