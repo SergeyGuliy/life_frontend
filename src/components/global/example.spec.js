@@ -1,6 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
 import RoomInfo from "@/components/elements/Rooms/RoomInfo";
-import Vuetify from "vuetify";
 
 const $t = () => {};
 
@@ -17,6 +16,15 @@ describe("RoomInfo.vue", () => {
       propsData: { roomData },
       mocks: { $t }
     });
-    expect(true).toBe(true);
+    expect(wrapper).toBe(true);
   });
 });
+
+// function sum(a, b) {
+//   return a + b;
+// }
+//
+// it("should", function() {
+//   const res = sum(2, 5);
+//   expect(res).toBe(7);
+// });

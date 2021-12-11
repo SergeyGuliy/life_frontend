@@ -4,5 +4,6 @@ module.exports = {
   moduleNameMapper: {
     "/^@/(.*)$/": "<rootDir>/$1"
   },
+  testMatch: ["<rootDir>/**/*.spec.js", "<rootDir>/**/*.test.js"],
   resolver: null
 };
