@@ -18,10 +18,14 @@
       </RoomInfo>
     </template>
     <template #rightCol>
-      <UsersList :users="usersInRoom" :showUserRoomInfo="true">
+      <UsersList
+        :users="usersInRoom"
+        :showUserRoomInfo="true"
+        :sortType="'adminFirst'"
+      >
         <template #actions="{userData}">
           <v-btn
-            v-if="userData.roomJoinedId === userData.createdRoomId"
+            v-if="userData.roomJoinedId === userData.roomCreatedId"
             @click="kickUserFromRoom(userData.userId)"
           >
             {{ $t("buttons.kickUser") }}
@@ -33,7 +37,7 @@
             {{ $t("buttons.writeMessage") }}
           </v-btn>
           <v-btn
-            v-if="userData.roomJoinedId === userData.createdRoomId"
+            v-if="userData.roomJoinedId === userData.roomCreatedId"
             @click="setNewAdminInRoom(userData.userId)"
           >
             {{ $t("buttons.setAdmin") }}
@@ -97,8 +101,8 @@ export default {
     usersInRoom() {
       return [...this.roomData.usersInRoom].sort((a, b) => {
         return (
-          (a.roomJoinedId === a.createdRoomId) +
-          (b.roomJoinedId === b.createdRoomId)
+          (a.roomJoinedId === a.roomCreatedId) +
+          (b.roomJoinedId === b.roomCreatedId)
         );
       });
     }
@@ -114,7 +118,10 @@ export default {
         userId: this.$user.userId,
         roomId: this.roomData.roomId
       });
-      this.$socket.client.on("updateUserListInRoom", this.updateUserListInRoom);
+      this.$socket.client.on(
+        "updateUsersListInRoom",
+        this.updateUserListInRoom
+      );
       this.$socket.client.on("updateRoomAdmin", this.updateRoomAdmin);
     },
 
@@ -126,9 +133,14 @@ export default {
     },
     kickUserFromRoom(userId) {
       console.log(userId);
+      this.$socket.client.emit("kickUserFromRoom", {
+        userId
+      });
     },
     setNewAdminInRoom(userId) {
-      console.log(userId);
+      this.$socket.client.emit("setNewAdminInRoom", {
+        userId
+      });
     }
   }
 };

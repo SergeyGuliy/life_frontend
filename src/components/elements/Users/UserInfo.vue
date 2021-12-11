@@ -60,7 +60,7 @@ export default {
     isRoomAdmin() {
       return (
         typeof this.userData.roomJoinedId === "number" &&
-        this.userData.roomJoinedId === this.userData.createdRoomId
+        this.userData.roomJoinedId === this.userData.roomCreatedId
       );
     }
   }
