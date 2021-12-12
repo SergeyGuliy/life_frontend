@@ -44,8 +44,13 @@
 </template>
 
 <script>
+import { $isUserAdmin } from "../../../composable/$isUserAdmin";
+
 export default {
   name: "UserInfo",
+  setup(props) {
+    return $isUserAdmin(props);
+  },
   props: {
     userData: {
       required: true,
@@ -54,14 +59,6 @@ export default {
     showUserRoomInfo: {
       default: () => false,
       type: Boolean
-    }
-  },
-  computed: {
-    isRoomAdmin() {
-      return (
-        typeof this.userData.roomJoinedId === "number" &&
-        this.userData.roomJoinedId === this.userData.roomCreatedId
-      );
     }
   }
 };
