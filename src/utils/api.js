@@ -46,13 +46,13 @@ export const api = {
     getById: userId => axiosWithAuth.get(`api/users/${userId}`)
   },
   rooms: {
-    create: async roomData => axiosWithAuth.post("api/rooms/create", roomData),
-
-    leaveRoom: async () => axiosWithAuth.patch("api/rooms/leave"),
-
     getRooms: async params => axiosWithAuth.get("api/rooms/", { params }),
 
-    getById: async roomId => axiosWithAuth.get(`api/rooms/${roomId}`),
+    getRoomById: async roomId => axiosWithAuth.get(`api/rooms/${roomId}`),
+
+    create: async formData => axiosWithAuth.post("api/rooms/create", formData),
+
+    leaveRoom: async () => axiosWithAuth.patch("api/rooms/leave"),
 
     joinRoom: async (roomId, roomPassword = "") =>
       axiosWithAuth.patch(`api/rooms/${roomId}/join`, { roomPassword }),
@@ -81,9 +81,6 @@ export const api = {
       axiosWithAuth.post(`api/uploader/uploadVoice`, formData),
 
     uploadAvatar: async formData =>
-      axiosWithAuth.post(`api/uploader/images/avatars`, formData),
-
-    getVoice: async voiceMessageId =>
-      axiosWithAuth.post(`api/uploader/${voiceMessageId}`)
+      axiosWithAuth.post(`api/uploader/images/avatars`, formData)
   }
 };

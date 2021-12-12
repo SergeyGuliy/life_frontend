@@ -117,7 +117,7 @@ export default {
       if (!this.$socket.connected) return;
 
       this.roomData = {
-        ...(await api.rooms.getById(this.roomId)).data
+        ...(await api.rooms.getRoomById(this.roomId)).data
       };
       this.$socket.client.emit("userConnectsRoom", {
         userId: this.$user.userId,
