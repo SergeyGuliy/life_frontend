@@ -13,7 +13,10 @@ export default {
       const refreshToken = localStorage.getItem("refreshToken");
       if (userId && refreshToken) {
         try {
-          const { data } = await api.auth.refreshToken(userId, refreshToken);
+          const { data } = await api.auth.refreshToken({
+            userId,
+            refreshToken
+          });
           await dispatch("user/setUserData", data, { root: true });
         } catch (e) {
           await dispatch("logOut");

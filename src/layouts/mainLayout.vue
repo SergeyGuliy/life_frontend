@@ -33,7 +33,7 @@ export default {
     "$vuetify.theme.dark"(val) {
       if (this.$user) {
         api.userSettings
-          .changeTheme(val)
+          .changeTheme({ isDarkTheme: val })
           .then(({ data }) => {
             this.$store.commit("user/setUserSettings", data);
           })
@@ -45,7 +45,7 @@ export default {
     "$i18n.locale"(val) {
       if (this.$user) {
         api.userSettings
-          .changeLocale(val)
+          .changeLocale({ locale: val })
           .then(({ data }) => {
             this.$store.commit("user/setUserSettings", data);
           })
