@@ -56,7 +56,11 @@ export const api = {
     setNewRoomAdmin: async (roomId, newAdminId) =>
       axiosWithAuth.patch(`api/rooms/${roomId}/set-new-admin`, {
         newAdminId
-      })
+      }),
+    blockRoom: async roomId =>
+      axiosWithAuth.patch(`api/rooms/${roomId}/block-room`),
+    deleteRoom: async roomId =>
+      axiosWithAuth.delete(`api/rooms/${roomId}/delete-room`)
   },
   chats: {
     getGlobalMessages: async () => axiosWithAuth.get("api/chats/global"),

@@ -7,11 +7,11 @@
           usersInRoomLength: usersInRoom.length
         }"
       >
-        <template #actions>
-          <v-btn>
+        <template #actions v-if="$user.roomCreatedId === roomId">
+          <v-btn @click="blockRoom">
             {{ $t("buttons.blockRoom") }}
           </v-btn>
-          <v-btn>
+          <v-btn @click="deleteRoom">
             {{ $t("buttons.deleteRoom") }}
           </v-btn>
         </template>
@@ -84,7 +84,7 @@ export default {
   },
 
   async beforeRouteLeave(to, from, next) {
-    if (!this.$user || +this.$user?.roomJoinedId !== +this.$route.params.id) {
+    if (!this.$user || +this.$user?.roomJoinedId !== this.roomId) {
       next();
     } else {
       await this.$openModal("Promt", {
@@ -103,11 +103,13 @@ export default {
   },
   computed: {
     isRoomAdmin() {
-      return +this.$user.roomCreatedId === +this.$route.params.id;
+      return this.$user.roomCreatedId === this.roomId;
     },
-
     usersInRoom() {
       return this.roomData.usersInRoom;
+    },
+    roomId() {
+      return +this.$route.params.id;
     }
   },
   methods: {
@@ -115,7 +117,7 @@ export default {
       if (!this.$socket.connected) return;
 
       this.roomData = {
-        ...(await api.rooms.getById(this.$route.params.id)).data
+        ...(await api.rooms.getById(this.roomId)).data
       };
       this.$socket.client.emit("userConnectsRoom", {
         userId: this.$user.userId,
@@ -161,20 +163,26 @@ export default {
       this.$set(
         this.roomData.usersInRoom[indexNewAdmin],
         "roomCreatedId",
-        +this.$route.params.id
+        this.roomId
       );
 
       if (newAdmin.userId === this.$user.userId) {
-        this.$store.commit("user/setRoomId", +this.$route.params.id);
+        this.$store.commit("user/setRoomId", this.roomId);
       } else {
         this.$store.commit("user/setRoomId", null);
       }
     },
     async kickUserFromRoom(userId) {
-      await api.rooms.kickUserFromRoom(this.$route.params.id, userId);
+      await api.rooms.kickUserFromRoom(this.roomId, userId);
     },
     async setNewRoomAdmin(userId) {
-      await api.rooms.setNewRoomAdmin(this.$route.params.id, userId);
+      await api.rooms.setNewRoomAdmin(this.roomId, userId);
+    },
+    async blockRoom() {
+      await api.rooms.blockRoom(this.roomId);
+    },
+    async deleteRoom() {
+      await api.rooms.deleteRoom(this.roomId);
     }
   }
 };
