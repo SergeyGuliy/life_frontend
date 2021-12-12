@@ -38,18 +38,6 @@ export default {
         this.$socket.client.off("forceDisconnect", this.forceDisconnect);
       }
     });
-    this.$worker
-      .run(() => {
-        // eslint-disable-next-line no-empty
-        for (let i = 0; i < 10000000000; i++) {}
-        return "longLogic";
-      })
-      .then(result => {
-        console.log(result);
-      })
-      .catch(error => {
-        console.log(error);
-      });
   },
   methods: {
     async intiComponent() {

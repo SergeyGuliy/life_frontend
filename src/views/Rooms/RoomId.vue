@@ -1,6 +1,7 @@
 <template>
   <Grid v-if="roomData">
     <template #leftCol>
+      <pre>{{ roomData }}</pre>
       <RoomInfo
         :roomData="{
           ...roomData,
@@ -8,8 +9,11 @@
         }"
       >
         <template #actions v-if="$user.roomCreatedId === roomId">
-          <v-btn @click="blockRoom">
-            {{ $t("buttons.blockRoom") }}
+          <v-btn v-if="!roomData.isBlocked" @click="toggleLockRoom">
+            {{ $t("buttons.lockRoom") }}
+          </v-btn>
+          <v-btn v-else-if="roomData.isBlocked" @click="toggleLockRoom">
+            {{ $t("buttons.unLockRoom") }}
           </v-btn>
           <v-btn @click="deleteRoom">
             {{ $t("buttons.deleteRoom") }}
@@ -129,6 +133,7 @@ export default {
       );
       this.$socket.client.on("updateRoomAdmin", this.updateRoomAdmin);
       this.$socket.client.on("userKickedFromRoom", this.userKickedFromRoom);
+      this.$socket.client.on("updateToggleLockRoom", this.updateToggleLockRoom);
     },
 
     async userKickedFromRoom(kickUserId) {
@@ -142,6 +147,11 @@ export default {
         this.$store.commit("user/leaveRoom");
         await this.$router.push({ name: "Home" });
       }
+    },
+
+    updateToggleLockRoom(lockState) {
+      console.log(lockState);
+      this.roomData.isBlocked = lockState;
     },
 
     updateUserListInRoom(usersInRoom) {
@@ -178,8 +188,10 @@ export default {
     async setNewRoomAdmin(userId) {
       await api.rooms.setNewRoomAdmin(this.roomId, userId);
     },
-    async blockRoom() {
-      await api.rooms.blockRoom(this.roomId);
+    async toggleLockRoom() {
+      await api.rooms.toggleLockRoom(this.roomId, {
+        lockState: !this.roomData.isBlocked
+      });
     },
     async deleteRoom() {
       await api.rooms.deleteRoom(this.roomId);

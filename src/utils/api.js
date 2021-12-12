@@ -63,8 +63,8 @@ export const api = {
     setNewRoomAdmin: async (roomId, newAdminId) =>
       axiosWithAuth.patch(`api/rooms/${roomId}/set-new-admin`, { newAdminId }),
 
-    blockRoom: async roomId =>
-      axiosWithAuth.patch(`api/rooms/${roomId}/block-room`),
+    toggleLockRoom: async (roomId, formData) =>
+      axiosWithAuth.patch(`api/rooms/${roomId}/toggle-lock-room`, formData),
 
     deleteRoom: async roomId =>
       axiosWithAuth.delete(`api/rooms/${roomId}/delete-room`)
