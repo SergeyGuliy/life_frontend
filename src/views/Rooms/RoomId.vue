@@ -80,10 +80,11 @@ export default {
   beforeDestroy() {
     this.$socket.client.off("updateUserListInRoom", this.updateUserListInRoom);
     this.$socket.client.off("updateRoomAdmin", this.updateRoomAdmin);
+    this.$socket.client.off("userKickedFromRoom", this.userKickedFromRoom);
   },
 
   async beforeRouteLeave(to, from, next) {
-    if (!this.$user) {
+    if (!this.$user || +this.$user?.roomJoinedId !== +this.$route.params.id) {
       next();
     } else {
       await this.$openModal("Promt", {
@@ -125,6 +126,20 @@ export default {
         this.updateUserListInRoom
       );
       this.$socket.client.on("updateRoomAdmin", this.updateRoomAdmin);
+      this.$socket.client.on("userKickedFromRoom", this.userKickedFromRoom);
+    },
+
+    async userKickedFromRoom(kickUserId) {
+      let indexKickedUserId = this.roomData.usersInRoom.findIndex(
+        user => +user.userId === +kickUserId
+      );
+      const isKickedUserMe = +this.$user.userId === +kickUserId;
+      this.$delete(this.roomData.usersInRoom, indexKickedUserId);
+
+      if (isKickedUserMe) {
+        this.$store.commit("user/leaveRoom");
+        await this.$router.push({ name: "Home" });
+      }
     },
 
     updateUserListInRoom(usersInRoom) {
