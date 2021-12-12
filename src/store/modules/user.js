@@ -14,7 +14,6 @@ export default {
       setLocalStorageKeys({ accessToken, refreshToken, userData });
       state.user = { ...userData };
     },
-
     cleanUser(state) {
       state.user = null;
     },
@@ -35,6 +34,9 @@ export default {
         ...state.user.userSettings,
         ...settings
       };
+    },
+    setRoomId(state, roomId) {
+      state.user.roomCreatedId = roomId;
     }
   },
   actions: {

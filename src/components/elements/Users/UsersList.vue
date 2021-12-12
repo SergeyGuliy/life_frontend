@@ -48,7 +48,6 @@ export default {
   computed: {
     sortedUsers() {
       if (this.sortType === "adminFirst") {
-        console.log(this.users);
         return [...this.users].sort(user =>
           user.roomCreatedId === user.roomJoinedId ? -1 : 1
         );

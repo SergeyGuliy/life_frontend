@@ -46,8 +46,16 @@ export const api = {
     getRooms: async params => axiosWithAuth.get("api/rooms/", { params }),
     leaveRoom: async () => axiosWithAuth.patch("api/rooms/leave"),
     joinRoom: async (roomId, roomPassword) =>
-      axiosWithAuth.patch(`api/rooms/join/${roomId}`, {
+      axiosWithAuth.patch(`api/rooms/${roomId}/join`, {
         roomPassword: roomPassword || ""
+      }),
+    kickUserFromRoom: async (roomId, kickUserId) =>
+      axiosWithAuth.patch(`api/rooms/${roomId}/kick-user`, {
+        kickUserId
+      }),
+    setNewRoomAdmin: async (roomId, newAdminId) =>
+      axiosWithAuth.patch(`api/rooms/${roomId}/set-new-admin`, {
+        newAdminId
       })
   },
   chats: {

@@ -25,10 +25,16 @@
       >
         <template #actions="{userData}">
           <v-btn
-            v-if="userData.roomJoinedId === userData.roomCreatedId"
+            v-if="isRoomAdmin && userData.userId !== $user.userId"
             @click="kickUserFromRoom(userData.userId)"
           >
             {{ $t("buttons.kickUser") }}
+          </v-btn>
+          <v-btn
+            v-if="isRoomAdmin && userData.userId !== $user.userId"
+            @click="setNewRoomAdmin(userData.userId)"
+          >
+            {{ $t("buttons.setAdmin") }}
           </v-btn>
           <v-btn
             v-if="userData.userId !== $user.userId"
@@ -37,12 +43,9 @@
             {{ $t("buttons.writeMessage") }}
           </v-btn>
           <v-btn
-            v-if="userData.roomJoinedId === userData.roomCreatedId"
-            @click="setNewAdminInRoom(userData.userId)"
+            v-if="userData.userId !== $user.userId"
+            @click="addUserToFriendsList(userData.userId)"
           >
-            {{ $t("buttons.setAdmin") }}
-          </v-btn>
-          <v-btn @click="addUserToFriendsList(userData.userId)">
             {{ $t("buttons.addToFriend") }}
           </v-btn>
         </template>
@@ -98,13 +101,12 @@ export default {
     }
   },
   computed: {
+    isRoomAdmin() {
+      return +this.$user.roomCreatedId === +this.$route.params.id;
+    },
+
     usersInRoom() {
-      return [...this.roomData.usersInRoom].sort((a, b) => {
-        return (
-          (a.roomJoinedId === a.roomCreatedId) +
-          (b.roomJoinedId === b.roomCreatedId)
-        );
-      });
+      return this.roomData.usersInRoom;
     }
   },
   methods: {
@@ -129,18 +131,35 @@ export default {
       this.roomData.usersInRoom = usersInRoom;
     },
     updateRoomAdmin(newAdmin) {
-      this.roomData.creator = newAdmin;
+      let indexOldAdmin = this.roomData.usersInRoom.findIndex(
+        user => typeof user.roomCreatedId === "number"
+      );
+      this.$set(
+        this.roomData.usersInRoom[indexOldAdmin],
+        "roomCreatedId",
+        null
+      );
+
+      let indexNewAdmin = this.roomData.usersInRoom.findIndex(
+        user => user.userId === newAdmin.userId
+      );
+      this.$set(
+        this.roomData.usersInRoom[indexNewAdmin],
+        "roomCreatedId",
+        +this.$route.params.id
+      );
+
+      if (newAdmin.userId === this.$user.userId) {
+        this.$store.commit("user/setRoomId", +this.$route.params.id);
+      } else {
+        this.$store.commit("user/setRoomId", null);
+      }
     },
-    kickUserFromRoom(userId) {
-      console.log(userId);
-      this.$socket.client.emit("kickUserFromRoom", {
-        userId
-      });
+    async kickUserFromRoom(userId) {
+      await api.rooms.kickUserFromRoom(this.$route.params.id, userId);
     },
-    setNewAdminInRoom(userId) {
-      this.$socket.client.emit("setNewAdminInRoom", {
-        userId
-      });
+    async setNewRoomAdmin(userId) {
+      await api.rooms.setNewRoomAdmin(this.$route.params.id, userId);
     }
   }
 };

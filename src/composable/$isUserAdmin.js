@@ -15,11 +15,3 @@ export function $isUserAdmin({ userData }) {
     isRoomAdmin
   };
 }
-
-// export const isRoomAdmin = userData => {
-//   return (
-//       typeof userData.roomJoinedId === "number" &&
-//       typeof userData.roomCreatedId === "number" &&
-//       userData.roomJoinedId === userData.roomCreatedId
-//   );
-// };
