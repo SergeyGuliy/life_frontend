@@ -5,7 +5,7 @@
         <v-text-field
           v-model="authData.email"
           :rules="rules.email"
-          label="Введите email"
+          label="Введите rrrrr"
           placeholder="Placeholder"
           outlined
         />
@@ -13,7 +13,7 @@
           v-model="authData.phone"
           v-mask="'+#(###) ###-####'"
           :rules="rules.phone"
-          label="Введите телефон"
+          label="Введите т111елефон"
           placeholder="Placeholder"
           outlined
         />
