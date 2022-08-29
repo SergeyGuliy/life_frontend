@@ -10,6 +10,7 @@
     "test:dev": "http-server dist -p 9999 -c 1 --push-state"
   },
   "dependencies": {
+    "life_shared": "file:../life_shared",
     "@vue/composition-api": "^1.1.5",
     "core-js": "^3.6.5",
     "get-blob-duration": "^1.2.0",
