@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { api } from "../../utils/api";
-import { UPDATE_TIME_DELTA } from "../../../node_modules/life_shared/constants/index.js";
+import { UPDATE_TIME_DELTA } from "@constants/index.js";
 
 const requestUsersOrders = [];
 
