@@ -65,7 +65,7 @@ import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "../../../utils/enums";
 import recordingMixin from "../../../mixins/recordingMixin";
 import { api } from "../../../utils/api";
 import { $chatKeys } from "../../../composable/$chatKeys";
-
+import { chat_messageToServer } from "@constants/ws/chat.js";
 const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 const { TEXT, VOICE } = MESSAGE_TYPES;
 
@@ -129,7 +129,7 @@ export default {
           this.activeChat
         );
       }
-      this.$socket.client.emit("messageToServer", messageData);
+      this.$socket.client.emit(chat_messageToServer, messageData);
       this.newMessage = "";
       this.audio = null;
     }

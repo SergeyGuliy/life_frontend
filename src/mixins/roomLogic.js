@@ -1,4 +1,11 @@
 import { api } from "../utils/api";
+import {
+  rooms_subscribeRoomsUpdate,
+  rooms_unSubscribeRoomsUpdate,
+  rooms_roomInListCreated,
+  rooms_roomInListDeleted,
+  rooms_roomInListUpdated
+} from "@constants/ws/rooms.js";
 
 export default {
   data() {
@@ -15,12 +22,12 @@ export default {
     this.$watch("$socket.connected", this.intiComponent);
   },
   beforeDestroy() {
-    this.$socket.client.emit("unSubscribeRoomsUpdate", {
+    this.$socket.client.emit(rooms_unSubscribeRoomsUpdate, {
       userId: this.$user?.userId
     });
-    this.$socket.client.off("roomInListCreated", this.roomInListCreated);
-    this.$socket.client.off("roomInListDeleted", this.roomInListDeleted);
-    this.$socket.client.off("roomInListUpdated", this.roomInListUpdated);
+    this.$socket.client.off(rooms_roomInListCreated, this.roomInListCreated);
+    this.$socket.client.off(rooms_roomInListDeleted, this.roomInListDeleted);
+    this.$socket.client.off(rooms_roomInListUpdated, this.roomInListUpdated);
   },
   methods: {
     async intiComponent() {
@@ -31,12 +38,12 @@ export default {
         this.$set(this.filterData, "typeOfRoom", typeOfRoom.split(","));
       }
       await this.fetchRooms();
-      this.$socket.client.emit("subscribeRoomsUpdate", {
+      this.$socket.client.emit(rooms_subscribeRoomsUpdate, {
         userId: this.$user.userId
       });
-      this.$socket.client.on("roomInListCreated", this.roomInListCreated);
-      this.$socket.client.on("roomInListDeleted", this.roomInListDeleted);
-      this.$socket.client.on("roomInListUpdated", this.roomInListUpdated);
+      this.$socket.client.on(rooms_roomInListCreated, this.roomInListCreated);
+      this.$socket.client.on(rooms_roomInListDeleted, this.roomInListDeleted);
+      this.$socket.client.on(rooms_roomInListUpdated, this.roomInListUpdated);
     },
 
     roomInListCreated(roomData) {

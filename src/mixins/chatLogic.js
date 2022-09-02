@@ -2,6 +2,11 @@ import { api } from "../utils/api";
 import { MESSAGE_RECEIVER_TYPES } from "../utils/enums";
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 import { $chatKeys } from "../composable/$chatKeys";
+import { chat_messageToClient } from "@constants/ws/chat.js";
+import {
+  rooms_userLeaveRoom,
+  rooms_userJoinRoom
+} from "@constants/ws/rooms.js";
 
 export default {
   setup() {
@@ -14,9 +19,9 @@ export default {
 
   beforeDestroy() {
     this.$bus.off("writeMessageToUser", this.writeMessageToUser);
-    this.$socket.client.off("messageToClient");
-    this.$socket.client.off("userJoinRoom");
-    this.$socket.client.off("userLeaveRoom");
+    this.$socket.client.off(chat_messageToClient);
+    this.$socket.client.off(rooms_userJoinRoom);
+    this.$socket.client.off(rooms_userLeaveRoom);
   },
   methods: {
     async intiComponent() {
@@ -26,9 +31,9 @@ export default {
       await this.fetchPrivateMessages();
       await this.fetchRoomMessages();
       this.$bus.on("writeMessageToUser", this.writeMessageToUser);
-      this.$socket.client.on("messageToClient", this.messageToClient);
-      this.$socket.client.on("userJoinRoom", this.fetchRoomMessages);
-      this.$socket.client.on("userLeaveRoom", this.userLeaveRoom);
+      this.$socket.client.on(chat_messageToClient, this.messageToClient);
+      this.$socket.client.on(rooms_userJoinRoom, this.fetchRoomMessages);
+      this.$socket.client.on(rooms_userLeaveRoom, this.userLeaveRoom);
     },
 
     async messageToClient(messageToClient) {

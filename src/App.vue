@@ -10,6 +10,11 @@
 
 <script>
 import { mapState } from "vuex";
+import {
+  socketSetup_callUserIdToServer,
+  socketSetup_forceDisconnect,
+  socketSetup_giveUserIdToServer
+} from "@constants/ws/socketSetup.js";
 export default {
   name: "App",
 
@@ -34,8 +39,14 @@ export default {
     this.$watch("$socket.connected", this.intiComponent);
     this.$watch("$socket.connected", val => {
       if (!val) {
-        this.$socket.client.off("callUserIdToServer", this.callUserIdToServer);
-        this.$socket.client.off("forceDisconnect", this.forceDisconnect);
+        this.$socket.client.off(
+          socketSetup_callUserIdToServer,
+          this.callUserIdToServer
+        );
+        this.$socket.client.off(
+          socketSetup_forceDisconnect,
+          this.forceDisconnect
+        );
       }
     });
   },
@@ -43,13 +54,16 @@ export default {
     async intiComponent() {
       if (!this.$socket.connected) return;
 
-      this.$socket.client.on("callUserIdToServer", this.callUserIdToServer);
-      this.$socket.client.on("forceDisconnect", this.forceDisconnect);
+      this.$socket.client.on(
+        socketSetup_callUserIdToServer,
+        this.callUserIdToServer
+      );
+      this.$socket.client.on(socketSetup_forceDisconnect, this.forceDisconnect);
     },
 
     callUserIdToServer(clientId) {
       if (this.$user?.userId) {
-        this.$socket.client.emit("giveUserIdToServer", {
+        this.$socket.client.emit(socketSetup_giveUserIdToServer, {
           userId: this.$user.userId,
           clientId
         });

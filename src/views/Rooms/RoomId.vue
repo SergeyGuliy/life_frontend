@@ -61,6 +61,13 @@
 <script>
 import { api } from "../../utils/api";
 import { $usersActions } from "../../composable/$usersActions";
+import {
+  rooms_userConnectsRoom,
+  rooms_updateUsersListInRoom,
+  rooms_updateRoomAdmin,
+  rooms_userKickedFromRoom,
+  rooms_updateToggleLockRoom
+} from "@constants/ws/rooms.js";
 
 export default {
   name: "RoomId",
@@ -82,9 +89,16 @@ export default {
   },
 
   beforeDestroy() {
-    this.$socket.client.off("updateUserListInRoom", this.updateUserListInRoom);
-    this.$socket.client.off("updateRoomAdmin", this.updateRoomAdmin);
-    this.$socket.client.off("userKickedFromRoom", this.userKickedFromRoom);
+    this.$socket.client.off(
+      rooms_updateUsersListInRoom,
+      this.updateUserListInRoom
+    );
+    this.$socket.client.off(rooms_updateRoomAdmin, this.updateRoomAdmin);
+    this.$socket.client.off(rooms_userKickedFromRoom, this.userKickedFromRoom);
+    this.$socket.client.off(
+      rooms_updateToggleLockRoom,
+      this.updateToggleLockRoom
+    );
   },
 
   async beforeRouteLeave(to, from, next) {
@@ -123,17 +137,20 @@ export default {
       this.roomData = {
         ...(await api.rooms.getRoomById(this.roomId)).data
       };
-      this.$socket.client.emit("userConnectsRoom", {
+      this.$socket.client.emit(rooms_userConnectsRoom, {
         userId: this.$user.userId,
         roomId: this.roomData.roomId
       });
       this.$socket.client.on(
-        "updateUsersListInRoom",
+        rooms_updateUsersListInRoom,
         this.updateUserListInRoom
       );
-      this.$socket.client.on("updateRoomAdmin", this.updateRoomAdmin);
-      this.$socket.client.on("userKickedFromRoom", this.userKickedFromRoom);
-      this.$socket.client.on("updateToggleLockRoom", this.updateToggleLockRoom);
+      this.$socket.client.on(rooms_updateRoomAdmin, this.updateRoomAdmin);
+      this.$socket.client.on(rooms_userKickedFromRoom, this.userKickedFromRoom);
+      this.$socket.client.on(
+        rooms_updateToggleLockRoom,
+        this.updateToggleLockRoom
+      );
     },
 
     async userKickedFromRoom(kickUserId) {
