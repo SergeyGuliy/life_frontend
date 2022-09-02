@@ -15,7 +15,7 @@
       <v-list class="lang-selector__list">
         <v-list-item
           link
-          v-for="(item, index) in LOCALES"
+          v-for="(item, index) in LOCALES_WITH_KEYS"
           :key="index"
           @click="changeLocale(item.key)"
         >
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { LOCALES } from "../../utils/enums";
+import { LOCALES_WITH_KEYS } from "@enums";
 import { $currentUserActions } from "../../composable/$currentUserActions";
 
 export default {
@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      LOCALES,
+      LOCALES_WITH_KEYS,
       items: [
         { title: "English", key: "en" },
         { title: "Russian", key: "ru" }

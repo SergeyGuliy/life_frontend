@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { MESSAGE_RECEIVER_TYPES } from "../../../utils/enums";
+import { MESSAGE_RECEIVER_TYPES } from "@enums";
 const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
 export default {
   name: "Chat",

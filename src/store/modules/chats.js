@@ -1,4 +1,4 @@
-import { MESSAGE_RECEIVER_TYPES } from "../../utils/enums";
+import { MESSAGE_RECEIVER_TYPES } from "@enums";
 const { GLOBAL } = MESSAGE_RECEIVER_TYPES;
 import Vue from "vue";
 

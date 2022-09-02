@@ -105,12 +105,16 @@
           >
             <template v-slot:selection="slotData">
               <v-list-item-content
-                v-text="LOCALES.find(i => i.key === slotData.item).title"
+                v-text="
+                  LOCALES_WITH_KEYS.find(i => i.key === slotData.item).title
+                "
               />
             </template>
             <template v-slot:item="slotData">
               <v-list-item-content
-                v-text="LOCALES.find(i => i.key === slotData.item).title"
+                v-text="
+                  LOCALES_WITH_KEYS.find(i => i.key === slotData.item).title
+                "
               />
             </template>
           </v-select>
@@ -228,7 +232,7 @@
 </template>
 
 <script>
-import { COUNTRIES, LOCALES } from "../utils/enums";
+import { COUNTRIES, LOCALES_WITH_KEYS } from "@enums";
 import { api } from "../utils/api";
 import { ProfileSettingsParser } from "../utils/parsers";
 import { $currentUserActions } from "../composable/$currentUserActions";
@@ -244,7 +248,7 @@ export default {
   data() {
     return {
       COUNTRIES,
-      LOCALES,
+      LOCALES_WITH_KEYS,
       imgSrc: "",
       imgFile: null,
       profileSettings: null,

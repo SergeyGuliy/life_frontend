@@ -33,7 +33,7 @@
 
 <script>
 import modal from "../../mixins/modal";
-import { SOUNDS } from "../../utils/enums";
+import { SOUNDS_WITH_FILES } from "@enums";
 import { cloneDeep } from "lodash";
 import { $currentUserActions } from "../../composable/$currentUserActions";
 
@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-      SOUNDS,
+      SOUNDS_WITH_FILES,
       chatSettings: null
     };
   },

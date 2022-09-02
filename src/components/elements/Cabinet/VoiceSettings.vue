@@ -54,7 +54,7 @@
             <v-list-item
               link
               class="pa-0"
-              v-for="(item, index) in SOUNDS.filter(
+              v-for="(item, index) in SOUNDS_WITH_FILES.filter(
                 i => i.name !== soundSelected.name
               )"
               :key="index"
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { SOUNDS } from "../../../utils/enums";
+import { SOUNDS_WITH_FILES } from "@enums";
 
 export default {
   name: "VoiceSettings",
@@ -120,7 +120,7 @@ export default {
     },
     soundSelected: {
       get() {
-        return this.SOUNDS.find(
+        return this.SOUNDS_WITH_FILES.find(
           i => i.name === this.chatSettings.soundSelected
         );
       },
@@ -134,7 +134,7 @@ export default {
   },
   data() {
     return {
-      SOUNDS,
+      SOUNDS_WITH_FILES,
       isOpen: false
     };
   },

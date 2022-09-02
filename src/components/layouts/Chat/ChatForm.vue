@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "../../../utils/enums";
+import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "@enums";
 import recordingMixin from "../../../mixins/recordingMixin";
 import { api } from "../../../utils/api";
 import { $chatKeys } from "../../../composable/$chatKeys";

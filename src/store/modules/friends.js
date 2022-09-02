@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { FRIENDSHIP_STATUSES } from "../../utils/enums";
+import { FRIENDSHIP_STATUSES } from "@enums";
 import Vue from "vue";
 
 export default {

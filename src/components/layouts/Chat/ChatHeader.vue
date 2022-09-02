@@ -20,10 +20,7 @@
 </template>
 
 <script>
-import {
-  MESSAGE_RECEIVER_TYPES,
-  MESSAGES_TYPES_MAP
-} from "../../../utils/enums";
+import { MESSAGE_RECEIVER_TYPES, MESSAGES_TYPES_MAP } from "@enums";
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 import { ProfileSettingsParser } from "../../../utils/parsers";
 

@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { FRIENDSHIP_STATUSES } from "../../utils/enums";
+import { FRIENDSHIP_STATUSES } from "@enums";
 import { api } from "../../utils/api";
 import { $usersActions } from "../../composable/$usersActions";
 

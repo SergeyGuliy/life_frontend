@@ -1,4 +1,4 @@
-import { MESSAGE_RECEIVER_TYPES } from "../utils/enums";
+import { MESSAGE_RECEIVER_TYPES } from "@enums";
 const { PRIVATE } = MESSAGE_RECEIVER_TYPES;
 
 export function $chatKeys() {
