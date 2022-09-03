@@ -17,12 +17,6 @@ export default {
     this.$watch("$socket.connected", this.intiComponent);
   },
 
-  beforeDestroy() {
-    this.$bus.off("writeMessageToUser", this.writeMessageToUser);
-    this.$socket.client.off(chat_messageToClient);
-    this.$socket.client.off(rooms_userJoinRoom);
-    this.$socket.client.off(rooms_userLeaveRoom);
-  },
   methods: {
     async intiComponent() {
       if (!this.$socket.connected) return;
@@ -30,10 +24,16 @@ export default {
       await this.fetchGlobalMessages();
       await this.fetchPrivateMessages();
       await this.fetchRoomMessages();
-      this.$bus.on("writeMessageToUser", this.writeMessageToUser);
-      this.$socket.client.on(chat_messageToClient, this.messageToClient);
-      this.$socket.client.on(rooms_userJoinRoom, this.fetchRoomMessages);
-      this.$socket.client.on(rooms_userLeaveRoom, this.userLeaveRoom);
+
+      this.$busInit({
+        writeMessageToUser: this.writeMessageToUser
+      });
+
+      this.$socketInit({
+        [chat_messageToClient]: this.messageToClient,
+        [rooms_userJoinRoom]: this.fetchRoomMessages,
+        [rooms_userLeaveRoom]: this.userLeaveRoom
+      });
     },
 
     async messageToClient(messageToClient) {

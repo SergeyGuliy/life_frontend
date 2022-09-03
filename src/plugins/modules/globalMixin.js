@@ -86,6 +86,30 @@ Vue.mixin({
         success,
         info
       };
+    },
+
+    $socketInit(socketObject) {
+      const socketEntries = Object.entries(socketObject);
+
+      socketEntries.forEach(([socketKey, socketCallback]) => {
+        this.$socket.client.on(socketKey, socketCallback);
+
+        this.$on("hook:destroyed", () => {
+          this.$socket.client.off(socketKey, socketCallback);
+        });
+      });
+    },
+
+    $busInit(busObject) {
+      const busEntries = Object.entries(busObject);
+
+      busEntries.forEach(([busKey, busCallback]) => {
+        this.$bus.on(busKey, busCallback);
+
+        this.$on("hook:destroyed", () => {
+          this.$bus.off(busKey, busCallback);
+        });
+      });
     }
   }
 });
