@@ -29,7 +29,7 @@ export default {
     },
     getComponent() {
       if (this.component) {
-        return require(`./components/modals/${this.component}`).default;
+        return require(`@components/modals/${this.component}`).default;
       }
       return null;
     }

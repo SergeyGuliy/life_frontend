@@ -1,6 +1,6 @@
 import store from "../../store/index";
-import { api } from "../../utils/api";
-import { myVue } from "../../main";
+import { api } from "@api";
+import { myVue } from "@main";
 
 export default async function(to) {
   if (store.state.user.user) {

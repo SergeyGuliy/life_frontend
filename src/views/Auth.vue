@@ -3,11 +3,10 @@
 </template>
 
 <script>
-import AuthWindow from "../components/routes/Auth/AuthWindow";
 export default {
   name: "Auth",
   components: {
-    AuthWindow
+    AuthWindow: () => import("@components/routes/Auth/AuthWindow")
   }
 };
 </script>

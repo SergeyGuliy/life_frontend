@@ -1,6 +1,6 @@
 import { ProfileSettingsParser } from "../utils/parsers";
 import { clearLocalStorageKeys } from "../utils/localStorageKeys";
-import { myVue } from "../main";
+import { myVue } from "@main";
 
 export function $currentUserActions() {
   async function updateUserSettings(settings) {

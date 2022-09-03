@@ -26,13 +26,13 @@
 </template>
 
 <script>
-import roomLogic from "../../mixins/roomLogic";
+import roomLogic from "@mixins/roomLogic";
 
 export default {
   name: "Rooms",
   components: {
-    RoomsList: () => import("../../components/elements/Rooms/RoomsList"),
-    RoomFilter: () => import("../../components/elements/Rooms/RoomFilter")
+    RoomsList: () => import("@components/elements/Rooms/RoomsList"),
+    RoomFilter: () => import("@components/elements/Rooms/RoomFilter")
   },
   mixins: [roomLogic]
 };

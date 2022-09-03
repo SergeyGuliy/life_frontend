@@ -21,10 +21,10 @@ const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
 export default {
   name: "Messages",
   components: {
-    ChatForm: () => import("../components/layouts/Chat/ChatForm"),
-    ChatBody: () => import("../components/layouts/Chat/ChatBody"),
-    ChatHeader: () => import("../components/layouts/Chat/ChatHeader"),
-    ChatTabs: () => import("../components/layouts/Chat/ChatTabs")
+    ChatForm: () => import("@components/layouts/Chat/ChatForm"),
+    ChatBody: () => import("@components/layouts/Chat/ChatBody"),
+    ChatHeader: () => import("@components/layouts/Chat/ChatHeader"),
+    ChatTabs: () => import("@components/layouts/Chat/ChatTabs")
   },
 
   mounted() {

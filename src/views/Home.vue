@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { $usersActions } from "../composable/$usersActions";
+import { $usersActions } from "@composable/$usersActions";
 
 export default {
   name: "Home",
@@ -35,9 +35,8 @@ export default {
     return $usersActions();
   },
   components: {
-    RoomsController: () =>
-      import("../components/elements/Rooms/RoomsController"),
-    UsersList: () => import("../components/elements/Users/UsersList")
+    RoomsController: () => import("@components/elements/Rooms/RoomsController"),
+    UsersList: () => import("@components/elements/Users/UsersList")
   },
   data() {
     return {

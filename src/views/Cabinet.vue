@@ -233,9 +233,9 @@
 
 <script>
 import { COUNTRIES, LOCALES_WITH_KEYS } from "@enums";
-import { api } from "../utils/api";
+import { api } from "@api";
 import { ProfileSettingsParser } from "../utils/parsers";
-import { $currentUserActions } from "../composable/$currentUserActions";
+import { $currentUserActions } from "@composable/$currentUserActions";
 
 export default {
   name: "Cabinet",
@@ -243,7 +243,7 @@ export default {
     return $currentUserActions();
   },
   components: {
-    VoiceSettings: () => import("../components/elements/Cabinet/VoiceSettings")
+    VoiceSettings: () => import("@components/elements/Cabinet/VoiceSettings")
   },
   data() {
     return {

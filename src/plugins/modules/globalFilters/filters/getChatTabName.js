@@ -1,4 +1,4 @@
-import { myVue } from "../../../../main";
+import { myVue } from "@main";
 import { MESSAGE_RECEIVER_TYPES } from "@enums";
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 

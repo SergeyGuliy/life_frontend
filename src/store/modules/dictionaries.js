@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { api } from "../../utils/api";
+import { api } from "@api";
 import { UPDATE_TIME_DELTA } from "@constants/index.js";
 
 const requestUsersOrders = [];

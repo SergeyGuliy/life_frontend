@@ -34,7 +34,7 @@
 
 <script>
 import { LOCALES_WITH_KEYS } from "@enums";
-import { $currentUserActions } from "../../composable/$currentUserActions";
+import { $currentUserActions } from "@composable/$currentUserActions";
 
 export default {
   name: "NavBar",

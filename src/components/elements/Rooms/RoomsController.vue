@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import roomLogic from "../../../mixins/roomLogic";
+import roomLogic from "@mixins/roomLogic";
 
 export default {
   name: "RoomsController",

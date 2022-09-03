@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import { api } from "./api";
+import { api } from "@api";
 import store from "../store";
 
 export class ProfileSettingsParser {

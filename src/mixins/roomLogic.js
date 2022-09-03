@@ -1,4 +1,4 @@
-import { api } from "../utils/api";
+import { api } from "@api";
 import {
   rooms_subscribeRoomsUpdate,
   rooms_unSubscribeRoomsUpdate,

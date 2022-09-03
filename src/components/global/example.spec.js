@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import RoomInfo from "@/components/elements/Rooms/RoomInfo";
+import RoomInfo from "@components/elements/Rooms/RoomInfo";
 
 const $t = () => {};
 

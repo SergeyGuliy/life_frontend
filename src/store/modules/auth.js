@@ -1,7 +1,7 @@
 import router from "../../router";
-import { api } from "../../utils/api";
+import { api } from "@api";
 import { clearLocalStorageKeys } from "../../utils/localStorageKeys";
-import { $currentUserActions } from "../../composable/$currentUserActions";
+import { $currentUserActions } from "@composable/$currentUserActions";
 
 const { socketDisconnect } = $currentUserActions();
 

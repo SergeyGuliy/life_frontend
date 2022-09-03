@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import modal from "../../mixins/modal";
-import { api } from "../../utils/api";
+import modal from "@mixins/modal";
+import { api } from "@api";
 
 export default {
   name: "EnterPassword",

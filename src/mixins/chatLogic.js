@@ -1,7 +1,7 @@
-import { api } from "../utils/api";
+import { api } from "@api";
 import { MESSAGE_RECEIVER_TYPES } from "@enums";
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
-import { $chatKeys } from "../composable/$chatKeys";
+import { $chatKeys } from "@composable/$chatKeys";
 import { chat_messageToClient } from "@constants/ws/chat.js";
 import {
   rooms_userLeaveRoom,

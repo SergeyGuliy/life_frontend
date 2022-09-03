@@ -62,9 +62,9 @@
 
 <script>
 import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "@enums";
-import recordingMixin from "../../../mixins/recordingMixin";
-import { api } from "../../../utils/api";
-import { $chatKeys } from "../../../composable/$chatKeys";
+import recordingMixin from "@mixins/recordingMixin";
+import { api } from "@api";
+import { $chatKeys } from "@composable/$chatKeys";
 import { chat_messageToServer } from "@constants/ws/chat.js";
 const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 const { TEXT, VOICE } = MESSAGE_TYPES;

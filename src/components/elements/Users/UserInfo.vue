@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { $isUserAdmin } from "../../../composable/$isUserAdmin";
+import { $isUserAdmin } from "@composable/$isUserAdmin";
 
 export default {
   name: "UserInfo",

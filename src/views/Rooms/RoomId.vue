@@ -59,8 +59,8 @@
 </template>
 
 <script>
-import { api } from "../../utils/api";
-import { $usersActions } from "../../composable/$usersActions";
+import { api } from "@api";
+import { $usersActions } from "@composable/$usersActions";
 import {
   rooms_userConnectsRoom,
   rooms_updateUsersListInRoom,
@@ -75,8 +75,8 @@ export default {
     return $usersActions();
   },
   components: {
-    RoomInfo: () => import("../../components/elements/Rooms/RoomInfo"),
-    UsersList: () => import("../../components/elements/Users/UsersList")
+    RoomInfo: () => import("@components/elements/Rooms/RoomInfo"),
+    UsersList: () => import("@components/elements/Users/UsersList")
   },
   data() {
     return {

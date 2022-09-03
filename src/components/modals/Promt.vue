@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import modal from "../../mixins/modal";
+import modal from "@mixins/modal";
 
 export default {
   name: "Promt",

@@ -4,7 +4,12 @@ const getPath = pathUrl => path.resolve(__dirname, pathUrl);
 
 const alias = {
   "@constants": getPath("node_modules/life_shared/constants"),
-  "@enums": getPath("node_modules/life_shared/enums")
+  "@enums": getPath("node_modules/life_shared/enums"),
+  "@components": getPath("src/components"),
+  "@composable": getPath("src/composable"),
+  "@mixins": getPath("src/mixins"),
+  "@api": getPath("src/utils/api"),
+  "@main": getPath("src/main.js")
 };
 
 module.exports = {

@@ -58,8 +58,8 @@
 
 <script>
 import { FRIENDSHIP_STATUSES } from "@enums";
-import { api } from "../../utils/api";
-import { $usersActions } from "../../composable/$usersActions";
+import { api } from "@api";
+import { $usersActions } from "@composable/$usersActions";
 
 export default {
   name: "Friends",
@@ -67,7 +67,7 @@ export default {
     return $usersActions();
   },
   components: {
-    UsersList: () => import("../../components/elements/Users/UsersList")
+    UsersList: () => import("@components/elements/Users/UsersList")
   },
   data() {
     return {

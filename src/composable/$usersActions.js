@@ -1,5 +1,5 @@
-import { myVue } from "../main";
-import { api } from "../utils/api";
+import { myVue } from "@main";
+import { api } from "@api";
 import store from "../store";
 
 export function $usersActions() {

@@ -12,17 +12,17 @@
 </template>
 
 <script>
-import { api } from "../utils/api";
-import chatLogic from "../mixins/chatLogic";
-import friendsLogic from "../mixins/friendsLogic";
+import { api } from "@api";
+import chatLogic from "@mixins/chatLogic";
+import friendsLogic from "@mixins/friendsLogic";
 
 export default {
   name: "mainLayout",
   mixins: [chatLogic, friendsLogic],
   components: {
-    SideBar: () => import("../components/layouts/SideBar/SideBar"),
-    NavBar: () => import("../components/layouts/NavBar"),
-    Chat: () => import("../components/layouts/Chat/Chat")
+    SideBar: () => import("@components/layouts/SideBar/SideBar"),
+    NavBar: () => import("@components/layouts/NavBar"),
+    Chat: () => import("@components/layouts/Chat/Chat")
   },
   data() {
     return {

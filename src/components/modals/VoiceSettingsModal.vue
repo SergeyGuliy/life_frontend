@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import modal from "../../mixins/modal";
+import modal from "@mixins/modal";
 import { SOUNDS_WITH_FILES } from "@enums";
 import { cloneDeep } from "lodash";
-import { $currentUserActions } from "../../composable/$currentUserActions";
+import { $currentUserActions } from "@composable/$currentUserActions";
 
 export default {
   name: "VoiceSettingsModal",
