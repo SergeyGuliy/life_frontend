@@ -36,8 +36,8 @@ export default {
     }
   },
   async mounted() {
-    this.intiComponent();
-    this.$watch("$socket.connected", this.intiComponent);
+    this.$initSocketListener(this.intiComponent);
+
     this.$watch("$socket.connected", val => {
       if (!val) {
         this.$socket.client.off(
@@ -53,8 +53,6 @@ export default {
   },
   methods: {
     async intiComponent() {
-      if (!this.$socket.connected) return;
-
       this.$socketInit({
         [socketSetup_callUserIdToServer]: this.callUserIdToServer,
         [socketSetup_forceDisconnect]: this.forceDisconnect

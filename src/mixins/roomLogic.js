@@ -18,8 +18,7 @@ export default {
     };
   },
   async mounted() {
-    this.intiComponent();
-    this.$watch("$socket.connected", this.intiComponent);
+    this.$initSocketListener(this.intiComponent);
   },
   beforeDestroy() {
     this.$socket.client.emit(rooms_unSubscribeRoomsUpdate, {
@@ -28,8 +27,6 @@ export default {
   },
   methods: {
     async intiComponent() {
-      if (!this.$socket.connected) return;
-
       const typeOfRoom = localStorage.getItem("typeOfRoom");
       if (typeOfRoom) {
         this.$set(this.filterData, "typeOfRoom", typeOfRoom.split(","));

@@ -12,14 +12,11 @@ const { getUserChatKey } = $chatKeys();
 
 export default {
   async mounted() {
-    this.intiComponent();
-    this.$watch("$socket.connected", this.intiComponent);
+    this.$initSocketListener(this.intiComponent);
   },
 
   methods: {
     async intiComponent() {
-      if (!this.$socket.connected) return;
-
       await this.fetchGlobalMessages();
       await this.fetchPrivateMessages();
       await this.fetchRoomMessages();

@@ -88,6 +88,15 @@ Vue.mixin({
       };
     },
 
+    $initSocketListener(callback) {
+      function wrappedCallback() {
+        if (!this.$socket.connected) return;
+        callback();
+      }
+      wrappedCallback();
+      this.$watch("$socket.connected", wrappedCallback);
+    },
+
     $socketInit(socketObject) {
       const socketEntries = Object.entries(socketObject);
 

@@ -87,8 +87,7 @@ export default {
     };
   },
   async mounted() {
-    this.intiComponent();
-    this.$watch("$socket.connected", this.intiComponent);
+    this.$initSocketListener(this.intiComponent);
   },
 
   async beforeRouteLeave(to, from, next) {
@@ -127,8 +126,6 @@ export default {
       console.log("startGame");
     },
     async intiComponent() {
-      if (!this.$socket.connected) return;
-
       this.roomData = {
         ...(await api.rooms.getRoomById(this.roomId)).data
       };
@@ -158,7 +155,6 @@ export default {
     },
 
     updateToggleLockRoom(lockState) {
-      console.log(lockState);
       this.roomData.isBlocked = lockState;
     },
 
