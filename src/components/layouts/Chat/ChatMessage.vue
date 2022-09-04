@@ -57,17 +57,15 @@
 
 <script>
 import { $usersActions } from "@composable/$usersActions";
+const {
+  writeMessageToUser,
+  addUserToFriendsList,
+  openUserProfile
+} = $usersActions();
 
 export default {
   name: "ChatMessage",
-  setup() {
-    const {
-      writeMessageToUser,
-      addUserToFriendsList,
-      openUserProfile
-    } = $usersActions();
-    return { writeMessageToUser, addUserToFriendsList, openUserProfile };
-  },
+
   components: {
     ChatAudio: () => import("./ChatAudio")
   },
@@ -119,6 +117,9 @@ export default {
     }
   },
   methods: {
+    writeMessageToUser,
+    addUserToFriendsList,
+    openUserProfile,
     showContextMenu(e) {
       e.preventDefault();
       if (this.message.messageSender.userId !== this.$user.userId) {

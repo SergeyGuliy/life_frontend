@@ -22,7 +22,7 @@ export default {
   props: {
     userData: {
       required: true,
-      type: Object
+      type: [Object, undefined]
     },
     showUserRoomInfo: {
       default: () => false,
