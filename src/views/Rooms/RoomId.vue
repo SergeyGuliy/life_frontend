@@ -1,14 +1,13 @@
 <template>
   <Grid v-if="roomData">
     <template #leftCol>
-      <pre>{{ roomData }}</pre>
       <RoomInfo
         :roomData="{
           ...roomData,
           usersInRoomLength: usersInRoom.length
         }"
       >
-        <template #actions v-if="$user.roomCreatedId === roomId">
+        <template #actions v-if="isRoomAdmin">
           <v-btn v-if="!roomData.isBlocked" @click="toggleLockRoom">
             {{ $t("buttons.lockRoom") }}
           </v-btn>
@@ -20,6 +19,9 @@
           </v-btn>
         </template>
       </RoomInfo>
+      <v-btn @click="startGame" block v-if="isRoomAdmin">
+        {{ $t("buttons.startGame") }}
+      </v-btn>
     </template>
     <template #rightCol>
       <UsersList
@@ -134,6 +136,9 @@ export default {
   methods: {
     writeMessageToUser,
     addUserToFriendsList,
+    startGame() {
+      console.log("startGame");
+    },
     async intiComponent() {
       if (!this.$socket.connected) return;
 

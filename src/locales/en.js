@@ -51,6 +51,7 @@ export const en = {
     lockRoom: "Lock room",
     unLockRoom: "Unlock room",
     deleteRoom: "Delete room",
+    startGame: "Start game",
     kickUser: "Kick user",
     writeMessage: "Write message",
     setAdmin: "Set admin",
