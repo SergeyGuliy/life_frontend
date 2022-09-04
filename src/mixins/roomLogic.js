@@ -25,9 +25,6 @@ export default {
     this.$socket.client.emit(rooms_unSubscribeRoomsUpdate, {
       userId: this.$user?.userId
     });
-    this.$socket.client.off(rooms_roomInListCreated, this.roomInListCreated);
-    this.$socket.client.off(rooms_roomInListDeleted, this.roomInListDeleted);
-    this.$socket.client.off(rooms_roomInListUpdated, this.roomInListUpdated);
   },
   methods: {
     async intiComponent() {
@@ -41,9 +38,11 @@ export default {
       this.$socket.client.emit(rooms_subscribeRoomsUpdate, {
         userId: this.$user.userId
       });
-      this.$socket.client.on(rooms_roomInListCreated, this.roomInListCreated);
-      this.$socket.client.on(rooms_roomInListDeleted, this.roomInListDeleted);
-      this.$socket.client.on(rooms_roomInListUpdated, this.roomInListUpdated);
+      this.$socketInit({
+        [rooms_roomInListCreated]: this.roomInListCreated,
+        [rooms_roomInListDeleted]: this.roomInListDeleted,
+        [rooms_roomInListUpdated]: this.roomInListUpdated
+      });
     },
 
     roomInListCreated(roomData) {

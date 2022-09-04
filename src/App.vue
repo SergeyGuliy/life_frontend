@@ -15,6 +15,7 @@ import {
   socketSetup_forceDisconnect,
   socketSetup_giveUserIdToServer
 } from "@constants/ws/socketSetup.js";
+
 export default {
   name: "App",
 
@@ -54,11 +55,10 @@ export default {
     async intiComponent() {
       if (!this.$socket.connected) return;
 
-      this.$socket.client.on(
-        socketSetup_callUserIdToServer,
-        this.callUserIdToServer
-      );
-      this.$socket.client.on(socketSetup_forceDisconnect, this.forceDisconnect);
+      this.$socketInit({
+        [socketSetup_callUserIdToServer]: this.callUserIdToServer,
+        [socketSetup_forceDisconnect]: this.forceDisconnect
+      });
     },
 
     callUserIdToServer(clientId) {

@@ -91,19 +91,6 @@ export default {
     this.$watch("$socket.connected", this.intiComponent);
   },
 
-  beforeDestroy() {
-    this.$socket.client.off(
-      rooms_updateUsersListInRoom,
-      this.updateUserListInRoom
-    );
-    this.$socket.client.off(rooms_updateRoomAdmin, this.updateRoomAdmin);
-    this.$socket.client.off(rooms_userKickedFromRoom, this.userKickedFromRoom);
-    this.$socket.client.off(
-      rooms_updateToggleLockRoom,
-      this.updateToggleLockRoom
-    );
-  },
-
   async beforeRouteLeave(to, from, next) {
     if (!this.$user || +this.$user?.roomJoinedId !== this.roomId) {
       next();
@@ -149,16 +136,12 @@ export default {
         userId: this.$user.userId,
         roomId: this.roomData.roomId
       });
-      this.$socket.client.on(
-        rooms_updateUsersListInRoom,
-        this.updateUserListInRoom
-      );
-      this.$socket.client.on(rooms_updateRoomAdmin, this.updateRoomAdmin);
-      this.$socket.client.on(rooms_userKickedFromRoom, this.userKickedFromRoom);
-      this.$socket.client.on(
-        rooms_updateToggleLockRoom,
-        this.updateToggleLockRoom
-      );
+      this.$socketInit({
+        [rooms_updateUsersListInRoom]: this.updateUserListInRoom,
+        [rooms_updateRoomAdmin]: this.updateRoomAdmin,
+        [rooms_userKickedFromRoom]: this.userKickedFromRoom,
+        [rooms_updateToggleLockRoom]: this.updateToggleLockRoom
+      });
     },
 
     async userKickedFromRoom(kickUserId) {
