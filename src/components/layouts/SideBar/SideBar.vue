@@ -22,12 +22,10 @@
 
 <script>
 import { $currentUserActions } from "@composable/$currentUserActions";
+const { logOutMiddleware } = $currentUserActions();
 
 export default {
   name: "SideBar",
-  setup() {
-    return $currentUserActions();
-  },
   components: {
     SideBarList: () => import("./SideBarList"),
     SideBarUserBlock: () => import("./SideBarUserBlock")
@@ -79,6 +77,7 @@ export default {
     };
   },
   methods: {
+    logOutMiddleware,
     updateDrawer(value) {
       this.$emit("updateDrawer", value);
     }

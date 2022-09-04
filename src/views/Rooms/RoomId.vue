@@ -72,7 +72,8 @@ import {
 export default {
   name: "RoomId",
   setup() {
-    return $usersActions();
+    const { writeMessageToUser, addUserToFriendsList } = $usersActions();
+    return { writeMessageToUser, addUserToFriendsList };
   },
   components: {
     RoomInfo: () => import("@components/elements/Rooms/RoomInfo"),

@@ -22,7 +22,7 @@
           <v-btn color="danger" @click="close()">
             {{ $t("buttons.cancel") }}
           </v-btn>
-          <v-btn color="primary" @click="updateUserSettings">
+          <v-btn color="primary" @click="updateUserSettingsHandler">
             {{ $t("buttons.save") }}
           </v-btn>
         </v-card-actions>
@@ -36,13 +36,12 @@ import modal from "@mixins/modal";
 import { SOUNDS_WITH_FILES } from "@enums";
 import { cloneDeep } from "lodash";
 import { $currentUserActions } from "@composable/$currentUserActions";
+const { updateUserSettings } = $currentUserActions();
 
 export default {
   name: "VoiceSettingsModal",
   mixins: [modal],
-  setup() {
-    return $currentUserActions();
-  },
+
   components: {
     VoiceSettings: () => import("../elements/Cabinet/VoiceSettings")
   },
@@ -66,8 +65,8 @@ export default {
     this.$set(this, "chatSettings", cloneDeep(this.data.chatSettings));
   },
   methods: {
-    updateUserSettings() {
-      this.updateUserSettings({ chatSettings: this.chatSettings }).then(() =>
+    updateUserSettingsHandler() {
+      updateUserSettings({ chatSettings: this.chatSettings }).then(() =>
         this.close()
       );
     }

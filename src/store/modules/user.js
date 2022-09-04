@@ -1,7 +1,7 @@
 import { api } from "@api";
 import { setLocalStorageKeys } from "../../utils/localStorageKeys";
-import { $currentUserActions } from "@composable/$currentUserActions";
 
+import { $currentUserActions } from "@composable/$currentUserActions";
 const { changeTheme, changeLocale, socketConnect } = $currentUserActions();
 
 export default {

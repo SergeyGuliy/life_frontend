@@ -35,12 +35,10 @@
 <script>
 import { LOCALES_WITH_KEYS } from "@enums";
 import { $currentUserActions } from "@composable/$currentUserActions";
+const { changeLocale, changeTheme, logOutMiddleware } = $currentUserActions();
 
 export default {
   name: "NavBar",
-  setup() {
-    return $currentUserActions();
-  },
   data() {
     return {
       LOCALES_WITH_KEYS,
@@ -55,6 +53,11 @@ export default {
       type: Boolean,
       required: true
     }
+  },
+  methods: {
+    changeLocale,
+    changeTheme,
+    logOutMiddleware
   }
 };
 </script>

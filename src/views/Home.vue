@@ -28,12 +28,14 @@
 
 <script>
 import { $usersActions } from "@composable/$usersActions";
+const {
+  writeMessageToUser,
+  openUserProfile,
+  deleteFromFriends
+} = $usersActions();
 
 export default {
   name: "Home",
-  setup() {
-    return $usersActions();
-  },
   components: {
     RoomsController: () => import("@components/elements/Rooms/RoomsController"),
     UsersList: () => import("@components/elements/Users/UsersList")
@@ -42,6 +44,11 @@ export default {
     return {
       users: null
     };
+  },
+  methods: {
+    writeMessageToUser,
+    openUserProfile,
+    deleteFromFriends
   }
 };
 </script>

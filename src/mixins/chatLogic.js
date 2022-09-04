@@ -1,17 +1,16 @@
 import { api } from "@api";
 import { MESSAGE_RECEIVER_TYPES } from "@enums";
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
-import { $chatKeys } from "@composable/$chatKeys";
 import { chat_messageToClient } from "@constants/ws/chat.js";
 import {
   rooms_userLeaveRoom,
   rooms_userJoinRoom
 } from "@constants/ws/rooms.js";
 
+import { $chatKeys } from "@composable/$chatKeys";
+const { getUserChatKey } = $chatKeys();
+
 export default {
-  setup() {
-    return $chatKeys();
-  },
   async mounted() {
     this.intiComponent();
     this.$watch("$socket.connected", this.intiComponent);
@@ -52,7 +51,7 @@ export default {
             ? messageReceiverUserId
             : messageSender.userId;
         await this.createUserChat(userId);
-        const userChatKey = this.getUserChatKey(userId);
+        const userChatKey = getUserChatKey(userId);
         this.pushMessageToChatChat(userChatKey, messageToClient);
       }
     },
@@ -62,7 +61,7 @@ export default {
     },
     async writeMessageToUser(userId) {
       await this.createUserChat(userId);
-      const chatTab = this.getUserChatKey(userId);
+      const chatTab = getUserChatKey(userId);
       this.$bus.emit("openChat");
       this.$bus.emit("activateChat", chatTab);
     },
@@ -77,7 +76,7 @@ export default {
       });
     },
     async createUserChat(userId) {
-      const userChatKey = this.getUserChatKey(userId);
+      const userChatKey = getUserChatKey(userId);
       if (!this.$chats[userChatKey]) {
         this.setChat(userChatKey, {
           messages: [],
@@ -125,7 +124,7 @@ export default {
             message.messageSender.userId === userId
         );
         await this.createUserChat(userId);
-        const userChatKey = this.getUserChatKey(userId);
+        const userChatKey = getUserChatKey(userId);
         this.setChat(userChatKey, {
           key: PRIVATE,
           userId:

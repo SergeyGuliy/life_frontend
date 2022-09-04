@@ -235,13 +235,12 @@
 import { COUNTRIES, LOCALES_WITH_KEYS } from "@enums";
 import { api } from "@api";
 import { ProfileSettingsParser } from "../utils/parsers";
+
 import { $currentUserActions } from "@composable/$currentUserActions";
+const { updateUserSettings, changeLocale } = $currentUserActions();
 
 export default {
   name: "Cabinet",
-  setup() {
-    return $currentUserActions();
-  },
   components: {
     VoiceSettings: () => import("@components/elements/Cabinet/VoiceSettings")
   },
@@ -274,6 +273,7 @@ export default {
     }
   },
   methods: {
+    changeLocale,
     parseDefaultData() {
       let profileSettings = new ProfileSettingsParser(this.$user);
       this.$set(this, "profileSettings", profileSettings.getProfileSettings);
@@ -298,7 +298,7 @@ export default {
       await this.$openModal("ChangePassword").catch(() => {});
     },
     async saveSettings() {
-      await this.updateUserSettings({
+      await updateUserSettings({
         chatSettings: this.chatSettings,
         profileSettings: this.profileSettings
       });

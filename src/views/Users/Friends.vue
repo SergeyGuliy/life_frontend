@@ -59,13 +59,17 @@
 <script>
 import { FRIENDSHIP_STATUSES } from "@enums";
 import { api } from "@api";
+
 import { $usersActions } from "@composable/$usersActions";
+const {
+  writeMessageToUser,
+  deleteFromFriends,
+  openUserProfile
+} = $usersActions();
 
 export default {
   name: "Friends",
-  setup() {
-    return $usersActions();
-  },
+
   components: {
     UsersList: () => import("@components/elements/Users/UsersList")
   },
@@ -115,6 +119,9 @@ export default {
     }
   },
   methods: {
+    writeMessageToUser,
+    deleteFromFriends,
+    openUserProfile,
     async acceptFriendRequest(userId) {
       await api.friendship
         .acceptRequest(userId)

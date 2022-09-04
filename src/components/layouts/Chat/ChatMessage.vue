@@ -61,7 +61,12 @@ import { $usersActions } from "@composable/$usersActions";
 export default {
   name: "ChatMessage",
   setup() {
-    return $usersActions();
+    const {
+      writeMessageToUser,
+      addUserToFriendsList,
+      openUserProfile
+    } = $usersActions();
+    return { writeMessageToUser, addUserToFriendsList, openUserProfile };
   },
   components: {
     ChatAudio: () => import("./ChatAudio")
