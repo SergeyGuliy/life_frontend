@@ -291,7 +291,7 @@ export default {
     async uploadAvatar() {
       const formData = new FormData();
       formData.append("avatarImg", this.imgFile);
-      let data = (await api.uploader.uploadAvatar(formData)).data;
+      let data = await api.uploader.uploadAvatar(formData);
       this.$store.commit("user/setProfileSettings", data);
     },
     async changePassword() {

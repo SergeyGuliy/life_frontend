@@ -167,8 +167,9 @@ export default {
   methods: {
     async createRoom() {
       if (this.$refs.createRoom.validate()) {
-        const { data } = await api.rooms.create(this.roomData);
-        this.close(data);
+        api.rooms.create(this.roomData).then(data => {
+          this.close(data);
+        });
       }
     }
   }

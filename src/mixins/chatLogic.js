@@ -84,23 +84,24 @@ export default {
       }
     },
     async fetchGlobalMessages() {
-      const messages = (await api.chats.getGlobalMessages()).data;
-      this.setChat(GLOBAL, {
-        key: GLOBAL,
-        messages
+      api.chats.getGlobalMessages().then(messages => {
+        this.setChat(GLOBAL, {
+          key: GLOBAL,
+          messages
+        });
       });
     },
     async fetchRoomMessages() {
       if (this.$user.roomJoinedId) {
         this.setChat(ROOM, {
           key: ROOM,
-          messages: (await api.chats.getRoomMessages()).data,
+          messages: await api.chats.getRoomMessages(),
           roomId: this.$user.roomJoinedId
         });
       }
     },
     async fetchPrivateMessages() {
-      const messages = (await api.chats.getPrivateMessages()).data;
+      const messages = await api.chats.getPrivateMessages();
       const messageWithUsers = messages.filter(
         message => message.messageReceiverUserId
       );

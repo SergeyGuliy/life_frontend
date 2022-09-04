@@ -14,7 +14,7 @@ export default async function(to) {
 
   if (userId && refreshToken) {
     try {
-      const { data } = await api.auth.refreshToken({ userId, refreshToken });
+      const data = await api.auth.refreshToken({ userId, refreshToken });
       await store.dispatch("user/setUserData", data);
       myVue.$vuetify.theme.dark = store.state.user.user.isDarkTheme;
     } catch (e) {

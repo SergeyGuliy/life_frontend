@@ -34,7 +34,7 @@ export default {
       if (this.$user) {
         api.userSettings
           .changeTheme({ isDarkTheme: val })
-          .then(({ data }) => {
+          .then(data => {
             this.$store.commit("user/setUserSettings", data);
           })
           .catch(e => {
@@ -46,7 +46,7 @@ export default {
       if (this.$user) {
         api.userSettings
           .changeLocale({ locale: val })
-          .then(({ data }) => {
+          .then(data => {
             this.$store.commit("user/setUserSettings", data);
           })
           .catch(e => {

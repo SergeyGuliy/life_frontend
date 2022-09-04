@@ -67,7 +67,9 @@ export default {
     },
     async fetchRooms() {
       localStorage.setItem("typeOfRoom", this.filterData.typeOfRoom);
-      this.rooms = (await api.rooms.getRooms(this.filterData)).data;
+      api.rooms.getRooms(this.filterData).then(data => {
+        this.rooms = data;
+      });
     },
 
     async joinRoom(roomData) {
@@ -86,7 +88,7 @@ export default {
           cancel: this.$t("buttons.cancel")
         })
           .then(() =>
-            api.rooms.joinRoom(roomId).then(({ data }) => {
+            api.rooms.joinRoom(roomId).then(data => {
               this.$store.commit("user/joinRoom", data.roomJoinedId);
               this.$router.push({
                 name: "RoomId",

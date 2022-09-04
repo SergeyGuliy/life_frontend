@@ -28,7 +28,7 @@ axiosWithAuth.interceptors.request.use(
 
 axiosWithAuth.interceptors.response.use(
   function(response) {
-    return response;
+    return response.data;
   },
   async function(error) {
     const originalRequest = error.config;
@@ -44,6 +44,15 @@ axiosWithAuth.interceptors.response.use(
     } else {
       return Promise.reject(error);
     }
+  }
+);
+
+axiosWithoutAuth.interceptors.response.use(
+  function(response) {
+    return response.data;
+  },
+  async function(error) {
+    return error;
   }
 );
 export default {

@@ -126,19 +126,25 @@ export default {
       console.log("startGame");
     },
     async intiComponent() {
-      this.roomData = {
-        ...(await api.rooms.getRoomById(this.roomId)).data
-      };
-      this.$socket.client.emit(rooms_userConnectsRoom, {
-        userId: this.$user.userId,
-        roomId: this.roomData.roomId
-      });
-      this.$socketInit({
-        [rooms_updateUsersListInRoom]: this.updateUserListInRoom,
-        [rooms_updateRoomAdmin]: this.updateRoomAdmin,
-        [rooms_userKickedFromRoom]: this.userKickedFromRoom,
-        [rooms_updateToggleLockRoom]: this.updateToggleLockRoom
-      });
+      api.rooms
+        .getRoomById(this.roomId)
+        .then(data => {
+          this.roomData = data;
+          this.$socket.client.emit(rooms_userConnectsRoom, {
+            userId: this.$user.userId,
+            roomId: this.roomData.roomId
+          });
+          this.$socketInit({
+            [rooms_updateUsersListInRoom]: this.updateUserListInRoom,
+            [rooms_updateRoomAdmin]: this.updateRoomAdmin,
+            [rooms_userKickedFromRoom]: this.userKickedFromRoom,
+            [rooms_updateToggleLockRoom]: this.updateToggleLockRoom
+          });
+        })
+        .catch(() => {
+          this.$store.commit("user/leaveRoom");
+          this.$router.push({ name: "Home" });
+        });
     },
 
     async userKickedFromRoom(kickUserId) {

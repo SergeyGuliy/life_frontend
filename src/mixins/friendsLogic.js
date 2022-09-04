@@ -4,7 +4,7 @@ export default {
   async mounted() {
     await api.friendship
       .getYourFriends()
-      .then(({ data }) => {
+      .then(data => {
         this.$store.commit("friends/setFriends", data);
       })
       .catch(e => {
@@ -12,7 +12,7 @@ export default {
       });
     await api.friendship
       .getYourConnections()
-      .then(({ data }) => {
+      .then(data => {
         this.$store.commit("friends/setConnections", data);
       })
       .catch(e => {

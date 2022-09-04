@@ -125,7 +125,7 @@ export default {
     async acceptFriendRequest(userId) {
       await api.friendship
         .acceptRequest(userId)
-        .then(({ data }) => {
+        .then(data => {
           const indexToDelete = this.$connects.findIndex(
             i => i.friendshipsId === data.friendshipsId
           );
@@ -137,7 +137,7 @@ export default {
     async ignoreFriendRequest(userId) {
       await api.friendship
         .ignoreRequest(userId)
-        .then(({ data }) => {
+        .then(data => {
           const indexToUpdate = this.$connects.findIndex(
             i => i.friendshipsId === data.friendshipsId
           );

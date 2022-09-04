@@ -55,7 +55,7 @@ export default {
     enterRoom() {
       api.rooms
         .joinRoom(this.data.roomId, this.roomPassword)
-        .then(({ data }) => {
+        .then(data => {
           this.$store.commit("user/joinRoom", data.roomJoinedId);
           this.close(true);
           this.$router.push({

@@ -43,7 +43,7 @@ function needToUpdate(serverTime) {
 async function fetchUserData(userId) {
   if (!requestUsersOrders.includes(userId)) {
     requestUsersOrders.push(userId);
-    const userData = (await api.users.getById(userId)).data;
+    const userData = await api.users.getById(userId);
     const userIdToDelete = requestUsersOrders.findIndex(i => i === userId);
     requestUsersOrders.splice(userIdToDelete, 1);
     return userData;

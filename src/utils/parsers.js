@@ -105,7 +105,7 @@ export class ProfileSettingsParser {
     const dataToReturn = this.parseUserSettings(data);
     return await api.userSettings
       .updateUserSettings(dataToReturn)
-      .then(({ data }) => {
+      .then(data => {
         store.dispatch("user/updateUserSettings", data);
       })
       .catch(e => {

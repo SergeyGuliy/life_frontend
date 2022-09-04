@@ -15,7 +15,7 @@ export function $usersActions() {
   async function deleteFromFriends(userId) {
     await api.friendship
       .deleteFromFriends(userId)
-      .then(({ data }) => {
+      .then(data => {
         const indexToDelete = myVue.$friendsRequests.findIndex(
           i => i.friendshipsId === data.friendshipsId
         );

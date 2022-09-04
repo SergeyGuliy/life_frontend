@@ -13,7 +13,7 @@ export default {
       const refreshToken = localStorage.getItem("refreshToken");
       if (userId && refreshToken) {
         try {
-          const { data } = await api.auth.refreshToken({
+          const data = await api.auth.refreshToken({
             userId,
             refreshToken
           });
@@ -30,7 +30,7 @@ export default {
 
     async registration({ dispatch }, authData) {
       try {
-        const { data } = await api.auth.registration(authData);
+        const data = await api.auth.registration(authData);
         await dispatch("user/setUserData", data, { root: true });
       } catch (e) {
         console.log(`Error in store action 'createNewUser': ${e.message}`);
@@ -40,7 +40,8 @@ export default {
 
     async logIn({ dispatch }, authData) {
       try {
-        const { data } = await api.auth.login(authData);
+        const data = await api.auth.login(authData);
+        console.log(data);
         await dispatch("user/setUserData", data, { root: true });
       } catch (e) {
         console.log(`Error in store action 'logIn': ${e}`);

@@ -60,8 +60,8 @@ export default {
       }
     },
     async leaveRoom({ commit }) {
-      let { status } = await api.rooms.leaveRoom();
-      if (status === 200) {
+      let { roomJoinedId } = await api.rooms.leaveRoom();
+      if (!roomJoinedId) {
         commit("leaveRoom");
       }
     }
