@@ -60,7 +60,7 @@
 
 <script>
 import { api } from "@api";
-import { $usersActions } from "@composable/$usersActions";
+
 import {
   rooms_userConnectsRoom,
   rooms_updateUsersListInRoom,
@@ -69,12 +69,12 @@ import {
   rooms_updateToggleLockRoom
 } from "@constants/ws/rooms.js";
 
+import { $usersActions } from "@composable/$usersActions";
+const { writeMessageToUser, addUserToFriendsList } = $usersActions();
+
 export default {
   name: "RoomId",
-  setup() {
-    const { writeMessageToUser, addUserToFriendsList } = $usersActions();
-    return { writeMessageToUser, addUserToFriendsList };
-  },
+
   components: {
     RoomInfo: () => import("@components/elements/Rooms/RoomInfo"),
     UsersList: () => import("@components/elements/Users/UsersList")
@@ -132,6 +132,8 @@ export default {
     }
   },
   methods: {
+    writeMessageToUser,
+    addUserToFriendsList,
     async intiComponent() {
       if (!this.$socket.connected) return;
 

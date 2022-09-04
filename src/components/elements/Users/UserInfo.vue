@@ -44,13 +44,22 @@
 </template>
 
 <script>
-import { $isUserAdmin } from "@composable/$isUserAdmin";
-
 export default {
   name: "UserInfo",
-  setup(props) {
-    return $isUserAdmin(props);
+
+  computed: {
+    isRoomAdmin() {
+      const { roomJoinedId, roomCreatedId } = this.userData;
+      const isNum = num => typeof num === "number";
+
+      return (
+        isNum(roomJoinedId) &&
+        isNum(roomCreatedId) &&
+        roomJoinedId === roomCreatedId
+      );
+    }
   },
+
   props: {
     userData: {
       required: true,
