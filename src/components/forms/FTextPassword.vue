@@ -1,0 +1,55 @@
+<template>
+  <div>
+    <div class="label mb-2">{{ label }}</div>
+    <v-text-field
+      v-model="localValue"
+      :type="showPassword ? 'password' : 'text'"
+      :rules="rules.password"
+      @click:append="showPassword = !showPassword"
+      :append-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
+      outlined
+      dense
+      required
+    />
+  </div>
+</template>
+
+<script>
+export default {
+  name: "FTextPassword",
+  data() {
+    return {
+      showPassword: true
+    };
+  },
+
+  props: {
+    rules: {
+      type: Array,
+      default: () => []
+    },
+    error: {
+      type: String,
+      default: () => ""
+    },
+    value: {
+      type: String,
+      required: true
+    },
+    label: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    localValue: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit("input", val);
+      }
+    }
+  }
+};
+</script>

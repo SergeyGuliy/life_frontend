@@ -18,6 +18,7 @@ import "./modules/moment";
 import "./modules/globalMixin";
 import "./modules/globalComponents";
 import "./modules/compositionAPI";
+import "./modules/vuelidate";
 
 Vue.config.productionTip = false;
 

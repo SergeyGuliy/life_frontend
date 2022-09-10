@@ -10,10 +10,10 @@
     "test:dev": "http-server dist -p 9999 -c 1 --push-state"
   },
   "dependencies": {
-    "life_shared": "file:../life_shared",
     "@vue/composition-api": "^1.1.5",
     "core-js": "^3.6.5",
     "get-blob-duration": "^1.2.0",
+    "life_shared": "file:../life_shared",
     "lodash": "^4.17.21",
     "moment": "latest",
     "register-service-worker": "^1.7.1",
@@ -31,6 +31,7 @@
     "vue-socket.io": "^3.0.10",
     "vue-socket.io-extended": "^4.2.0",
     "vue-worker": "^1.2.1",
+    "vuelidate": "^0.7.7",
     "vuetify": "^2.4.0",
     "vuex": "^3.4.0"
   },

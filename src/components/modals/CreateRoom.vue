@@ -5,8 +5,9 @@
     width="500"
     @click:outside.prevent.stop="close()"
   >
+    <pre>{{ $v.roomData.roomPassword }}</pre>
     <v-card class="CreateRoom">
-      <v-form ref="createRoom">
+      <v-form>
         <v-card-title class="pb-6">
           {{ $t("modals.createRoom") }}
         </v-card-title>
@@ -14,25 +15,21 @@
         <v-card-text>
           <v-row>
             <v-col cols="12" class="py-0">
-              <div class="label mb-2">
-                {{ $t("forms.labels.nameRoomLabel") }}
-              </div>
-              <v-text-field dense outlined v-model="roomData.roomName" />
+              <FTextField
+                :label="$t('forms.labels.nameRoomLabel')"
+                v-model="roomData.roomName"
+              />
             </v-col>
             <v-col cols="12" class="py-0">
-              <div class="label mb-2">{{ $t("forms.labels.typeOfRoom") }}</div>
               <div class="d-flex">
-                <v-switch
-                  inset
-                  class="mt-0 mb-6 ml-2"
+                <FSwitch
                   v-model="calculatedTypeOfRoom"
-                  :label="
+                  :label="$t('forms.labels.typeOfRoom')"
+                  :valueText="
                     calculatedTypeOfRoom
                       ? $t('enums.PUBLIC')
                       : $t('enums.PRIVATE')
                   "
-                  color="blue"
-                  hide-details
                 />
               </div>
             </v-col>
@@ -41,58 +38,21 @@
               class="py-0"
               v-if="roomData.typeOfRoom !== 'PUBLIC'"
             >
-              <div class="label mb-2">
-                {{ $t("forms.labels.passwordLabel") }}
-              </div>
-              <v-text-field
+              <FTextPassword
+                required
+                :error="getErrorMessage('roomData.roomPassword')"
+                :label="$t('forms.labels.passwordLabel')"
                 v-model="roomData.roomPassword"
-                :type="showPassword ? 'password' : 'text'"
-                :rules="rules.password"
-                @click:append="showPassword = !showPassword"
-                :append-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
-                outlined
-                dense
               />
             </v-col>
             <v-col class="py-0">
-              <div class="label mb-2">
-                {{ $t("forms.labels.countOfUsers") }}
-              </div>
-              <v-range-slider
-                v-model="calculatedCountUsers"
-                outlined
-                :max="max"
-                :min="min"
-                hide-details
-                class="align-center"
-              >
-                <template v-slot:prepend>
-                  <v-text-field
-                    outlined
-                    dense
-                    disabled
-                    :label="$t('misc.min')"
-                    :value="calculatedCountUsers[0]"
-                    class="mt-0 pt-0 mr-3"
-                    hide-details
-                    type="number"
-                    style="width: 60px"
-                  ></v-text-field>
-                </template>
-                <template v-slot:append>
-                  <v-text-field
-                    outlined
-                    dense
-                    disabled
-                    :label="$t('misc.max')"
-                    :value="calculatedCountUsers[1]"
-                    class="mt-0 pt-0 ml-3"
-                    hide-details
-                    type="number"
-                    style="width: 60px"
-                  ></v-text-field>
-                </template>
-              </v-range-slider>
+              <FRange
+                :minValue.sync="roomData.minCountOfUsers"
+                :maxValue.sync="roomData.maxCountOfUsers"
+                :label="$t('forms.labels.countOfUsers')"
+                :max="10"
+                :min="2"
+              />
             </v-col>
           </v-row>
         </v-card-text>
@@ -112,12 +72,33 @@
 </template>
 
 <script>
+import { required } from "vuelidate/lib/validators";
+import { get } from "lodash";
+
 import modal from "@mixins/modal";
-import { api } from "@api";
+// import { api } from "@api";
 
 export default {
   name: "CreateRoom",
   mixins: [modal],
+
+  validations: {
+    roomData: {
+      roomPassword: {
+        required,
+        wrongPassword: v => /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v)
+      }
+    }
+  },
+  validationsMessages: {
+    roomData: {
+      roomPassword: {
+        required: "Password required",
+        wrongPassword: "wrong password"
+      }
+    }
+  },
+
   data() {
     return {
       roomData: {
@@ -126,16 +107,7 @@ export default {
         typeOfRoom: "PUBLIC",
         minCountOfUsers: 2,
         maxCountOfUsers: 10
-      },
-      rules: {
-        password: [
-          v => !!v || "E-mail is required",
-          v => /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v) || "wrong password"
-        ]
-      },
-      showPassword: true,
-      min: 2,
-      max: 10
+      }
     };
   },
   watch: {
@@ -146,15 +118,6 @@ export default {
     }
   },
   computed: {
-    calculatedCountUsers: {
-      get() {
-        return [this.roomData.minCountOfUsers, this.roomData.maxCountOfUsers];
-      },
-      set(val) {
-        this.roomData.minCountOfUsers = Math.min(val[0], val[1]);
-        this.roomData.maxCountOfUsers = Math.max(val[0], val[1]);
-      }
-    },
     calculatedTypeOfRoom: {
       get() {
         return this.roomData.typeOfRoom === "PUBLIC";
@@ -165,11 +128,18 @@ export default {
     }
   },
   methods: {
+    getErrorMessage(key) {
+      let errorObject = get(this.$v, key);
+      console.log(errorObject);
+      return errorObject;
+    },
     async createRoom() {
-      if (this.$refs.createRoom.validate()) {
-        api.rooms.create(this.roomData).then(data => {
-          this.close(data);
-        });
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        console.log(this.$v.$invalid);
+        // api.rooms.create(this.roomData).then(data => {
+        //   this.close(data);
+        // });
       }
     }
   }
