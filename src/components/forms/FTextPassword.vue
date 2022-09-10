@@ -4,12 +4,11 @@
     <v-text-field
       v-model="localValue"
       :type="showPassword ? 'password' : 'text'"
-      :rules="rules.password"
       @click:append="showPassword = !showPassword"
       :append-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
       outlined
       dense
-      required
+      :error-messages="error"
     />
   </div>
 </template>
@@ -24,10 +23,6 @@ export default {
   },
 
   props: {
-    rules: {
-      type: Array,
-      default: () => []
-    },
     error: {
       type: String,
       default: () => ""

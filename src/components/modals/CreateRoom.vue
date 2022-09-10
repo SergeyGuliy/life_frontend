@@ -5,7 +5,6 @@
     width="500"
     @click:outside.prevent.stop="close()"
   >
-    <pre>{{ $v.roomData.roomPassword }}</pre>
     <v-card class="CreateRoom">
       <v-form>
         <v-card-title class="pb-6">
@@ -82,6 +81,24 @@ export default {
   name: "CreateRoom",
   mixins: [modal],
 
+  beforeCreate() {
+    this.$vuelidate.setup(
+      "roomData",
+      {
+        roomPassword: {
+          required,
+          wrongPassword: v => /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v)
+        }
+      },
+      {
+        roomPassword: {
+          required: "Password required",
+          wrongPassword: "wrong password"
+        }
+      }
+    );
+  },
+
   validations: {
     roomData: {
       roomPassword: {
@@ -90,6 +107,7 @@ export default {
       }
     }
   },
+
   validationsMessages: {
     roomData: {
       roomPassword: {
@@ -104,7 +122,7 @@ export default {
       roomData: {
         roomName: "12312",
         roomPassword: "",
-        typeOfRoom: "PUBLIC",
+        typeOfRoom: "PRIVATE",
         minCountOfUsers: 2,
         maxCountOfUsers: 10
       }
@@ -129,9 +147,22 @@ export default {
   },
   methods: {
     getErrorMessage(key) {
-      let errorObject = get(this.$v, key);
-      console.log(errorObject);
-      return errorObject;
+      if (!this.$v.$dirty) return "";
+
+      let errorObject = get(this.$v, key, {});
+      let errorMessagesObject = get(this.$options.validationsMessages, key, {});
+      const filteredErrorMessages = Object.fromEntries(
+        Object.entries(errorObject).filter(i => i[0][0] !== "$")
+      );
+      const firstMessage = Object.entries(filteredErrorMessages)
+        .map(([errorCode, errorStatus]) => {
+          if (typeof errorStatus === "boolean" && !errorStatus) {
+            return errorMessagesObject[errorCode];
+          }
+        })
+        .find(i => !!i);
+
+      return firstMessage || "";
     },
     async createRoom() {
       this.$v.$touch();

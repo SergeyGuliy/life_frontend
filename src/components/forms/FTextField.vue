@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="label mb-2">{{ label }}</div>
-    <v-text-field dense outlined v-model="localValue" />
+    <v-text-field dense outlined v-model="localValue" :error-messages="error" />
   </div>
 </template>
 
@@ -9,6 +9,10 @@
 export default {
   name: "FTextField",
   props: {
+    error: {
+      type: String,
+      default: () => ""
+    },
     value: {
       type: String,
       required: true
