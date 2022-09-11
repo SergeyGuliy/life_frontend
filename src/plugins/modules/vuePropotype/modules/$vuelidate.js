@@ -25,8 +25,6 @@ export function $v_setup(formKey, validations, validationsMessages, formData) {
 
 export function $v_validate(callback) {
   this.$v.$touch();
-  console.error(this.$v.$invalid);
-  console.error(this.$v);
   if (!this.$v.$invalid) {
     callback();
   }

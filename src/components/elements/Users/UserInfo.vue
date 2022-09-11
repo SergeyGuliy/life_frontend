@@ -13,12 +13,7 @@
       >
         {{ $t(`enums.ROOM_ADMIN`) }}
       </v-chip>
-      <v-chip
-        :color="userData.role === 'PUBLIC' ? 'primary' : 'warning'"
-        text-color="white"
-        small
-        class="mx-2"
-      >
+      <v-chip :color="getChipClass" text-color="white" small class="mx-2">
         {{ $t(`enums.${userData.role}`) }}
       </v-chip>
       <v-chip
@@ -44,10 +39,16 @@
 </template>
 
 <script>
+import { ROOM_TYPES } from "@enums/index";
+
 export default {
   name: "UserInfo",
 
   computed: {
+    getChipClass() {
+      return this.userData.role === ROOM_TYPES.PUBLIC ? "primary" : "warning";
+    },
+
     isRoomAdmin() {
       const { roomJoinedId, roomCreatedId } = this.userData;
       const isNum = num => typeof num === "number";

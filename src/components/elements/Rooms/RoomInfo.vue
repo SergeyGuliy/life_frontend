@@ -4,17 +4,13 @@
       <v-card-title class="py-0">{{ roomData.roomName }} </v-card-title>
 
       <v-chip
-        :color="roomData.typeOfRoom === 'PUBLIC' ? 'primary' : 'warning'"
+        :color="getChipClass"
         text-color="white"
         small
         class="ml-2 mr-4 ml-0"
       >
         <v-icon left>
-          {{
-            roomData.typeOfRoom === "PUBLIC"
-              ? "mdi-account-group"
-              : "mdi-account-key"
-          }}
+          {{ getChipType }}
         </v-icon>
         {{ roomData.typeOfRoom }}
       </v-chip>
@@ -41,9 +37,22 @@
 </template>
 
 <script>
+import { ROOM_TYPES } from "@enums/index";
+
 export default {
   name: "RoomInfo",
-  components: {},
+  computed: {
+    getChipClass() {
+      return this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC
+        ? "primary"
+        : "warning";
+    },
+    getChipType() {
+      return this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC
+        ? "mdi-account-group"
+        : "mdi-account-key";
+    }
+  },
   props: {
     roomData: {
       required: true,
