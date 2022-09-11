@@ -41,7 +41,6 @@ export default {
     async logIn({ dispatch }, authData) {
       try {
         const data = await api.auth.login(authData);
-        console.log(data);
         await dispatch("user/setUserData", data, { root: true });
       } catch (e) {
         console.log(`Error in store action 'logIn': ${e}`);

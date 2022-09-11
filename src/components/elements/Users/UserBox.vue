@@ -1,7 +1,7 @@
 <template>
   <v-card class="UserBox">
     <UserInfo
-      :userData="userData.userId | dictionariesGetUserById"
+      :userData="userData?.userId | dictionariesGetUserById"
       :showUserRoomInfo="showUserRoomInfo"
     />
     <v-card-actions>

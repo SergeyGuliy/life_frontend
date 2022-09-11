@@ -85,7 +85,9 @@ export default {
   data() {
     return {
       roomData: null,
-      roomSettings: {}
+      gameSettings: {
+        data: "data"
+      }
     };
   },
   async mounted() {
@@ -125,7 +127,15 @@ export default {
     writeMessageToUser,
     addUserToFriendsList,
     startGame() {
-      console.log("startGame");
+      api.games
+        .startGame(this.roomId, this.gameSettings)
+        .then(({ game }) => {
+          console.warn("startGame");
+          console.log(game);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
     async intiComponent() {
       api.rooms
