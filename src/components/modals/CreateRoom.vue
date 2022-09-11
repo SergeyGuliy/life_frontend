@@ -82,9 +82,7 @@ export default {
     this.$v_setup(
       "roomData",
       {
-        roomName: {
-          required
-        },
+        roomName: { required },
         roomPassword: {
           required: v => this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC || !!v,
           wrongPassword: v =>
@@ -93,9 +91,7 @@ export default {
         }
       },
       {
-        roomName: {
-          required: "Room Name required"
-        },
+        roomName: { required: "Room Name required" },
         roomPassword: {
           required: "Password required",
           wrongPassword: "wrong password"
