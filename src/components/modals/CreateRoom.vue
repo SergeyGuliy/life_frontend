@@ -16,7 +16,7 @@
             <v-col cols="12" class="py-0">
               <FTextField
                 :label="$t('forms.labels.nameRoomLabel')"
-                :error="getErrorMessage('roomData.roomName')"
+                :error="$v_getErrorMessage('roomData.roomName')"
                 v-model="roomData.roomName"
               />
             </v-col>
@@ -25,22 +25,14 @@
                 <FSwitch
                   v-model="calculatedTypeOfRoom"
                   :label="$t('forms.labels.typeOfRoom')"
-                  :valueText="
-                    calculatedTypeOfRoom
-                      ? $t('enums.PUBLIC')
-                      : $t('enums.PRIVATE')
-                  "
+                  :valueText="getSwitchLabel"
                 />
               </div>
             </v-col>
-            <v-col
-              cols="12"
-              class="py-0"
-              v-if="roomData.typeOfRoom !== 'PUBLIC'"
-            >
+            <v-col cols="12" class="py-0" v-if="isRoomPublic">
               <FTextPassword
                 required
-                :error="getErrorMessage('roomData.roomPassword')"
+                :error="$v_getErrorMessage('roomData.roomPassword')"
                 :label="$t('forms.labels.passwordLabel')"
                 v-model="roomData.roomPassword"
               />
@@ -73,10 +65,10 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { get } from "lodash";
 
 import modal from "@mixins/modal";
 import { api } from "@api";
+import { ROOM_TYPES } from "@enums/index";
 
 export default {
   name: "CreateRoom",
@@ -87,16 +79,16 @@ export default {
   mixins: [modal],
 
   beforeCreate() {
-    this.$vuelidate_setup(
+    this.$v_setup(
       "roomData",
       {
         roomName: {
           required
         },
         roomPassword: {
-          required: v => this.roomData.typeOfRoom === "PUBLIC" || !!v,
+          required: v => this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC || !!v,
           wrongPassword: v =>
-            this.roomData.typeOfRoom === "PUBLIC" ||
+            this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC ||
             /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v)
         }
       },
@@ -112,7 +104,7 @@ export default {
       {
         roomName: "",
         roomPassword: "",
-        typeOfRoom: "PUBLIC",
+        typeOfRoom: ROOM_TYPES.PUBLIC,
         minCountOfUsers: 2,
         maxCountOfUsers: 10
       }
@@ -132,37 +124,25 @@ export default {
     }
   },
   computed: {
+    getSwitchLabel() {
+      return this.$t(`enums.${this.calculatedTypeOfRoom}`);
+    },
+    isRoomPublic() {
+      return this.roomData.typeOfRoom !== ROOM_TYPES.PUBLIC;
+    },
+
     calculatedTypeOfRoom: {
       get() {
-        return this.roomData.typeOfRoom === "PUBLIC";
+        return this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC;
       },
       set(val) {
-        this.roomData.typeOfRoom = val ? "PUBLIC" : "PRIVATE";
+        this.roomData.typeOfRoom = val ? ROOM_TYPES.PUBLIC : ROOM_TYPES.PRIVATE;
       }
     }
   },
   methods: {
-    getErrorMessage(key) {
-      if (!this.$v.$dirty) return "";
-
-      let errorObject = get(this.$v, key, {});
-      let errorMessagesObject = get(this.$options.validationsMessages, key, {});
-
-      const filteredErrorMessages = Object.fromEntries(
-        Object.entries(errorObject).filter(i => i[0][0] !== "$")
-      );
-      const firstMessage = Object.entries(filteredErrorMessages)
-        .map(([errorCode, errorStatus]) => {
-          if (typeof errorStatus === "boolean" && !errorStatus) {
-            return errorMessagesObject[errorCode];
-          }
-        })
-        .find(i => !!i);
-
-      return firstMessage || "";
-    },
     async createRoom() {
-      this.$vuelidate(() => {
+      this.$v_validate(() => {
         api.rooms.create(this.roomData).then(data => {
           this.close(data);
         });
