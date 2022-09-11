@@ -16,6 +16,7 @@
             <v-col cols="12" class="py-0">
               <FTextField
                 :label="$t('forms.labels.nameRoomLabel')"
+                :error="getErrorMessage('roomData.roomName')"
                 v-model="roomData.roomName"
               />
             </v-col>
@@ -75,57 +76,52 @@ import { required } from "vuelidate/lib/validators";
 import { get } from "lodash";
 
 import modal from "@mixins/modal";
-// import { api } from "@api";
+import { api } from "@api";
 
 export default {
   name: "CreateRoom",
+
+  validations: {},
+  validationsMessages: {},
+
   mixins: [modal],
 
   beforeCreate() {
-    this.$vuelidate.setup(
+    this.$vuelidate_setup(
       "roomData",
       {
+        roomName: {
+          required
+        },
         roomPassword: {
-          required,
-          wrongPassword: v => /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v)
+          required: v => this.roomData.typeOfRoom === "PUBLIC" || !!v,
+          wrongPassword: v =>
+            this.roomData.typeOfRoom === "PUBLIC" ||
+            /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v)
         }
       },
       {
+        roomName: {
+          required: "Room Name required"
+        },
         roomPassword: {
           required: "Password required",
           wrongPassword: "wrong password"
         }
+      },
+      {
+        roomName: "",
+        roomPassword: "",
+        typeOfRoom: "PUBLIC",
+        minCountOfUsers: 2,
+        maxCountOfUsers: 10
       }
     );
   },
 
-  validations: {
-    roomData: {
-      roomPassword: {
-        required,
-        wrongPassword: v => /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v)
-      }
-    }
-  },
-
-  validationsMessages: {
-    roomData: {
-      roomPassword: {
-        required: "Password required",
-        wrongPassword: "wrong password"
-      }
-    }
-  },
-
   data() {
     return {
-      roomData: {
-        roomName: "12312",
-        roomPassword: "",
-        typeOfRoom: "PRIVATE",
-        minCountOfUsers: 2,
-        maxCountOfUsers: 10
-      }
+      roomData: null
     };
   },
   watch: {
@@ -151,6 +147,7 @@ export default {
 
       let errorObject = get(this.$v, key, {});
       let errorMessagesObject = get(this.$options.validationsMessages, key, {});
+
       const filteredErrorMessages = Object.fromEntries(
         Object.entries(errorObject).filter(i => i[0][0] !== "$")
       );
@@ -165,13 +162,11 @@ export default {
       return firstMessage || "";
     },
     async createRoom() {
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        console.log(this.$v.$invalid);
-        // api.rooms.create(this.roomData).then(data => {
-        //   this.close(data);
-        // });
-      }
+      this.$vuelidate(() => {
+        api.rooms.create(this.roomData).then(data => {
+          this.close(data);
+        });
+      });
     }
   }
 };
