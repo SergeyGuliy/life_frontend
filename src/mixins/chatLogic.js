@@ -1,7 +1,7 @@
 import { api } from "@api";
 import { MESSAGE_RECEIVER_TYPES } from "@enums";
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
-import { chat_messageToClient } from "@constants/ws/chat.js";
+import { chat_messageToClient } from "@constants/ws/chats.js";
 import {
   rooms_userLeaveRoom,
   rooms_userJoinRoom
@@ -92,7 +92,7 @@ export default {
       });
     },
     async fetchRoomMessages() {
-      if (this.$user.roomJoinedId) {
+      if (this.$user?.roomJoinedId) {
         this.setChat(ROOM, {
           key: ROOM,
           messages: await api.chats.getRoomMessages(),
