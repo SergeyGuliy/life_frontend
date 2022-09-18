@@ -65,7 +65,8 @@
     "vuetify-loader": "^1.7.0"
   },
   "gitHooks": {
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "post-commit": "git push"
   },
   "lint-staged": {
     "*.{js,jsx,vue}": [
