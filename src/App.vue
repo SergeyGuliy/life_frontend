@@ -37,19 +37,6 @@ export default {
   },
   async mounted() {
     this.$initSocketListener(this.intiComponent);
-
-    this.$watch("$socket.connected", val => {
-      if (!val) {
-        this.$socket.client.off(
-          socketSetup_callUserIdToServer,
-          this.callUserIdToServer
-        );
-        this.$socket.client.off(
-          socketSetup_forceDisconnect,
-          this.forceDisconnect
-        );
-      }
-    });
   },
   methods: {
     async intiComponent() {

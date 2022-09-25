@@ -106,6 +106,12 @@ Vue.mixin({
         this.$on("hook:destroyed", () => {
           this.$socket.client.off(socketKey, socketCallback);
         });
+        this.$watch("$socket.connected", val => {
+          if (val) return;
+
+          this.$socket.client.off(socketKey, socketCallback);
+          this.$socket.client.off(socketKey, socketCallback);
+        });
       });
     },
 
