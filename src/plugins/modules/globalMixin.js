@@ -48,6 +48,7 @@ Vue.mixin({
         window.addEventListener("modalClose", callback);
       });
     },
+
     $noti() {
       function error(message) {
         this.$notify({

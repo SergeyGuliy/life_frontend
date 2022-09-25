@@ -41,7 +41,7 @@ export default {
   methods: {
     async intiComponent() {
       this.$socketInit({
-        [socketSetup_callUserIdToServer]: v => this.callUserIdToServer(v),
+        [socketSetup_callUserIdToServer]: this.callUserIdToServer,
         [socketSetup_forceDisconnect]: this.forceDisconnect
       });
     },
