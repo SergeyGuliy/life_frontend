@@ -24,25 +24,23 @@ export const api = {
       axiosWithAuth.post("api/auth/update-settings", formData)
   },
   friendship: {
-    getYourFriends: () => axiosWithAuth.get("api/friendship/friends"),
+    getYourFriends: () => axiosWithAuth.get("api/friendships/friends"),
 
-    getYourConnections: () => axiosWithAuth.get("api/friendship/requests"),
+    getYourConnections: () => axiosWithAuth.get("api/friendships/requests"),
 
     sendRequest: receiverId =>
-      axiosWithAuth.post(`api/friendship/${receiverId}/add`),
+      axiosWithAuth.post(`api/friendships/${receiverId}/add`),
 
     acceptRequest: receiverId =>
-      axiosWithAuth.put(`api/friendship/${receiverId}/accept`),
+      axiosWithAuth.put(`api/friendships/${receiverId}/accept`),
 
     ignoreRequest: receiverId =>
-      axiosWithAuth.put(`api/friendship/${receiverId}/ignore`),
+      axiosWithAuth.put(`api/friendships/${receiverId}/ignore`),
 
     deleteFromFriends: receiverId =>
-      axiosWithAuth.delete(`api/friendship/${receiverId}/delete`)
+      axiosWithAuth.delete(`api/friendships/${receiverId}/delete`)
   },
   users: {
-    getAllUsers: () => axiosWithAuth.get("api/users"),
-
     getById: userId => axiosWithAuth.get(`api/users/${userId}`)
   },
   rooms: {
