@@ -12,16 +12,16 @@ export const api = {
   },
   userSettings: {
     changePassword: async formData =>
-      axiosWithAuth.post("api/auth/change-password", formData),
+      axiosWithAuth.post("api/users-settings/change-password", formData),
 
     changeLocale: async formData =>
-      axiosWithAuth.post("api/auth/change-locale", formData),
+      axiosWithAuth.post("api/users-settings/change-locale", formData),
 
     changeTheme: async formData =>
-      axiosWithAuth.post("api/auth/change-theme", formData),
+      axiosWithAuth.post("api/users-settings/change-theme", formData),
 
     updateUserSettings: async formData =>
-      axiosWithAuth.post("api/auth/update-settings", formData)
+      axiosWithAuth.post("api/users-settings/update-settings", formData)
   },
   friendship: {
     getYourFriends: () => axiosWithAuth.get("api/friendships/friends"),
