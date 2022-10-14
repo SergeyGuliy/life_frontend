@@ -14,7 +14,7 @@
       </UsersList>
     </template>
     <template #rightCol>
-      <v-tabs v-model="tab" centered>
+      <v-tabs v-model="tabIndex" centered>
         <v-tab v-for="(item, index) in tabs" :key="index">
           {{ $t(`buttons.${item}`) }}
         </v-tab>
@@ -22,21 +22,17 @@
       <UsersList
         v-if="activeTabList"
         :users="activeTabList"
-        :emptyText="activeTabListEmptyList"
+        :emptyText="emptyText"
       >
         <template #actions="{userData}">
           <UserButton :userId="userData.userId" type="openUserProfile" />
           <UserButton
-            v-if="
-              ['connectsIncomingPending', 'connectsIncomingIgnored'].includes(
-                tabs[tab]
-              )
-            "
+            v-if="canAccept"
             :userId="userData.userId"
             type="acceptFriendRequest"
           />
           <UserButton
-            v-if="['connectsIncomingPending'].includes(tabs[tab])"
+            v-if="canIgnore"
             :userId="userData.userId"
             type="ignoreFriendRequest"
           />
@@ -49,6 +45,10 @@
 <script>
 import { FRIENDSHIP_STATUSES } from "@enums";
 
+const connectsIncomingPending = "connectsIncomingPending";
+const connectsIncomingIgnored = "connectsIncomingIgnored";
+const connectsOutgoingPending = "connectsOutgoingPending";
+
 export default {
   name: "Friends",
 
@@ -59,37 +59,49 @@ export default {
   data() {
     return {
       tabs: [
-        "connectsIncomingPending",
-        "connectsIncomingIgnored",
-        "connectsOutgoingPending"
+        connectsIncomingPending,
+        connectsIncomingIgnored,
+        connectsOutgoingPending
       ],
-      tab: "connectsIncomingPending"
+      tabIndex: 0
     };
   },
   computed: {
+    activeTab() {
+      return this.tabs[this.tabIndex];
+    },
     activeTabList() {
-      return this[this.tabs[this.tab]];
+      return this[this.activeTab];
     },
-    activeTabListEmptyList() {
-      return this.$t(`pages.friends.${this.tabs[this.tab]}`);
+    emptyText() {
+      return this.$t(`pages.friends.${this.activeTab}`);
     },
+    canAccept() {
+      return [connectsIncomingPending, connectsIncomingIgnored].includes(
+        this.activeTab
+      );
+    },
+    canIgnore() {
+      return [connectsIncomingPending].includes(this.activeTab);
+    },
+
     connectsInPending() {
       return this.getConnectionsByStatus(FRIENDSHIP_STATUSES.PENDING);
     },
     connectsInIgnored() {
       return this.getConnectionsByStatus(FRIENDSHIP_STATUSES.IGNORED);
     },
-    connectsIncomingPending() {
+    [connectsIncomingPending]() {
       return this.connectsInPending
         .filter(i => i.friendshipReceiver.userId === this.$user.userId)
         .map(i => i.friendshipSender);
     },
-    connectsOutgoingPending() {
+    [connectsOutgoingPending]() {
       return this.connectsInPending
         .filter(i => i.friendshipSender.userId === this.$user.userId)
         .map(i => i.friendshipReceiver);
     },
-    connectsIncomingIgnored() {
+    [connectsIncomingIgnored]() {
       return this.connectsInIgnored
         .filter(i => i.friendshipReceiver.userId === this.$user.userId)
         .map(i => i.friendshipSender);
