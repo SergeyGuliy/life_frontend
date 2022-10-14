@@ -67,13 +67,13 @@ export default {
       body.addEventListener("contextmenu", this.clickOutsideContext);
     },
     clickOutside() {
-      this.$bus.emit("click-outside");
+      this.$bus.emit("clickOutside");
     },
     // eslint-disable-next-line no-unused-vars
     clickOutsideContext(e) {
       // TODO add prevent default on prod
       // e.preventDefault();
-      this.$bus.emit("click-outside");
+      this.$bus.emit("clickOutside");
     }
   }
 };

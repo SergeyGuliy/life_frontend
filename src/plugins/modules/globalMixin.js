@@ -104,7 +104,7 @@ Vue.mixin({
       socketEntries.forEach(([socketKey, socketCallback]) => {
         this.$socket.client.on(socketKey, socketCallback);
 
-        this.$on("hook:destroyed", () => {
+        this.$on("hook:beforeDestroy", () => {
           this.$socket.client.off(socketKey, socketCallback);
         });
         this.$watch("$socket.connected", val => {
@@ -122,7 +122,7 @@ Vue.mixin({
       busEntries.forEach(([busKey, busCallback]) => {
         this.$bus.on(busKey, busCallback);
 
-        this.$on("hook:destroyed", () => {
+        this.$on("hook:beforeDestroy", () => {
           this.$bus.off(busKey, busCallback);
         });
       });

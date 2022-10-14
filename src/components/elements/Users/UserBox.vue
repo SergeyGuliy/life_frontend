@@ -29,9 +29,7 @@ export default {
   },
   computed: {
     userDataLocal() {
-      const userData = this.$filters.dictionariesGetUserById(
-        this.userData?.userId
-      );
+      const userData = this.$filters.dictGetUserById(this.userData?.userId);
       return userData;
     }
   }

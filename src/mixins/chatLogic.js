@@ -21,9 +21,7 @@ export default {
       await this.fetchPrivateMessages();
       await this.fetchRoomMessages();
 
-      this.$busInit({
-        writeMessage: this.writeMessageToUser
-      });
+      this.$busInit({ writeMessage: this.writeMessage });
 
       this.$socketInit({
         [chat_messageToClient]: this.messageToClient,

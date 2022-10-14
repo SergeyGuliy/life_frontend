@@ -3,10 +3,8 @@
     dark
     max-width="80%"
     outlined
-    :class="
-      message.messageSender.userId === $user.userId ? 'ml-auto mr-2' : 'mr-auto'
-    "
-    :color="message.messageSender.userId === $user.userId ? 'primary' : ''"
+    :class="isYouAuthor ? 'ml-auto mr-2' : 'mr-auto'"
+    :color="isYouAuthor ? 'primary' : ''"
     class="mb-2"
     @contextmenu="showContextMenu"
   >
@@ -34,13 +32,13 @@
         transition="scale-transition"
       >
         <v-list v-if="showMenu">
-          <template v-for="(item, index) in items">
+          <template v-for="({ action, title }, index) in items">
             <v-list-item
               :key="index"
               link
-              @click="actionHandler(item.action, message.messageSender.userId)"
+              @click="action(message.messageSender.userId)"
             >
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title>{{ title }}</v-list-item-title>
             </v-list-item>
           </template>
         </v-list>
@@ -79,33 +77,37 @@ export default {
       items: [
         {
           title: this.$t("buttons.openProfile"),
-          action: "openUserProfile"
+          action: openUserProfile
         },
         {
           title: this.$t("buttons.writeMessage"),
-          action: "writeMessage"
+          action: writeMessage
         },
         {
           title: this.$t("buttons.addToFriend"),
-          action: "addUserToFriendsList"
+          action: addUserToFriendsList
         }
       ]
     };
   },
   mounted() {
-    this.$bus.on("click-outside", this.hideContextMenu);
+    this.$busInit({
+      clickOutside: this.hideContextMenu,
+      openContext: this.openContext
+    });
   },
-  beforeDestroy() {
-    this.$bus.off("click-outside", this.hideContextMenu);
-  },
+
   computed: {
+    isYouAuthor() {
+      return this.message.messageSender.userId === this.$user.userId;
+    },
+
     getChatWriterName() {
       const messageSenderId = this.message.messageSender.userId;
-      const messageSender = this.$filters.dictionariesGetUserById(
-        messageSenderId
-      );
+      const messageSender = this.$filters.dictGetUserById(messageSenderId);
+
       if (messageSender) {
-        return messageSenderId === this.$user.userId
+        return this.isYouAuthor
           ? "Me"
           : this.$filters.getUserName(messageSender);
       }
@@ -113,27 +115,31 @@ export default {
     }
   },
   methods: {
-    writeMessage,
-    addUserToFriendsList,
-    openUserProfile,
     showContextMenu(e) {
       e.preventDefault();
-      if (this.message.messageSender.userId !== this.$user.userId) {
+      this.$bus.emit("openContext", this.message.messageId);
+      if (this.isYouAuthor) return;
+
+      this.showMenu = false;
+      setTimeout(() => {
+        this.showMenu = true;
+        this.x = e.clientX;
+        this.y = e.clientY;
+      }, 0);
+    },
+
+    openContext(messageId) {
+      const otherMessageOpened = messageId !== this.message.messageId;
+
+      if (otherMessageOpened && this.showMenu) {
         this.showMenu = false;
-        setTimeout(() => {
-          this.showMenu = true;
-          this.x = e.clientX;
-          this.y = e.clientY;
-        }, 0);
       }
     },
+
     hideContextMenu() {
       this.showMenu = false;
       this.x = 0;
       this.y = 0;
-    },
-    actionHandler(action, userId) {
-      this[action](userId);
     }
   }
 };

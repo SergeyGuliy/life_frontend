@@ -1,6 +1,6 @@
 import store from "../../../../store";
 
-export const dictionariesGetUserById = user => {
+export const dictGetUserById = user => {
   if (typeof user === "number") {
     store.dispatch("dictionaries/getUserById", user);
   } else if (typeof user === "object") {

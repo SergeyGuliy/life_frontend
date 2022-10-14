@@ -4,10 +4,6 @@ import store from "../store";
 
 export function $usersActions() {
   function writeMessage(userId) {
-    console.error("writeMessage");
-    console.warn(userId);
-    console.log(myVue.$bus);
-    console.log(myVue.$bus.emit);
     myVue.$bus.emit("writeMessage", userId);
   }
   async function addUserToFriendsList(userId) {

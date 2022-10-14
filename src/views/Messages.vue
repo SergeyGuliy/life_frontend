@@ -28,15 +28,13 @@ export default {
   },
 
   mounted() {
-    this.$bus.on("activateChat", this.activateChat);
-    this.$bus.on("openChat", this.openChat);
-    this.$bus.on("userLeaveChat", this.userLeaveChat);
+    this.$busInit({
+      activateChat: this.activateChat,
+      openChat: this.openChat,
+      userLeaveChat: this.userLeaveChat
+    });
   },
-  beforeDestroy() {
-    this.$bus.off("activateChat", this.activateChat);
-    this.$bus.off("openChat", this.openChat);
-    this.$bus.off("userLeaveChat", this.userLeaveChat);
-  },
+
   data() {
     return {
       activeChat: GLOBAL

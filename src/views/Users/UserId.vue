@@ -11,14 +11,12 @@
 </template>
 
 <script>
-// import { api } from "../../utils/api";
-
 export default {
   name: "UserId",
   components: {},
   computed: {
     userData() {
-      return this.$filters.dictionariesGetUserById(this.$route.params.id);
+      return this.$filters.dictGetUserById(this.$route.params.id);
     }
   }
 };

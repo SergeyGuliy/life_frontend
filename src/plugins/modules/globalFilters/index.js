@@ -4,7 +4,7 @@ import { avatarLink } from "./filters/avatarLink";
 import { voiceLink } from "./filters/voiceLink";
 import { getUserName } from "./filters/getUserName";
 import { getChatTabName } from "./filters/getChatTabName";
-import { dictionariesGetUserById } from "./filters/dictionariesGetUserById";
+import { dictGetUserById } from "./filters/dictGetUserById";
 
 Vue.filter("chatDate", chatDate);
 
@@ -16,4 +16,4 @@ Vue.filter("getUserName", getUserName);
 
 Vue.filter("getChatTabName", getChatTabName);
 
-Vue.filter("dictionariesGetUserById", dictionariesGetUserById);
+Vue.filter("dictGetUserById", dictGetUserById);
