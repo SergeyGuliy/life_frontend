@@ -30,31 +30,23 @@
         :showUserRoomInfo="true"
         :sortType="'adminFirst'"
       >
-        <template #actions="{userData}">
-          <v-btn
-            v-if="isRoomAdmin && userData.userId !== $user.userId"
-            @click="kickUserFromRoom(userData.userId)"
-          >
-            {{ $t("buttons.kickUser") }}
-          </v-btn>
-          <v-btn
-            v-if="isRoomAdmin && userData.userId !== $user.userId"
-            @click="setNewRoomAdmin(userData.userId)"
-          >
-            {{ $t("buttons.setAdmin") }}
-          </v-btn>
-          <v-btn
-            v-if="userData.userId !== $user.userId"
-            @click="writeMessageToUser(userData.userId)"
-          >
-            {{ $t("buttons.writeMessage") }}
-          </v-btn>
-          <v-btn
-            v-if="userData.userId !== $user.userId"
-            @click="addUserToFriendsList(userData.userId)"
-          >
-            {{ $t("buttons.addToFriend") }}
-          </v-btn>
+        <template #actions="{userData, isYou}">
+          <template v-if="!isYou">
+            <template v-if="isRoomAdmin">
+              <UserButton
+                :userId="userData.userId"
+                :roomId="roomId"
+                type="kickUserFromRoom"
+              />
+              <UserButton
+                :userId="userData.userId"
+                :roomId="roomId"
+                type="setNewRoomAdmin"
+              />
+            </template>
+            <UserButton :userId="userData.userId" type="writeMessage" />
+            <UserButton :userId="userData.userId" type="addUserToFriendsList" />
+          </template>
         </template>
       </UsersList>
     </template>
@@ -72,15 +64,13 @@ import {
   rooms_updateToggleLockRoom
 } from "@constants/ws/rooms.js";
 
-import { $usersActions } from "@composable/$usersActions";
-const { writeMessageToUser, addUserToFriendsList } = $usersActions();
-
 export default {
   name: "RoomId",
 
   components: {
     RoomInfo: () => import("@components/elements/Rooms/RoomInfo"),
-    UsersList: () => import("@components/elements/Users/UsersList")
+    UsersList: () => import("@components/elements/Users/UsersList"),
+    UserButton: () => import("@components/elements/Users/UserButton")
   },
   data() {
     return {
@@ -93,7 +83,6 @@ export default {
   async mounted() {
     this.$initSocketListener(this.intiComponent);
   },
-
   async beforeRouteLeave(to, from, next) {
     if (!this.$user || +this.$user?.roomJoinedId !== this.roomId) {
       next();
@@ -124,8 +113,6 @@ export default {
     }
   },
   methods: {
-    writeMessageToUser,
-    addUserToFriendsList,
     startGame() {
       api.games
         .startGame(this.roomId, this.gameSettings)
@@ -203,12 +190,6 @@ export default {
       } else {
         this.$store.commit("user/setRoomId", null);
       }
-    },
-    async kickUserFromRoom(userId) {
-      await api.rooms.kickUserFromRoom(this.roomId, userId);
-    },
-    async setNewRoomAdmin(userId) {
-      await api.rooms.setNewRoomAdmin(this.roomId, userId);
     },
     async toggleLockRoom() {
       await api.rooms.toggleLockRoom(this.roomId, {

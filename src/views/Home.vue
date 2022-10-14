@@ -13,7 +13,7 @@
           <v-btn @click="deleteFromFriends(userData.userId)">
             {{ $t("buttons.deleteFromFriends") }}
           </v-btn>
-          <v-btn @click="writeMessageToUser(userData.userId)">
+          <v-btn @click="writeMessage(userData.userId)">
             {{ $t("buttons.writeMessage") }}
           </v-btn>
         </template>
@@ -28,11 +28,7 @@
 
 <script>
 import { $usersActions } from "@composable/$usersActions";
-const {
-  writeMessageToUser,
-  openUserProfile,
-  deleteFromFriends
-} = $usersActions();
+const { writeMessage, openUserProfile, deleteFromFriends } = $usersActions();
 
 export default {
   name: "Home",
@@ -46,7 +42,7 @@ export default {
     };
   },
   methods: {
-    writeMessageToUser,
+    writeMessage,
     openUserProfile,
     deleteFromFriends
   }

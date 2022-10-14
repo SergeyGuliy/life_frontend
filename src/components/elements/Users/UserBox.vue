@@ -7,7 +7,8 @@
     <v-card-actions>
       <slot
         name="actions"
-        :userData="userData.userId | dictionariesGetUserById"
+        :userData="userDataLocal"
+        :isYou="userDataLocal.userId === $user.userId"
       ></slot>
     </v-card-actions>
   </v-card>
@@ -27,6 +28,14 @@ export default {
     showUserRoomInfo: {
       default: () => false,
       type: Boolean
+    }
+  },
+  computed: {
+    userDataLocal() {
+      const userData = this.$filters.dictionariesGetUserById(
+        this.userData.userId
+      );
+      return userData;
     }
   }
 };

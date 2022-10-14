@@ -22,7 +22,7 @@ export default {
       await this.fetchRoomMessages();
 
       this.$busInit({
-        writeMessageToUser: this.writeMessageToUser
+        writeMessage: this.writeMessageToUser
       });
 
       this.$socketInit({
@@ -56,7 +56,7 @@ export default {
       this.$bus.emit("userLeaveChat");
       this.$store.commit("chats/deleteChat", ROOM);
     },
-    async writeMessageToUser(userId) {
+    async writeMessage(userId) {
       await this.createUserChat(userId);
       const chatTab = getUserChatKey(userId);
       this.$bus.emit("openChat");

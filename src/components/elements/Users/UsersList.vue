@@ -7,11 +7,8 @@
         :userData="userData.userId | dictionariesGetUserById"
         :showUserRoomInfo="showUserRoomInfo"
       >
-        <template #actions="{userData}">
-          <slot
-            name="actions"
-            :userData="userData.userId | dictionariesGetUserById"
-          ></slot>
+        <template #actions="{userData, isYou}">
+          <slot name="actions" :userData="userData" :isYou="isYou"></slot>
         </template>
       </UserBox>
     </template>

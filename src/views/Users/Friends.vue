@@ -13,7 +13,7 @@
           <v-btn @click="deleteFromFriends(userData.userId)">
             {{ $t("buttons.deleteFromFriends") }}
           </v-btn>
-          <v-btn @click="writeMessageToUser(userData.userId)">
+          <v-btn @click="writeMessage(userData.userId)">
             {{ $t("buttons.writeMessage") }}
           </v-btn>
         </template>
@@ -61,11 +61,7 @@ import { FRIENDSHIP_STATUSES } from "@enums";
 import { api } from "@api";
 
 import { $usersActions } from "@composable/$usersActions";
-const {
-  writeMessageToUser,
-  deleteFromFriends,
-  openUserProfile
-} = $usersActions();
+const { writeMessage, deleteFromFriends, openUserProfile } = $usersActions();
 
 export default {
   name: "Friends",
@@ -119,7 +115,7 @@ export default {
     }
   },
   methods: {
-    writeMessageToUser,
+    writeMessage,
     deleteFromFriends,
     openUserProfile,
     async acceptFriendRequest(userId) {

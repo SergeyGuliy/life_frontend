@@ -3,8 +3,12 @@ import { api } from "@api";
 import store from "../store";
 
 export function $usersActions() {
-  function writeMessageToUser(userId) {
-    myVue.$bus.emit("writeMessageToUser", userId);
+  function writeMessage(userId) {
+    console.error("writeMessage");
+    console.warn(userId);
+    console.log(myVue.$bus);
+    console.log(myVue.$bus.emit);
+    myVue.$bus.emit("writeMessage", userId);
   }
   async function addUserToFriendsList(userId) {
     await api.friendship
@@ -27,7 +31,7 @@ export function $usersActions() {
     await myVue.$router.push({ name: "UserId", params: { id: userId } });
   }
   return {
-    writeMessageToUser,
+    writeMessage,
     addUserToFriendsList,
     deleteFromFriends,
     openUserProfile

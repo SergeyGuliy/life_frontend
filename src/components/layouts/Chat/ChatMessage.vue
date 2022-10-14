@@ -57,11 +57,7 @@
 
 <script>
 import { $usersActions } from "@composable/$usersActions";
-const {
-  writeMessageToUser,
-  addUserToFriendsList,
-  openUserProfile
-} = $usersActions();
+const { writeMessage, addUserToFriendsList, openUserProfile } = $usersActions();
 
 export default {
   name: "ChatMessage",
@@ -87,7 +83,7 @@ export default {
         },
         {
           title: "buttons.writeMessage",
-          action: "writeMessageToUser"
+          action: "writeMessage"
         },
         {
           title: "buttons.addToFriend",
@@ -117,7 +113,7 @@ export default {
     }
   },
   methods: {
-    writeMessageToUser,
+    writeMessage,
     addUserToFriendsList,
     openUserProfile,
     showContextMenu(e) {
