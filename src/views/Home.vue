@@ -7,15 +7,9 @@
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
       >
         <template #actions="{userData}">
-          <v-btn @click="openUserProfile(userData.userId)">
-            {{ $t("buttons.openProfile") }}
-          </v-btn>
-          <v-btn @click="deleteFromFriends(userData.userId)">
-            {{ $t("buttons.deleteFromFriends") }}
-          </v-btn>
-          <v-btn @click="writeMessage(userData.userId)">
-            {{ $t("buttons.writeMessage") }}
-          </v-btn>
+          <UserButton :userId="userData.userId" type="openUserProfile" />
+          <UserButton :userId="userData.userId" type="deleteFromFriends" />
+          <UserButton :userId="userData.userId" type="writeMessage" />
         </template>
       </UsersList>
     </template>
@@ -27,24 +21,17 @@
 </template>
 
 <script>
-import { $usersActions } from "@composable/$usersActions";
-const { writeMessage, openUserProfile, deleteFromFriends } = $usersActions();
-
 export default {
   name: "Home",
   components: {
     RoomsController: () => import("@components/elements/Rooms/RoomsController"),
-    UsersList: () => import("@components/elements/Users/UsersList")
+    UsersList: () => import("@components/elements/Users/UsersList"),
+    UserButton: () => import("@components/elements/Users/UserButton")
   },
   data() {
     return {
       users: null
     };
-  },
-  methods: {
-    writeMessage,
-    openUserProfile,
-    deleteFromFriends
   }
 };
 </script>

@@ -6,5 +6,6 @@ export const dictionariesGetUserById = user => {
   } else if (typeof user === "object") {
     store.dispatch("dictionaries/updateUserData", user);
   }
+  console.log(store.state.dictionaries.users[user]);
   return store.state.dictionaries.users[user];
 };

@@ -4,7 +4,7 @@
       <UserBox
         v-for="(userData, index) in sortedUsers"
         :key="index"
-        :userData="userData.userId | dictionariesGetUserById"
+        :userData="userData"
         :showUserRoomInfo="showUserRoomInfo"
       >
         <template #actions="{userData, isYou}">

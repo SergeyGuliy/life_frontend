@@ -1,14 +1,11 @@
 <template>
   <v-card class="UserBox">
-    <UserInfo
-      :userData="userData?.userId | dictionariesGetUserById"
-      :showUserRoomInfo="showUserRoomInfo"
-    />
+    <UserInfo :userData="userData" :showUserRoomInfo="showUserRoomInfo" />
     <v-card-actions>
       <slot
         name="actions"
         :userData="userDataLocal"
-        :isYou="userDataLocal.userId === $user.userId"
+        :isYou="userDataLocal?.userId === $user.userId"
       ></slot>
     </v-card-actions>
   </v-card>
@@ -33,7 +30,7 @@ export default {
   computed: {
     userDataLocal() {
       const userData = this.$filters.dictionariesGetUserById(
-        this.userData.userId
+        this.userData?.userId
       );
       return userData;
     }

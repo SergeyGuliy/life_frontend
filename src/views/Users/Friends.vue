@@ -7,15 +7,9 @@
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
       >
         <template #actions="{userData}">
-          <v-btn @click="openUserProfile(userData.userId)">
-            {{ $t("buttons.openProfile") }}
-          </v-btn>
-          <v-btn @click="deleteFromFriends(userData.userId)">
-            {{ $t("buttons.deleteFromFriends") }}
-          </v-btn>
-          <v-btn @click="writeMessage(userData.userId)">
-            {{ $t("buttons.writeMessage") }}
-          </v-btn>
+          <UserButton :userId="userData.userId" type="openUserProfile" />
+          <UserButton :userId="userData.userId" type="deleteFromFriends" />
+          <UserButton :userId="userData.userId" type="writeMessage" />
         </template>
       </UsersList>
     </template>
@@ -31,25 +25,21 @@
         :emptyText="activeTabListEmptyList"
       >
         <template #actions="{userData}">
-          <v-btn @click="openUserProfile(userData.userId)">
-            {{ $t("buttons.openProfile") }}
-          </v-btn>
-          <v-btn
-            @click="acceptFriendRequest(userData.userId)"
+          <UserButton :userId="userData.userId" type="openUserProfile" />
+          <UserButton
             v-if="
               ['connectsIncomingPending', 'connectsIncomingIgnored'].includes(
                 tabs[tab]
               )
             "
-          >
-            {{ $t("buttons.acceptFriendRequest") }}
-          </v-btn>
-          <v-btn
-            @click="ignoreFriendRequest(userData.userId)"
+            :userId="userData.userId"
+            type="acceptFriendRequest"
+          />
+          <UserButton
             v-if="['connectsIncomingPending'].includes(tabs[tab])"
-          >
-            {{ $t("buttons.ignoreFriendRequest") }}
-          </v-btn>
+            :userId="userData.userId"
+            type="ignoreFriendRequest"
+          />
         </template>
       </UsersList>
     </template>
@@ -58,16 +48,13 @@
 
 <script>
 import { FRIENDSHIP_STATUSES } from "@enums";
-import { api } from "@api";
-
-import { $usersActions } from "@composable/$usersActions";
-const { writeMessage, deleteFromFriends, openUserProfile } = $usersActions();
 
 export default {
   name: "Friends",
 
   components: {
-    UsersList: () => import("@components/elements/Users/UsersList")
+    UsersList: () => import("@components/elements/Users/UsersList"),
+    UserButton: () => import("@components/elements/Users/UserButton")
   },
   data() {
     return {
@@ -87,15 +74,14 @@ export default {
       return this.$t(`pages.friends.${this.tabs[this.tab]}`);
     },
     connectsInPending() {
-      return this.$connects.filter(
-        i => i.friendshipsStatus === FRIENDSHIP_STATUSES.PENDING
-      );
+      return this.getConnectionsByStatus(FRIENDSHIP_STATUSES.PENDING);
+    },
+    connectsInIgnored() {
+      return this.getConnectionsByStatus(FRIENDSHIP_STATUSES.IGNORED);
     },
     connectsIncomingPending() {
       return this.connectsInPending
-        .filter(i => {
-          return i.friendshipReceiver.userId === this.$user.userId;
-        })
+        .filter(i => i.friendshipReceiver.userId === this.$user.userId)
         .map(i => i.friendshipSender);
     },
     connectsOutgoingPending() {
@@ -103,46 +89,16 @@ export default {
         .filter(i => i.friendshipSender.userId === this.$user.userId)
         .map(i => i.friendshipReceiver);
     },
-    connectsInIgnored() {
-      return this.$connects.filter(
-        i => i.friendshipsStatus === FRIENDSHIP_STATUSES.IGNORED
-      );
-    },
     connectsIncomingIgnored() {
       return this.connectsInIgnored
         .filter(i => i.friendshipReceiver.userId === this.$user.userId)
         .map(i => i.friendshipSender);
     }
   },
+
   methods: {
-    writeMessage,
-    deleteFromFriends,
-    openUserProfile,
-    async acceptFriendRequest(userId) {
-      await api.friendship
-        .acceptRequest(userId)
-        .then(data => {
-          const indexToDelete = this.$connects.findIndex(
-            i => i.friendshipsId === data.friendshipsId
-          );
-          this.$store.commit("friends/deleteConnection", indexToDelete);
-          this.$store.commit("friends/addFriend", data);
-        })
-        .catch(() => {});
-    },
-    async ignoreFriendRequest(userId) {
-      await api.friendship
-        .ignoreRequest(userId)
-        .then(data => {
-          const indexToUpdate = this.$connects.findIndex(
-            i => i.friendshipsId === data.friendshipsId
-          );
-          this.$store.commit("friends/updateConnection", {
-            indexToUpdate,
-            data
-          });
-        })
-        .catch(() => {});
+    getConnectionsByStatus(status) {
+      return this.$connects.filter(i => i.friendshipsStatus === status);
     }
   }
 };

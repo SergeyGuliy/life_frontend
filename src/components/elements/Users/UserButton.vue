@@ -21,7 +21,9 @@ const supportedKeys = [
   "deleteFromFriends",
   "openUserProfile",
   "kickUserFromRoom",
-  "setNewRoomAdmin"
+  "setNewRoomAdmin",
+  "acceptFriendRequest",
+  "ignoreFriendRequest"
 ];
 
 export default {
@@ -52,7 +54,9 @@ export default {
         deleteFromFriends: this.$t("buttons.deleteFromFriends"),
         openUserProfile: this.$t("buttons.openProfile"),
         kickUserFromRoom: this.$t("buttons.kickUser"),
-        setNewRoomAdmin: this.$t("buttons.setAdmin")
+        setNewRoomAdmin: this.$t("buttons.setAdmin"),
+        acceptFriendRequest: this.$t("buttons.acceptFriendRequest"),
+        ignoreFriendRequest: this.$t("buttons.ignoreFriendRequest")
       },
       mapMethods: {
         writeMessage: this.writeMessage,
@@ -60,7 +64,9 @@ export default {
         deleteFromFriends: this.deleteFromFriends,
         openUserProfile: this.openUserProfile,
         kickUserFromRoom: this.kickUserFromRoom,
-        setNewRoomAdmin: this.setNewRoomAdmin
+        setNewRoomAdmin: this.setNewRoomAdmin,
+        acceptFriendRequest: this.acceptFriendRequest,
+        ignoreFriendRequest: this.ignoreFriendRequest
       }
     };
   },
@@ -82,6 +88,7 @@ export default {
     async kickUserFromRoom() {
       await api.rooms.kickUserFromRoom(this.roomId, this.userId);
     },
+
     async setNewRoomAdmin() {
       await api.rooms.setNewRoomAdmin(this.roomId, this.userId);
     },
@@ -89,7 +96,35 @@ export default {
     writeMessage,
     addUserToFriendsList,
     deleteFromFriends,
-    openUserProfile
+    openUserProfile,
+
+    async acceptFriendRequest(userId) {
+      await api.friendship
+        .acceptRequest(userId)
+        .then(data => {
+          const indexToDelete = this.getIndex(data.friendshipsId);
+          this.$store.commit("friends/deleteConnection", indexToDelete);
+          this.$store.commit("friends/addFriend", data);
+        })
+        .catch(() => {});
+    },
+
+    async ignoreFriendRequest(userId) {
+      await api.friendship
+        .ignoreRequest(userId)
+        .then(data => {
+          const indexToUpdate = this.getIndex(data.friendshipsId);
+          this.$store.commit("friends/updateConnection", {
+            indexToUpdate,
+            data
+          });
+        })
+        .catch(() => {});
+    },
+
+    getIndex(friendshipsId) {
+      return this.$connects.findIndex(i => i.friendshipsId === friendshipsId);
+    }
   }
 };
 </script>
