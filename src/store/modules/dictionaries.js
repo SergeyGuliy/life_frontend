@@ -24,51 +24,39 @@ export default {
     getUserById(state, userId) {
       IsUserExistsAndNeedToUpdate(userId, () => fetchUserData(userId));
     }
-  },
-  actions: {
-    getUserById(_, userId) {
-      IsUserExistsAndNeedToUpdate(userId, () => fetchUserData(userId));
-    },
-    async updateUserData({ commit }, userData) {
-      commit("setUser", userData);
-    }
   }
 };
 
 function IsUserExistsAndNeedToUpdate(userId, callback) {
   const userNotExists = !store.state.dictionaries.users[userId];
 
-  if (userNotExists) {
-    callback();
-    return;
-  }
+  if (userNotExists) return callback();
 
   const { serverTime } = store.state.dictionaries.users[userId];
-
   const needToUpdate = Math.abs(serverTime - new Date()) > UPDATE_TIME_DELTA;
+  console.log(needToUpdate);
 
-  if (needToUpdate) {
-    callback();
-    return;
-  }
+  if (needToUpdate) callback();
 }
 
 function fetchUserData(userId) {
   if (requestUsersOrders.includes(userId)) return;
 
   requestUsersOrders.push(userId);
-
-  setTimeout(() => {
-    api.users
-      .getById(userId)
-      .then(userData => {
-        if (userData) {
-          store.commit("dictionaries/setUser", userData);
-        }
-      })
-      .finally(() => {
-        const userIdToDelete = requestUsersOrders.findIndex(i => i === userId);
-        requestUsersOrders.splice(userIdToDelete, 1);
-      });
-  }, 3000);
+  api.users
+    .getById(userId)
+    .then(userData => {
+      if (userData) store.commit("dictionaries/setUser", userData);
+    })
+    .finally(() => {
+      const userIdToDelete = requestUsersOrders.findIndex(i => i === userId);
+      requestUsersOrders.splice(userIdToDelete, 1);
+    });
 }
+
+// setInterval(() => {
+//   const users = Object.values(store.state.dictionaries.users).map(
+//     ({ userId }) => userId
+//   );
+//   console.log(users);
+// }, 1000);

@@ -7,16 +7,16 @@
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
       >
         <template #actions="{userData}">
-          <UserButton :userId="userData.userId" type="openProfile" />
-          <UserButton :userId="userData.userId" type="deleteFriend" />
-          <UserButton :userId="userData.userId" type="writeMessage" />
+          <UserButton :userId="userData?.userId" type="openProfile" />
+          <UserButton :userId="userData?.userId" type="deleteFriend" />
+          <UserButton :userId="userData?.userId" type="writeMessage" />
         </template>
       </UsersList>
     </template>
     <template #rightCol>
       <v-tabs v-model="tabIndex" centered>
-        <v-tab v-for="(item, index) in tabs" :key="index">
-          {{ $t(`buttons.${item}`) }}
+        <v-tab v-for="(tabName, index) in tabs" :key="index">
+          {{ $t(`buttons.${tabName}`) }}
         </v-tab>
       </v-tabs>
       <UsersList
@@ -25,15 +25,15 @@
         :emptyText="emptyText"
       >
         <template #actions="{userData}">
-          <UserButton :userId="userData.userId" type="openProfile" />
+          <UserButton :userId="userData?.userId" type="openProfile" />
           <UserButton
             v-if="canAccept"
-            :userId="userData.userId"
+            :userId="userData?.userId"
             type="acceptFriend"
           />
           <UserButton
             v-if="canIgnore"
-            :userId="userData.userId"
+            :userId="userData?.userId"
             type="ignoreFriend"
           />
         </template>
