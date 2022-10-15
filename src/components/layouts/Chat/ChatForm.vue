@@ -114,7 +114,7 @@ export default {
 
         const formData = new FormData();
         formData.append("messageVoiceFile", messageVoiceFile);
-        api.uploader.uploadVoice(formData).then(audioId => {
+        await api.uploader.uploadVoice(formData).then(audioId => {
           messageData.messageVoice = audioId;
         });
       } else {
