@@ -14,6 +14,11 @@
         :messageSender="message.messageSender"
         :isYouAuthor="isYouAuthor"
       />
+      <ChatMessageContext
+        :messageSenderId="message.messageSender.userId"
+        :messageId="message.messageId"
+        ref="ChatMessageHeader"
+      />
     </v-card-actions>
     <v-card-text class="py-2" v-if="message.messageType === 'TEXT'">
       <p>{{ message.messageText }}</p>
@@ -30,7 +35,8 @@ export default {
 
   components: {
     ChatAudio: () => import("./ChatAudio"),
-    ChatMessageHeader: () => import("./ChatMessageHeader")
+    ChatMessageHeader: () => import("./ChatMessageHeader"),
+    ChatMessageContext: () => import("./ChatMessageContext")
   },
   props: {
     message: {
@@ -56,13 +62,7 @@ export default {
       e.preventDefault();
       this.$bus.emit("openContext", this.message.messageId);
       if (this.isYouAuthor) return;
-
-      this.showMenu = false;
-      setTimeout(() => {
-        this.showMenu = true;
-        this.x = e.clientX;
-        this.y = e.clientY;
-      }, 0);
+      this.$refs.ChatMessageHeader.showContextMenu(e);
     }
   }
 };
