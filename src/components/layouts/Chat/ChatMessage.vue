@@ -20,12 +20,7 @@
         ref="ChatMessageHeader"
       />
     </v-card-actions>
-    <v-card-text class="py-2" v-if="message.messageType === 'TEXT'">
-      <p>{{ message.messageText }}</p>
-    </v-card-text>
-    <v-card-text class="pt-1 pb-4 px-1" v-else>
-      <ChatAudio class="mt-1" :file="message.messageVoice | voiceLink" />
-    </v-card-text>
+    <ChatMessageBody :message="message" />
   </v-card>
 </template>
 
@@ -34,9 +29,9 @@ export default {
   name: "ChatMessage",
 
   components: {
-    ChatAudio: () => import("./ChatAudio"),
     ChatMessageHeader: () => import("./ChatMessageHeader"),
-    ChatMessageContext: () => import("./ChatMessageContext")
+    ChatMessageContext: () => import("./ChatMessageContext"),
+    ChatMessageBody: () => import("./ChatMessageBody")
   },
   props: {
     message: {
