@@ -34,7 +34,6 @@ function IsUserExistsAndNeedToUpdate(userId, callback) {
 
   const { serverTime } = store.state.dictionaries.users[userId];
   const needToUpdate = Math.abs(serverTime - new Date()) > UPDATE_TIME_DELTA;
-  console.log(needToUpdate);
 
   if (needToUpdate) callback();
 }

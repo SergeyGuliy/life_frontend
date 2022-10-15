@@ -39,13 +39,6 @@ export default {
     }
   },
 
-  mounted() {
-    this.$busInit({
-      clickOutside: this.hideContextMenu,
-      openContext: this.openContext
-    });
-  },
-
   computed: {
     userDataLocal(val) {
       console.log(val);
@@ -70,20 +63,6 @@ export default {
         this.x = e.clientX;
         this.y = e.clientY;
       }, 0);
-    },
-
-    openContext(messageId) {
-      const otherMessageOpened = messageId !== this.message.messageId;
-
-      if (otherMessageOpened && this.showMenu) {
-        this.showMenu = false;
-      }
-    },
-
-    hideContextMenu() {
-      this.showMenu = false;
-      this.x = 0;
-      this.y = 0;
     }
   }
 };
