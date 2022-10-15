@@ -6,15 +6,15 @@ export function $usersActions() {
   function writeMessage(userId) {
     myVue.$bus.emit("writeMessage", userId);
   }
-  async function addUserToFriendsList(userId) {
+  async function addToFriend(userId) {
     await api.friendship
       .sendRequest(userId)
       .then(() => {})
       .catch(() => {});
   }
-  async function deleteFromFriends(userId) {
+  async function deleteFriend(userId) {
     await api.friendship
-      .deleteFromFriends(userId)
+      .deleteFriend(userId)
       .then(data => {
         const indexToDelete = myVue.$friendsRequests.findIndex(
           i => i.friendshipsId === data.friendshipsId
@@ -23,13 +23,13 @@ export function $usersActions() {
       })
       .catch(() => {});
   }
-  async function openUserProfile(userId) {
+  async function openProfile(userId) {
     await myVue.$router.push({ name: "UserId", params: { id: userId } });
   }
   return {
     writeMessage,
-    addUserToFriendsList,
-    deleteFromFriends,
-    openUserProfile
+    addToFriend,
+    deleteFriend,
+    openProfile
   };
 }

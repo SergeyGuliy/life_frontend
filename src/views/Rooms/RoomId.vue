@@ -36,16 +36,16 @@
               <UserButton
                 :userId="userData.userId"
                 :roomId="roomId"
-                type="kickUserFromRoom"
+                type="kickUser"
               />
               <UserButton
                 :userId="userData.userId"
                 :roomId="roomId"
-                type="setNewRoomAdmin"
+                type="setAdmin"
               />
             </template>
             <UserButton :userId="userData.userId" type="writeMessage" />
-            <UserButton :userId="userData.userId" type="addUserToFriendsList" />
+            <UserButton :userId="userData.userId" type="addToFriend" />
           </template>
         </template>
       </UsersList>

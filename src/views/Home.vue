@@ -7,8 +7,8 @@
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
       >
         <template #actions="{userData}">
-          <UserButton :userId="userData.userId" type="openUserProfile" />
-          <UserButton :userId="userData.userId" type="deleteFromFriends" />
+          <UserButton :userId="userData.userId" type="openProfile" />
+          <UserButton :userId="userData.userId" type="deleteFriend" />
           <UserButton :userId="userData.userId" type="writeMessage" />
         </template>
       </UsersList>

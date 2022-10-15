@@ -58,10 +58,10 @@ export const en = {
     addToFriend: "Add to friends",
     createRoom: "Create room",
     search: "Search",
-    acceptFriendRequest: "Accept request",
-    ignoreFriendRequest: "Ignore request",
+    acceptFriend: "Accept request",
+    ignoreFriend: "Ignore request",
     openProfile: "Open profile",
-    deleteFromFriends: "Delete friend",
+    deleteFriend: "Delete friend",
     connectsIncomingPending: "Incoming Requests",
     connectsOutgoingPending: "Outgoing requests",
     connectsIncomingIgnored: "Ignored list"

@@ -10,20 +10,20 @@ import { api } from "@api";
 
 const {
   writeMessage,
-  addUserToFriendsList,
-  deleteFromFriends,
-  openUserProfile
+  addToFriend,
+  deleteFriend,
+  openProfile
 } = $usersActions();
 
 const supportedKeys = [
   "writeMessage",
-  "addUserToFriendsList",
-  "deleteFromFriends",
-  "openUserProfile",
-  "kickUserFromRoom",
-  "setNewRoomAdmin",
-  "acceptFriendRequest",
-  "ignoreFriendRequest"
+  "addToFriend",
+  "deleteFriend",
+  "openProfile",
+  "kickUser",
+  "setAdmin",
+  "acceptFriend",
+  "ignoreFriend"
 ];
 
 export default {
@@ -50,23 +50,23 @@ export default {
     return {
       mapTranslations: {
         writeMessage: this.$t("buttons.writeMessage"),
-        addUserToFriendsList: this.$t("buttons.addToFriend"),
-        deleteFromFriends: this.$t("buttons.deleteFromFriends"),
-        openUserProfile: this.$t("buttons.openProfile"),
-        kickUserFromRoom: this.$t("buttons.kickUser"),
-        setNewRoomAdmin: this.$t("buttons.setAdmin"),
-        acceptFriendRequest: this.$t("buttons.acceptFriendRequest"),
-        ignoreFriendRequest: this.$t("buttons.ignoreFriendRequest")
+        addToFriend: this.$t("buttons.addToFriend"),
+        deleteFriend: this.$t("buttons.deleteFriend"),
+        openProfile: this.$t("buttons.openProfile"),
+        kickUser: this.$t("buttons.kickUser"),
+        setAdmin: this.$t("buttons.setAdmin"),
+        acceptFriend: this.$t("buttons.acceptFriend"),
+        ignoreFriend: this.$t("buttons.ignoreFriend")
       },
       mapMethods: {
         writeMessage: this.writeMessage,
-        addUserToFriendsList: this.addUserToFriendsList,
-        deleteFromFriends: this.deleteFromFriends,
-        openUserProfile: this.openUserProfile,
-        kickUserFromRoom: this.kickUserFromRoom,
-        setNewRoomAdmin: this.setNewRoomAdmin,
-        acceptFriendRequest: this.acceptFriendRequest,
-        ignoreFriendRequest: this.ignoreFriendRequest
+        addToFriend: this.addToFriend,
+        deleteFriend: this.deleteFriend,
+        openProfile: this.openProfile,
+        kickUser: this.kickUser,
+        setAdmin: this.setAdmin,
+        acceptFriend: this.acceptFriend,
+        ignoreFriend: this.ignoreFriend
       }
     };
   },
@@ -85,20 +85,20 @@ export default {
       this.getMethod(this.userId);
     },
 
-    async kickUserFromRoom() {
-      await api.rooms.kickUserFromRoom(this.roomId, this.userId);
+    async kickUser() {
+      await api.rooms.kickUser(this.roomId, this.userId);
     },
 
-    async setNewRoomAdmin() {
-      await api.rooms.setNewRoomAdmin(this.roomId, this.userId);
+    async setAdmin() {
+      await api.rooms.setAdmin(this.roomId, this.userId);
     },
 
     writeMessage,
-    addUserToFriendsList,
-    deleteFromFriends,
-    openUserProfile,
+    addToFriend,
+    deleteFriend,
+    openProfile,
 
-    async acceptFriendRequest(userId) {
+    async acceptFriend(userId) {
       await api.friendship
         .acceptRequest(userId)
         .then(data => {
@@ -109,7 +109,7 @@ export default {
         .catch(() => {});
     },
 
-    async ignoreFriendRequest(userId) {
+    async ignoreFriend(userId) {
       await api.friendship
         .ignoreRequest(userId)
         .then(data => {

@@ -55,7 +55,7 @@
 
 <script>
 import { $usersActions } from "@composable/$usersActions";
-const { writeMessage, addUserToFriendsList, openUserProfile } = $usersActions();
+const { writeMessage, addToFriend, openProfile } = $usersActions();
 
 export default {
   name: "ChatMessage",
@@ -77,7 +77,7 @@ export default {
       items: [
         {
           title: this.$t("buttons.openProfile"),
-          action: openUserProfile
+          action: openProfile
         },
         {
           title: this.$t("buttons.writeMessage"),
@@ -85,7 +85,7 @@ export default {
         },
         {
           title: this.$t("buttons.addToFriend"),
-          action: addUserToFriendsList
+          action: addToFriend
         }
       ]
     };

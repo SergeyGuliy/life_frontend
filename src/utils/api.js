@@ -37,7 +37,7 @@ export const api = {
     ignoreRequest: receiverId =>
       axiosWithAuth.put(`api/friendships/${receiverId}/ignore`),
 
-    deleteFromFriends: receiverId =>
+    deleteFriend: receiverId =>
       axiosWithAuth.delete(`api/friendships/${receiverId}/delete`)
   },
   users: {
@@ -55,10 +55,10 @@ export const api = {
     joinRoom: async (roomId, roomPassword = "") =>
       axiosWithAuth.patch(`api/rooms/${roomId}/join`, { roomPassword }),
 
-    kickUserFromRoom: async (roomId, kickUserId) =>
+    kickUser: async (roomId, kickUserId) =>
       axiosWithAuth.patch(`api/rooms/${roomId}/kick-user`, { kickUserId }),
 
-    setNewRoomAdmin: async (roomId, newAdminId) =>
+    setAdmin: async (roomId, newAdminId) =>
       axiosWithAuth.patch(`api/rooms/${roomId}/set-new-admin`, { newAdminId }),
 
     toggleLockRoom: async (roomId, formData) =>
