@@ -2,10 +2,10 @@ import store from "../../../../store";
 
 export const dictGetUserById = user => {
   if (typeof user === "number") {
-    store.dispatch("dictionaries/getUserById", user);
+    store.commit("dictionaries/getUserById", user);
+    return store.state.dictionaries.users[user];
   } else if (typeof user === "object") {
-    store.dispatch("dictionaries/updateUserData", user);
+    store.commit("dictionaries/setUser", user);
+    return store.state.dictionaries.users[user.userId];
   }
-  console.log(store.state.dictionaries.users[user]);
-  return store.state.dictionaries.users[user];
 };

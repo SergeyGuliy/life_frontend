@@ -31,22 +31,28 @@
         :sortType="'adminFirst'"
       >
         <template #actions="{userData, isYou}">
-          <template v-if="!isYou">
-            <template v-if="isRoomAdmin">
-              <UserButton
-                :userId="userData.userId"
-                :roomId="roomId"
-                type="kickUser"
-              />
-              <UserButton
-                :userId="userData.userId"
-                :roomId="roomId"
-                type="setAdmin"
-              />
-            </template>
-            <UserButton :userId="userData.userId" type="writeMessage" />
-            <UserButton :userId="userData.userId" type="addToFriend" />
-          </template>
+          <UserButton
+            v-if="!isYou && isRoomAdmin"
+            :userId="userData?.userId"
+            :roomId="roomId"
+            type="kickUser"
+          />
+          <UserButton
+            v-if="!isYou && isRoomAdmin"
+            :userId="userData?.userId"
+            :roomId="roomId"
+            type="setAdmin"
+          />
+          <UserButton
+            :userId="userData?.userId"
+            type="writeMessage"
+            v-if="!isYou"
+          />
+          <UserButton
+            :userId="userData?.userId"
+            type="addToFriend"
+            v-if="!isYou"
+          />
         </template>
       </UsersList>
     </template>

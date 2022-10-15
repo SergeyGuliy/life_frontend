@@ -1,5 +1,5 @@
 <template>
-  <v-btn @click="handleClick">
+  <v-btn @click="handleClick" v-if="userId">
     {{ getTranslation }}
   </v-btn>
 </template>
@@ -30,8 +30,8 @@ export default {
   name: "UserButton",
   props: {
     userId: {
-      type: Number,
-      required: true
+      type: [Number, null],
+      default: null
     },
     roomId: {
       type: [Number, null],
@@ -128,5 +128,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

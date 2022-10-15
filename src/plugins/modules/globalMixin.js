@@ -29,6 +29,13 @@ Vue.mixin({
       return this.$store.state.friends?.connects;
     }
   },
+  created() {
+    const $initSocketListener = this?.$options?.$initSocketListener;
+    if ($initSocketListener) {
+      $initSocketListener.call(this);
+    }
+  },
+
   methods: {
     $openModal(modalName, data = {}) {
       this.$store.dispatch("modals/setModal", {

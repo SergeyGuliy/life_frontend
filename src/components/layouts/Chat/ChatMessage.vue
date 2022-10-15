@@ -103,8 +103,10 @@ export default {
     },
 
     getChatWriterName() {
-      const messageSenderId = this.message.messageSender.userId;
-      const messageSender = this.$filters.dictGetUserById(messageSenderId);
+      let { messageSender } = this.message;
+      console.log(messageSender);
+      messageSender = this.$filters.dictGetUserById(messageSender);
+      console.warn(messageSender);
 
       if (messageSender) {
         return this.isYouAuthor

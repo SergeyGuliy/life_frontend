@@ -11,25 +11,21 @@ import { $chatKeys } from "@composable/$chatKeys";
 const { getUserChatKey } = $chatKeys();
 
 export default {
-  async mounted() {
-    this.$initSocketListener(this.intiComponent);
+  async $initSocketListener() {
+    await this.fetchGlobalMessages();
+    await this.fetchPrivateMessages();
+    await this.fetchRoomMessages();
+
+    this.$busInit({ writeMessage: this.writeMessage });
+
+    this.$socketInit({
+      [chat_messageToClient]: this.messageToClient,
+      [rooms_userJoinRoom]: this.fetchRoomMessages,
+      [rooms_userLeaveRoom]: this.userLeaveRoom
+    });
   },
 
   methods: {
-    async intiComponent() {
-      await this.fetchGlobalMessages();
-      await this.fetchPrivateMessages();
-      await this.fetchRoomMessages();
-
-      this.$busInit({ writeMessage: this.writeMessage });
-
-      this.$socketInit({
-        [chat_messageToClient]: this.messageToClient,
-        [rooms_userJoinRoom]: this.fetchRoomMessages,
-        [rooms_userLeaveRoom]: this.userLeaveRoom
-      });
-    },
-
     async messageToClient(messageToClient) {
       const {
         messageSender,
@@ -77,7 +73,7 @@ export default {
           messages: [],
           key: PRIVATE,
           userId,
-          userData: await this.$dictionares.getOrUpdateUser(userId)
+          userData: await this.$filters.dictGetUserById(userId)
         });
       }
     },
@@ -130,9 +126,7 @@ export default {
           userData:
             user.messageReceiverUserId === this.$user.userId
               ? user.messageSender
-              : await this.$dictionares.getOrUpdateUser(
-                  user.messageReceiverUserId
-                ),
+              : await this.$filters.dictGetUserById(user.messageReceiverUserId),
           messages: messageWithUsers.filter(
             message =>
               message.messageReceiverUserId === userId ||
