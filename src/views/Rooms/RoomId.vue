@@ -127,7 +127,10 @@ export default {
           [rooms_updateRoomAdmin]: this.updateRoomAdmin,
           [rooms_userKickedFromRoom]: this.userKickedFromRoom,
           [rooms_updateToggleLockRoom]: this.updateToggleLockRoom,
-          games_gameStarted: this.gameStarted
+          games_gameStarted: this.gameStarted,
+          games_tick: () => {
+            console.log("games_tick");
+          }
         });
         return data;
       })
