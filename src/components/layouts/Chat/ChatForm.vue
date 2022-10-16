@@ -88,11 +88,6 @@ export default {
     };
   },
   methods: {
-    blobToFile(theBlob, fileName) {
-      theBlob.lastModifiedDate = new Date();
-      theBlob.name = fileName;
-      return theBlob;
-    },
     async sendMessage(event) {
       event.preventDefault();
       if (!(this.newMessage.length || this.audio)) return;
@@ -103,17 +98,13 @@ export default {
         messageType: this.audio ? VOICE : TEXT
       };
       if (this.audio) {
-        const messageVoiceFile = new File(
-          [this.audio.audioBlob],
-          "messageVoice.pm3",
-          {
-            lastModified: new Date().getTime(),
-            type: "audio/mpeg"
-          }
-        );
+        const voice = new File([this.audio.audioBlob], "voice.pm3", {
+          lastModified: new Date().getTime(),
+          type: "audio/mpeg"
+        });
 
         const formData = new FormData();
-        formData.append("messageVoiceFile", messageVoiceFile);
+        formData.append("voice", voice);
         await api.uploader.uploadVoice(formData).then(audioId => {
           messageData.messageVoice = audioId;
         });

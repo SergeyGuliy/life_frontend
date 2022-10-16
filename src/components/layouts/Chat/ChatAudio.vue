@@ -45,28 +45,6 @@
         </v-col>
         <slot name="prepend"></slot>
       </v-row>
-
-      <!--      <v-btn-->
-      <!--        outlined-->
-      <!--        icon-->
-      <!--        class="ma-2 mb-0"-->
-      <!--        :color="color"-->
-      <!--        @click.native="stop()"-->
-      <!--        :disabled="!loaded"-->
-      <!--      >-->
-      <!--        <v-icon>mdi-stop</v-icon>-->
-      <!--      </v-btn>-->
-      <!--      <v-btn-->
-      <!--        outlined-->
-      <!--        icon-->
-      <!--        class="ma-2 mb-0"-->
-      <!--        :color="color"-->
-      <!--        @click.native="mute()"-->
-      <!--        :disabled="!loaded"-->
-      <!--      >-->
-      <!--        <v-icon v-if="!isMuted">mdi-volume-high</v-icon>-->
-      <!--        <v-icon v-else>mdi-volume-mute</v-icon>-->
-      <!--      </v-btn>-->
     </v-card-text>
 
     <audio
