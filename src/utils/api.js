@@ -68,8 +68,9 @@ export const api = {
       axiosWithAuth.delete(`api/rooms/${roomId}/delete-room`)
   },
   games: {
-    startGame: async (roomId, gameData) =>
-      axiosWithAuth.post(`api/games/create`, { roomId, gameData })
+    startGame: async (roomId, gameSettings) =>
+      axiosWithAuth.post(`api/games/start`, { roomId, gameSettings }),
+    getGameById: async gameId => axiosWithAuth.get(`api/games/${gameId}`)
   },
   chats: {
     getGlobalMessages: async () => axiosWithAuth.get("api/chats/global"),

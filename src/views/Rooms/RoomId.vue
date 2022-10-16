@@ -1,6 +1,7 @@
 <template>
   <Grid v-if="roomData">
     <template #leftCol>
+      <pre>{{ gameData }}</pre>
       <RoomInfo
         :roomData="{
           ...roomData,
@@ -19,6 +20,28 @@
           </v-btn>
         </template>
       </RoomInfo>
+
+      <FSlider
+        v-model="gameSettings.timePerTurn"
+        :label="$t('forms.labels.timePerTurn')"
+        :max="180"
+        :min="10"
+        :step="5"
+      />
+      <FSlider
+        v-model="gameSettings.timeAdditional"
+        :label="$t('forms.labels.timeAdditional')"
+        :max="60 * 10"
+        :min="60 * 1"
+        :step="5"
+      />
+      <FSlider
+        v-model="gameSettings.gameYearsCount"
+        :label="$t('forms.labels.gameYearsCount')"
+        :max="80"
+        :min="10"
+        :step="1"
+      />
 
       <v-btn @click="startGame" block v-if="isRoomAdmin">
         {{ $t("buttons.startGame") }}
@@ -82,8 +105,11 @@ export default {
     return {
       roomData: null,
       gameSettings: {
-        data: "data"
-      }
+        timePerTurn: 10,
+        timeAdditional: 180,
+        gameYearsCount: 40 * 12
+      },
+      gameData: null
     };
   },
 
@@ -100,7 +126,15 @@ export default {
           [rooms_updateUsersListInRoom]: this.updateUserListInRoom,
           [rooms_updateRoomAdmin]: this.updateRoomAdmin,
           [rooms_userKickedFromRoom]: this.userKickedFromRoom,
-          [rooms_updateToggleLockRoom]: this.updateToggleLockRoom
+          [rooms_updateToggleLockRoom]: this.updateToggleLockRoom,
+          games_gameStarted: this.gameStarted
+        });
+        return data;
+      })
+      .then(({ gameId }) => {
+        if (!gameId) return;
+        api.games.getGameById(gameId).then(data => {
+          this.gameData = data;
         });
       })
       .catch(() => {
@@ -139,16 +173,12 @@ export default {
     }
   },
   methods: {
+    gameStarted(gameData) {
+      this.gameData = gameData;
+      this.roomData.gameId = gameData._id;
+    },
     startGame() {
-      api.games
-        .startGame(this.roomId, this.gameSettings)
-        .then(({ game }) => {
-          console.warn("startGame");
-          console.log(game);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+      api.games.startGame(this.roomId, this.gameSettings);
     },
 
     async userKickedFromRoom(kickUserId) {
