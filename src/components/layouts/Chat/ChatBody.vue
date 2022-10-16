@@ -31,7 +31,7 @@ import ResizeObserver from "resize-observer-polyfill";
 export default {
   name: "ChatBody",
   components: {
-    ChatMessage: () => import("./ChatMessage/ChatMessage")
+    ChatMessage: () => import("./Message/ChatMessage")
   },
   props: {
     activeChat: {
