@@ -21,7 +21,7 @@ export default {
   },
 
   components: {
-    ChatAudio: () => import("./ChatAudio")
+    ChatAudio: () => import("../ChatAudio")
   }
 };
 </script>
