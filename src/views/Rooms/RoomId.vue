@@ -86,9 +86,29 @@ export default {
       }
     };
   },
-  async mounted() {
-    this.$initSocketListener(this.intiComponent);
+
+  $initSocketListener() {
+    api.rooms
+      .getRoomById(this.roomId)
+      .then(data => {
+        this.roomData = data;
+        this.$socket.client.emit(rooms_userConnectsRoom, {
+          userId: this.$user.userId,
+          roomId: this.roomData.roomId
+        });
+        this.$socketInit({
+          [rooms_updateUsersListInRoom]: this.updateUserListInRoom,
+          [rooms_updateRoomAdmin]: this.updateRoomAdmin,
+          [rooms_userKickedFromRoom]: this.userKickedFromRoom,
+          [rooms_updateToggleLockRoom]: this.updateToggleLockRoom
+        });
+      })
+      .catch(() => {
+        this.$store.commit("user/leaveRoom");
+        this.$router.push({ name: "Home" });
+      });
   },
+
   async beforeRouteLeave(to, from, next) {
     if (!this.$user || +this.$user?.roomJoinedId !== this.roomId) {
       next();
@@ -128,27 +148,6 @@ export default {
         })
         .catch(e => {
           console.log(e);
-        });
-    },
-    async intiComponent() {
-      api.rooms
-        .getRoomById(this.roomId)
-        .then(data => {
-          this.roomData = data;
-          this.$socket.client.emit(rooms_userConnectsRoom, {
-            userId: this.$user.userId,
-            roomId: this.roomData.roomId
-          });
-          this.$socketInit({
-            [rooms_updateUsersListInRoom]: this.updateUserListInRoom,
-            [rooms_updateRoomAdmin]: this.updateRoomAdmin,
-            [rooms_userKickedFromRoom]: this.userKickedFromRoom,
-            [rooms_updateToggleLockRoom]: this.updateToggleLockRoom
-          });
-        })
-        .catch(() => {
-          this.$store.commit("user/leaveRoom");
-          this.$router.push({ name: "Home" });
         });
     },
 

@@ -32,7 +32,12 @@ Vue.mixin({
   created() {
     const $initSocketListener = this?.$options?.$initSocketListener;
     if ($initSocketListener) {
-      $initSocketListener.call(this);
+      const wrappedCallback = () => {
+        if (!this.$socket?.connected) return;
+        $initSocketListener.call(this);
+      };
+      wrappedCallback();
+      this.$watch("$socket.connected", wrappedCallback);
     }
   },
 
@@ -94,15 +99,6 @@ Vue.mixin({
         success,
         info
       };
-    },
-
-    $initSocketListener(callback) {
-      const wrappedCallback = () => {
-        if (!this.$socket?.connected) return;
-        callback();
-      };
-      wrappedCallback();
-      this.$watch("$socket.connected", wrappedCallback);
     },
 
     $socketInit(socketObject) {

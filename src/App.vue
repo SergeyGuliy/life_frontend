@@ -35,17 +35,15 @@ export default {
       return null;
     }
   },
-  async mounted() {
-    this.$initSocketListener(this.intiComponent);
-  },
-  methods: {
-    async intiComponent() {
-      this.$socketInit({
-        [socketSetup_callUserIdToServer]: this.callUserIdToServer,
-        [socketSetup_forceDisconnect]: this.forceDisconnect
-      });
-    },
 
+  $initSocketListener() {
+    this.$socketInit({
+      [socketSetup_callUserIdToServer]: this.callUserIdToServer,
+      [socketSetup_forceDisconnect]: this.forceDisconnect
+    });
+  },
+
+  methods: {
     callUserIdToServer(clientId) {
       if (this.$user?.userId) {
         this.$socket.client.emit(socketSetup_giveUserIdToServer, {
