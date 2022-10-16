@@ -56,11 +56,9 @@ export default {
       clickOutside: this.hideContextMenu,
       openContext: this.openContext
     });
-    let tick = 0;
-    document.addEventListener("scroll", () => {
-      tick = tick + 1;
-      console.log(tick);
-      this.hideContextMenu();
+
+    this.$eventListenersInit({
+      scroll: [this.hideContextMenu, document]
     });
   },
 
