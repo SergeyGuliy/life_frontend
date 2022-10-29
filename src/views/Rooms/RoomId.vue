@@ -1,7 +1,7 @@
 <template>
   <Grid v-if="roomData">
     <template #leftCol>
-      <pre>{{ gameData }}</pre>
+      <pre>{{ game }}</pre>
       <RoomInfo
         :roomData="{
           ...roomData,
@@ -78,6 +78,7 @@
           />
         </template>
       </UsersList>
+      <pre>{{ currentDate }}</pre>
     </template>
   </Grid>
 </template>
@@ -109,7 +110,7 @@ export default {
         timeAdditional: 180,
         gameYearsCount: 40 * 12
       },
-      gameData: null
+      game: null
     };
   },
 
@@ -128,8 +129,13 @@ export default {
           [rooms_userKickedFromRoom]: this.userKickedFromRoom,
           [rooms_updateToggleLockRoom]: this.updateToggleLockRoom,
           games_gameStarted: this.gameStarted,
-          games_tick: () => {
-            console.log("games_tick");
+          games_tick: ({ currentDate, shares, cryptocurrencies }) => {
+            this.currentDate = currentDate;
+            this.shares = shares;
+            this.cryptocurrencies = cryptocurrencies;
+          },
+          games_sendUserData: userData => {
+            console.log(userData);
           }
         });
         return data;
@@ -137,7 +143,7 @@ export default {
       .then(({ gameId }) => {
         if (!gameId) return;
         api.games.getGameById(gameId).then(data => {
-          this.gameData = data;
+          this.game = data;
         });
       })
       .catch(() => {
@@ -165,6 +171,30 @@ export default {
     }
   },
   computed: {
+    currentDate: {
+      get() {
+        return this.game?.gameData?.currentDate;
+      },
+      set(val) {
+        this.game.gameData.currentDate = val;
+      }
+    },
+    shares: {
+      get() {
+        return this.game?.shares;
+      },
+      set(val) {
+        this.game.shares = val;
+      }
+    },
+    cryptocurrencies: {
+      get() {
+        return this.game?.cryptocurrencies;
+      },
+      set(val) {
+        this.game.cryptocurrencies = val;
+      }
+    },
     isRoomAdmin() {
       return this.$user.roomCreatedId === this.roomId;
     },
@@ -176,9 +206,9 @@ export default {
     }
   },
   methods: {
-    gameStarted(gameData) {
-      this.gameData = gameData;
-      this.roomData.gameId = gameData._id;
+    gameStarted(game) {
+      this.game = game;
+      this.roomData.gameId = game._id;
     },
     startGame() {
       api.games.startGame(this.roomId, this.gameSettings);

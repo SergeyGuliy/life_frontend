@@ -43,7 +43,7 @@
                 :maxValue.sync="roomData.maxCountOfUsers"
                 :label="$t('forms.labels.countOfUsers')"
                 :max="10"
-                :min="2"
+                :min="1"
               />
             </v-col>
           </v-row>
@@ -98,10 +98,10 @@ export default {
         }
       },
       {
-        roomName: "",
+        roomName: "test game",
         roomPassword: "",
         typeOfRoom: ROOM_TYPES.PUBLIC,
-        minCountOfUsers: 2,
+        minCountOfUsers: 1,
         maxCountOfUsers: 10
       }
     );
