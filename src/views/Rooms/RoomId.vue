@@ -1,7 +1,7 @@
 <template>
   <Grid v-if="roomData">
     <template #leftCol>
-      <pre>{{ game }}</pre>
+      <pre>{{ userData }}</pre>
       <RoomInfo
         :roomData="{
           ...roomData,
@@ -110,7 +110,8 @@ export default {
         timeAdditional: 180,
         gameYearsCount: 40 * 12
       },
-      game: null
+      game: null,
+      userData: null
     };
   },
 
@@ -135,7 +136,7 @@ export default {
             this.cryptocurrencies = cryptocurrencies;
           },
           games_sendUserData: userData => {
-            console.log(userData);
+            this.userData = userData;
           }
         });
         return data;
