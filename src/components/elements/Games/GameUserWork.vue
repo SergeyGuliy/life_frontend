@@ -10,18 +10,10 @@
       <template v-slot:default>
         <thead>
           <tr>
-            <th>
-              Scope of work
-            </th>
-            <th>
-              Salary
-            </th>
-            <th>
-              Taxes
-            </th>
-            <th class="text-right">
-              Salary including taxes
-            </th>
+            <th>Scope of work</th>
+            <th>Salary</th>
+            <th>Taxes</th>
+            <th class="text-right">Salary including taxes</th>
           </tr>
         </thead>
         <tbody>
