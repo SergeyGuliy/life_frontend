@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <pre>{{ date }}</pre>
-    <pre>{{ shares }}</pre>
-    <pre>{{ cryptos }}</pre>
-    <pre></pre>
-    <pre>{{ userData }}</pre>
-  </div>
+  <Grid>
+    <template #leftCol>
+      <GameDate :date="date" />
+      <GameUserData :userData="combinedUserData" />
+      <pre>{{ shares }}</pre>
+      <pre>{{ cryptos }}</pre>
+      <pre></pre>
+      <pre>{{ userData }}</pre>
+    </template>
+    <template #rightCol> </template>
+  </Grid>
 </template>
 
 <script>
@@ -14,8 +18,26 @@ import { api } from "@/utils/api";
 export default {
   name: "Game",
 
+  components: {
+    GameDate: () => import("./GameDate"),
+    GameUserData: () => import("./GameUserData")
+  },
+
   props: {
-    gameId: {}
+    gameId: {},
+    usersInRoom: {}
+  },
+
+  computed: {
+    combinedUserData() {
+      if (!this.userData) return;
+      let { userId } = this.userData;
+      const userData = this.usersInRoom.find(user => user.userId === userId);
+      return {
+        ...this.userData,
+        userName: this.$filters.getUserName(userData)
+      };
+    }
   },
 
   data() {
