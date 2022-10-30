@@ -1,6 +1,9 @@
 <template>
   <div>
-    <pre>{{ game }}</pre>
+    <pre>{{ date }}</pre>
+    <pre>{{ shares }}</pre>
+    <pre>{{ cryptos }}</pre>
+    <pre></pre>
     <pre>{{ userData }}</pre>
   </div>
 </template>
@@ -17,51 +20,36 @@ export default {
 
   data() {
     return {
-      game: null,
+      date: null,
+      shares: null,
+      cryptos: null,
+
       userData: null
     };
   },
 
-  $initSocketListener() {
-    api.games.getGameById(this.gameId).then(game => {
-      this.game = game;
-      this.$socketInit({
-        games_tick: this.tickGameData,
-        games_sendUserData: this.tickUserData
+  async $initSocketListener() {
+    api.games
+      .getGameById(this.gameId)
+      .then(this.tickGameData)
+      .then(() => {
+        this.$socketInit({
+          games_tick: this.tickGameData
+        });
       });
-    });
-  },
-
-  computed: {
-    currentDate: {
-      get() {
-        return this.game?.gameData?.currentDate;
-      },
-      set(val) {
-        this.game.gameData.currentDate = val;
-      }
-    },
-    shares: {
-      get() {
-        return this.game?.shares;
-      },
-      set(val) {
-        this.game.shares = val;
-      }
-    },
-    cryptos: {
-      get() {
-        return this.game?.cryptos;
-      },
-      set(val) {
-        this.game.cryptos = val;
-      }
-    }
+    api.games
+      .getInGameUserData(this.gameId)
+      .then(this.tickUserData)
+      .then(() => {
+        this.$socketInit({
+          games_sendUserData: this.tickUserData
+        });
+      });
   },
 
   methods: {
-    tickGameData({ currentDate, shares, cryptos }) {
-      this.currentDate = currentDate;
+    tickGameData({ date, shares, cryptos }) {
+      this.date = date;
       this.shares = shares;
       this.cryptos = cryptos;
     },
