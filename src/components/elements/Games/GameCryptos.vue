@@ -39,7 +39,6 @@
         </tbody>
       </template>
     </v-simple-table>
-    <pre>{{ cryptos }}</pre>
   </v-card>
 </template>
 
