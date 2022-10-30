@@ -3,10 +3,11 @@
     <template #leftCol>
       <GameDate :date="date" />
       <GameUserData :userData="combinedUserData" />
-      <GameCryptos :cryptos="cryptos" />
       <pre></pre>
     </template>
-    <template #rightCol> </template>
+    <template #rightCol>
+      <GameCryptos :cryptos="cryptos" />
+    </template>
   </Grid>
 </template>
 
