@@ -17,6 +17,9 @@ export default {
     cleanUser(state) {
       state.user = null;
     },
+    adminRoom(state, roomId) {
+      state.user.roomCreatedId = roomId;
+    },
     joinRoom(state, roomId) {
       state.user.roomJoinedId = roomId;
     },

@@ -58,6 +58,7 @@ export default {
     async createRoomHandler() {
       await this.$openModal("CreateRoom")
         .then(data => {
+          this.$store.commit("user/adminRoom", data.roomId);
           this.$store.commit("user/joinRoom", data.roomId);
           this.$router.push({ name: "RoomId", params: { id: data.roomId } });
         })
