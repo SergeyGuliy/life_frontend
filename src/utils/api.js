@@ -74,8 +74,7 @@ export const api = {
     getInGameUserData: async gameId =>
       axiosWithAuth.get(`api/games/user-data/${gameId}`),
     crypto: {
-      getCrypro: async gameId =>
-        axiosWithAuth.get(`api/games/crypto/get/${gameId}`)
+      getCrypto: async body => axiosWithAuth.post(`api/games/crypto/get/`, body)
     }
   },
   chats: {

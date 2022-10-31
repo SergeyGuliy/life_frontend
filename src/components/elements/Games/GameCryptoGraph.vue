@@ -5,6 +5,8 @@
 <script>
 // import {api} from "@/utils/api";
 
+import { api } from "@/utils/api";
+
 export default {
   name: "GameCryptoGraph",
 
@@ -20,7 +22,15 @@ export default {
 
   created() {
     console.log(this.$gameId);
-    // api.games.crypto.getCrypto()
+    api.games.crypto
+      .getCrypto({
+        name: this.crypto.name,
+        gameId: this.$gameId
+      })
+      .then(data => {
+        console.log(data);
+        this.loading = false;
+      });
   }
 };
 </script>
