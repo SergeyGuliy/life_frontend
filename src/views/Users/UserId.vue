@@ -16,7 +16,7 @@ export default {
   components: {},
   computed: {
     userData() {
-      return this.$filters.dictGetUserById(this.$route.params.id);
+      return this.$f.dictGetUserById(this.$route.params.id);
     }
   }
 };

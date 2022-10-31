@@ -8,6 +8,6 @@ export const getChatTabName = chatTab => {
   } else if (myVue.$chats[chatTab].key === ROOM) {
     return myVue.$t(`enums.${ROOM}`);
   } else if (myVue.$chats[chatTab].key === PRIVATE) {
-    return myVue.$filters.getUserName(myVue.$chats[chatTab].userData);
+    return myVue.$f.getUserName(myVue.$chats[chatTab].userData);
   }
 };

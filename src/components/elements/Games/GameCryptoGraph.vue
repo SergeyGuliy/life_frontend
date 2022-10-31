@@ -22,12 +22,24 @@ let options = {
       let date = moment(x).format("YYYY MMM");
 
       return `
-      <div class="tooltip" style="background-color: #555555">
-        <div>Date: ${date}</div>
-        <div>Open: ${y[0]}</div>
-        <div>Close: ${y[3]}</div>
-        <div>Grow/Loss: ${y[3]}</div>
-      </div>
+      <table style="background-color: #555555">
+        <tr>
+          <td>Date:</td>
+          <td>${date}</td>
+        </tr>
+        <tr>
+          <td>Open:</td>
+          <td>${y[0]}</td>
+        </tr>
+        <tr>
+          <td>Close:</td>
+          <td>${y[3]}</td>
+        </tr>
+        <tr>
+          <td>Grow/Loss:</td>
+          <td>${y[3]}</td>
+        </tr>
+      </table>
       `;
     }
   },

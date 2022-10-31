@@ -34,7 +34,7 @@ export default {
       const userData = this.usersInRoom.find(user => user.userId === userId);
       return {
         ...this.userData,
-        userName: this.$filters.getUserName(userData)
+        userName: this.$f.getUserName(userData)
       };
     }
   },

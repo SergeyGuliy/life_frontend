@@ -43,7 +43,7 @@ export default {
   computed: {
     getChatName() {
       if (this.activeChat) {
-        return this.$filters.getChatTabName(this.activeChat);
+        return this.$f.getChatTabName(this.activeChat);
       } else {
         return "Chat";
       }
