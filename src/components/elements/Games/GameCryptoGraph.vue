@@ -1,11 +1,12 @@
 <template>
-  <apexchart :options="options" :series="series" :height="150" />
+  <apexchart :options="options" :series="series" :height="200" />
 </template>
 
 <script>
 import { api } from "@/utils/api";
 import VueApexCharts from "vue-apexcharts";
 import moment from "moment";
+import { createNumber } from "@/utils/createNumber";
 
 let options = {
   chart: {
@@ -16,28 +17,40 @@ let options = {
     align: "left"
   },
   tooltip: {
-    custom: function({ seriesIndex, dataPointIndex, w }) {
+    custom: ({ seriesIndex, dataPointIndex, w }) => {
       let { y, x } = w.globals.initialSeries[seriesIndex].data[dataPointIndex];
 
       let date = moment(x).format("YYYY MMM");
+      let prev = y[0];
+      let cur = y[3];
+
+      let dif = createNumber(cur / prev)
+        .changePrise()
+        .round();
+
+      const color = dif.number > 0 ? "green" : "red";
 
       return `
-      <table style="background-color: #555555">
+      <table style="background-color: #555555; padding: 3px">
         <tr>
           <td>Date:</td>
           <td>${date}</td>
         </tr>
         <tr>
           <td>Open:</td>
-          <td>${y[0]}</td>
+          <td>${createNumber(prev)
+            .round()
+            .getPrice()}</td>
         </tr>
         <tr>
           <td>Close:</td>
-          <td>${y[3]}</td>
+          <td>${createNumber(cur)
+            .round()
+            .getPrice()}</td>
         </tr>
         <tr>
-          <td>Grow/Loss:</td>
-          <td>${y[3]}</td>
+          <td style="padding-right: 5px">Grow/Loss:</td>
+          <td align="center" style="background-color: ${color}">${dif.getPercent()}</td>
         </tr>
       </table>
       `;
@@ -49,7 +62,9 @@ let options = {
   yaxis: {
     labels: {
       formatter: function(val) {
-        return val.toFixed(0);
+        return createNumber(val)
+          .round(0)
+          .getPrice();
       }
     },
     tooltip: {

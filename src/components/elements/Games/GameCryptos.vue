@@ -15,7 +15,7 @@
         </v-toolbar>
       </template>
       <template v-slot:item.currentPrice="{ item }">
-        {{ item.currentPrice.toFixed(2) }}
+        {{ getCurrentPrice(item.currentPrice) }}
       </template>
       <template v-slot:item.grow_loss="{ item }">
         <v-chip
@@ -25,7 +25,7 @@
           small
           style="height: 20px; width: 100%; display: flex; justify-content: center"
         >
-          {{ item.grow_loss }} %
+          {{ item.grow_loss }}
         </v-chip>
       </template>
       <template v-slot:expanded-item="{ headers, item }">
@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import { createNumber } from "@/utils/createNumber";
+
 export default {
   name: "GameCryptos",
 
@@ -97,10 +99,22 @@ export default {
 
   methods: {
     getPriceChange({ currentPrice, previousPrice }) {
-      return +((currentPrice / previousPrice - 1) * 100).toFixed(2);
+      return createNumber(currentPrice / previousPrice)
+        .changePrise()
+        .round()
+        .getPercent();
     },
-    getChipColor(crypto) {
-      return this.getPriceChange(crypto) > 0 ? "green" : "red";
+    getChipColor({ currentPrice, previousPrice }) {
+      return createNumber(currentPrice / previousPrice)
+        .changePrise()
+        .getNum() > 0
+        ? "green"
+        : "red";
+    },
+    getCurrentPrice(currentPrice) {
+      return createNumber(currentPrice)
+        .round()
+        .getPrice();
     },
 
     buy() {},
