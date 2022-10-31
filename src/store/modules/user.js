@@ -7,12 +7,16 @@ const { changeTheme, changeLocale, socketConnect } = $currentUserActions();
 export default {
   namespaced: true,
   state: {
-    user: null
+    user: null,
+    gameId: null
   },
   mutations: {
     setUser(state, { userData, accessToken, refreshToken }) {
       setLocalStorageKeys({ accessToken, refreshToken, userData });
       state.user = { ...userData };
+    },
+    setGameId(state, gameId) {
+      state.gameId = gameId;
     },
     cleanUser(state) {
       state.user = null;

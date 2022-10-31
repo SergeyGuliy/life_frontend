@@ -24,7 +24,6 @@ export default {
   },
 
   props: {
-    gameId: {},
     usersInRoom: {}
   },
 
@@ -52,7 +51,7 @@ export default {
 
   async $initSocketListener() {
     api.games
-      .getGameById(this.gameId)
+      .getGameById(this.$gameId)
       .then(this.tickGameData)
       .then(() => {
         this.$socketInit({
@@ -60,7 +59,7 @@ export default {
         });
       });
     api.games
-      .getInGameUserData(this.gameId)
+      .getInGameUserData(this.$gameId)
       .then(this.tickUserData)
       .then(() => {
         this.$socketInit({

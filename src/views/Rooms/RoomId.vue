@@ -1,7 +1,7 @@
 <template>
   <div style="width: 100%">
-    <Room v-show="!gameId" v-bind="roomGameProps" />
-    <Games v-if="gameId" v-bind="roomGameProps" />
+    <Room v-show="!$gameId" v-bind="roomGameProps" />
+    <Games v-if="$gameId" v-bind="roomGameProps" />
   </div>
 </template>
 
@@ -40,7 +40,6 @@ export default {
     roomGameProps() {
       return {
         roomId: this.roomId,
-        gameId: this.gameId,
         isRoomAdmin: this.isRoomAdmin,
         roomData: this.roomData,
         usersInRoom: this.usersInRoom
@@ -51,9 +50,6 @@ export default {
     },
     roomId() {
       return +this.$route.params.id;
-    },
-    gameId() {
-      return this.roomData?.gameId;
     }
   }
 };

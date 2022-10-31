@@ -32,7 +32,9 @@
         </v-chip>
       </template>
       <template v-slot:expanded-item="{ headers, item }">
-        <td :colspan="headers.length">More info about {{ item.name }}</td>
+        <td :colspan="headers.length">
+          <GameCryptoGraph :crypto="item" />
+        </td>
       </template>
       <template v-slot:item.actions="{ item }">
         <v-btn depressed color="green" class="mr-1" small @click="buy(item)">
@@ -52,6 +54,10 @@ export default {
 
   props: {
     cryptos: {}
+  },
+
+  components: {
+    GameCryptoGraph: () => import("./GameCryptoGraph")
   },
 
   computed: {

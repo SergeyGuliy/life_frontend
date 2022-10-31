@@ -13,6 +13,7 @@ export default {
       .getRoomById(this.roomId)
       .then(data => {
         this.roomData = data;
+        this.$gameId = data.gameId;
         this.$socket.client.emit(rooms_userConnectsRoom, {
           userId: this.$user.userId,
           roomId: this.roomData.roomId

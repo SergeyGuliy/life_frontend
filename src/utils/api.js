@@ -72,7 +72,11 @@ export const api = {
       axiosWithAuth.post(`api/games/start`, { roomId, gameSettings }),
     getGameById: async gameId => axiosWithAuth.get(`api/games/${gameId}`),
     getInGameUserData: async gameId =>
-      axiosWithAuth.get(`api/games/user-data/${gameId}`)
+      axiosWithAuth.get(`api/games/user-data/${gameId}`),
+    crypto: {
+      getCrypro: async gameId =>
+        axiosWithAuth.get(`api/games/crypto/get/${gameId}`)
+    }
   },
   chats: {
     getGlobalMessages: async () => axiosWithAuth.get("api/chats/global"),

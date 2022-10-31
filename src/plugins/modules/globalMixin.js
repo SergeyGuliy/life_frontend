@@ -5,6 +5,14 @@ Vue.mixin({
     $user() {
       return this.$store.state.user?.user;
     },
+    $gameId: {
+      get() {
+        return this.$store.state.user?.gameId;
+      },
+      set(val) {
+        this.$store.commit("user/setGameId", val);
+      }
+    },
     $users() {
       return this.$store.state.dictionaries?.users;
     },
