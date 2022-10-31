@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@vue/composition-api": "^1.1.5",
+    "chart.js": "^3.9.1",
     "core-js": "^3.6.5",
     "get-blob-duration": "^1.2.0",
     "life_shared": "file:../life_shared",
@@ -22,6 +23,7 @@
     "v-mask": "^2.2.4",
     "vue": "^2.6.11",
     "vue-bus": "^1.2.1",
+    "vue-chartjs": "^4.1.2",
     "vue-debounce": "^2.6.0",
     "vue-i18n": "^8.24.1",
     "vue-long-click": "0.0.4",
