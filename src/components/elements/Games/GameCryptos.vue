@@ -1,8 +1,5 @@
 <template>
   <v-card class="GameUserData" v-if="cryptos?.length">
-    <!--    <v-card-title class="py-0">-->
-    <!--      Cryptos-->
-    <!--    </v-card-title>-->
     <v-data-table
       :headers="cryptosHeaders"
       :items="localCryptos"
@@ -10,24 +7,24 @@
       :expanded.sync="expanded"
       item-key="name"
       show-expand
-      class="elevation-1"
+      dense
     >
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>Cryptos</v-toolbar-title>
-          <!--          <v-spacer></v-spacer>-->
-          <!--          <v-switch-->
-          <!--            v-model="singleExpand"-->
-          <!--            label="Single expand"-->
-          <!--            class="mt-2"-->
-          <!--          ></v-switch>-->
         </v-toolbar>
       </template>
       <template v-slot:item.currentPrice="{ item }">
-        {{ item.currentPrice.toFixed(4) }}
+        {{ item.currentPrice.toFixed(2) }}
       </template>
       <template v-slot:item.grow_loss="{ item }">
-        <v-chip :color="getChipColor(item)" text-color="white" label small>
+        <v-chip
+          :color="getChipColor(item)"
+          text-color="white"
+          label
+          small
+          style="height: 20px; width: 100%; display: flex; justify-content: center"
+        >
           {{ item.grow_loss }} %
         </v-chip>
       </template>
@@ -37,10 +34,10 @@
         </td>
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-btn depressed color="green" class="mr-1" small @click="buy(item)">
+        <v-btn depressed color="green" class="mr-1" x-small @click="buy(item)">
           Buy
         </v-btn>
-        <v-btn depressed color="red" small @click="sell(item)">
+        <v-btn depressed color="red" x-small @click="sell(item)">
           Sell
         </v-btn>
       </template>
@@ -81,8 +78,19 @@ export default {
           value: "name"
         },
         { text: "Current Price", value: "currentPrice" },
-        { text: "Grow/Loss", value: "grow_loss" },
-        { text: "Actions", value: "actions" }
+        {
+          text: "Grow/Loss",
+          value: "grow_loss",
+          align: "center",
+          width: "110px"
+        },
+        {
+          text: "Actions",
+          value: "actions",
+          align: "center",
+          sortable: false,
+          width: "135px"
+        }
       ]
     };
   },

@@ -19,6 +19,7 @@ import "./modules/globalMixin";
 import "./modules/globalComponents";
 import "./modules/compositionAPI";
 import "./modules/vuelidate";
+import "./modules/apexCharts";
 
 Vue.config.productionTip = false;
 

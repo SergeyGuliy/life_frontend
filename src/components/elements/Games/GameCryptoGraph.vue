@@ -1,72 +1,73 @@
 <template>
-  <line-chart
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :dataset-id-key="datasetIdKey"
-    :width="width"
-    :height="height"
-  />
+  <apexchart :options="options" :series="series" :height="150" />
 </template>
 
 <script>
-// import {api} from "@/utils/api";
-
 import { api } from "@/utils/api";
+import VueApexCharts from "vue-apexcharts";
+import moment from "moment";
 
-import { Line } from "vue-chartjs/legacy";
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  LinearScale,
-  PointElement,
-  CategoryScale
-} from "chart.js";
+let options = {
+  chart: {
+    type: "candlestick"
+  },
+  title: {
+    text: "CandleStick Chart",
+    align: "left"
+  },
+  tooltip: {
+    custom: function({ seriesIndex, dataPointIndex, w }) {
+      let { y, x } = w.globals.initialSeries[seriesIndex].data[dataPointIndex];
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  LinearScale,
-  PointElement,
-  CategoryScale
-);
+      let date = moment(x).format("YYYY MMM");
+
+      return `
+      <div class="tooltip" style="background-color: #555555">
+        <div>Date: ${date}</div>
+        <div>Open: ${y[0]}</div>
+        <div>Close: ${y[3]}</div>
+        <div>Grow/Loss: ${y[3]}</div>
+      </div>
+      `;
+    }
+  },
+  xaxis: {
+    type: "datetime"
+  },
+  yaxis: {
+    labels: {
+      formatter: function(val) {
+        return val.toFixed(0);
+      }
+    },
+    tooltip: {
+      enabled: true
+    }
+  }
+};
 export default {
   name: "GameCryptoGraph",
 
   data() {
     return {
-      datasetIdKey: "label",
-      width: 400,
-      height: 400,
+      options,
 
-      chartData: {
-        labels: [],
-        datasets: [
-          {
-            label: this.crypto.name,
-            backgroundColor: "#f87979",
-            data: []
-          }
-        ]
-      },
-      chartOptions: {
-        responsive: true
-      },
+      data: [],
 
-      loading: true,
-
-      cryptoHistory: null
+      loading: true
     };
   },
 
-  components: { "line-chart": Line },
+  components: { apexchart: VueApexCharts },
 
   props: {
     crypto: {}
+  },
+
+  computed: {
+    series() {
+      return [{ data: this.data }];
+    }
   },
 
   $initSocketListener() {
@@ -78,10 +79,7 @@ export default {
       .then(cryptoHistory => {
         cryptoHistory
           .filter(({ date }) => date.monthCode && date.year)
-          .forEach(({ date, currentPrice }) => {
-            this.chartData.datasets[0].data.push(currentPrice);
-            this.chartData.labels.push(`${date.monthCode} ${date.year}`);
-          });
+          .forEach(this.addHistory);
         this.loading = false;
 
         this.$socketInit({
@@ -90,12 +88,25 @@ export default {
       });
   },
   methods: {
+    addHistory(crypto) {
+      this.data.push({
+        x: crypto.date.date,
+        y: [
+          crypto.previousPrice,
+          crypto.previousPrice,
+          crypto.currentPrice,
+          crypto.currentPrice
+        ]
+      });
+    },
+
     tickGameData({ cryptos, date }) {
-      let { currentPrice } = cryptos.find(
-        crypto => crypto.name === this.crypto.name
-      );
-      this.chartData.datasets[0].data.push(currentPrice);
-      this.chartData.labels.push(`${date.monthCode} ${date.year}`);
+      let crypto = cryptos.find(crypto => crypto.name === this.crypto.name);
+
+      this.addHistory({
+        ...crypto,
+        date
+      });
     }
   }
 };

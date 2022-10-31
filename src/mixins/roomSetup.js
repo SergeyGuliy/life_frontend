@@ -4,7 +4,7 @@ import {
   rooms_updateUsersListInRoom,
   rooms_userConnectsRoom,
   rooms_userKickedFromRoom
-} from "../../../life_shared/constants/ws/rooms";
+} from "@constants/ws/rooms";
 import { api } from "@/utils/api";
 
 export default {
