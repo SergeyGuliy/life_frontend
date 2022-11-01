@@ -2,7 +2,7 @@
   <Grid>
     <template #leftCol>
       <GameDate :date="date" />
-      <GameUserData :userData="combinedUserData" />
+      <GameUser :userData="combinedUserData" />
       <pre></pre>
     </template>
     <template #rightCol>
@@ -19,8 +19,8 @@ export default {
 
   components: {
     GameDate: () => import("./GameDate"),
-    GameUserData: () => import("./GameUserData"),
-    GameCryptos: () => import("./GameCryptos")
+    GameUser: () => import("./GameUser/GameUser"),
+    GameCryptos: () => import("./GameCrypto/GameCryptos")
   },
 
   props: {

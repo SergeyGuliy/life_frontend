@@ -1,0 +1,75 @@
+<template>
+  <apexchart :options="options" :series="series" :height="200" />
+</template>
+
+<script>
+import { api } from "@/utils/api";
+import VueApexCharts from "vue-apexcharts";
+import { options } from "./graphOptions";
+
+export default {
+  name: "GameCryptoGraph",
+
+  data() {
+    return {
+      options,
+
+      data: [],
+
+      loading: true
+    };
+  },
+
+  components: { apexchart: VueApexCharts },
+
+  props: {
+    crypto: {}
+  },
+
+  computed: {
+    series() {
+      return [{ data: this.data }];
+    }
+  },
+
+  $initSocketListener() {
+    api.games.crypto
+      .getCrypto({
+        name: this.crypto.name,
+        gameId: this.$gameId
+      })
+      .then(cryptoHistory => {
+        cryptoHistory
+          .filter(({ date }) => date.monthCode && date.year)
+          .forEach(this.addHistory);
+        this.loading = false;
+
+        this.$socketInit({
+          games_tick: this.tickGameData
+        });
+      });
+  },
+  methods: {
+    addHistory(crypto) {
+      this.data.push({
+        x: crypto.date.date,
+        y: [
+          crypto.previousPrice,
+          crypto.previousPrice,
+          crypto.currentPrice,
+          crypto.currentPrice
+        ]
+      });
+    },
+
+    tickGameData({ cryptos, date }) {
+      let crypto = cryptos.find(crypto => crypto.name === this.crypto.name);
+
+      this.addHistory({
+        ...crypto,
+        date
+      });
+    }
+  }
+};
+</script>
