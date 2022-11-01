@@ -13,6 +13,14 @@ function generateTooltip({ seriesIndex, dataPointIndex, w }) {
     .round();
 
   const color = dif.number > 0 ? "green" : "red";
+  let difStr = dif.getPercent();
+
+  let prevStr = createNumber(prev)
+    .round()
+    .getPrice();
+  let curStr = createNumber(cur)
+    .round()
+    .getPrice();
 
   return `
       <table style="background-color: #555555; padding: 3px">
@@ -22,19 +30,15 @@ function generateTooltip({ seriesIndex, dataPointIndex, w }) {
         </tr>
         <tr>
           <td>Open:</td>
-          <td>${createNumber(prev)
-            .round()
-            .getPrice()}</td>
+          <td>${prevStr}</td>
         </tr>
         <tr>
           <td>Close:</td>
-          <td>${createNumber(cur)
-            .round()
-            .getPrice()}</td>
+          <td>${curStr}</td>
         </tr>
         <tr>
           <td style="padding-right: 5px">Grow/Loss:</td>
-          <td align="center" style="background-color: ${color}">${dif.getPercent()}</td>
+          <td align="center" style="background-color: ${color}">${difStr}</td>
         </tr>
       </table>
       `;
