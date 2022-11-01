@@ -6,6 +6,7 @@ import dictionaries from "./modules/dictionaries";
 import modals from "./modules/modals";
 import chats from "./modules/chats";
 import friends from "./modules/friends";
+import game from "./modules/game";
 
 Vue.use(Vuex);
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     user,
     dictionaries,
     chats,
-    friends
+    friends,
+    game
   }
 });

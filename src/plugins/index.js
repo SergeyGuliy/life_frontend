@@ -15,7 +15,7 @@ import "./modules/vueWorker";
 import "./modules/debounce";
 import "./modules/socket";
 import "./modules/moment";
-import "./modules/globalMixin";
+import "./modules/globalMixin/index";
 import "./modules/globalComponents";
 import "./modules/compositionAPI";
 import "./modules/vuelidate";
