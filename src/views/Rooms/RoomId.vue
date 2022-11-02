@@ -1,7 +1,8 @@
 <template>
   <div style="width: 100%">
+    <pre>$gameId = {{ $gameId }}</pre>
     <Room v-show="!$gameId" v-bind="roomGameProps" />
-    <Games v-if="$gameId" v-bind="roomGameProps" />
+    <Games v-if="$gameId" />
   </div>
 </template>
 

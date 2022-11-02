@@ -1,5 +1,5 @@
 <template>
-  <v-card class="GameDate" v-if="date">
+  <v-card class="GameDate" v-if="$gameDate">
     <v-card-title class="py-0">
       Current date:
       <v-spacer></v-spacer>
@@ -18,13 +18,9 @@
 export default {
   name: "GameDate",
 
-  props: {
-    date: {}
-  },
-
   computed: {
     getDate() {
-      const { monthCode, year } = this.date;
+      const { monthCode, year } = this.$gameDate;
       return `${monthCode} ${year}`;
     }
   },

@@ -1,12 +1,12 @@
 <template>
-  <Grid>
+  <Grid v-if="!loading">
     <template #leftCol>
-      <GameDate :date="date" />
-      <GameUser :userData="combinedUserData" />
+      <GameDate />
+      <GameUser />
       <pre></pre>
     </template>
     <template #rightCol>
-      <GameCryptos :cryptos="cryptos" />
+      <GameCryptos />
     </template>
   </Grid>
 </template>
@@ -23,34 +23,14 @@ export default {
     GameCryptos: () => import("./GameCrypto/GameCryptos")
   },
 
-  props: {
-    usersInRoom: {}
-  },
-
-  computed: {
-    combinedUserData() {
-      if (!this.userData) return;
-      let { userId } = this.userData;
-      const userData = this.usersInRoom.find(user => user.userId === userId);
-      return {
-        ...this.userData,
-        userName: this.$f.getUserName(userData)
-      };
-    }
-  },
-
   data() {
     return {
-      date: null,
-      shares: null,
-      cryptos: null,
-
-      userData: null
+      loading: true
     };
   },
 
   async $initSocketListener() {
-    api.games
+    let req1 = api.games
       .getGameById(this.$gameId)
       .then(this.tickGameData)
       .then(() => {
@@ -58,7 +38,7 @@ export default {
           games_tick: this.tickGameData
         });
       });
-    api.games
+    let req2 = api.games
       .getInGameUserData(this.$gameId)
       .then(this.tickUserData)
       .then(() => {
@@ -66,17 +46,21 @@ export default {
           games_sendUserData: this.tickUserData
         });
       });
+
+    Promise.all([req1, req2]).then(() => {
+      this.loading = false;
+    });
   },
 
   methods: {
     tickGameData({ date, shares, cryptos }) {
-      this.date = date;
-      this.shares = shares;
-      this.cryptos = cryptos;
+      this.$gameDate = date;
+      this.$gameShares = shares;
+      this.$gameCryptos = cryptos;
     },
 
     tickUserData(userData) {
-      this.userData = userData;
+      this.$gameUserData = userData;
     }
   }
 };

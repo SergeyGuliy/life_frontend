@@ -1,5 +1,5 @@
 <template>
-  <v-card class="GameUserData" v-if="cryptos?.length">
+  <v-card class="GameUserData" v-if="$gameCryptos?.length">
     <v-data-table
       :headers="cryptosHeaders"
       :items="localCryptos"
@@ -51,17 +51,13 @@ import { createNumber } from "@/utils/createNumber";
 export default {
   name: "GameCryptos",
 
-  props: {
-    cryptos: {}
-  },
-
   components: {
     GameCryptoGraph: () => import("./GameCryptoGraph")
   },
 
   computed: {
     localCryptos() {
-      return this.cryptos.map(crypto => ({
+      return this.$gameCryptos.map(crypto => ({
         ...crypto,
         grow_loss: this.getPriceChange(crypto)
       }));

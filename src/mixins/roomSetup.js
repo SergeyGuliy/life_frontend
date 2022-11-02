@@ -94,6 +94,7 @@ export default {
 
     gameStarted(game) {
       this.roomData.gameId = game._id;
+      this.$gameId = game._id;
     }
   }
 };

@@ -42,10 +42,6 @@
 export default {
   name: "GameUserWork",
 
-  props: {
-    work: {}
-  },
-
   data() {
     return {
       workMock: {
@@ -59,6 +55,10 @@ export default {
   },
 
   computed: {
+    work() {
+      return this.$gameUserData.work;
+    },
+
     isWorkExist() {
       return !!this.workMock?.name;
     },
