@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { api } from "@/utils/api";
 import VueApexCharts from "vue-apexcharts";
 import { options } from "./graphOptions";
 
@@ -33,21 +32,19 @@ export default {
   },
 
   $initSocketListener() {
-    api.games.crypto
-      .getCrypto({
-        name: this.crypto.name,
-        gameId: this.$gameId
-      })
-      .then(cryptoHistory => {
-        cryptoHistory
-          .filter(({ date }) => date.monthCode && date.year)
-          .forEach(this.addHistory);
-        this.loading = false;
+    this.$gameAction("gamesCryptos", "getCryptoHistory", {
+      name: this.crypto.name,
+      gameId: this.$gameId
+    }).then(cryptoHistory => {
+      cryptoHistory
+        .filter(({ date }) => date.monthCode && date.year)
+        .forEach(this.addHistory);
+      this.loading = false;
 
-        this.$socketInit({
-          games_tick: this.tickGameData
-        });
+      this.$socketInit({
+        games_tick: this.tickGameData
       });
+    });
   },
   methods: {
     addHistory(crypto) {
