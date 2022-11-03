@@ -25,9 +25,7 @@
       <div class="mr-2">
         {{ $t("misc.max") }} {{ roomData.maxCountOfUsers }}
       </div>
-      <div class="mr-2">
-        {{ $t("misc.current") }} {{ roomData.usersInRoomLength }}
-      </div>
+      <div class="mr-2">{{ $t("misc.current") }} {{ $usersInRoom.length }}</div>
     </v-card-text>
 
     <v-card-actions>

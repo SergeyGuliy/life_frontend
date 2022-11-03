@@ -1,6 +1,5 @@
 <template>
   <div style="width: 100%">
-    <pre>$gameId = {{ $gameId }}</pre>
     <Room v-show="!$gameId" v-bind="roomGameProps" />
     <Games v-if="$gameId" />
   </div>
@@ -42,8 +41,7 @@ export default {
       return {
         roomId: this.roomId,
         isRoomAdmin: this.isRoomAdmin,
-        roomData: this.roomData,
-        usersInRoom: this.usersInRoom
+        roomData: this.roomData
       };
     },
     isRoomAdmin() {

@@ -12,7 +12,7 @@ export default {
     api.rooms
       .getRoomById(this.roomId)
       .then(data => {
-        this.roomData = data;
+        this.$roomData = data;
         this.$gameId = data.gameId;
         this.$socket.client.emit(rooms_userConnectsRoom, {
           userId: this.$user.userId,
@@ -38,35 +38,31 @@ export default {
     };
   },
 
-  computed: {
-    usersInRoom() {
-      return this.roomData?.usersInRoom || [];
-    }
-  },
-
   methods: {
     updateUserListInRoom(usersInRoom) {
-      this.roomData.usersInRoom = usersInRoom;
+      this.$usersInRoom = usersInRoom;
     },
 
     updateRoomAdmin(newAdmin) {
-      let indexOldAdmin = this.roomData.usersInRoom.findIndex(
+      let indexOldAdmin = this.$usersInRoom.findIndex(
         user => typeof user.roomCreatedId === "number"
       );
-      this.$set(
-        this.roomData.usersInRoom[indexOldAdmin],
-        "roomCreatedId",
-        null
-      );
+      this.$store.commit("room/updateUser", {
+        index: indexOldAdmin,
+        userData: {
+          roomCreatedId: null
+        }
+      });
 
-      let indexNewAdmin = this.roomData.usersInRoom.findIndex(
+      let indexNewAdmin = this.$usersInRoom.findIndex(
         user => user.userId === newAdmin.userId
       );
-      this.$set(
-        this.roomData.usersInRoom[indexNewAdmin],
-        "roomCreatedId",
-        this.roomId
-      );
+      this.$store.commit("room/updateUser", {
+        index: indexNewAdmin,
+        userData: {
+          roomCreatedId: this.roomId
+        }
+      });
 
       if (newAdmin.userId === this.$user.userId) {
         this.$store.commit("user/setRoomId", this.roomId);
@@ -76,11 +72,12 @@ export default {
     },
 
     async userKickedFromRoom(kickUserId) {
-      let indexKickedUserId = this.roomData.usersInRoom.findIndex(
+      let indexKickedUserId = this.$usersInRoom.findIndex(
         user => +user.userId === +kickUserId
       );
       const isKickedUserMe = +this.$user.userId === +kickUserId;
-      this.$delete(this.roomData.usersInRoom, indexKickedUserId);
+
+      this.$store.commit("room/kickUser", indexKickedUserId);
 
       if (isKickedUserMe) {
         this.$store.commit("user/leaveRoom");

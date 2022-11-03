@@ -1,17 +1,12 @@
 <template>
-  <Grid v-if="roomData">
+  <Grid v-if="$roomData">
     <template #leftCol>
-      <RoomInfo
-        :roomData="{
-          ...roomData,
-          usersInRoomLength: usersInRoom.length
-        }"
-      >
+      <RoomInfo>
         <template #actions v-if="isRoomAdmin">
-          <v-btn v-if="!roomData.isBlocked" @click="toggleLockRoom">
+          <v-btn v-if="!$roomData.isBlocked" @click="toggleLockRoom">
             {{ $t("buttons.lockRoom") }}
           </v-btn>
-          <v-btn v-else-if="roomData.isBlocked" @click="toggleLockRoom">
+          <v-btn v-else-if="$roomData.isBlocked" @click="toggleLockRoom">
             {{ $t("buttons.unLockRoom") }}
           </v-btn>
           <v-btn @click="deleteRoom">
@@ -48,7 +43,7 @@
     </template>
     <template #rightCol>
       <UsersList
-        :users="usersInRoom"
+        :users="$usersInRoom"
         :showUserRoomInfo="true"
         :sortType="'adminFirst'"
       >
@@ -95,9 +90,7 @@ export default {
 
   props: {
     roomId: {},
-    isRoomAdmin: {},
-    roomData: {},
-    usersInRoom: {}
+    isRoomAdmin: {}
   },
 
   data() {
@@ -117,7 +110,7 @@ export default {
 
     async toggleLockRoom() {
       await api.rooms.toggleLockRoom(this.roomId, {
-        lockState: !this.roomData.isBlocked
+        lockState: !this.$roomData.isBlocked
       });
     },
     async deleteRoom() {

@@ -7,6 +7,7 @@ import modals from "./modules/modals";
 import chats from "./modules/chats";
 import friends from "./modules/friends";
 import game from "./modules/game";
+import room from "./modules/room";
 
 Vue.use(Vuex);
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     dictionaries,
     chats,
     friends,
-    game
+    game,
+    room
   }
 });
