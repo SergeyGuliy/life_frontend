@@ -19,9 +19,12 @@ export default {
         ...userData
       };
     },
-    kickUser(state, indexToKick) {
+    kickUser(state, userId) {
+      let indexKicked = state.usersInRoom.findIndex(
+        user => +user.userId === +userId
+      );
       state.roomData.usersInRoom = state.roomData.usersInRoom.filter(
-        (_, index) => index !== indexToKick
+        (_, index) => index !== indexKicked
       );
     }
   }

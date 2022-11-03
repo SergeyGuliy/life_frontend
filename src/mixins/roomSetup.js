@@ -65,14 +65,10 @@ export default {
       }
     },
 
-    async userKickedFromRoom(kickUserId) {
-      let indexKickedUserId = this.$usersInRoom.findIndex(
-        user => +user.userId === +kickUserId
-      );
-      const isKickedUserMe = +this.$user.userId === +kickUserId;
+    async userKickedFromRoom(userId) {
+      this.$store.commit("room/kickUser", userId);
 
-      this.$store.commit("room/kickUser", indexKickedUserId);
-
+      const isKickedUserMe = +this.$user.userId === +userId;
       if (isKickedUserMe) {
         this.$store.commit("user/leaveRoom");
         await this.$router.push({ name: "Home" });
@@ -80,7 +76,9 @@ export default {
     },
 
     updateToggleLockRoom(lockState) {
-      this.roomData.isBlocked = lockState;
+      this.$roomData = {
+        isBlocked: lockState
+      };
     },
 
     gameStarted(game) {
