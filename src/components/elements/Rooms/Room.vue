@@ -1,7 +1,7 @@
 <template>
   <Grid v-if="$roomData">
     <template #leftCol>
-      <RoomInfo>
+      <RoomInfo :roomData="$roomData">
         <template #actions v-if="isRoomAdmin">
           <v-btn v-if="!$roomData.isBlocked" @click="toggleLockRoom">
             {{ $t("buttons.lockRoom") }}
