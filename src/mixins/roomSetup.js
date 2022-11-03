@@ -14,10 +14,12 @@ export default {
       .then(data => {
         this.$roomData = data;
         this.$gameId = data.gameId;
+
         this.$socket.client.emit(rooms_userConnectsRoom, {
           userId: this.$user.userId,
           roomId: this.$roomId
         });
+
         this.$socketInit({
           [rooms_updateUsersListInRoom]: this.updateUserListInRoom,
           [rooms_updateRoomAdmin]: this.updateRoomAdmin,
