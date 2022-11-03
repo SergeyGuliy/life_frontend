@@ -64,7 +64,9 @@ export const en = {
     deleteFriend: "Delete friend",
     connectsIncomingPending: "Incoming Requests",
     connectsOutgoingPending: "Outgoing requests",
-    connectsIncomingIgnored: "Ignored list"
+    connectsIncomingIgnored: "Ignored list",
+    buy: "buy",
+    sell: "sell"
   },
   enums: {
     ROOM_ADMIN: "Room Admin",
