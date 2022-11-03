@@ -2,7 +2,7 @@
   <Grid v-if="$roomData">
     <template #leftCol>
       <RoomInfo :roomData="$roomData">
-        <template #actions v-if="isRoomAdmin">
+        <template #actions v-if="$isRoomAdmin">
           <v-btn v-if="!$roomData.isBlocked" @click="toggleLockRoom">
             {{ $t("buttons.lockRoom") }}
           </v-btn>
@@ -37,7 +37,7 @@
         :step="1"
       />
 
-      <v-btn @click="startGame" block v-if="isRoomAdmin">
+      <v-btn @click="startGame" block v-if="$isRoomAdmin">
         {{ $t("buttons.startGame") }}
       </v-btn>
     </template>
@@ -49,15 +49,13 @@
       >
         <template #actions="{userData, isYou}">
           <UserButton
-            v-if="!isYou && isRoomAdmin"
+            v-if="!isYou && $isRoomAdmin"
             :userId="userData?.userId"
-            :roomId="roomId"
             type="kickUser"
           />
           <UserButton
-            v-if="!isYou && isRoomAdmin"
+            v-if="!isYou && $isRoomAdmin"
             :userId="userData?.userId"
-            :roomId="roomId"
             type="setAdmin"
           />
           <UserButton
@@ -88,11 +86,6 @@ export default {
     UserButton: () => import("@components/elements/Users/UserButton")
   },
 
-  props: {
-    roomId: {},
-    isRoomAdmin: {}
-  },
-
   data() {
     return {
       gameSettings: {
@@ -105,16 +98,16 @@ export default {
 
   methods: {
     startGame() {
-      api.games.startGame(this.roomId, this.gameSettings);
+      api.games.startGame(this.$roomId, this.gameSettings);
     },
 
     async toggleLockRoom() {
-      await api.rooms.toggleLockRoom(this.roomId, {
+      await api.rooms.toggleLockRoom(this.$roomId, {
         lockState: !this.$roomData.isBlocked
       });
     },
     async deleteRoom() {
-      await api.rooms.deleteRoom(this.roomId);
+      await api.rooms.deleteRoom(this.$roomId);
     }
   }
 };

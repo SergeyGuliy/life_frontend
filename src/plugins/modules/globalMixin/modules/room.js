@@ -19,6 +19,9 @@ export default {
 
     $roomId() {
       return +this.$route.params.id;
+    },
+    $isRoomAdmin() {
+      return this.$user.roomCreatedId === this.$roomId;
     }
   }
 };

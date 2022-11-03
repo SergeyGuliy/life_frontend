@@ -33,10 +33,6 @@ export default {
       type: [Number, null],
       default: null
     },
-    roomId: {
-      type: [Number, null],
-      default: null
-    },
     type: {
       type: String,
       required: true,
@@ -86,11 +82,11 @@ export default {
     },
 
     async kickUser() {
-      await api.rooms.kickUser(this.roomId, this.userId);
+      await api.rooms.kickUser(this.$roomId, this.userId);
     },
 
     async setAdmin() {
-      await api.rooms.setAdmin(this.roomId, this.userId);
+      await api.rooms.setAdmin(this.$roomId, this.userId);
     },
 
     writeMessage,

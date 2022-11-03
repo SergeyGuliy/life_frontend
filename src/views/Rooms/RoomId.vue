@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%">
-    <Room v-show="!$gameId" v-bind="roomGameProps" />
+    <Room v-show="!$gameId" />
     <Games v-if="$gameId" />
   </div>
 </template>
@@ -34,18 +34,6 @@ export default {
         .catch(e => {
           console.log(e);
         });
-    }
-  },
-  computed: {
-    roomGameProps() {
-      return {
-        roomId: this.$roomId,
-        isRoomAdmin: this.isRoomAdmin,
-        roomData: this.roomData
-      };
-    },
-    isRoomAdmin() {
-      return this.$user.roomCreatedId === this.$roomId;
     }
   }
 };

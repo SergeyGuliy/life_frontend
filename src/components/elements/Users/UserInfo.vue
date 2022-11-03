@@ -5,7 +5,7 @@
       <v-spacer></v-spacer>
 
       <v-chip
-        v-if="showUserRoomInfo && isRoomAdmin"
+        v-if="showUserRoomInfo && $isRoomAdmin"
         color="blue"
         text-color="white"
         small
@@ -47,17 +47,6 @@ export default {
   computed: {
     getChipClass() {
       return this.userData.role === ROOM_TYPES.PUBLIC ? "primary" : "warning";
-    },
-
-    isRoomAdmin() {
-      const { roomJoinedId, roomCreatedId } = this.userData;
-      const isNum = num => typeof num === "number";
-
-      return (
-        isNum(roomJoinedId) &&
-        isNum(roomCreatedId) &&
-        roomJoinedId === roomCreatedId
-      );
     }
   },
 
