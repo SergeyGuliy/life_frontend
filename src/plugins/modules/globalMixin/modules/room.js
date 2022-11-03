@@ -15,6 +15,10 @@ export default {
       set(val) {
         this.$store.commit("room/setUsersInRoom", val);
       }
+    },
+
+    $roomId() {
+      return +this.$route.params.id;
     }
   }
 };

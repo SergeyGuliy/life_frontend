@@ -5,7 +5,10 @@ export default {
   },
   mutations: {
     setRoomData(state, roomData) {
-      state.roomData = roomData;
+      state.roomData = {
+        ...state.roomData,
+        ...roomData
+      };
     },
     setUsersInRoom(state, usersInRoom) {
       state.roomData.usersInRoom = usersInRoom;

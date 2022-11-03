@@ -19,7 +19,7 @@ export default {
   },
 
   async beforeRouteLeave(to, from, next) {
-    if (!this.$user || +this.$user?.roomJoinedId !== this.roomId) {
+    if (!this.$user || +this.$user?.roomJoinedId !== this.$roomId) {
       next();
     } else {
       await this.$openModal("Promt", {
@@ -39,16 +39,13 @@ export default {
   computed: {
     roomGameProps() {
       return {
-        roomId: this.roomId,
+        roomId: this.$roomId,
         isRoomAdmin: this.isRoomAdmin,
         roomData: this.roomData
       };
     },
     isRoomAdmin() {
-      return this.$user.roomCreatedId === this.roomId;
-    },
-    roomId() {
-      return +this.$route.params.id;
+      return this.$user.roomCreatedId === this.$roomId;
     }
   }
 };

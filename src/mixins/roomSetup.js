@@ -10,13 +10,13 @@ import { api } from "@/utils/api";
 export default {
   $initSocketListener() {
     api.rooms
-      .getRoomById(this.roomId)
+      .getRoomById(this.$roomId)
       .then(data => {
         this.$roomData = data;
         this.$gameId = data.gameId;
         this.$socket.client.emit(rooms_userConnectsRoom, {
           userId: this.$user.userId,
-          roomId: this.roomData.roomId
+          roomId: this.$roomId
         });
         this.$socketInit({
           [rooms_updateUsersListInRoom]: this.updateUserListInRoom,
@@ -30,12 +30,6 @@ export default {
         this.$store.commit("user/leaveRoom");
         this.$router.push({ name: "Home" });
       });
-  },
-
-  data() {
-    return {
-      roomData: null
-    };
   },
 
   methods: {
@@ -60,12 +54,12 @@ export default {
       this.$store.commit("room/updateUser", {
         index: indexNewAdmin,
         userData: {
-          roomCreatedId: this.roomId
+          roomCreatedId: this.$roomId
         }
       });
 
       if (newAdmin.userId === this.$user.userId) {
-        this.$store.commit("user/setRoomId", this.roomId);
+        this.$store.commit("user/setRoomId", this.$roomId);
       } else {
         this.$store.commit("user/setRoomId", null);
       }
@@ -90,7 +84,9 @@ export default {
     },
 
     gameStarted(game) {
-      this.roomData.gameId = game._id;
+      this.$roomData = {
+        gameId: game._id
+      };
       this.$gameId = game._id;
     }
   }
