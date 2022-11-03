@@ -18,9 +18,13 @@
           </v-tab>
         </v-tabs>
 
-        <v-card-subtitle class="pb-0">
-          Operation type: {{ operationType }}
+        <v-card-subtitle class="pb-0 d-flex">
+          <div class="mr-5" style="width: 150px">
+            <div class="mb-2">Operation type: {{ operationType }}</div>
+            <div>Balance: {{ $gameUserData.cash }}</div>
+          </div>
           <FSwitch
+            style="width: 150px"
             label="Change price:"
             v-model="changePriceDisabled"
             :valueText="changePriceDisabled ? 'disabled' : 'enabled'"
@@ -54,21 +58,8 @@
         </v-card-text>
 
         <v-card-actions class="px-5 pt-0 pb-5">
-          <v-btn
-            color="green"
-            @click="close()"
-            block
-            v-if="activeTab === 'buy'"
-          >
-            {{ $t("buttons.buy") }}
-          </v-btn>
-          <v-btn
-            color="red"
-            @click="changePassword"
-            block
-            v-if="activeTab === 'sell'"
-          >
-            {{ $t("buttons.sell") }}
+          <v-btn :color="buttonOptions.color" @click="makeAction" block>
+            {{ buttonOptions.text }}
           </v-btn>
         </v-card-actions>
       </v-form>
@@ -78,7 +69,6 @@
 
 <script>
 import modal from "@mixins/modal";
-import { api } from "@api";
 
 export default {
   name: "BuySell",
@@ -104,12 +94,32 @@ export default {
     },
     operationType() {
       return this.operationPrice === this.cryptoData.currentPrice
-        ? "taker"
-        : "maker";
+        ? "TAKER"
+        : "MAKER";
     },
 
     operationTotal() {
       return this.operationPrice * this.operationCount;
+    },
+
+    buttonOptions() {
+      let options = {};
+
+      options.color = this.activeTab === "buy" ? "green" : "red";
+
+      if (this.operationType === "TAKER") {
+        options.text =
+          this.activeTab === "buy"
+            ? this.$t("buttons.buy")
+            : this.$t("buttons.sell");
+      } else {
+        options.text =
+          this.activeTab === "buy"
+            ? this.$t("buttons.long")
+            : this.$t("buttons.short");
+      }
+
+      return options;
     }
   },
 
@@ -136,23 +146,21 @@ export default {
   methods: {
     updateOperationPriceIfTaker() {
       if (this.changePriceDisabled) {
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
         this.operationPrice = this.cryptoData.currentPrice;
       }
     },
 
-    async changePassword() {
-      if (this.$refs.changePassword.validate()) {
-        await api.userSettings
-          .changePassword(this.formData)
-          .then(() => {
-            this.$noti().info("ffff");
-            this.close(true);
-          })
-          .catch(() => {
-            this.$noti().error("ffff");
-          });
-      }
+    makeAction() {
+      let data = {
+        buySell: this.activeTab,
+        operationType: this.operationType,
+        operationPrice: this.operationPrice,
+        operationCount: this.operationCount,
+        operationTotal: this.operationTotal
+      };
+
+      console.table(data);
+      // this.close()
     }
   }
 };

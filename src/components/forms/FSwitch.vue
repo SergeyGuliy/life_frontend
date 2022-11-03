@@ -1,8 +1,7 @@
 <template>
   <div>
-    <div class="label mb-2">{{ label }}</div>
+    <div class="label mb-2" style="flex: 0;">{{ label }}</div>
     <v-switch
-      inset
       class="mt-0 mb-6 ml-2"
       v-model="localValue"
       :label="valueText"

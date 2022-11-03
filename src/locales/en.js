@@ -66,7 +66,9 @@ export const en = {
     connectsOutgoingPending: "Outgoing requests",
     connectsIncomingIgnored: "Ignored list",
     buy: "buy",
-    sell: "sell"
+    sell: "sell",
+    short: "short",
+    long: "long"
   },
   enums: {
     ROOM_ADMIN: "Room Admin",
