@@ -1,3 +1,5 @@
+import { api } from "@/utils/api";
+
 export default {
   computed: {
     $gameId: {
@@ -39,6 +41,16 @@ export default {
       set(val) {
         this.$store.commit("game/setGameUserData", val);
       }
+    }
+  },
+
+  methods: {
+    $gameAction(actionModule, actionMethod, actionData) {
+      return api.games.userEvent({
+        actionModule,
+        actionMethod,
+        actionData
+      });
     }
   }
 };

@@ -9,7 +9,7 @@
     <v-card class="CreateRoom">
       <v-form ref="changePassword">
         <v-card-title class="pb-0">
-          {{ data.name }}
+          {{ data.name }} {{ cryptoData.currentPrice }} $
         </v-card-title>
 
         <v-tabs v-model="tabIndex" fixed-tabs>
@@ -21,7 +21,7 @@
         <v-card-subtitle class="pb-0 d-flex">
           <div class="mr-5" style="width: 150px">
             <div class="mb-2">Operation type: {{ operationType }}</div>
-            <div>Balance: {{ $gameUserData.cash }}</div>
+            <div>Cash: {{ $gameUserData.cash }} $</div>
           </div>
           <FSwitch
             style="width: 150px"
@@ -58,7 +58,12 @@
         </v-card-text>
 
         <v-card-actions class="px-5 pt-0 pb-5">
-          <v-btn :color="buttonOptions.color" @click="makeAction" block>
+          <v-btn
+            :color="buttonOptions.color"
+            @click="makeAction"
+            block
+            :loading="loading"
+          >
             {{ buttonOptions.text }}
           </v-btn>
         </v-card-actions>
@@ -137,6 +142,7 @@ export default {
       tabs: ["buy", "sell"],
       tabIndex: 0,
 
+      loading: false,
       changePriceDisabled: true,
 
       operationPrice: 0,
@@ -159,7 +165,15 @@ export default {
         operationTotal: this.operationTotal
       };
 
-      console.table(data);
+      this.loading = true;
+      this.$gameAction("gamesCryptos", "buySell", data)
+        .then(res => {
+          console.log(res);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+
       // this.close()
     }
   }
