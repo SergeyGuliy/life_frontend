@@ -158,6 +158,7 @@ export default {
 
     makeAction() {
       let data = {
+        name: this.data.name,
         buySell: this.activeTab,
         operationType: this.operationType,
         operationPrice: this.operationPrice,
@@ -168,7 +169,7 @@ export default {
       this.loading = true;
       this.$gameAction("gamesCryptos", "buySell", data)
         .then(res => {
-          console.log(res);
+          this.$gameUserData = res;
         })
         .finally(() => {
           this.loading = false;

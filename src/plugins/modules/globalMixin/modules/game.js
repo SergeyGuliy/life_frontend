@@ -49,7 +49,10 @@ export default {
       return api.games.userEvent({
         actionModule,
         actionMethod,
-        actionData
+        actionData: {
+          ...actionData,
+          gameId: this.$gameId
+        }
       });
     }
   }
