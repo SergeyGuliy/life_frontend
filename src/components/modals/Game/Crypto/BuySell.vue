@@ -7,7 +7,7 @@
     @click:outside.prevent.stop="close()"
   >
     <v-card class="CreateRoom">
-      <v-form ref="changePassword">
+      <v-form ref="buySell" v-model="valid">
         <v-card-title class="pb-0">
           {{ data.name }} {{ cryptoData.currentPrice }} $
           <v-spacer />
@@ -25,7 +25,7 @@
         <v-card-subtitle class="pb-0 d-flex">
           <div class="mr-5" style="width: 150px">
             <div class="mb-2">Operation type: {{ operationType }}</div>
-            <div class="mb-2">Cash: {{ $gameUserData.cash }} $</div>
+            <div class="mb-2">Cash: {{ $gameUserCash }} $</div>
             <div class="mb-4">
               Balance: {{ userCrypto.count }} {{ data.name }}
             </div>
@@ -40,15 +40,17 @@
 
         <v-card-text>
           <v-text-field
-            v-model="operationPrice"
+            v-model.number="operationPrice"
             :label="$t('forms.labels.enterOldPassword')"
+            :rules="[...rules.number]"
             :disabled="changePriceDisabled"
             outlined
             dense
             type="number"
           />
           <v-text-field
-            v-model="operationCount"
+            v-model.number="operationCount"
+            :rules="[...rules.number, ...rules.operationCount]"
             :label="$t('forms.labels.enterOldPassword')"
             outlined
             dense
@@ -70,6 +72,7 @@
             @click="makeAction"
             block
             :loading="loading"
+            :disabled="!valid"
           >
             {{ buttonOptions.text }}
           </v-btn>
@@ -91,6 +94,10 @@ export default {
     this.updateOperationPriceIfTaker();
   },
 
+  mounted() {
+    this.$refs?.buySell?.validate();
+  },
+
   computed: {
     userCrypto() {
       let userCrypto = this.$gameUserData.cryptos.find(
@@ -109,8 +116,7 @@ export default {
         return this.tabs[this.tabIndex];
       },
       set(val) {
-        let index = this.tabs.findIndex(item => item === val);
-        this.tabIndex = index;
+        this.tabIndex = this.tabs.findIndex(item => item === val);
       }
     },
     cryptoData() {
@@ -153,11 +159,34 @@ export default {
     },
     changePriceDisabled() {
       this.updateOperationPriceIfTaker();
+    },
+    activeTab() {
+      this.$refs?.buySell?.validate();
     }
   },
 
   data() {
     return {
+      rules: {
+        number: [
+          v => !!v || "Can't be empty",
+          v => typeof v === "number" || "Must be number",
+          v => v > 0 || "Must be positive value"
+        ],
+        operationCount: [
+          v => {
+            if (this.activeTab === "SELL") {
+              return v <= this.userCrypto.count || "Not enough crypto";
+            }
+            return (
+              this.$gameUserCash >= this.operationTotal || "Not enough cash"
+            );
+          }
+        ]
+      },
+
+      valid: false,
+
       tabs: ["BUY", "SELL"],
       tabIndex: 0,
 
@@ -176,6 +205,8 @@ export default {
     },
 
     makeAction() {
+      if (!this.$refs.buySell.validate()) return;
+
       let data = {
         name: this.data.name,
         buySell: this.activeTab,

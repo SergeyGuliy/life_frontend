@@ -71,20 +71,20 @@ export default {
   },
   methods: {
     login() {
-      if (this.$refs.form.validate()) {
-        this.$store
-          .dispatch("auth/logIn", {
-            email: this.authData.email,
-            password: this.authData.password
-          })
-          .then(() => {
-            this.$vuetify.theme.dark = this.$store.state.user.user.isDarkTheme;
-            this.$router.push({ name: "Home" });
-          })
-          .catch(e => {
-            this.$emit("onError", e);
-          });
-      }
+      if (!this.$refs.form.validate()) return;
+
+      this.$store
+        .dispatch("auth/logIn", {
+          email: this.authData.email,
+          password: this.authData.password
+        })
+        .then(() => {
+          this.$vuetify.theme.dark = this.$store.state.user.user.isDarkTheme;
+          this.$router.push({ name: "Home" });
+        })
+        .catch(e => {
+          this.$emit("onError", e);
+        });
     }
   }
 };

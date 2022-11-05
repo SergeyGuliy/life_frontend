@@ -45,6 +45,9 @@ export default {
       set(val) {
         this.$store.commit("game/setGameUserData", val);
       }
+    },
+    $gameUserCash() {
+      return this.$store.state.game?.gameUserData.cash;
     }
   },
 

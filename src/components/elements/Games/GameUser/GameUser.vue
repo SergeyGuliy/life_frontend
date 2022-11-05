@@ -5,6 +5,11 @@
       <v-spacer></v-spacer>
       {{ $user | getUserName }}
     </v-card-title>
+    <v-card-title>
+      Cash:
+      <v-spacer></v-spacer>
+      {{ $gameUserCash }} $
+    </v-card-title>
 
     <GameUserWork />
 

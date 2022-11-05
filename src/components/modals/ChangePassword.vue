@@ -123,17 +123,17 @@ export default {
   },
   methods: {
     async changePassword() {
-      if (this.$refs.changePassword.validate()) {
-        await api.userSettings
-          .changePassword(this.formData)
-          .then(() => {
-            this.$noti().info("ffff");
-            this.close(true);
-          })
-          .catch(() => {
-            this.$noti().error("ffff");
-          });
-      }
+      if (!this.$refs.changePassword.validate()) return;
+
+      await api.userSettings
+        .changePassword(this.formData)
+        .then(() => {
+          this.$noti().info("ffff");
+          this.close(true);
+        })
+        .catch(() => {
+          this.$noti().error("ffff");
+        });
     }
   }
 };
