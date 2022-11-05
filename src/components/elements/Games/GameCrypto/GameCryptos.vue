@@ -1,10 +1,9 @@
 <template>
-  <v-card class="GameUserData" v-if="$gameCryptos?.length">
+  <v-card class="GameUserData" v-if="$gameCryptos && $gameCryptos.length">
     <v-data-table
       :headers="cryptosHeaders"
-      :items="localCryptos"
-      :single-expand="false"
-      :expanded.sync="expanded"
+      :items="filteredCryptos"
+      :single-expand="true"
       item-key="name"
       show-expand
       dense
@@ -12,6 +11,15 @@
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>Cryptos</v-toolbar-title>
+          <v-spacer />
+          <v-text-field
+            style="max-width: 120px"
+            v-model="filterName"
+            dense
+            hide-details
+            outlined
+            prepend-inner-icon="mdi-filter"
+          />
         </v-toolbar>
       </template>
       <template v-slot:item.currentPrice="{ item }">
@@ -30,7 +38,7 @@
       </template>
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
-          <GameCryptoGraph :crypto="item" />
+          <GameCryptoGraph :crypto="item" :key="item.name" />
         </td>
       </template>
       <template v-slot:item.actions="{ item }">
@@ -61,13 +69,21 @@ export default {
         ...crypto,
         grow_loss: this.getPriceChange(crypto)
       }));
+    },
+    filteredCryptos() {
+      if (this.filterName) {
+        return this.localCryptos.filter(({ name }) =>
+          name.includes(this.filterName.toUpperCase())
+        );
+      }
+      return this.localCryptos;
     }
   },
 
   data() {
     return {
-      expanded: [],
-      singleExpand: false,
+      filterName: "",
+
       cryptosHeaders: [
         {
           text: "Name",
