@@ -27,13 +27,13 @@
       </template>
       <template v-slot:item.grow_loss="{ item }">
         <v-chip
-          :color="getChipColor(item)"
+          :color="item.grow_loss > 0 ? 'green' : 'red'"
           text-color="white"
           label
           small
           style="height: 20px; width: 100%; display: flex; justify-content: center"
         >
-          {{ item.grow_loss }}
+          {{ item.grow_loss }} %
         </v-chip>
       </template>
       <template v-slot:expanded-item="{ headers, item }">
@@ -64,19 +64,13 @@ export default {
   },
 
   computed: {
-    localCryptos() {
-      return this.$gameCryptos.map(crypto => ({
-        ...crypto,
-        grow_loss: this.getPriceChange(crypto)
-      }));
-    },
     filteredCryptos() {
       if (this.filterName) {
-        return this.localCryptos.filter(({ name }) =>
+        return this.$gameCryptos.filter(({ name }) =>
           name.includes(this.filterName.toUpperCase())
         );
       }
-      return this.localCryptos;
+      return this.$gameCryptos;
     }
   },
 
@@ -110,19 +104,6 @@ export default {
   },
 
   methods: {
-    getPriceChange({ currentPrice, previousPrice }) {
-      return createNumber(currentPrice / previousPrice)
-        .changePrise()
-        .round()
-        .getPercent();
-    },
-    getChipColor({ currentPrice, previousPrice }) {
-      return createNumber(currentPrice / previousPrice)
-        .changePrise()
-        .getNum() > 0
-        ? "green"
-        : "red";
-    },
     getCurrentPrice(currentPrice) {
       return createNumber(currentPrice)
         .round()

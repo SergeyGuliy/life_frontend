@@ -10,6 +10,10 @@
       <v-form ref="changePassword">
         <v-card-title class="pb-0">
           {{ data.name }} {{ cryptoData.currentPrice }} $
+          <v-spacer />
+          <v-chip :color="cryptoData.grow_loss > 0 ? 'green' : 'red'" label>
+            {{ cryptoData.grow_loss }} %
+          </v-chip>
         </v-card-title>
 
         <v-tabs v-model="tabIndex" fixed-tabs>
@@ -21,7 +25,10 @@
         <v-card-subtitle class="pb-0 d-flex">
           <div class="mr-5" style="width: 150px">
             <div class="mb-2">Operation type: {{ operationType }}</div>
-            <div>Cash: {{ $gameUserData.cash }} $</div>
+            <div class="mb-2">Cash: {{ $gameUserData.cash }} $</div>
+            <div class="mb-4">
+              Balance: {{ userCrypto.count }} {{ data.name }}
+            </div>
           </div>
           <FSwitch
             style="width: 150px"
@@ -49,7 +56,7 @@
           />
           <v-text-field
             :value="operationTotal"
-            readonly
+            disabled
             :label="$t('forms.labels.enterOldPassword')"
             outlined
             dense
@@ -85,6 +92,18 @@ export default {
   },
 
   computed: {
+    userCrypto() {
+      let userCrypto = this.$gameUserData.cryptos.find(
+        ({ name }) => name === this.data.name
+      );
+      let defaultCrypto = {
+        count: 0,
+        name: this.data.name
+      };
+
+      return userCrypto || defaultCrypto;
+    },
+
     activeTab: {
       get() {
         return this.tabs[this.tabIndex];
@@ -110,16 +129,16 @@ export default {
     buttonOptions() {
       let options = {};
 
-      options.color = this.activeTab === "buy" ? "green" : "red";
+      options.color = this.activeTab === "BUY" ? "green" : "red";
 
       if (this.operationType === "TAKER") {
         options.text =
-          this.activeTab === "buy"
+          this.activeTab === "BUY"
             ? this.$t("buttons.buy")
             : this.$t("buttons.sell");
       } else {
         options.text =
-          this.activeTab === "buy"
+          this.activeTab === "BUY"
             ? this.$t("buttons.long")
             : this.$t("buttons.short");
       }
@@ -139,7 +158,7 @@ export default {
 
   data() {
     return {
-      tabs: ["buy", "sell"],
+      tabs: ["BUY", "SELL"],
       tabIndex: 0,
 
       loading: false,

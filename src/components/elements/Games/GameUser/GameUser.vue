@@ -9,6 +9,7 @@
     <GameUserWork />
 
     <v-card-actions>
+      <pre>{{ $gameUserData.cryptos }}</pre>
       <!--      <v-btn @click="skipRound" block>-->
       <!--        Vote for game pause-->
       <!--      </v-btn>-->

@@ -1,4 +1,5 @@
 import { api } from "@/utils/api";
+import { createNumber } from "@/utils/createNumber";
 
 export default {
   computed: {
@@ -28,7 +29,10 @@ export default {
     },
     $gameCryptos: {
       get() {
-        return this.$store.state.game?.gameCryptos;
+        return this.$store.state.game?.gameCryptos.map(crypto => ({
+          ...crypto,
+          grow_loss: getPriceChange(crypto)
+        }));
       },
       set(val) {
         this.$store.commit("game/setGameCryptos", val);
@@ -57,3 +61,10 @@ export default {
     }
   }
 };
+
+function getPriceChange({ currentPrice, previousPrice }) {
+  return createNumber(currentPrice / previousPrice)
+    .changePrise()
+    .round()
+    .getNum();
+}
