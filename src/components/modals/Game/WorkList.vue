@@ -11,8 +11,6 @@
         Available works:
       </v-card-title>
 
-      <pre>{{ works }}</pre>
-
       <v-list-item v-for="(work, index) in works" :key="index">
         <v-list-item-avatar>
           <v-icon class="blue" dark text="mdi-gesture-tap-button"></v-icon>
