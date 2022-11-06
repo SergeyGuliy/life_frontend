@@ -66,15 +66,8 @@ export default {
           this.$gameUserData = newUserData;
         });
     },
-    findJob() {
-      // this.$gameAction("gamesWork", "getWorksList")
-      // this.workMock = {
-      //   name: "FrontEnd",
-      //   scope: "IT",
-      //   salary_excludes_taxes: "1000 $",
-      //   taxes: "10 %",
-      //   salary_includes_taxes: "900 $"
-      // };
+    async findJob() {
+      await this.$openModal("Game/Work").catch(() => {});
     }
   }
 };

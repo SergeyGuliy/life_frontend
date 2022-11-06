@@ -25,8 +25,15 @@ export default {
 
   data() {
     return {
-      loading: true
+      loading: true,
+
+      timer: null,
+      tickTime: 0
     };
+  },
+
+  beforeDestroy() {
+    clearInterval(this.timer);
   },
 
   async $initSocketListener() {
@@ -54,9 +61,18 @@ export default {
 
   methods: {
     tickGameData({ date, shares, cryptos }) {
+      console.error("tickGameData");
       this.$gameDate = date;
       this.$gameShares = shares;
       this.$gameCryptos = cryptos;
+
+      this.tickTime = 49;
+      clearInterval(this.timer);
+      this.timer = setInterval(() => {
+        console.log(`Time till end: ${this.tickTime} seconds.`);
+
+        this.tickTime = this.tickTime - 1;
+      }, 1000);
     },
 
     tickUserData(userData) {
