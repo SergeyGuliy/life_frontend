@@ -3,14 +3,55 @@
     persistent
     class="p-2"
     :value="!!component"
-    width="500"
+    width="700"
     @click:outside.prevent.stop="close()"
   >
     <v-card class="WorkList" v-if="works">
       <v-card-title class="pb-0">
         Available works:
       </v-card-title>
+
       <pre>{{ works }}</pre>
+
+      <v-list-item v-for="(work, index) in works" :key="index">
+        <v-list-item-avatar>
+          <v-icon class="blue" dark text="mdi-gesture-tap-button"></v-icon>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title> Position: {{ work.name }} </v-list-item-title>
+
+          <v-list-item-subtitle>
+            Sector: {{ work.economicSectors }}
+          </v-list-item-subtitle>
+          <v-list-item-subtitle v-if="work.salary && work.interviewPassed">
+            Salary: {{ work.salary }} $
+          </v-list-item-subtitle>
+          <v-list-item-subtitle v-else>
+            Salary: {{ work.baseSalary.min }} $ - {{ work.baseSalary.max }} $
+          </v-list-item-subtitle>
+        </v-list-item-content>
+
+        <v-list-item-action>
+          <v-btn
+            v-if="!work.interviewVisited"
+            large
+            @click="goToJobInterview(work.key)"
+          >
+            Go to interview
+          </v-btn>
+          <v-btn
+            v-else-if="work.interviewPassed"
+            large
+            @click="acceptWork(work.key)"
+          >
+            Accept invoice
+          </v-btn>
+          <v-btn v-else large>
+            You had fail interview
+          </v-btn>
+        </v-list-item-action>
+      </v-list-item>
     </v-card>
   </v-dialog>
 </template>
@@ -24,11 +65,13 @@ export default {
   mixins: [modal],
 
   created() {
+    if (this.$gameUserWork) this.close();
     this.fetchWorksList();
   },
 
   watch: {
     $gameDate() {
+      if (this.$gameUserWork) this.close();
       this.fetchWorksList();
     }
   },
@@ -42,8 +85,20 @@ export default {
   methods: {
     fetchWorksList() {
       this.$gameAction("gamesWork", "getWorksList").then(worksList => {
-        console.log(worksList);
         this.works = worksList;
+      });
+    },
+
+    goToJobInterview(key) {
+      this.$gameAction("gamesWork", "goToJobInterview", key).then(worksList => {
+        this.works = worksList;
+      });
+    },
+
+    acceptWork(key) {
+      this.$gameAction("gamesWork", "acceptWork", key).then(userData => {
+        this.$gameUserData = userData;
+        this.close();
       });
     }
   }

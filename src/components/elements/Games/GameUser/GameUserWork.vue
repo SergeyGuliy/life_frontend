@@ -67,7 +67,7 @@ export default {
         });
     },
     async findJob() {
-      await this.$openModal("Game/Work").catch(() => {});
+      await this.$openModal("Game/WorkList").catch(() => {});
     }
   }
 };
