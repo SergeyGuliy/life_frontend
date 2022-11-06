@@ -84,6 +84,7 @@
 
 <script>
 import modal from "@mixins/modal";
+import { $mChain } from "@/utils/mathjs";
 
 export default {
   name: "BuySell",
@@ -129,7 +130,10 @@ export default {
     },
 
     operationTotal() {
-      return this.operationPrice * this.operationCount;
+      return $mChain(this.operationPrice)
+        .multiply(this.operationCount)
+        .round(2)
+        .done();
     },
 
     buttonOptions() {

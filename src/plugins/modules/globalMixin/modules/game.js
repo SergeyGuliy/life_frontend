@@ -1,5 +1,5 @@
 import { api } from "@/utils/api";
-import { createNumber } from "@/utils/createNumber";
+import { $mChangePrise } from "@/utils/mathjs";
 
 export default {
   computed: {
@@ -31,7 +31,7 @@ export default {
       get() {
         return this.$store.state.game?.gameCryptos.map(crypto => ({
           ...crypto,
-          grow_loss: getPriceChange(crypto)
+          grow_loss: $mChangePrise(crypto.currentPrice, crypto.previousPrice)
         }));
       },
       set(val) {
@@ -64,10 +64,3 @@ export default {
     }
   }
 };
-
-function getPriceChange({ currentPrice, previousPrice }) {
-  return createNumber(currentPrice / previousPrice)
-    .changePrise()
-    .round()
-    .getNum();
-}

@@ -1,5 +1,10 @@
 import moment from "moment/moment";
-import { createNumber } from "@/utils/createNumber";
+import {
+  $mChain,
+  $mChangePrise,
+  $mGetPercent,
+  $mGetPrice
+} from "@/utils/mathjs";
 
 function generateTooltip({ seriesIndex, dataPointIndex, w }) {
   let { y, x } = w.globals.initialSeries[seriesIndex].data[dataPointIndex];
@@ -8,19 +13,13 @@ function generateTooltip({ seriesIndex, dataPointIndex, w }) {
   let prev = y[0];
   let cur = y[3];
 
-  let dif = createNumber(cur / prev)
-    .changePrise()
-    .round();
+  let dif = $mChangePrise(cur, prev);
+  const color = dif > 0 ? "green" : "red";
+  const difStr = $mGetPercent(dif);
 
-  const color = dif.number > 0 ? "green" : "red";
-  let difStr = dif.getPercent();
+  let prevStr = $mGetPrice($mChain(prev).round(2));
 
-  let prevStr = createNumber(prev)
-    .round()
-    .getPrice();
-  let curStr = createNumber(cur)
-    .round()
-    .getPrice();
+  let curStr = $mGetPrice($mChain(cur).round(2));
 
   return `
       <table style="background-color: #555555; padding: 3px">
@@ -57,9 +56,7 @@ export const options = {
   yaxis: {
     labels: {
       formatter(val) {
-        return createNumber(val)
-          .round(0)
-          .getPrice();
+        return $mGetPrice($mChain(val).round(2));
       }
     },
     tooltip: {

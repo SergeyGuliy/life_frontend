@@ -22,9 +22,6 @@
           />
         </v-toolbar>
       </template>
-      <template v-slot:item.currentPrice="{ item }">
-        {{ getCurrentPrice(item.currentPrice) }}
-      </template>
       <template v-slot:item.grow_loss="{ item }">
         <v-chip
           :color="item.grow_loss > 0 ? 'green' : 'red'"
@@ -54,8 +51,6 @@
 </template>
 
 <script>
-import { createNumber } from "@/utils/createNumber";
-
 export default {
   name: "GameCryptos",
 
@@ -104,12 +99,6 @@ export default {
   },
 
   methods: {
-    getCurrentPrice(currentPrice) {
-      return createNumber(currentPrice)
-        .round()
-        .getPrice();
-    },
-
     async buy({ name }) {
       await this.$openModal("Game/Crypto/BuySell", {
         type: "BUY",
