@@ -48,18 +48,24 @@ export default {
     },
     $gameUserCash() {
       return this.$store.state.game?.gameUserData.cash;
+    },
+    $gameUserWork: {
+      get() {
+        return this.$gameUserData?.work;
+      },
+      set(val) {
+        this.$gameUserData.work = val;
+      }
     }
   },
 
   methods: {
-    $gameAction(actionModule, actionMethod, actionData) {
+    $gameAction(actionModule, actionMethod, actionData = {}) {
       return api.games.userEvent({
         actionModule,
         actionMethod,
-        actionData: {
-          ...actionData,
-          gameId: this.$gameId
-        }
+        gameId: this.$gameId,
+        actionData
       });
     }
   }

@@ -6,11 +6,12 @@
       {{ getWorkName }}
     </v-card-title>
 
+    <pre>{{ $gameUserWork }}</pre>
     <v-simple-table v-if="isWorkExist">
       <template v-slot:default>
         <thead>
           <tr>
-            <th>Scope of work</th>
+            <th>Sector of work</th>
             <th>Salary</th>
             <th>Taxes</th>
             <th class="text-right">Salary including taxes</th>
@@ -18,10 +19,10 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ workMock.scope }}</td>
-            <td>{{ workMock.salary_excludes_taxes }}</td>
-            <td>{{ workMock.taxes }}</td>
-            <td class="text-right">{{ workMock.salary_includes_taxes }}</td>
+            <td>{{ $gameUserWork.economicSectors }}</td>
+            <td>{{ $gameUserWork.salary }}</td>
+            <td>''</td>
+            <td class="text-right">''</td>
           </tr>
         </tbody>
       </template>
@@ -42,43 +43,38 @@
 export default {
   name: "GameUserWork",
 
-  data() {
-    return {
-      workMock: {
-        name: "FrontEnd",
-        scope: "IT",
-        salary_excludes_taxes: 1000,
-        taxes: "10 %",
-        salary_includes_taxes: 900
-      }
-    };
-  },
-
   computed: {
-    work() {
-      return this.$gameUserData.work;
-    },
-
     isWorkExist() {
-      return !!this.workMock?.name;
+      return !!this.$gameUserWork;
     },
     getWorkName() {
-      return this.isWorkExist ? this.workMock.name : "Unemployed";
+      return this.isWorkExist ? this.$gameUserWork.name : "Unemployed";
     }
   },
 
   methods: {
     quitYourJob() {
-      this.workMock = null;
+      if (!this.$gameUserWork) return;
+
+      this.$openModal("Promt", {
+        title: `You want to leave your work?`,
+        submit: "Leave",
+        cancel: this.$t("buttons.cancel")
+      })
+        .then(() => this.$gameAction("gamesWork", "leaveWork"))
+        .then(newUserData => {
+          this.$gameUserData = newUserData;
+        });
     },
     findJob() {
-      this.workMock = {
-        name: "FrontEnd",
-        scope: "IT",
-        salary_excludes_taxes: "1000 $",
-        taxes: "10 %",
-        salary_includes_taxes: "900 $"
-      };
+      // this.$gameAction("gamesWork", "getWorksList")
+      // this.workMock = {
+      //   name: "FrontEnd",
+      //   scope: "IT",
+      //   salary_excludes_taxes: "1000 $",
+      //   taxes: "10 %",
+      //   salary_includes_taxes: "900 $"
+      // };
     }
   }
 };
