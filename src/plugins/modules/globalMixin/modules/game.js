@@ -51,7 +51,6 @@ export default {
         return this.$store.state.game?.modifiers;
       },
       set(val) {
-        console.log(val);
         this.$store.commit("game/setGameModifiers", val);
       }
     },

@@ -89,7 +89,7 @@ export default {
   data() {
     return {
       gameSettings: {
-        timePerTurn: 20,
+        timePerTurn: 10,
         timeAdditional: 180,
         gameYearsCount: 40 * 12
       }

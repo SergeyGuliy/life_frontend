@@ -3,8 +3,8 @@
     <template #leftCol>
       <GameDate />
       <GameUser />
-      $gameCredits
-      <pre>{{ $gameCredits }}</pre>
+      <!--      $gameCredits-->
+      <!--      <pre>{{ $gameCredits }}</pre>-->
       $gameModifiers
       <pre>{{ $gameModifiers }}</pre>
     </template>
@@ -72,7 +72,7 @@ export default {
       this.$gameCredits = credits;
       this.$gameModifiers = modifiers;
 
-      this.tickTime = 20;
+      this.tickTime = 10;
       clearInterval(this.timer);
       this.timer = setInterval(() => {
         console.log(`Time till end: ${this.tickTime} seconds.`);
