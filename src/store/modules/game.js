@@ -5,7 +5,9 @@ export default {
     gameDate: null,
     gameShares: null,
     gameCryptos: null,
-    gameUserData: null
+    gameUserData: null,
+    credits: null,
+    modifiers: null
   },
   mutations: {
     setGameId(state, gameId) {
@@ -19,6 +21,12 @@ export default {
     },
     setGameCryptos(state, gameCryptos) {
       state.gameCryptos = gameCryptos;
+    },
+    setGameCredits(state, credits) {
+      state.credits = credits;
+    },
+    setGameModifiers(state, modifiers) {
+      state.modifiers = modifiers;
     },
     setGameUserData(state, gameUserData) {
       state.gameUserData = gameUserData;

@@ -38,6 +38,23 @@ export default {
         this.$store.commit("game/setGameCryptos", val);
       }
     },
+    $gameCredits: {
+      get() {
+        return this.$store.state.game?.credits;
+      },
+      set(val) {
+        this.$store.commit("game/setGameCredits", val);
+      }
+    },
+    $gameModifiers: {
+      get() {
+        return this.$store.state.game?.modifiers;
+      },
+      set(val) {
+        console.log(val);
+        this.$store.commit("game/setGameModifiers", val);
+      }
+    },
     $gameUserData: {
       get() {
         return this.$store.state.game?.gameUserData;

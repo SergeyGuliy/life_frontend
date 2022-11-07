@@ -3,7 +3,10 @@
     <template #leftCol>
       <GameDate />
       <GameUser />
-      <pre></pre>
+      $gameCredits
+      <pre>{{ $gameCredits }}</pre>
+      $gameModifiers
+      <pre>{{ $gameModifiers }}</pre>
     </template>
     <template #rightCol>
       <GameCryptos />
@@ -60,13 +63,16 @@ export default {
   },
 
   methods: {
-    tickGameData({ date, shares, cryptos }) {
+    tickGameData({ date, shares, cryptos, credits, modifiers }) {
       console.error("tickGameData");
       this.$gameDate = date;
       this.$gameShares = shares;
       this.$gameCryptos = cryptos;
+      this.$gameCryptos = cryptos;
+      this.$gameCredits = credits;
+      this.$gameModifiers = modifiers;
 
-      this.tickTime = 49;
+      this.tickTime = 20;
       clearInterval(this.timer);
       this.timer = setInterval(() => {
         console.log(`Time till end: ${this.tickTime} seconds.`);

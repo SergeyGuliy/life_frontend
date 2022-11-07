@@ -6,7 +6,6 @@
       {{ getWorkName }}
     </v-card-title>
 
-    <pre>{{ $gameUserWork }}</pre>
     <v-simple-table v-if="isWorkExist">
       <template v-slot:default>
         <thead>
