@@ -1,4 +1,4 @@
-import { create, all, multiply, add, round, divide } from "mathjs";
+import { create, all, multiply, add, round, divide, random } from "mathjs";
 
 import { customFunctions } from "./custom-functions";
 
@@ -33,6 +33,31 @@ function $mChangePrise(oldPrice, newPrice) {
   return round(+dif, 2);
 }
 
+function $mRoundUpper(val, roundUpper) {
+  const minus = $m
+    .chain(val)
+    .mod(roundUpper)
+    .done();
+  return $m.chain(val).subtract(minus);
+}
+
+function $mBasicParams(base, delta, step = 0.05, roundLess = 2) {
+  const min = base - delta;
+  const max = base + delta;
+  return $mRoundUpper(random(min, max), step)
+    .round(roundLess)
+    .done();
+}
+
+function $mGenerateLine(duration, start, target) {
+  const randomizer = (target - start) / duration;
+
+  return [...Array(duration).keys()].map(i => {
+    const localTarget = randomizer * i + start;
+    return $mBasicParams(localTarget, randomizer, 0.01, 2);
+  });
+}
+
 function $mGetPrice(original) {
   return `${original} $`;
 }
@@ -46,5 +71,7 @@ export {
   $mMedian,
   $mChangePrise,
   $mGetPrice,
-  $mGetPercent
+  $mGetPercent,
+  $mBasicParams,
+  $mGenerateLine
 };

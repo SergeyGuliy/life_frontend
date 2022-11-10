@@ -5,8 +5,9 @@
       <GameUser />
       <!--      $gameCredits-->
       <!--      <pre>{{ $gameCredits }}</pre>-->
-      $gameModifiers
-      <pre>{{ $gameModifiers }}</pre>
+      <!--      $gameModifiers-->
+      <!--      <pre>{{ $gameModifiers }}</pre>-->
+      <GameModificationGraph />
     </template>
     <template #rightCol>
       <GameCryptos />
@@ -23,7 +24,9 @@ export default {
   components: {
     GameDate: () => import("./GameDate"),
     GameUser: () => import("./GameUser/GameUser"),
-    GameCryptos: () => import("./GameCrypto/GameCryptos")
+    GameCryptos: () => import("./GameCrypto/GameCryptos"),
+    GameModificationGraph: () =>
+      import("./GameModification/GameModificationGraph")
   },
 
   data() {
@@ -88,4 +91,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss"></style>

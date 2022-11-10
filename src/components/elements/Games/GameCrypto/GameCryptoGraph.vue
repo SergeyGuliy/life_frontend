@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import VueApexCharts from "vue-apexcharts";
 import { options } from "./graphOptions";
 
 export default {
@@ -19,7 +18,7 @@ export default {
     };
   },
 
-  components: { apexchart: VueApexCharts },
+  components: { apexchart: () => import("vue-apexcharts") },
 
   props: {
     crypto: {}
