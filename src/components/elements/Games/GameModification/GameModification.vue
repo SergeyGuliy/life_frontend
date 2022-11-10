@@ -37,7 +37,6 @@ export default {
       return this.$gameModifiers?.basic;
     },
     tickModifiers() {
-      console.log(this.$gameModifiers);
       return {
         inflation: this.$gameModifiers.inflation.month1,
         keyRate: this.$gameModifiers.keyRate.month1,
@@ -48,5 +47,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>
