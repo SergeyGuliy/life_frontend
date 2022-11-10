@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import { $mGenerateLine } from "@/utils/mathjs";
-
 export default {
   name: "GameModificationGraph",
 
@@ -12,29 +10,34 @@ export default {
     apexchart: () => import("vue-apexcharts")
   },
 
-  data() {
-    return {
-      series: [
+  props: {
+    inflation: {
+      type: Array,
+      required: true
+    },
+    keyRate: {
+      type: Array,
+      required: true
+    }
+  },
+
+  computed: {
+    series() {
+      return [
         {
           name: "Inflation",
-          data: [
-            ...$mGenerateLine(30, 0, 3)
-            // ...$mGenerateLine(5, 3, 1),
-            // ...$mGenerateLine(8, 1, 10),
-            // ...$mGenerateLine(15, 10, 50),
-            // ...$mGenerateLine(10, 50, 5),
-            // ...$mGenerateLine(5, 5, 50),
-          ]
+          data: this.inflation
+        },
+        {
+          name: "Key rate",
+          data: this.keyRate
         }
-        // {
-        //   name: "Key rate",
-        //   data: $mGenerateLine(30, 4)
-        // },
-        // {
-        //   name: "GDP",
-        //   data: $mGenerateLine(30, 1)
-        // }
-      ],
+      ];
+    }
+  },
+
+  data() {
+    return {
       options: {
         chart: {
           height: 350,

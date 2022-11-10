@@ -6,11 +6,10 @@
       <!--      $gameCredits-->
       <!--      <pre>{{ $gameCredits }}</pre>-->
       <!--      $gameModifiers-->
-      <!--      <pre>{{ $gameModifiers }}</pre>-->
-      <GameModificationGraph />
     </template>
     <template #rightCol>
       <GameCryptos />
+      <GameModification />
     </template>
   </Grid>
 </template>
@@ -25,8 +24,7 @@ export default {
     GameDate: () => import("./GameDate"),
     GameUser: () => import("./GameUser/GameUser"),
     GameCryptos: () => import("./GameCrypto/GameCryptos"),
-    GameModificationGraph: () =>
-      import("./GameModification/GameModificationGraph")
+    GameModification: () => import("./GameModification/GameModification")
   },
 
   data() {
