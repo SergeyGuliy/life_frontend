@@ -18,6 +18,14 @@ export default {
     keyRate: {
       type: Array,
       required: true
+    },
+    unemployment: {
+      type: Array,
+      required: true
+    },
+    GDP: {
+      type: Array,
+      required: true
     }
   },
 
@@ -31,6 +39,14 @@ export default {
         {
           name: "Key rate",
           data: this.keyRate
+        },
+        {
+          name: "Unemployment",
+          data: this.unemployment
+        },
+        {
+          name: "GDP",
+          data: this.GDP
         }
       ];
     }
