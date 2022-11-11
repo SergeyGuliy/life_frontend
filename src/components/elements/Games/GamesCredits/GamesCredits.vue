@@ -51,8 +51,10 @@ export default {
   },
 
   methods: {
-    takeCredit(credit) {
-      console.log(credit);
+    takeCredit({ duration }) {
+      this.$openModal("Game/TakeCredits", {
+        duration
+      }).catch(() => {});
     }
   }
 };
