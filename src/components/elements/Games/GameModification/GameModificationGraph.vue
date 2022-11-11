@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import { $mChain, $mGetPrice } from "@/utils/mathjs";
+
 export default {
   name: "GameModificationGraph",
 
@@ -59,6 +61,13 @@ export default {
           height: 350,
           type: "line",
           stacked: false
+        },
+        yaxis: {
+          labels: {
+            formatter(val) {
+              return $mGetPrice($mChain(val).round(2));
+            }
+          }
         }
       }
     };
