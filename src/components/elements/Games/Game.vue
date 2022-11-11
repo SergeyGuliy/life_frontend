@@ -3,9 +3,7 @@
     <template #leftCol>
       <GameDate />
       <GameUser />
-      <!--      $gameCredits-->
-      <!--      <pre>{{ $gameCredits }}</pre>-->
-      <!--      $gameModifiers-->
+      <GamesCredits />
     </template>
     <template #rightCol>
       <GameCryptos />
@@ -24,7 +22,8 @@ export default {
     GameDate: () => import("./GameDate"),
     GameUser: () => import("./GameUser/GameUser"),
     GameCryptos: () => import("./GameCrypto/GameCryptos"),
-    GameModification: () => import("./GameModification/GameModification")
+    GameModification: () => import("./GameModification/GameModification"),
+    GamesCredits: () => import("./GamesCredits/GamesCredits")
   },
 
   data() {
