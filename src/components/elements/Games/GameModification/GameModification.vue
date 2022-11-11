@@ -9,10 +9,10 @@
         <thead>
           <tr>
             <th>Duration:</th>
-            <th>Inflation</th>
-            <th>Key rate</th>
-            <th>Unemployment</th>
-            <th>GDP</th>
+            <th class="text-center">Inflation</th>
+            <th class="text-center">Key rate</th>
+            <th class="text-center">Unemployment</th>
+            <th class="text-center">GDP</th>
           </tr>
         </thead>
         <tbody>
@@ -21,10 +21,18 @@
             :key="index"
           >
             <td width="24%">{{ string }}</td>
-            <td width="19%">{{ tickModifiers.inflation[key] }} %</td>
-            <td width="19%">{{ tickModifiers.keyRate[key] }} %</td>
-            <td width="19%">{{ tickModifiers.unemployment[key] }} %</td>
-            <td width="19%">{{ tickModifiers.GDP[key] }} %</td>
+            <td width="19%" class="text-center">
+              {{ tickModifiers.inflation[key] }} %
+            </td>
+            <td width="19%" class="text-center">
+              {{ tickModifiers.keyRate[key] }} %
+            </td>
+            <td width="19%" class="text-center">
+              {{ tickModifiers.unemployment[key] }} %
+            </td>
+            <td width="19%" class="text-center">
+              {{ tickModifiers.GDP[key] }} %
+            </td>
           </tr>
         </tbody>
       </template>

@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <div>
     <v-card-title class="py-0">
       Current work:
       <v-spacer></v-spacer>
@@ -35,7 +35,7 @@
         Find job
       </v-btn>
     </v-card-actions>
-  </v-card>
+  </div>
 </template>
 
 <script>
