@@ -7,8 +7,11 @@
     </v-card-title>
 
     <v-card-actions>
-      <v-btn @click="skipRound" block>
-        Pause
+      <v-btn @click="votePause" color="orange" width="50%">
+        Vote for pause
+      </v-btn>
+      <v-btn @click="skipRound" color="red" width="50%">
+        Skip round
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -26,6 +29,7 @@ export default {
   },
 
   methods: {
+    votePause() {},
     skipRound() {}
   }
 };

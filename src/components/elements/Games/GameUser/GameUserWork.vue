@@ -28,10 +28,15 @@
     </v-simple-table>
 
     <v-card-actions>
-      <v-btn v-if="isWorkExist" @click="quitYourJob" block>
-        Quit your job
-      </v-btn>
-      <v-btn v-else @click="findJob" block>
+      <template v-if="isWorkExist">
+        <v-btn @click="askRaiseSalary" color="orange" width="50%">
+          Ask for raise salary
+        </v-btn>
+        <v-btn @click="quitYourJob" color="red" width="50%">
+          Quit your job
+        </v-btn>
+      </template>
+      <v-btn v-else @click="findJob" block color="green">
         Find job
       </v-btn>
     </v-card-actions>
@@ -65,6 +70,7 @@ export default {
           this.$gameUserData = newUserData;
         });
     },
+    askRaiseSalary() {},
     async findJob() {
       await this.$openModal("Game/WorkList").catch(() => {});
     }

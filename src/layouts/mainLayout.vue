@@ -65,13 +65,14 @@ export default {
 
 <style lang="scss">
 .my-wrapper {
+  max-height: 100vh;
+
   .v-main {
     min-height: 100%;
   }
   .container {
     width: 100%;
     min-height: 100%;
-    max-height: calc(100vh - 64px);
     display: flex;
     /*overflow: auto;*/
   }

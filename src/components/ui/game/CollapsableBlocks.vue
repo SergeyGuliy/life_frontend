@@ -1,5 +1,5 @@
 <template>
-  <v-expansion-panels v-model="activeBlock">
+  <v-expansion-panels v-model="activeBlock" accordion multiple>
     <v-expansion-panel
       v-for="([component, label], i) in Object.entries(blocks)"
       :key="i"
@@ -41,7 +41,7 @@ export default {
 
   data() {
     return {
-      activeBlock: null
+      activeBlock: []
     };
   }
 };
