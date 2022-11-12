@@ -1,7 +1,7 @@
 <template>
   <v-card class="GamesDeposits" v-if="$gameDeposits">
     <v-card-title class="py-0">
-      Game credits
+      Game deposits
       <v-spacer></v-spacer>
       Last updated: {{ getDate }}
     </v-card-title>
@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  name: "GamesCredits",
+  name: "GamesDeposits",
 
   computed: {
     getDate() {

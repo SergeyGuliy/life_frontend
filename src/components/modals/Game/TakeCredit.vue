@@ -6,12 +6,8 @@
     width="500"
     @click:outside.prevent.stop="close()"
   >
-    <v-card class="CreateRoom">
+    <v-card class="TakeCredit">
       <v-form ref="takeCredit" v-model="valid">
-        <v-card-title class="pb-0">
-          <v-spacer />
-        </v-card-title>
-
         <v-tabs v-model="tabIndex" center-active>
           <v-tab v-for="tabName in tabs" :key="tabName">
             {{ tabName }} month
@@ -42,11 +38,11 @@
                 </tr>
                 <tr>
                   <td>Income per month</td>
-                  <td>{{ incomePerMonth }} $</td>
+                  <td>{{ payPerMonth }} $</td>
                 </tr>
                 <tr>
                   <td>Total income</td>
-                  <td>{{ incomeTotal }} $</td>
+                  <td>{{ payTotal }} $</td>
                 </tr>
               </tbody>
             </template>
@@ -74,7 +70,7 @@ import modal from "@/mixins/modal";
 import { $mChain } from "@/utils/mathjs";
 
 export default {
-  name: "TakeCredits",
+  name: "TakeCredit",
   mixins: [modal],
 
   created() {
@@ -89,7 +85,7 @@ export default {
     selectedCredit() {
       return this.$gameCredits.credits[this.tabIndex];
     },
-    incomePerMonth() {
+    payPerMonth() {
       let { percent } = this.selectedCredit;
       let monthPercent = $mChain(percent)
         .divide(12)
@@ -100,9 +96,9 @@ export default {
         .round(2)
         .done();
     },
-    incomeTotal() {
+    payTotal() {
       let { duration } = this.selectedCredit;
-      return $mChain(this.incomePerMonth)
+      return $mChain(this.payPerMonth)
         .multiply(duration)
         .round(2)
         .done();
@@ -137,9 +133,8 @@ export default {
         credit: this.selectedCredit
       };
 
-      this.$gameAction("gamesCredits", "takeCredit", data)
+      this.$gameAction("gamesCredits", "take", data)
         .then(res => {
-          console.log(res);
           this.$gameUserData = res;
         })
         .finally(() => {

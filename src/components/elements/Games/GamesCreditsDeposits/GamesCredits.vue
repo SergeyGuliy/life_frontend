@@ -50,7 +50,7 @@ export default {
 
   methods: {
     takeCredit({ duration }) {
-      this.$openModal("Game/TakeCredits", {
+      this.$openModal("Game/TakeCredit", {
         duration
       }).catch(() => {});
     }

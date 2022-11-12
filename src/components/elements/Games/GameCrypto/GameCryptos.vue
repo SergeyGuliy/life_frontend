@@ -100,13 +100,13 @@ export default {
 
   methods: {
     async buy({ name }) {
-      await this.$openModal("Game/Crypto/BuySell", {
+      await this.$openModal("Game/CryptoBuySell", {
         type: "BUY",
         name
       }).catch(() => {});
     },
     async sell({ name }) {
-      await this.$openModal("Game/Crypto/BuySell", {
+      await this.$openModal("Game/CryptoBuySell", {
         type: "SELL",
         name
       }).catch(() => {});

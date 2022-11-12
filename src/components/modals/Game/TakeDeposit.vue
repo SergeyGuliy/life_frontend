@@ -6,12 +6,8 @@
     width="500"
     @click:outside.prevent.stop="close()"
   >
-    <v-card class="CreateRoom">
-      <v-form ref="takeCredit" v-model="valid">
-        <v-card-title class="pb-0">
-          <v-spacer />
-        </v-card-title>
-
+    <v-card class="TakeCredits">
+      <v-form ref="takeDeposit" v-model="valid">
         <v-tabs v-model="tabIndex" center-active>
           <v-tab v-for="tabName in tabs" :key="tabName">
             {{ tabName }} month
@@ -19,8 +15,8 @@
         </v-tabs>
 
         <v-card-title class="pb-4 flex flex-column">
-          <div class="text-body-1">Credit rate:</div>
-          <div>{{ selectedCredit.percent }} % yearly</div>
+          <div class="text-body-1">Deposit rate:</div>
+          <div>{{ selectedDeposit.percent }} % yearly</div>
         </v-card-title>
 
         <v-card-text>
@@ -38,14 +34,14 @@
               <tbody>
                 <tr>
                   <td>Duration</td>
-                  <td>{{ selectedCredit.duration }} month</td>
+                  <td>{{ selectedDeposit.duration }} month</td>
                 </tr>
                 <tr>
-                  <td>Income per month</td>
+                  <td>Pay per month</td>
                   <td>{{ incomePerMonth }} $</td>
                 </tr>
                 <tr>
-                  <td>Total income</td>
+                  <td>Total pay</td>
                   <td>{{ incomeTotal }} $</td>
                 </tr>
               </tbody>
@@ -56,12 +52,12 @@
         <v-card-actions class="px-5 pt-0 pb-5">
           <v-btn
             color="green"
-            @click="takeCredit"
+            @click="takeDeposit"
             block
             :loading="loading"
-            :disabled="!valid || selectedCredit.disabled"
+            :disabled="!valid || selectedDeposit.disabled"
           >
-            Take credit
+            Take deposit
           </v-btn>
         </v-card-actions>
       </v-form>
@@ -84,13 +80,13 @@ export default {
 
   computed: {
     tabs() {
-      return this.$gameCredits.credits.map(i => i.duration);
+      return this.$gameDeposits.deposits.map(i => i.duration);
     },
-    selectedCredit() {
-      return this.$gameCredits.credits[this.tabIndex];
+    selectedDeposit() {
+      return this.$gameDeposits.deposits[this.tabIndex];
     },
     incomePerMonth() {
-      let { percent } = this.selectedCredit;
+      let { percent } = this.selectedDeposit;
       let monthPercent = $mChain(percent)
         .divide(12)
         .done();
@@ -101,7 +97,7 @@ export default {
         .done();
     },
     incomeTotal() {
-      let { duration } = this.selectedCredit;
+      let { duration } = this.selectedDeposit;
       return $mChain(this.incomePerMonth)
         .multiply(duration)
         .round(2)
@@ -128,18 +124,17 @@ export default {
   },
 
   methods: {
-    takeCredit() {
-      if (!this.$refs.takeCredit.validate()) return;
+    takeDeposit() {
+      if (!this.$refs.takeDeposit.validate()) return;
       this.loading = true;
 
       let data = {
         cashCount: this.cashCount,
-        credit: this.selectedCredit
+        deposit: this.selectedDeposit
       };
 
-      this.$gameAction("gamesCredits", "takeCredit", data)
+      this.$gameAction("gamesDeposits", "take", data)
         .then(res => {
-          console.log(res);
           this.$gameUserData = res;
         })
         .finally(() => {
