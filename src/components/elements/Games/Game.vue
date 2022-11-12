@@ -1,5 +1,5 @@
 <template>
-  <Grid v-if="!loading">
+  <Grid v-if="!loading" class="game">
     <template #leftCol>
       <GameDate />
       <CollapsableBlocks :blocks="leftCol" />
@@ -87,8 +87,7 @@ export default {
 </script>
 
 <style lang="scss">
-.v-expansion-panel-content .v-expansion-panel-content__wrap {
-  padding-left: 5px;
-  padding-right: 5px;
+.game .v-data-table__wrapper {
+  max-height: 200px;
 }
 </style>

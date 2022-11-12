@@ -1,12 +1,10 @@
 <template>
-  <v-card class="GamesCredits" v-if="$gameCredits">
-    <v-card-title class="py-0">
-      Game credits
-      <v-spacer></v-spacer>
+  <div class="GamesCredits" v-if="$gameCredits">
+    <v-card-subtitle class="py-0">
       Last updated: {{ getDate }}
-    </v-card-title>
+    </v-card-subtitle>
 
-    <v-simple-table dense>
+    <v-simple-table dense fixed-header>
       <template v-slot:default>
         <thead>
           <tr>
@@ -34,7 +32,7 @@
         </tbody>
       </template>
     </v-simple-table>
-  </v-card>
+  </div>
 </template>
 
 <script>

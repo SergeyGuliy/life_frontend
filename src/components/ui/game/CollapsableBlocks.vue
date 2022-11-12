@@ -46,3 +46,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.game .v-expansion-panel-content .v-expansion-panel-content__wrap {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+</style>

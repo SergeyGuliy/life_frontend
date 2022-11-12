@@ -1,40 +1,38 @@
 <template>
-  <v-card class="GameUserData" v-if="$gameCryptos && $gameCryptos.length">
-    <v-data-table
-      :headers="cryptosHeaders"
-      :items="filteredCryptos"
-      :single-expand="true"
-      item-key="name"
-      show-expand
-      dense
-    >
-      <template v-slot:top>
-        <v-toolbar flat>
-          <v-toolbar-title>Cryptos</v-toolbar-title>
-          <v-spacer />
-          <v-text-field
-            style="max-width: 120px"
-            v-model="filterName"
-            dense
-            hide-details
-            outlined
-            prepend-inner-icon="mdi-filter"
-          />
-        </v-toolbar>
-      </template>
-      <template v-slot:item.grow_loss="{ item }">
-        <ChipGrowLoss :growLoss="item.grow_loss" />
-      </template>
-      <template v-slot:expanded-item="{ headers, item }">
-        <td :colspan="headers.length">
-          <GameCryptoGraph :crypto="item" :key="item.name" />
-        </td>
-      </template>
-      <template v-slot:item.actions="{ item }">
-        <BuySellButtons :item="item" />
-      </template>
-    </v-data-table>
-  </v-card>
+  <v-data-table
+    v-if="$gameCryptos && $gameCryptos.length"
+    :headers="cryptosHeaders"
+    :items="filteredCryptos"
+    :single-expand="true"
+    item-key="name"
+    show-expand
+    dense
+    hide-default-footer
+    fixed-header
+  >
+    <template v-slot:top>
+      <v-text-field
+        v-model="filterName"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        outlined
+        dense
+        hide-details
+      ></v-text-field>
+    </template>
+    <template v-slot:item.grow_loss="{ item }">
+      <ChipGrowLoss :growLoss="item.grow_loss" />
+    </template>
+    <template v-slot:expanded-item="{ headers, item }">
+      <td :colspan="headers.length">
+        <GameCryptoGraph :crypto="item" :key="item.name" />
+      </td>
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <BuySellButtons :item="item" />
+    </template>
+  </v-data-table>
 </template>
 
 <script>
@@ -85,21 +83,6 @@ export default {
         }
       ]
     };
-  },
-
-  methods: {
-    async buy({ name }) {
-      await this.$openModal("Game/CryptoBuySell", {
-        type: "BUY",
-        name
-      }).catch(() => {});
-    },
-    async sell({ name }) {
-      await this.$openModal("Game/CryptoBuySell", {
-        type: "SELL",
-        name
-      }).catch(() => {});
-    }
   }
 };
 </script>

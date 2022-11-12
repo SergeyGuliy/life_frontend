@@ -66,6 +66,7 @@ export default {
 <style lang="scss">
 .my-wrapper {
   max-height: 100vh;
+  overflow-y: auto;
 
   .v-main {
     min-height: 100%;
