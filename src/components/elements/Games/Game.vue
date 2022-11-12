@@ -37,6 +37,7 @@ export default {
     GameUser: () => import("./GameUser/GameUser"),
     GameUserCredits: () => import("./GameUser/GameUserCredits"),
     GameUserDeposits: () => import("./GameUser/GameUserDeposits"),
+    GameUserCrypto: () => import("./GameUser/GameUserCrypto"),
     GameCryptos: () => import("./GameCrypto/GameCryptos"),
     GameModification: () => import("./GameModification/GameModification"),
     GamesCredits: () => import("./GamesCreditsDeposits/GamesCredits"),
@@ -47,8 +48,9 @@ export default {
     return {
       loading: true,
 
-      leftPanel: 1,
+      leftPanel: 0,
       leftCol: Object.entries({
+        GameUserCrypto: "My crypto",
         GameUserDeposits: "My deposits",
         GameUserCredits: "My credits"
       }),
