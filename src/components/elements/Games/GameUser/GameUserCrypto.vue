@@ -18,29 +18,10 @@
           <td width="15%" class="text-center">{{ crypto.median }} $</td>
           <td width="15%" class="text-center">{{ crypto.currentPrice }} $</td>
           <td width="15%" class="text-center">
-            <v-chip
-              :color="crypto.grow_loss > 0 ? 'green' : 'red'"
-              text-color="white"
-              label
-              small
-              style="height: 20px; width: 100%; display: flex; justify-content: center"
-            >
-              {{ crypto.grow_loss }} %
-            </v-chip>
+            <chipGrowLoss :growLoss="crypto.grow_loss" />
           </td>
           <td width="20%">
-            <v-btn
-              depressed
-              color="green"
-              class="mr-1"
-              x-small
-              @click="buy(crypto)"
-            >
-              Buy
-            </v-btn>
-            <v-btn depressed color="red" x-small @click="sell(crypto)">
-              Sell
-            </v-btn>
+            <buySellButtons :item="crypto" />
           </td>
         </tr>
       </tbody>
@@ -54,6 +35,11 @@ import { $mChangePrise } from "@/utils/mathjs";
 export default {
   name: "GameUserCrypto",
 
+  components: {
+    chipGrowLoss: () => import("../../../ui/game/chipGrowLoss"),
+    buySellButtons: () => import("../../../ui/game/buySellButtons")
+  },
+
   computed: {
     userCrypto() {
       return this.$gameUserData.cryptos.map(crypto => {
@@ -66,21 +52,6 @@ export default {
           grow_loss: $mChangePrise(currentPrice, crypto.median)
         };
       });
-    }
-  },
-
-  methods: {
-    async buy({ name }) {
-      await this.$openModal("Game/CryptoBuySell", {
-        type: "BUY",
-        name
-      }).catch(() => {});
-    },
-    async sell({ name }) {
-      await this.$openModal("Game/CryptoBuySell", {
-        type: "SELL",
-        name
-      }).catch(() => {});
     }
   }
 };

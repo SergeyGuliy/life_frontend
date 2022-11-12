@@ -23,15 +23,7 @@
         </v-toolbar>
       </template>
       <template v-slot:item.grow_loss="{ item }">
-        <v-chip
-          :color="item.grow_loss > 0 ? 'green' : 'red'"
-          text-color="white"
-          label
-          small
-          style="height: 20px; width: 100%; display: flex; justify-content: center"
-        >
-          {{ item.grow_loss }} %
-        </v-chip>
+        <chipGrowLoss :growLoss="item.grow_loss" />
       </template>
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
@@ -39,12 +31,7 @@
         </td>
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-btn depressed color="green" class="mr-1" x-small @click="buy(item)">
-          Buy
-        </v-btn>
-        <v-btn depressed color="red" x-small @click="sell(item)">
-          Sell
-        </v-btn>
+        <buySellButtons :item="item" />
       </template>
     </v-data-table>
   </v-card>
@@ -55,7 +42,9 @@ export default {
   name: "GameCryptos",
 
   components: {
-    GameCryptoGraph: () => import("./GameCryptoGraph")
+    GameCryptoGraph: () => import("./GameCryptoGraph"),
+    chipGrowLoss: () => import("../../../ui/game/chipGrowLoss"),
+    buySellButtons: () => import("../../../ui/game/buySellButtons")
   },
 
   computed: {
