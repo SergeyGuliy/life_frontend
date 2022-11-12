@@ -14,7 +14,6 @@ export default {
   mutations: {
     setUser(state, userData) {
       IsUserExistsAndNeedToUpdate(userData.userId, () => {
-        console.error("setUser = " + userData.userId);
         Vue.set(state.users, userData.userId, {
           ...userData,
           serverTime: new Date()

@@ -21,9 +21,9 @@
 
         <v-card-text>
           <v-text-field
-            v-model.number="cashCount"
+            v-model.number="cash"
             :label="$t('forms.labels.enterOldPassword')"
-            :rules="rules.cashCount"
+            :rules="rules.cash"
             outlined
             dense
             type="number"
@@ -90,9 +90,9 @@ export default {
       let monthPercent = $mChain(percent)
         .divide(12)
         .done();
-      return $mChain(this.cashCount)
+      return $mChain(this.cash)
         .percent(monthPercent)
-        .subtract(this.cashCount)
+        .subtract(this.cash)
         .round(2)
         .done();
     },
@@ -108,16 +108,15 @@ export default {
   data() {
     return {
       valid: false,
-
       tabIndex: 0,
 
-      cashCount: 1000,
+      cash: 1000,
       rules: {
-        cashCount: [
+        cash: [
           v => !!v || "Can't be empty",
           v => typeof v === "number" || "Must be number",
           v => v > 0 || "Must be positive value",
-          () => this.$gameUserCash >= this.cashCount || "Not enough cash"
+          () => this.$gameUserCash >= this.cash || "Not enough cash"
         ]
       }
     };
@@ -129,7 +128,7 @@ export default {
       this.loading = true;
 
       let data = {
-        cashCount: this.cashCount,
+        cash: this.cash,
         deposit: this.selectedDeposit
       };
 

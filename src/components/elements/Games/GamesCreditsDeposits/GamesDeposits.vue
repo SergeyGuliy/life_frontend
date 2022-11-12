@@ -43,7 +43,7 @@ export default {
 
   computed: {
     getDate() {
-      const { monthCode, year } = this.$gameDeposits.lastRecalculation;
+      const { monthCode, year } = this.$gameDeposits.date;
       return `${monthCode} ${year}`;
     }
   },

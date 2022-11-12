@@ -43,7 +43,7 @@ export default {
 
   computed: {
     getDate() {
-      const { monthCode, year } = this.$gameCredits.lastRecalculation;
+      const { monthCode, year } = this.$gameCredits.date;
       return `${monthCode} ${year}`;
     }
   },
