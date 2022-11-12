@@ -7,6 +7,7 @@ export default {
     gameCryptos: null,
     gameUserData: null,
     credits: null,
+    deposits: null,
     modifiers: null
   },
   mutations: {
@@ -24,6 +25,9 @@ export default {
     },
     setGameCredits(state, credits) {
       state.credits = credits;
+    },
+    setGameDeposits(state, deposits) {
+      state.deposits = deposits;
     },
     setGameModifiers(state, modifiers) {
       state.modifiers = modifiers;

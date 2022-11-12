@@ -3,11 +3,19 @@
     <template #leftCol>
       <GameDate />
       <GameUser />
-      <GamesCredits />
     </template>
     <template #rightCol>
-      <GameCryptos />
-      <GameModification />
+      <v-expansion-panels v-model="rightPanel">
+        <v-expansion-panel
+          v-for="([component, lablel], i) in rightCol"
+          :key="i"
+        >
+          <v-expansion-panel-header>{{ lablel }}</v-expansion-panel-header>
+          <v-expansion-panel-content class="px-0">
+            <component :is="component" />
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </template>
   </Grid>
 </template>
@@ -23,12 +31,21 @@ export default {
     GameUser: () => import("./GameUser/GameUser"),
     GameCryptos: () => import("./GameCrypto/GameCryptos"),
     GameModification: () => import("./GameModification/GameModification"),
-    GamesCredits: () => import("./GamesCredits/GamesCredits")
+    GamesCredits: () => import("./GamesCreditsDeposits/GamesCredits"),
+    GamesDeposits: () => import("./GamesCreditsDeposits/GamesDeposits")
   },
 
   data() {
     return {
-      loading: true
+      loading: true,
+
+      rightPanel: 1,
+      rightCol: Object.entries({
+        GameCryptos: "Crypto",
+        GamesCredits: "Credits",
+        GamesDeposits: "Deposits",
+        GameModification: "Modification"
+      })
     };
   },
 
@@ -57,7 +74,7 @@ export default {
 
   methods: {
     tickGameData(gameData) {
-      const { date, shares, cryptos, credits, modifiers } = gameData;
+      const { date, shares, cryptos, credits, modifiers, deposits } = gameData;
       console.error("tickGameData");
       console.log(gameData);
       this.$gameDate = date;
@@ -65,6 +82,7 @@ export default {
       this.$gameCryptos = cryptos;
       this.$gameCryptos = cryptos;
       this.$gameCredits = credits;
+      this.$gameDeposits = deposits;
       this.$gameModifiers = modifiers;
     },
 
@@ -74,3 +92,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.v-expansion-panel-content .v-expansion-panel-content__wrap {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+</style>

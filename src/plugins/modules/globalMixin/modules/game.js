@@ -46,6 +46,14 @@ export default {
         this.$store.commit("game/setGameCredits", val);
       }
     },
+    $gameDeposits: {
+      get() {
+        return this.$store.state.game?.deposits;
+      },
+      set(val) {
+        this.$store.commit("game/setGameDeposits", val);
+      }
+    },
     $gameModifiers: {
       get() {
         return this.$store.state.game?.modifiers;

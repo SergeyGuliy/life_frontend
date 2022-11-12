@@ -1,5 +1,5 @@
 <template>
-  <v-card class="GamesCredits" v-if="$gameCredits">
+  <v-card class="GamesDeposits" v-if="$gameDeposits">
     <v-card-title class="py-0">
       Game credits
       <v-spacer></v-spacer>
@@ -16,26 +16,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(credit, index) in $gameCredits.credits" :key="index">
-            <td width="28%">{{ credit.duration }} month</td>
-            <td width="28%" class="text-center">{{ credit.percent }} %</td>
+          <tr v-for="(deposit, index) in $gameDeposits.deposits" :key="index">
+            <td width="28%">{{ deposit.duration }} month</td>
+            <td width="28%" class="text-center">{{ deposit.percent }} %</td>
             <td class="text-right">
               <v-btn
                 depressed
                 color="green"
                 class="mr-1"
                 x-small
-                @click="takeCredit(credit)"
+                @click="takeDeposit(deposit)"
               >
-                Take credit
+                Take deposit
               </v-btn>
             </td>
           </tr>
         </tbody>
       </template>
     </v-simple-table>
-
-    <v-card-actions> </v-card-actions>
   </v-card>
 </template>
 
@@ -45,14 +43,14 @@ export default {
 
   computed: {
     getDate() {
-      const { monthCode, year } = this.$gameCredits.lastRecalculation;
+      const { monthCode, year } = this.$gameDeposits.lastRecalculation;
       return `${monthCode} ${year}`;
     }
   },
 
   methods: {
-    takeCredit({ duration }) {
-      this.$openModal("Game/TakeCredits", {
+    takeDeposit({ duration }) {
+      this.$openModal("Game/TakeDeposit", {
         duration
       }).catch(() => {});
     }

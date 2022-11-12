@@ -12,10 +12,6 @@
     </v-card-title>
 
     <GameUserWork />
-
-    <v-card-actions>
-      <pre>{{ $gameUserData.cryptos }}</pre>
-    </v-card-actions>
   </v-card>
 </template>
 
