@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "buySellButtons",
+  name: "BuySellButtons",
 
   props: {
     item: {
@@ -36,5 +36,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

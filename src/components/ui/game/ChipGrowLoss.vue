@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "chipGrowLoss",
+  name: "ChipGrowLoss",
 
   props: {
     growLoss: {

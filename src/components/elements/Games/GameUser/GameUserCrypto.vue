@@ -18,10 +18,10 @@
           <td width="15%" class="text-center">{{ crypto.median }} $</td>
           <td width="15%" class="text-center">{{ crypto.currentPrice }} $</td>
           <td width="15%" class="text-center">
-            <chipGrowLoss :growLoss="crypto.grow_loss" />
+            <ChipGrowLoss :growLoss="crypto.grow_loss" />
           </td>
           <td width="20%">
-            <buySellButtons :item="crypto" />
+            <BuySellButtons :item="crypto" />
           </td>
         </tr>
       </tbody>
@@ -36,8 +36,8 @@ export default {
   name: "GameUserCrypto",
 
   components: {
-    chipGrowLoss: () => import("../../../ui/game/chipGrowLoss"),
-    buySellButtons: () => import("../../../ui/game/buySellButtons")
+    ChipGrowLoss: () => import("../../../ui/game/ChipGrowLoss"),
+    BuySellButtons: () => import("../../../ui/game/BuySellButtons")
   },
 
   computed: {

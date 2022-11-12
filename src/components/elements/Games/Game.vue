@@ -2,26 +2,11 @@
   <Grid v-if="!loading">
     <template #leftCol>
       <GameDate />
-      <GameUser />
-
-      <v-expansion-panels v-model="leftPanel">
-        <v-expansion-panel v-for="([component, label], i) in leftCol" :key="i">
-          <v-expansion-panel-header>{{ label }}</v-expansion-panel-header>
-          <v-expansion-panel-content class="px-0">
-            <component :is="component" />
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
+      <CollapsableBlocks :blocks="leftCol" />
     </template>
     <template #rightCol>
-      <v-expansion-panels v-model="rightPanel">
-        <v-expansion-panel v-for="([component, label], i) in rightCol" :key="i">
-          <v-expansion-panel-header>{{ label }}</v-expansion-panel-header>
-          <v-expansion-panel-content class="px-0">
-            <component :is="component" />
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
+      <GameUser />
+      <CollapsableBlocks :blocks="rightCol" />
     </template>
   </Grid>
 </template>
@@ -35,33 +20,25 @@ export default {
   components: {
     GameDate: () => import("./GameDate"),
     GameUser: () => import("./GameUser/GameUser"),
-    GameUserCredits: () => import("./GameUser/GameUserCredits"),
-    GameUserDeposits: () => import("./GameUser/GameUserDeposits"),
-    GameUserCrypto: () => import("./GameUser/GameUserCrypto"),
-    GameCryptos: () => import("./GameCrypto/GameCryptos"),
-    GameModification: () => import("./GameModification/GameModification"),
-    GamesCredits: () => import("./GamesCreditsDeposits/GamesCredits"),
-    GamesDeposits: () => import("./GamesCreditsDeposits/GamesDeposits")
+    CollapsableBlocks: () => import("../../ui/game/CollapsableBlocks")
   },
 
   data() {
     return {
       loading: true,
 
-      leftPanel: 0,
-      leftCol: Object.entries({
+      rightCol: {
         GameUserCrypto: "My crypto",
         GameUserDeposits: "My deposits",
         GameUserCredits: "My credits"
-      }),
+      },
 
-      rightPanel: 1,
-      rightCol: Object.entries({
+      leftCol: {
         GameCryptos: "Crypto",
         GamesCredits: "Credits",
         GamesDeposits: "Deposits",
         GameModification: "Modification"
-      })
+      }
     };
   },
 
