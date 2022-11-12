@@ -93,13 +93,11 @@ export default {
       let { percent } = this.selectedCredit;
       let monthPercent = $mChain(percent)
         .divide(12)
-        .round(2)
         .done();
-      console.log(monthPercent);
       return $mChain(this.cashCount)
         .percent(monthPercent)
         .subtract(this.cashCount)
-        .round(4)
+        .round(2)
         .done();
     },
     incomeTotal() {
