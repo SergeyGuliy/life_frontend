@@ -5,6 +5,7 @@
       <CollapsableBlocks :blocks="leftCol" />
     </template>
     <template #rightCol>
+      <!--      <pre>{{$gameUserData}}</pre>-->
       <GameUser />
       <CollapsableBlocks :blocks="rightCol" />
     </template>
@@ -29,8 +30,8 @@ export default {
 
       rightCol: {
         GameUserCrypto: "My crypto",
-        GameUserDeposits: "My deposits",
-        GameUserCredits: "My credits"
+        GameUserCredits: "My credits",
+        GameUserDeposits: "My deposits"
       },
 
       leftCol: {
@@ -89,5 +90,10 @@ export default {
 <style lang="scss">
 .game .v-data-table__wrapper {
   max-height: 200px;
+
+  td,
+  th {
+    padding: 0 8px;
+  }
 }
 </style>

@@ -227,9 +227,8 @@ export default {
         })
         .finally(() => {
           this.loading = false;
+          this.close();
         });
-
-      // this.close()
     }
   }
 };
