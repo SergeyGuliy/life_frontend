@@ -6,6 +6,7 @@ export default {
     gameShares: null,
     gameCryptos: null,
     gameUserData: null,
+    gameUserNews: null,
     credits: null,
     deposits: null,
     modifiers: null
@@ -34,6 +35,9 @@ export default {
     },
     setGameUserData(state, gameUserData) {
       state.gameUserData = gameUserData;
+    },
+    setGameUserNews(state, gameUserNews) {
+      state.gameUserNews = gameUserNews;
     }
   }
 };

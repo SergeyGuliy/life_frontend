@@ -70,6 +70,14 @@ export default {
         this.$store.commit("game/setGameUserData", val);
       }
     },
+    $gameUserNews: {
+      get() {
+        return this.$store.state.game?.gameUserNews;
+      },
+      set(val) {
+        this.$store.commit("game/setGameUserNews", val);
+      }
+    },
     $gameUserCash() {
       return this.$store.state.game?.gameUserData.cash;
     },

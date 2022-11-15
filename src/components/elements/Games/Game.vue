@@ -5,7 +5,6 @@
       <CollapsableBlocks :blocks="leftCol" />
     </template>
     <template #rightCol>
-      <!--      <pre>{{$gameUserData}}</pre>-->
       <GameUser />
       <CollapsableBlocks :blocks="rightCol" />
     </template>
@@ -66,11 +65,16 @@ export default {
     });
   },
 
+  watch: {
+    $gameUserNews() {
+      this.$openModal("Game/News").catch(() => {});
+    }
+  },
+
   methods: {
     tickGameData(gameData) {
       const { date, shares, cryptos, credits, modifiers, deposits } = gameData;
-      console.error("tickGameData");
-      console.log(gameData);
+
       this.$gameDate = date;
       this.$gameShares = shares;
       this.$gameCryptos = cryptos;
@@ -80,8 +84,10 @@ export default {
       this.$gameModifiers = modifiers;
     },
 
-    tickUserData(userData) {
+    tickUserData({ userData, userNews }) {
+      console.log("tickUserData");
       this.$gameUserData = userData;
+      this.$gameUserNews = userNews;
     }
   }
 };
