@@ -10,7 +10,15 @@
       <v-spacer></v-spacer>
       {{ $gameUserCash }} $
     </v-card-title>
-
+    <v-card-actions>
+      <v-btn @click="openNews(0)" color="green" width="50%">
+        Monthly cash flow
+      </v-btn>
+      <v-btn @click="openNews(1)" color="green" width="50%">
+        Monthly news
+        <v-badge color="orange" content="6" inline />
+      </v-btn>
+    </v-card-actions>
     <GameUserWork />
   </v-card>
 </template>
@@ -21,6 +29,11 @@ export default {
 
   components: {
     GameUserWork: () => import("./GameUserWork")
+  },
+  methods: {
+    openNews(type) {
+      this.$openModal("Game/News", { type }).catch(() => {});
+    }
   }
 };
 </script>

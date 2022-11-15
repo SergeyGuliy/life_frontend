@@ -67,7 +67,10 @@ export default {
           sortable: false,
           value: "name"
         },
-        { text: "Current Price", value: "currentPrice" },
+        {
+          text: "Current Price",
+          value: "currentPrice"
+        },
         {
           text: "Grow/Loss",
           value: "grow_loss",

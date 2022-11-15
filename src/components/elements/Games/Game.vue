@@ -65,12 +65,6 @@ export default {
     });
   },
 
-  watch: {
-    $gameUserNews() {
-      this.$openModal("Game/News").catch(() => {});
-    }
-  },
-
   methods: {
     tickGameData(gameData) {
       const { date, shares, cryptos, credits, modifiers, deposits } = gameData;
@@ -85,9 +79,10 @@ export default {
     },
 
     tickUserData({ userData, userNews }) {
-      console.log("tickUserData");
       this.$gameUserData = userData;
-      this.$gameUserNews = userNews;
+      if (userNews) {
+        this.$gameUserNews = userNews;
+      }
     }
   }
 };
