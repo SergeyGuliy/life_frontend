@@ -36,8 +36,7 @@ export default {
       leftCol: {
         GameCryptos: "Crypto",
         GamesCredits: "Credits",
-        GamesDeposits: "Deposits",
-        GameModification: "Modification"
+        GamesDeposits: "Deposits"
       }
     };
   },

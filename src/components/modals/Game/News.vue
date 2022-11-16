@@ -8,8 +8,6 @@
   >
     <v-card class="news">
       <v-form ref="News">
-        <v-card-title class="pb-4 flex flex-column"> </v-card-title>
-
         <v-tabs v-model="tabIndex" fixed-tabs>
           <v-tab v-for="tabName in tabs" :key="tabName">
             {{ tabName }}
@@ -73,6 +71,7 @@
             </v-simple-table>
           </template>
         </v-data-table>
+        <GameModification v-else-if="tabIndex === 1" />
       </v-form>
     </v-card>
   </v-dialog>
@@ -85,6 +84,11 @@ import { $mChain } from "@/utils/mathjs";
 export default {
   name: "News",
   mixins: [modal],
+
+  components: {
+    GameModification: () =>
+      import("../../elements/Games/GameModification/GameModification")
+  },
 
   created() {
     this.tabIndex = this.data.type;

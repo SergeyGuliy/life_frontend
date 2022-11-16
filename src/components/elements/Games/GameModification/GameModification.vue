@@ -1,9 +1,5 @@
 <template>
   <v-card>
-    <v-card-title class="py-0">
-      Modifiers
-    </v-card-title>
-
     <v-simple-table dense>
       <template v-slot:default>
         <thead>

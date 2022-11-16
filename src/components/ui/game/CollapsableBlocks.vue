@@ -17,15 +17,13 @@ export default {
   name: "collapsableBlocks",
 
   components: {
+    GameCryptos: () => import("../../elements/Games/GameCrypto/GameCryptos"),
     GameUserCredits: () =>
       import("../../elements/Games/GameUser/GameUserCredits"),
     GameUserDeposits: () =>
       import("../../elements/Games/GameUser/GameUserDeposits"),
     GameUserCrypto: () =>
       import("../../elements/Games/GameUser/GameUserCrypto"),
-    GameCryptos: () => import("../../elements/Games/GameCrypto/GameCryptos"),
-    GameModification: () =>
-      import("../../elements/Games/GameModification/GameModification"),
     GamesCredits: () =>
       import("../../elements/Games/GamesCreditsDeposits/GamesCredits"),
     GamesDeposits: () =>
