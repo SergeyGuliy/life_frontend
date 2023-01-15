@@ -39,6 +39,7 @@ export default {
   $initSocketListener() {
     this.$socketInit({
       [socketSetup_callUserIdToServer]: this.callUserIdToServer,
+
       [socketSetup_forceDisconnect]: this.forceDisconnect
     });
   },
