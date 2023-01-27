@@ -1,7 +1,8 @@
 import Vue from "vue";
 import { api } from "@api";
-import { UPDATE_TIME_DELTA } from "@constants/index.js";
-import store from "@/store";
+// import { UPDATE_TIME_DELTA } from "@constants/index.js";
+const UPDATE_TIME_DELTA = 100000
+import store from "@store";
 
 const requestUsersOrders = [];
 

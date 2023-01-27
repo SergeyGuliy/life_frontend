@@ -14,8 +14,8 @@ export default {
   mixins: [roomSetup],
 
   components: {
-    Room: () => import("@components/elements/Rooms/Room"),
-    Games: () => import("@components/elements/Games/Game")
+    Room: () => import("@components/elements/Rooms/Room.vue"),
+    Games: () => import("@components/elements/Games/Game.vue")
   },
 
   async beforeRouteLeave(to, from, next) {

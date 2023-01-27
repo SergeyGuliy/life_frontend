@@ -24,9 +24,9 @@
 export default {
   name: "Home",
   components: {
-    RoomsController: () => import("@components/elements/Rooms/RoomsController"),
-    UsersList: () => import("@components/elements/Users/UsersList"),
-    UserButton: () => import("@components/elements/Users/UserButton")
+    RoomsController: () => import("@components/elements/Rooms/RoomsController.vue"),
+    UsersList: () => import("@components/elements/Users/UsersList.vue"),
+    UserButton: () => import("@components/elements/Users/UserButton.vue")
   },
   data() {
     return {

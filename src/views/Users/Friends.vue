@@ -53,8 +53,8 @@ export default {
   name: "Friends",
 
   components: {
-    UsersList: () => import("@components/elements/Users/UsersList"),
-    UserButton: () => import("@components/elements/Users/UserButton")
+    UsersList: () => import("@components/elements/Users/UsersList.vue"),
+    UserButton: () => import("@components/elements/Users/UserButton.vue")
   },
   data() {
     return {

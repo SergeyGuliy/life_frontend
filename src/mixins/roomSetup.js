@@ -5,7 +5,7 @@ import {
   rooms_userConnectsRoom,
   rooms_userKickedFromRoom
 } from "@constants/ws/rooms";
-import { api } from "@/utils/api";
+import { api } from "@api";
 
 export default {
   $initSocketListener() {

@@ -6,7 +6,7 @@
 export default {
   name: "Auth",
   components: {
-    AuthWindow: () => import("@components/routes/Auth/AuthWindow")
+    AuthWindow: () => import("@components/routes/Auth/AuthWindow.vue")
   }
 };
 </script>

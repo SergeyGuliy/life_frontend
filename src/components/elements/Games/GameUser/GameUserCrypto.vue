@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { $mChain } from "@/utils/mathjs";
+import { $mChain } from "@utils/mathjs";
 
 export default {
   name: "GameUserCrypto",

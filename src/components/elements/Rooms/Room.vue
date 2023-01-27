@@ -75,15 +75,15 @@
 </template>
 
 <script>
-import { api } from "@/utils/api";
+import { api } from "@api";
 
 export default {
   name: "Room",
 
   components: {
-    RoomInfo: () => import("@components/elements/Rooms/RoomInfo"),
-    UsersList: () => import("@components/elements/Users/UsersList"),
-    UserButton: () => import("@components/elements/Users/UserButton")
+    RoomInfo: () => import("@components/elements/Rooms/RoomInfo.vue"),
+    UsersList: () => import("@components/elements/Users/UsersList.vue"),
+    UserButton: () => import("@components/elements/Users/UserButton.vue")
   },
 
   data() {

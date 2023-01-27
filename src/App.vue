@@ -3,25 +3,25 @@
     <component :is="layout">
       <router-view />
     </component>
-    <component v-if="getComponent" :is="getComponent"></component>
+<!--    <component v-if="getComponent" :is="getComponent"></component>-->
     <notifications group="foo" />
   </v-app>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import {
-  socketSetup_callUserIdToServer,
-  socketSetup_forceDisconnect,
-  socketSetup_giveUserIdToServer
-} from "@constants/ws/socketSetup.js";
+// import {
+//   socketSetup_callUserIdToServer,
+//   socketSetup_forceDisconnect,
+//   socketSetup_giveUserIdToServer
+// } from "@constants/ws/socketSetup.js";
 
 export default {
   name: "App",
 
   components: {
-    mainLayout: () => import("./layouts/mainLayout"),
-    authLayout: () => import("./layouts/authLayout")
+    // mainLayout: () => import("./layouts/mainLayout.vue"),
+    // authLayout: () => import("./layouts/authLayout.vue")
   },
   computed: {
     ...mapState("modals", ["component"]),
@@ -30,27 +30,27 @@ export default {
     },
     getComponent() {
       if (this.component) {
-        return require(`@components/modals/${this.component}`).default;
+        return require(`@components/modals/${this.component}.vue`).default;
       }
       return null;
     }
   },
 
-  $initSocketListener() {
-    this.$socketInit({
-      [socketSetup_callUserIdToServer]: this.callUserIdToServer,
-
-      [socketSetup_forceDisconnect]: this.forceDisconnect
-    });
-  },
+  // $initSocketListener() {
+  //   this.$socketInit({
+  //     [socketSetup_callUserIdToServer]: this.callUserIdToServer,
+  //
+  //     [socketSetup_forceDisconnect]: this.forceDisconnect
+  //   });
+  // },
 
   methods: {
     callUserIdToServer(clientId) {
       if (this.$user?.userId) {
-        this.$socket.client.emit(socketSetup_giveUserIdToServer, {
-          userId: this.$user.userId,
-          clientId
-        });
+        // this.$socket.client.emit(socketSetup_giveUserIdToServer, {
+        //   userId: this.$user.userId,
+        //   clientId
+        // });
       }
     },
     async forceDisconnect() {

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { $mChain, $mGetPrice } from "@/utils/mathjs";
+import { $mChain, $mGetPrice } from "@utils/mathjs";
 
 export default {
   name: "GameModificationGraph",

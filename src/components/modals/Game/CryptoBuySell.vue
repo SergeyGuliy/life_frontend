@@ -84,7 +84,7 @@
 
 <script>
 import modal from "@mixins/modal";
-import { $mChain } from "@/utils/mathjs";
+import { $mChain } from "@utils/mathjs";
 
 export default {
   name: "CryptoBuySell",

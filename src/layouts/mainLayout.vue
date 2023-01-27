@@ -20,9 +20,9 @@ export default {
   name: "mainLayout",
   mixins: [chatLogic, friendsLogic],
   components: {
-    SideBar: () => import("@components/layouts/SideBar/SideBar"),
-    NavBar: () => import("@components/layouts/NavBar"),
-    Chat: () => import("@components/layouts/Chat/Chat")
+    SideBar: () => import("@components/layouts/SideBar/SideBar.vue"),
+    NavBar: () => import("@components/layouts/NavBar.vue"),
+    Chat: () => import("@components/layouts/Chat/Chat.vue")
   },
   data() {
     return {

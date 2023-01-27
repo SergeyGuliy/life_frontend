@@ -242,7 +242,7 @@ const { updateUserSettings, changeLocale } = $currentUserActions();
 export default {
   name: "Cabinet",
   components: {
-    VoiceSettings: () => import("@components/elements/Cabinet/VoiceSettings")
+    VoiceSettings: () => import("@components/elements/Cabinet/VoiceSettings.vue")
   },
   data() {
     return {

@@ -4,7 +4,7 @@ import {
   $mChangePrise,
   $mGetPercent,
   $mGetPrice
-} from "@/utils/mathjs";
+} from "@utils/mathjs";
 
 function generateTooltip({ seriesIndex, dataPointIndex, w }) {
   let { y, x } = w.globals.initialSeries[seriesIndex].data[dataPointIndex];

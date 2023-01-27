@@ -1,5 +1,5 @@
-import { api } from "@/utils/api";
-import { $mChangePrise } from "@/utils/mathjs";
+import { api } from "@api";
+import { $mChangePrise } from "@utils/mathjs";
 
 export default {
   computed: {
