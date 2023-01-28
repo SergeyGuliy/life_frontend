@@ -1,6 +1,6 @@
 import { store } from "../../store/index";
 
-export default function (to, from, next) {
+export function isJoinedRoom(to, from, next) {
   if (store.state.user?.user?.roomJoinedId && to.name !== "RoomId") {
     next({
       name: "RoomId",

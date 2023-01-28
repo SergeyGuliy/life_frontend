@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue from "@vue/compat";
 import { api } from "@api";
 // import { UPDATE_TIME_DELTA } from "@constants/index.js";
 const UPDATE_TIME_DELTA = 100000;

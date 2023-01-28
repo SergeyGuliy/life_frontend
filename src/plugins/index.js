@@ -1,7 +1,7 @@
-import Vue from "vue";
+import Vue from "@vue/compat";
 
 import { store } from "../store";
-import vuetify from "./modules/vuetify";
+import { vuetify } from "./modules/vuetify";
 import { i18n } from "./modules/i18n";
 
 // import "./modules/globalFilters/index";

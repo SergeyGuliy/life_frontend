@@ -4,12 +4,14 @@
       <router-view />
     </component>
     <!--    <component v-if="getComponent" :is="getComponent"></component>-->
-    <notifications group="foo" />
+    <!--    <notifications group="foo" />-->
   </v-app>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import mainLayout from "./layouts/mainLayout.vue";
+import authLayout from "./layouts/authLayout.vue";
 // import {
 //   socketSetup_callUserIdToServer,
 //   socketSetup_forceDisconnect,
@@ -21,19 +23,21 @@ export default {
 
   components: {
     // mainLayout: () => import("./layouts/mainLayout.vue"),
-    // authLayout: () => import("./layouts/authLayout.vue")
+    // authLayout: () => import("./layouts/authLayout.vue"),
+    mainLayout,
+    authLayout,
   },
   computed: {
     ...mapState("modals", ["component"]),
     layout() {
       return this.$route?.meta?.layout;
     },
-    getComponent() {
-      if (this.component) {
-        return require(`@components/modals/${this.component}.vue`).default;
-      }
-      return null;
-    },
+    // getComponent() {
+    //   if (this.component) {
+    //     return require(`@components/modals/${this.component}.vue`).default;
+    //   }
+    //   return null;
+    // },
   },
 
   // $initSocketListener() {

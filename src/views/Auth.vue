@@ -3,10 +3,14 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "Auth",
   components: {
-    AuthWindow: () => import("@components/routes/Auth/AuthWindow.vue")
-  }
+    AuthWindow: defineAsyncComponent(() =>
+      import("@components/routes/Auth/AuthWindow.vue")
+    ),
+  },
 };
 </script>

@@ -1,13 +1,15 @@
-import Vue from "vue";
-import Vuetify from "vuetify/lib/framework";
-import "@mdi/font/css/materialdesignicons.css"; // Ensure you are using css-loader
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
+import { aliases, mdi } from "vuetify/iconsets/mdi";
 
-Vue.use(Vuetify);
-
-// Vue.prototype.$vuetify = Vuetify.install();
-
-export default new Vuetify({
+export const vuetify = createVuetify({
   icons: {
-    iconfont: "mdi" // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
-  }
+    defaultSet: "mdi",
+    aliases,
+    sets: {
+      mdi,
+    },
+  },
 });

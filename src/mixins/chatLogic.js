@@ -1,11 +1,11 @@
 import { api } from "@api";
-import { MESSAGE_RECEIVER_TYPES } from "@enums";
-const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
-import { chat_messageToClient } from "@constants/ws/chats.js";
-import {
-  rooms_userLeaveRoom,
-  rooms_userJoinRoom
-} from "@constants/ws/rooms.js";
+// import { MESSAGE_RECEIVER_TYPES } from "@enums";
+// const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
+// import { chat_messageToClient } from "@constants/ws/chats.js";
+// import {
+//   rooms_userLeaveRoom,
+//   rooms_userJoinRoom
+// } from "@constants/ws/rooms.js";
 
 import { $chatKeys } from "@composable/$chatKeys";
 const { getUserChatKey } = $chatKeys();
@@ -19,36 +19,36 @@ export default {
     this.$busInit({ writeMessage: this.writeMessage });
 
     this.$socketInit({
-      [chat_messageToClient]: this.messageToClient,
-      [rooms_userJoinRoom]: this.fetchRoomMessages,
-      [rooms_userLeaveRoom]: this.userLeaveRoom
+      // [chat_messageToClient]: this.messageToClient,
+      // [rooms_userJoinRoom]: this.fetchRoomMessages,
+      // [rooms_userLeaveRoom]: this.userLeaveRoom
     });
   },
 
   methods: {
     async messageToClient(messageToClient) {
-      const {
-        messageSender,
-        messageReceiverType,
-        messageReceiverUserId
-      } = messageToClient;
-      if (messageReceiverType === GLOBAL) {
-        this.pushMessageToChatChat(GLOBAL, messageToClient);
-      } else if (messageReceiverType === ROOM) {
-        this.pushMessageToChatChat(ROOM, messageToClient);
-      } else if (messageReceiverType === PRIVATE && messageReceiverUserId) {
-        const userId =
-          messageSender.userId === this.$user.userId
-            ? messageReceiverUserId
-            : messageSender.userId;
-        await this.createUserChat(userId);
-        const userChatKey = getUserChatKey(userId);
-        this.pushMessageToChatChat(userChatKey, messageToClient);
-      }
+      // const {
+      //   messageSender,
+      //   messageReceiverType,
+      //   messageReceiverUserId
+      // } = messageToClient;
+      // if (messageReceiverType === GLOBAL) {
+      //   this.pushMessageToChatChat(GLOBAL, messageToClient);
+      // } else if (messageReceiverType === ROOM) {
+      //   this.pushMessageToChatChat(ROOM, messageToClient);
+      // } else if (messageReceiverType === PRIVATE && messageReceiverUserId) {
+      //   const userId =
+      //     messageSender.userId === this.$user.userId
+      //       ? messageReceiverUserId
+      //       : messageSender.userId;
+      //   await this.createUserChat(userId);
+      //   const userChatKey = getUserChatKey(userId);
+      //   this.pushMessageToChatChat(userChatKey, messageToClient);
+      // }
     },
     userLeaveRoom() {
       this.$bus.emit("userLeaveChat");
-      this.$store.commit("chats/deleteChat", ROOM);
+      // this.$store.commit("chats/deleteChat", ROOM);
     },
     async writeMessage(userId) {
       await this.createUserChat(userId);
@@ -63,7 +63,7 @@ export default {
     pushMessageToChatChat(chatName, messageData) {
       this.$store.commit("chats/pushMessageToChatChat", {
         chatName,
-        messageData
+        messageData,
       });
     },
     async createUserChat(userId) {
@@ -71,36 +71,36 @@ export default {
       if (!this.$chats[userChatKey]) {
         this.setChat(userChatKey, {
           messages: [],
-          key: PRIVATE,
+          // key: PRIVATE,
           userId,
-          userData: await this.$f.dictGetUserById(userId)
+          userData: await this.$f.dictGetUserById(userId),
         });
       }
     },
     async fetchGlobalMessages() {
-      api.chats.getGlobalMessages().then(messages => {
-        this.setChat(GLOBAL, {
-          key: GLOBAL,
-          messages
-        });
+      api.chats.getGlobalMessages().then((messages) => {
+        // this.setChat(GLOBAL, {
+        //   key: GLOBAL,
+        //   messages
+        // });
       });
     },
     async fetchRoomMessages() {
       if (this.$user?.roomJoinedId) {
-        this.setChat(ROOM, {
-          key: ROOM,
-          messages: await api.chats.getRoomMessages(),
-          roomId: this.$user.roomJoinedId
-        });
+        // this.setChat(ROOM, {
+        //   key: ROOM,
+        //   messages: await api.chats.getRoomMessages(),
+        //   roomId: this.$user.roomJoinedId
+        // });
       }
     },
     async fetchPrivateMessages() {
       const messages = await api.chats.getPrivateMessages();
       const messageWithUsers = messages.filter(
-        message => message.messageReceiverUserId
+        (message) => message.messageReceiverUserId
       );
       const usersIds = [];
-      messageWithUsers.forEach(message => {
+      messageWithUsers.forEach((message) => {
         if (!usersIds.includes(message.messageReceiverUserId)) {
           if (message.messageReceiverUserId !== this.$user.userId) {
             usersIds.push(message.messageReceiverUserId);
@@ -111,29 +111,29 @@ export default {
       });
       for (let userId of usersIds) {
         let user = messageWithUsers.find(
-          message =>
+          (message) =>
             message.messageReceiverUserId === userId ||
             message.messageSender.userId === userId
         );
         await this.createUserChat(userId);
         const userChatKey = getUserChatKey(userId);
-        this.setChat(userChatKey, {
-          key: PRIVATE,
-          userId:
-            user.messageReceiverUserId === this.$user.userId
-              ? user.messageSender.userId
-              : user.messageReceiverUserId,
-          userData:
-            user.messageReceiverUserId === this.$user.userId
-              ? user.messageSender
-              : await this.$f.dictGetUserById(user.messageReceiverUserId),
-          messages: messageWithUsers.filter(
-            message =>
-              message.messageReceiverUserId === userId ||
-              message.messageSender.userId === userId
-          )
-        });
+        // this.setChat(userChatKey, {
+        //   key: PRIVATE,
+        //   userId:
+        //     user.messageReceiverUserId === this.$user.userId
+        //       ? user.messageSender.userId
+        //       : user.messageReceiverUserId,
+        //   userData:
+        //     user.messageReceiverUserId === this.$user.userId
+        //       ? user.messageSender
+        //       : await this.$f.dictGetUserById(user.messageReceiverUserId),
+        //   messages: messageWithUsers.filter(
+        //     message =>
+        //       message.messageReceiverUserId === userId ||
+        //       message.messageSender.userId === userId
+        //   )
+        // });
       }
-    }
-  }
+    },
+  },
 };

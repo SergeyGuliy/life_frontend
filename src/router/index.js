@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { isLoggedIn } from "./middlewares/loginStatusMiddleware.js";
 
-// import loginStatusMiddleware from "./middlewares/loginStatusMiddleware";
-// import refreshTocken from "./middlewares/refreshTocken";
-// import isJoinedRoom from "./middlewares/isJoinedRoom";
+// import { isLoggedIn } from "./middlewares/loginStatusMiddleware.js";
+
+import { loginStatusMiddleware } from "./middlewares/loginStatusMiddleware.js";
+import { refreshToken } from "./middlewares/refreshToken.js";
+import { isJoinedRoom } from "./middlewares/isJoinedRoom.js";
 
 const routes = [
   {
@@ -11,7 +12,7 @@ const routes = [
     name: "Auth",
     component: () => import("../views/Auth.vue"),
     meta: {
-      middleware: [isLoggedIn],
+      // middleware: [isLoggedIn],
       layout: "authLayout",
     },
   },
@@ -111,9 +112,9 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  // await refreshTocken(to, from, next);
-  // loginStatusMiddleware(to, from, next);
-  // isJoinedRoom(to, from, next);
+  await refreshToken(to, from, next);
+  loginStatusMiddleware(to, from, next);
+  isJoinedRoom(to, from, next);
 });
 
 export default router;

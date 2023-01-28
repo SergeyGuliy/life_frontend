@@ -11,9 +11,7 @@
 
       <template v-slot:action="{ attrs }">
         <v-btn icon v-bind="attrs" @click="snackbar.isOpened = false">
-          <v-icon>
-            mdi-close
-          </v-icon>
+          <v-icon> mdi-close </v-icon>
         </v-btn>
       </template>
     </v-snackbar>
@@ -45,11 +43,13 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "AuthWindow",
   components: {
-    TabLogin: () => import("./TabLogin"),
-    TabRegister: () => import("./TabRegister")
+    TabLogin: defineAsyncComponent(() => import("./TabLogin.vue")),
+    TabRegister: defineAsyncComponent(() => import("./TabRegister.vue")),
   },
   data() {
     return {
@@ -57,16 +57,16 @@ export default {
       snackbar: {
         isOpened: false,
         timeout: 2000,
-        text: ""
-      }
+        text: "",
+      },
     };
   },
   methods: {
     onError(text) {
       this.snackbar.text = text;
       this.snackbar.isOpened = true;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -8,8 +8,8 @@
 export default {
   name: "authLayout",
   mounted() {
-    this.$vuetify.theme.dark = false;
-  }
+    // this.$vuetify.theme.dark = false;
+  },
 };
 </script>
 
