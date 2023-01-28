@@ -11,7 +11,7 @@ import room from "./modules/room";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+export const store = new Vuex.Store({
   strict: true,
   modules: {
     auth,
@@ -21,6 +21,6 @@ export default new Vuex.Store({
     chats,
     friends,
     game,
-    room
-  }
+    room,
+  },
 });

@@ -1,8 +1,8 @@
 import Vue from "vue";
 import { api } from "@api";
 // import { UPDATE_TIME_DELTA } from "@constants/index.js";
-const UPDATE_TIME_DELTA = 100000
-import store from "@store";
+const UPDATE_TIME_DELTA = 100000;
+import { store } from "@store";
 
 const requestUsersOrders = [];
 
@@ -10,21 +10,21 @@ export default {
   namespaced: true,
   state: {
     users: {},
-    rooms: {}
+    rooms: {},
   },
   mutations: {
     setUser(state, userData) {
       IsUserExistsAndNeedToUpdate(userData.userId, () => {
         Vue.set(state.users, userData.userId, {
           ...userData,
-          serverTime: new Date()
+          serverTime: new Date(),
         });
       });
     },
     getUserById(state, userId) {
       IsUserExistsAndNeedToUpdate(userId, () => fetchUserData(userId));
-    }
-  }
+    },
+  },
 };
 
 function IsUserExistsAndNeedToUpdate(userId, callback) {
@@ -44,11 +44,11 @@ function fetchUserData(userId) {
   requestUsersOrders.push(userId);
   api.users
     .getById(userId)
-    .then(userData => {
+    .then((userData) => {
       if (userData) store.commit("dictionaries/setUser", userData);
     })
     .finally(() => {
-      const userIdToDelete = requestUsersOrders.findIndex(i => i === userId);
+      const userIdToDelete = requestUsersOrders.findIndex((i) => i === userId);
       requestUsersOrders.splice(userIdToDelete, 1);
     });
 }

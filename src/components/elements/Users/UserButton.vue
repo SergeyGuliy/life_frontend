@@ -5,15 +5,15 @@
 </template>
 
 <script>
-import { $usersActions } from "@/composable/$usersActions";
+// import { $usersActions } from "@/composable/$usersActions";
 import { api } from "@api";
 
-const {
-  writeMessage,
-  addToFriend,
-  deleteFriend,
-  openProfile
-} = $usersActions();
+// const {
+//   writeMessage,
+//   addToFriend,
+//   deleteFriend,
+//   openProfile
+// } = $usersActions();
 
 const supportedKeys = [
   "writeMessage",
@@ -23,7 +23,7 @@ const supportedKeys = [
   "kickUser",
   "setAdmin",
   "acceptFriend",
-  "ignoreFriend"
+  "ignoreFriend",
 ];
 
 export default {
@@ -31,15 +31,15 @@ export default {
   props: {
     userId: {
       type: [Number, null],
-      default: null
+      default: null,
     },
     type: {
       type: String,
       required: true,
-      validator: val => {
+      validator: (val) => {
         return supportedKeys.includes(val);
-      }
-    }
+      },
+    },
   },
 
   data() {
@@ -52,7 +52,7 @@ export default {
         kickUser: this.$t("buttons.kickUser"),
         setAdmin: this.$t("buttons.setAdmin"),
         acceptFriend: this.$t("buttons.acceptFriend"),
-        ignoreFriend: this.$t("buttons.ignoreFriend")
+        ignoreFriend: this.$t("buttons.ignoreFriend"),
       },
       mapMethods: {
         writeMessage: this.writeMessage,
@@ -62,8 +62,8 @@ export default {
         kickUser: this.kickUser,
         setAdmin: this.setAdmin,
         acceptFriend: this.acceptFriend,
-        ignoreFriend: this.ignoreFriend
-      }
+        ignoreFriend: this.ignoreFriend,
+      },
     };
   },
 
@@ -73,7 +73,7 @@ export default {
     },
     getMethod() {
       return this.mapMethods[this.type];
-    }
+    },
   },
 
   methods: {
@@ -97,7 +97,7 @@ export default {
     async acceptFriend(userId) {
       await api.friendship
         .acceptRequest(userId)
-        .then(data => {
+        .then((data) => {
           const indexToDelete = this.getIndex(data.friendshipsId);
           this.$store.commit("friends/deleteConnection", indexToDelete);
           this.$store.commit("friends/addFriend", data);
@@ -108,19 +108,19 @@ export default {
     async ignoreFriend(userId) {
       await api.friendship
         .ignoreRequest(userId)
-        .then(data => {
+        .then((data) => {
           const indexToUpdate = this.getIndex(data.friendshipsId);
           this.$store.commit("friends/updateConnection", {
             indexToUpdate,
-            data
+            data,
           });
         })
         .catch(() => {});
     },
 
     getIndex(friendshipsId) {
-      return this.$connects.findIndex(i => i.friendshipsId === friendshipsId);
-    }
-  }
+      return this.$connects.findIndex((i) => i.friendshipsId === friendshipsId);
+    },
+  },
 };
 </script>

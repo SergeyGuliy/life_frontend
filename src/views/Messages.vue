@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import { MESSAGE_RECEIVER_TYPES } from "@enums.js";
-const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
+// import { MESSAGE_RECEIVER_TYPES } from "@enums.js";
+// const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
 
 export default {
   name: "Messages",
@@ -24,20 +24,20 @@ export default {
     ChatForm: () => import("@components/layouts/Chat/ChatForm.vue"),
     ChatBody: () => import("@components/layouts/Chat/ChatBody.vue"),
     ChatHeader: () => import("@components/layouts/Chat/ChatHeader.vue"),
-    ChatTabs: () => import("@components/layouts/Chat/ChatTabs.vue")
+    ChatTabs: () => import("@components/layouts/Chat/ChatTabs.vue"),
   },
 
   mounted() {
     this.$busInit({
       activateChat: this.activateChat,
       openChat: this.openChat,
-      userLeaveChat: this.userLeaveChat
+      userLeaveChat: this.userLeaveChat,
     });
   },
 
   data() {
     return {
-      activeChat: GLOBAL
+      activeChat: "GLOBAL",
     };
   },
   methods: {
@@ -48,11 +48,11 @@ export default {
       this.activeChat = chatName;
     },
     userLeaveChat() {
-      if (this.activeChat === ROOM) {
-        this.activeChat = GLOBAL;
+      if (this.activeChat === "ROOM") {
+        this.activeChat = "GLOBAL";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

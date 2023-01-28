@@ -1,5 +1,5 @@
 "use strict";
-import store from "../../store";
+import { store } from "../../store";
 
 import axios from "axios";
 import { clearLocalStorageKeys } from "../../utils/localStorageKeys";
@@ -7,30 +7,30 @@ import { clearLocalStorageKeys } from "../../utils/localStorageKeys";
 // import { myVue } from "@main";
 
 let config = {
-  baseURL: "http://localhost:3000/"
+  baseURL: "http://localhost:3000/",
 };
 
 const axiosWithAuth = axios.create(config);
 const axiosWithoutAuth = axios.create(config);
 
 axiosWithAuth.interceptors.request.use(
-  function(config) {
+  function (config) {
     const token = localStorage.getItem("accessToken");
     if (token) {
       config.headers["Authorization"] = "Bearer " + token;
     }
     return config;
   },
-  function(error) {
+  function (error) {
     return Promise.reject(error);
   }
 );
 
 axiosWithAuth.interceptors.response.use(
-  function(response) {
+  function (response) {
     return response.data;
   },
-  async function(error) {
+  async function (error) {
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -48,14 +48,14 @@ axiosWithAuth.interceptors.response.use(
 );
 
 axiosWithoutAuth.interceptors.response.use(
-  function(response) {
+  function (response) {
     return response.data;
   },
-  async function(error) {
+  async function (error) {
     return error;
   }
 );
 export default {
   axiosWithAuth,
-  axiosWithoutAuth
+  axiosWithoutAuth,
 };

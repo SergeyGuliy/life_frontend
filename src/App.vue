@@ -3,7 +3,7 @@
     <component :is="layout">
       <router-view />
     </component>
-<!--    <component v-if="getComponent" :is="getComponent"></component>-->
+    <!--    <component v-if="getComponent" :is="getComponent"></component>-->
     <notifications group="foo" />
   </v-app>
 </template>
@@ -26,14 +26,14 @@ export default {
   computed: {
     ...mapState("modals", ["component"]),
     layout() {
-      return this.$route.meta.layout;
+      return this.$route?.meta?.layout;
     },
     getComponent() {
       if (this.component) {
         return require(`@components/modals/${this.component}.vue`).default;
       }
       return null;
-    }
+    },
   },
 
   // $initSocketListener() {
@@ -73,8 +73,8 @@ export default {
       // TODO add prevent default on prod
       // e.preventDefault();
       this.$bus.emit("clickOutside");
-    }
-  }
+    },
+  },
 };
 </script>
 

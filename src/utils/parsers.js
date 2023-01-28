@@ -1,6 +1,6 @@
 import { cloneDeep } from "lodash";
 import { api } from "@api";
-import store from "../store";
+import { store } from "../store";
 
 export class ProfileSettingsParser {
   constructor(userData) {
@@ -11,24 +11,24 @@ export class ProfileSettingsParser {
       phone: userData?.phone || "",
       firstName: userData?.firstName || "",
       lastName: userData?.lastName || "",
-      country: userData?.country || ""
+      country: userData?.country || "",
     };
     this.chatSettings = {
       global: {
         isTurnedOn: userData.userSettings.globalIsTurnedOn,
         autoplay: userData.userSettings.globalAutoplay,
-        soundSelected: userData.userSettings.globalSoundSelected
+        soundSelected: userData.userSettings.globalSoundSelected,
       },
       room: {
         isTurnedOn: userData.userSettings.roomIsTurnedOn,
         autoplay: userData.userSettings.roomAutoplay,
-        soundSelected: userData.userSettings.roomSoundSelected
+        soundSelected: userData.userSettings.roomSoundSelected,
       },
       private: {
         isTurnedOn: userData.userSettings.privateIsTurnedOn,
         autoplay: userData.userSettings.privateAutoplay,
-        soundSelected: userData.userSettings.privateSoundSelected
-      }
+        soundSelected: userData.userSettings.privateSoundSelected,
+      },
     };
   }
 
@@ -46,25 +46,25 @@ export class ProfileSettingsParser {
         phone: "profileSettings.phone",
         firstName: "profileSettings.firstName",
         lastName: "profileSettings.lastName",
-        country: "profileSettings.country"
+        country: "profileSettings.country",
       },
       chatSettings: {
         global: {
           isTurnedOn: "userSettings.globalIsTurnedOn",
           autoplay: "userSettings.globalAutoplay",
-          soundSelected: "userSettings.globalSoundSelected"
+          soundSelected: "userSettings.globalSoundSelected",
         },
         room: {
           isTurnedOn: "userSettings.roomIsTurnedOn",
           autoplay: "userSettings.roomAutoplay",
-          soundSelected: "userSettings.roomSoundSelected"
+          soundSelected: "userSettings.roomSoundSelected",
         },
         private: {
           isTurnedOn: "userSettings.privateIsTurnedOn",
           autoplay: "userSettings.privateAutoplay",
-          soundSelected: "userSettings.privateSoundSelected"
-        }
-      }
+          soundSelected: "userSettings.privateSoundSelected",
+        },
+      },
     };
   }
 
@@ -81,7 +81,7 @@ export class ProfileSettingsParser {
               const keys = this.nameMap[key1][key2][key3].split(".");
               dataToReturn[keys[0]] = {
                 ...dataToReturn[keys[0]],
-                [keys[1]]: value2[key3]
+                [keys[1]]: value2[key3],
               };
             });
           }
@@ -92,7 +92,7 @@ export class ProfileSettingsParser {
             const keys = this.nameMap[key1][key2].split(".");
             dataToReturn[keys[0]] = {
               ...dataToReturn[keys[0]],
-              [keys[1]]: value2
+              [keys[1]]: value2,
             };
           }
         });
@@ -105,10 +105,10 @@ export class ProfileSettingsParser {
     const dataToReturn = this.parseUserSettings(data);
     return await api.userSettings
       .updateUserSettings(dataToReturn)
-      .then(data => {
+      .then((data) => {
         store.dispatch("user/updateUserSettings", data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }

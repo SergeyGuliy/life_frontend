@@ -1,8 +1,8 @@
-import store from "../../store/index";
+import { store } from "../../store/index";
 import { api } from "@api";
 import { myVue } from "@main";
 
-export default async function(to) {
+export default async function (to) {
   if (store.state.user.user) {
     return;
   }

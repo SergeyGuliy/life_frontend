@@ -5,12 +5,14 @@ import * as url from "url";
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 import path from "path";
+import vuetify from "vite-plugin-vuetify";
 const getPath = (pathUrl) => path.resolve(__dirname, pathUrl);
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), vuetify()],
   resolve: {
     alias: {
+      vue: getPath("node_modules/@vue/compat"),
       "@constants": getPath("node_modules/life_shared/constants"),
       "@enums": getPath("node_modules/life_shared/enums"),
       "@components": getPath("src/components/"),

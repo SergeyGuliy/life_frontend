@@ -1,6 +1,6 @@
-import store from "../../store/index";
+import { store } from "../../store/index.js";
 
-export default function(to, from, next) {
+export function isLoggedIn(to, from, next) {
   if (store.state.user.user && ["Auth", "Closer"].includes(to.name)) {
     next({ name: "Home" });
   }

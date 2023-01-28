@@ -6,16 +6,16 @@
 </template>
 
 <script>
-import roomSetup from "@/mixins/roomSetup";
+// import roomSetup from "@/mixins/roomSetup";
 
 export default {
   name: "RoomId",
 
-  mixins: [roomSetup],
+  // mixins: [roomSetup],
 
   components: {
     Room: () => import("@components/elements/Rooms/Room.vue"),
-    Games: () => import("@components/elements/Games/Game.vue")
+    Games: () => import("@components/elements/Games/Game.vue"),
   },
 
   async beforeRouteLeave(to, from, next) {
@@ -25,16 +25,16 @@ export default {
       await this.$openModal("Promt", {
         title: this.$t("modals.wantLeaveRoom"),
         submit: this.$t("buttons.leave"),
-        cancel: this.$t("buttons.cancel")
+        cancel: this.$t("buttons.cancel"),
       })
         .then(async () => {
           await this.$store.dispatch("user/leaveRoom");
           next();
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
     }
-  }
+  },
 };
 </script>

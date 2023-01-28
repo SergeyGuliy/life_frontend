@@ -1,6 +1,6 @@
 import { myVue } from "@main";
 import { api } from "@api";
-import store from "../store";
+import { store } from "../store";
 
 export function $usersActions() {
   function writeMessage(userId) {
@@ -15,9 +15,9 @@ export function $usersActions() {
   async function deleteFriend(userId) {
     await api.friendship
       .deleteFriend(userId)
-      .then(data => {
+      .then((data) => {
         const indexToDelete = myVue.$friendsRequests.findIndex(
-          i => i.friendshipsId === data.friendshipsId
+          (i) => i.friendshipsId === data.friendshipsId
         );
         store.commit("friends/deleteFriend", indexToDelete);
       })
@@ -30,6 +30,6 @@ export function $usersActions() {
     writeMessage,
     addToFriend,
     deleteFriend,
-    openProfile
+    openProfile,
   };
 }

@@ -6,7 +6,7 @@
         :users="$friends"
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
       >
-        <template #actions="{userData}">
+        <template #actions="{ userData }">
           <UserButton :userId="userData?.userId" type="openProfile" />
           <UserButton :userId="userData?.userId" type="deleteFriend" />
           <UserButton :userId="userData?.userId" type="writeMessage" />
@@ -24,7 +24,7 @@
         :users="activeTabList"
         :emptyText="emptyText"
       >
-        <template #actions="{userData}">
+        <template #actions="{ userData }">
           <UserButton :userId="userData?.userId" type="openProfile" />
           <UserButton
             v-if="canAccept"
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { FRIENDSHIP_STATUSES } from "@enums";
+// import { FRIENDSHIP_STATUSES } from "@enums";
 
 const connectsIncomingPending = "connectsIncomingPending";
 const connectsIncomingIgnored = "connectsIncomingIgnored";
@@ -54,16 +54,16 @@ export default {
 
   components: {
     UsersList: () => import("@components/elements/Users/UsersList.vue"),
-    UserButton: () => import("@components/elements/Users/UserButton.vue")
+    UserButton: () => import("@components/elements/Users/UserButton.vue"),
   },
   data() {
     return {
       tabs: [
         connectsIncomingPending,
         connectsIncomingIgnored,
-        connectsOutgoingPending
+        connectsOutgoingPending,
       ],
-      tabIndex: 0
+      tabIndex: 0,
     };
   },
   computed: {
@@ -86,32 +86,32 @@ export default {
     },
 
     connectsInPending() {
-      return this.getConnectionsByStatus(FRIENDSHIP_STATUSES.PENDING);
+      // return this.getConnectionsByStatus(FRIENDSHIP_STATUSES.PENDING);
     },
     connectsInIgnored() {
-      return this.getConnectionsByStatus(FRIENDSHIP_STATUSES.IGNORED);
+      // return this.getConnectionsByStatus(FRIENDSHIP_STATUSES.IGNORED);
     },
     [connectsIncomingPending]() {
       return this.connectsInPending
-        .filter(i => i.friendshipReceiver.userId === this.$user.userId)
-        .map(i => i.friendshipSender);
+        .filter((i) => i.friendshipReceiver.userId === this.$user.userId)
+        .map((i) => i.friendshipSender);
     },
     [connectsOutgoingPending]() {
       return this.connectsInPending
-        .filter(i => i.friendshipSender.userId === this.$user.userId)
-        .map(i => i.friendshipReceiver);
+        .filter((i) => i.friendshipSender.userId === this.$user.userId)
+        .map((i) => i.friendshipReceiver);
     },
     [connectsIncomingIgnored]() {
       return this.connectsInIgnored
-        .filter(i => i.friendshipReceiver.userId === this.$user.userId)
-        .map(i => i.friendshipSender);
-    }
+        .filter((i) => i.friendshipReceiver.userId === this.$user.userId)
+        .map((i) => i.friendshipSender);
+    },
   },
 
   methods: {
     getConnectionsByStatus(status) {
-      return this.$connects.filter(i => i.friendshipsStatus === status);
-    }
-  }
+      return this.$connects.filter((i) => i.friendshipsStatus === status);
+    },
+  },
 };
 </script>
