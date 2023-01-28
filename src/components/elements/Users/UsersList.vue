@@ -7,7 +7,7 @@
         :userData="userData"
         :showUserRoomInfo="showUserRoomInfo"
       >
-        <template #actions="{userData, isYou}">
+        <template #actions="{ userData, isYou }">
           <slot name="actions" :userData="userData" :isYou="isYou"></slot>
         </template>
       </UserBox>
@@ -19,38 +19,40 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "UsersList",
   props: {
     emptyText: {
       type: String,
-      required: false
+      required: false,
     },
     users: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     showUserRoomInfo: {
       default: () => false,
-      type: Boolean
+      type: Boolean,
     },
     sortType: {
       default: () => null,
-      type: String
-    }
+      type: String,
+    },
   },
   components: {
-    UserBox: () => import("./UserBox")
+    UserBox: defineAsyncComponent(() => import("./UserBox.vue")),
   },
   computed: {
     sortedUsers() {
       if (this.sortType === "adminFirst") {
-        return [...this.users].sort(user =>
+        return [...this.users].sort((user) =>
           user.roomCreatedId === user.roomJoinedId ? -1 : 1
         );
       }
       return this.users;
-    }
-  }
+    },
+  },
 };
 </script>

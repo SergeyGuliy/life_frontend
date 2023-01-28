@@ -36,13 +36,21 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "GameCryptos",
 
   components: {
-    GameCryptoGraph: () => import("./GameCryptoGraph"),
-    ChipGrowLoss: () => import("../../../ui/game/ChipGrowLoss"),
-    BuySellButtons: () => import("../../../ui/game/BuySellButtons")
+    GameCryptoGraph: defineAsyncComponent(() =>
+      import("./GameCryptoGraph.vue")
+    ),
+    ChipGrowLoss: defineAsyncComponent(() =>
+      import("../../../ui/game/ChipGrowLoss.vue")
+    ),
+    BuySellButtons: defineAsyncComponent(() =>
+      import("../../../ui/game/BuySellButtons.vue")
+    ),
   },
 
   computed: {
@@ -53,7 +61,7 @@ export default {
         );
       }
       return this.$gameCryptos;
-    }
+    },
   },
 
   data() {
@@ -65,27 +73,27 @@ export default {
           text: "Name",
           align: "start",
           sortable: false,
-          value: "name"
+          value: "name",
         },
         {
           text: "Current Price",
-          value: "currentPrice"
+          value: "currentPrice",
         },
         {
           text: "Grow/Loss",
           value: "grow_loss",
           align: "center",
-          width: "110px"
+          width: "110px",
         },
         {
           text: "Actions",
           value: "actions",
           align: "center",
           sortable: false,
-          width: "135px"
-        }
-      ]
+          width: "135px",
+        },
+      ],
     };
-  }
+  },
 };
 </script>

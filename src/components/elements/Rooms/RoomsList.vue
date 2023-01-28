@@ -13,16 +13,18 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "RoomsList",
   props: {
     rooms: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   components: {
-    RoomBox: () => import("./RoomBox")
-  }
+    RoomBox: defineAsyncComponent(() => import("./RoomBox.vue")),
+  },
 };
 </script>

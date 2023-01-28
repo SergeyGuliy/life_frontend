@@ -25,19 +25,27 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "ChatMessage",
 
   components: {
-    ChatMessageHeader: () => import("./ChatMessageHeader"),
-    ChatMessageContext: () => import("./ChatMessageContext"),
-    ChatMessageBody: () => import("./ChatMessageBody")
+    ChatMessageHeader: defineAsyncComponent(() =>
+      import("./ChatMessageHeader.vue")
+    ),
+    ChatMessageContext: defineAsyncComponent(() =>
+      import("./ChatMessageContext.vue")
+    ),
+    ChatMessageBody: defineAsyncComponent(() =>
+      import("./ChatMessageBody.vue")
+    ),
   },
   props: {
     message: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
 
   computed: {
@@ -50,7 +58,7 @@ export default {
     },
     isYouAuthor() {
       return this.message.messageSender.userId === this.$user.userId;
-    }
+    },
   },
   methods: {
     showContextMenu(e) {
@@ -58,7 +66,7 @@ export default {
       this.$bus.emit("openContext", this.message.messageId);
       if (this.isYouAuthor) return;
       this.$refs.ChatMessageHeader.showContextMenu(e);
-    }
-  }
+    },
+  },
 };
 </script>

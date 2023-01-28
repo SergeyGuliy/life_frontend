@@ -19,7 +19,7 @@
           :headers="headers"
           :items="tableUserNews"
           item-key="source"
-          :expanded.sync="expanded"
+          v-model:expanded="expanded"
           show-expand
           hide-default-footer
           fixed-header
@@ -53,9 +53,7 @@
               <template v-slot:default>
                 <tbody>
                   <tr>
-                    <td class="text-right" width="440px">
-                      cashIncome
-                    </td>
+                    <td class="text-right" width="440px">cashIncome</td>
                     <td class="text-right" width="120px">
                       {{ cashIncome }}
                     </td>
@@ -80,14 +78,16 @@
 <script>
 import modal from "@/mixins/modal";
 import { $mChain } from "@utils/mathjs";
+import { defineAsyncComponent } from "vue";
 
 export default {
   name: "News",
   mixins: [modal],
 
   components: {
-    GameModification: () =>
-      import("../../elements/Games/GameModification/GameModification")
+    GameModification: defineAsyncComponent(() =>
+      import("../../elements/Games/GameModification/GameModification.vue")
+    ),
   },
 
   created() {
@@ -106,7 +106,7 @@ export default {
           text: "Source of income",
           sortable: false,
           value: "source",
-          width: "200px"
+          width: "200px",
         },
 
         {
@@ -114,7 +114,7 @@ export default {
           sortable: false,
           value: "brutto",
           width: "120px",
-          align: "center"
+          align: "center",
         },
 
         {
@@ -122,7 +122,7 @@ export default {
           sortable: false,
           value: "tax",
           width: "120px",
-          align: "center"
+          align: "center",
         },
 
         {
@@ -130,9 +130,9 @@ export default {
           sortable: false,
           value: "netto",
           width: "120px",
-          align: "end"
-        }
-      ]
+          align: "end",
+        },
+      ],
     };
   },
 
@@ -150,14 +150,14 @@ export default {
         netto: $mChain(items.reduce((acc, cur) => acc + cur.netto, 0))
           .round(2)
           .done(),
-        items: items.map(i => ({
+        items: items.map((i) => ({
           source: itemName,
           brutto: i.brutto,
           tax: i.tax,
-          netto: i.netto
-        }))
+          netto: i.netto,
+        })),
       });
-    }
+    },
   },
 
   computed: {
@@ -169,21 +169,15 @@ export default {
     },
 
     tableUserNews() {
-      let {
-        creditTick,
-        creditEnd,
-        depositTick,
-        depositEnd,
-        expanses,
-        salary
-      } = this.$gameUserNews;
+      let { creditTick, creditEnd, depositTick, depositEnd, expanses, salary } =
+        this.$gameUserNews;
 
       let tableData = [];
 
       if (salary?.netto) {
         tableData.push({
           source: "salary",
-          ...salary
+          ...salary,
         });
       }
       this.pushAllItems(creditTick, tableData, "creditTick", "creditTick");
@@ -202,13 +196,13 @@ export default {
           source,
           brutto: 10,
           tax: 10,
-          netto
-        }))
+          netto,
+        })),
       });
 
       return tableData;
-    }
-  }
+    },
+  },
 };
 </script>
 

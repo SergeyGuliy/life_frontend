@@ -22,19 +22,22 @@
 
 <script>
 import { $currentUserActions } from "@composable/$currentUserActions";
+import { defineAsyncComponent } from "vue";
 const { logOutMiddleware } = $currentUserActions();
 
 export default {
   name: "SideBar",
   components: {
-    SideBarList: () => import("./SideBarList"),
-    SideBarUserBlock: () => import("./SideBarUserBlock")
+    SideBarList: defineAsyncComponent(() => import("./SideBarList.vue")),
+    SideBarUserBlock: defineAsyncComponent(() =>
+      import("./SideBarUserBlock.vue")
+    ),
   },
   props: {
     value: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -42,45 +45,45 @@ export default {
         {
           title: "layout.cabinet",
           icon: "mdi-settings",
-          linkParams: { name: "Cabinet" }
-        }
+          linkParams: { name: "Cabinet" },
+        },
       ],
       itemsPrivate: [
         {
           title: "layout.main",
           icon: "mdi-view-dashboard",
-          linkParams: { name: "Home" }
+          linkParams: { name: "Home" },
         },
         {
           title: "layout.friends",
           icon: "mdi-account-group",
-          linkParams: { name: "Friends" }
+          linkParams: { name: "Friends" },
         },
         {
           title: "Messages",
           icon: "mdi-message-bulleted",
-          linkParams: { name: "Messages" }
-        }
+          linkParams: { name: "Messages" },
+        },
       ],
       itemsGlobal: [
         {
           title: "layout.users",
           icon: "mdi-account-group",
-          linkParams: { name: "Users" }
+          linkParams: { name: "Users" },
         },
         {
           title: "layout.rooms",
           icon: "mdi-google-classroom",
-          linkParams: { name: "Rooms" }
-        }
-      ]
+          linkParams: { name: "Rooms" },
+        },
+      ],
     };
   },
   methods: {
     logOutMiddleware,
     updateDrawer(value) {
       this.$emit("updateDrawer", value);
-    }
-  }
+    },
+  },
 };
 </script>

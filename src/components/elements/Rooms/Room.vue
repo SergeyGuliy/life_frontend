@@ -47,7 +47,7 @@
         :showUserRoomInfo="true"
         :sortType="'adminFirst'"
       >
-        <template #actions="{userData, isYou}">
+        <template #actions="{ userData, isYou }">
           <UserButton
             v-if="!isYou && $isRoomAdmin"
             :userId="userData?.userId"
@@ -76,14 +76,21 @@
 
 <script>
 import { api } from "@api";
+import { defineAsyncComponent } from "vue";
 
 export default {
   name: "Room",
 
   components: {
-    RoomInfo: () => import("@components/elements/Rooms/RoomInfo.vue"),
-    UsersList: () => import("@components/elements/Users/UsersList.vue"),
-    UserButton: () => import("@components/elements/Users/UserButton.vue")
+    RoomInfo: defineAsyncComponent(() =>
+      import("@components/elements/Rooms/RoomInfo.vue")
+    ),
+    UsersList: defineAsyncComponent(() =>
+      import("@components/elements/Users/UsersList.vue")
+    ),
+    UserButton: defineAsyncComponent(() =>
+      import("@components/elements/Users/UserButton.vue")
+    ),
   },
 
   data() {
@@ -91,8 +98,8 @@ export default {
       gameSettings: {
         timePerTurn: 5,
         timeAdditional: 180,
-        gameYearsCount: 40 * 12
-      }
+        gameYearsCount: 40 * 12,
+      },
     };
   },
 
@@ -103,12 +110,12 @@ export default {
 
     async toggleLockRoom() {
       await api.rooms.toggleLockRoom(this.$roomId, {
-        lockState: !this.$roomData.isBlocked
+        lockState: !this.$roomData.isBlocked,
       });
     },
     async deleteRoom() {
       await api.rooms.deleteRoom(this.$roomId);
-    }
-  }
+    },
+  },
 };
 </script>

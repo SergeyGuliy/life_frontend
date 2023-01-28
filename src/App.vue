@@ -10,8 +10,7 @@
 
 <script>
 import { mapState } from "vuex";
-import mainLayout from "./layouts/mainLayout.vue";
-import authLayout from "./layouts/authLayout.vue";
+import { defineAsyncComponent } from "vue";
 // import {
 //   socketSetup_callUserIdToServer,
 //   socketSetup_forceDisconnect,
@@ -22,10 +21,8 @@ export default {
   name: "App",
 
   components: {
-    // mainLayout: () => import("./layouts/mainLayout.vue"),
-    // authLayout: () => import("./layouts/authLayout.vue"),
-    mainLayout,
-    authLayout,
+    mainLayout: defineAsyncComponent(() => import("./layouts/mainLayout.vue")),
+    authLayout: defineAsyncComponent(() => import("./layouts/authLayout.vue")),
   },
   computed: {
     ...mapState("modals", ["component"]),

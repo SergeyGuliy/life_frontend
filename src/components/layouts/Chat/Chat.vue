@@ -15,9 +15,7 @@
         right
         bottom
       >
-        <v-icon>
-          mdi-chat
-        </v-icon>
+        <v-icon> mdi-chat </v-icon>
       </v-btn>
     </template>
     <!--    <pre>{{$chatTabs}}</pre>-->
@@ -31,20 +29,22 @@
 </template>
 
 <script>
-import { MESSAGE_RECEIVER_TYPES } from "@enums";
-const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
+import { defineAsyncComponent } from "vue";
+
+// import { MESSAGE_RECEIVER_TYPES } from "@enums";
+// const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
 export default {
   name: "Chat",
   components: {
-    ChatForm: () => import("./ChatForm"),
-    ChatBody: () => import("./ChatBody"),
-    ChatTabs: () => import("./ChatTabs"),
-    ChatHeader: () => import("./ChatHeader")
+    ChatForm: defineAsyncComponent(() => import("./ChatForm.vue")),
+    ChatBody: defineAsyncComponent(() => import("./ChatBody.vue")),
+    ChatTabs: defineAsyncComponent(() => import("./ChatTabs.vue")),
+    ChatHeader: defineAsyncComponent(() => import("./ChatHeader.vue")),
   },
   data() {
     return {
       isChatOpened: false,
-      activeChat: GLOBAL
+      activeChat: "GLOBAL",
     };
   },
 
@@ -52,7 +52,7 @@ export default {
     this.$busInit({
       activateChat: this.activateChat,
       openChat: this.openChat,
-      userLeaveChat: this.userLeaveChat
+      userLeaveChat: this.userLeaveChat,
     });
   },
 
@@ -64,10 +64,10 @@ export default {
       this.activeChat = chatName;
     },
     userLeaveChat() {
-      if (this.activeChat === ROOM) {
-        this.activeChat = GLOBAL;
+      if (this.activeChat === "ROOM") {
+        this.activeChat = "GLOBAL";
       }
-    }
-  }
+    },
+  },
 };
 </script>

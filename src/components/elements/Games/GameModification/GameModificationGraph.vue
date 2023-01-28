@@ -4,31 +4,32 @@
 
 <script>
 import { $mChain, $mGetPrice } from "@utils/mathjs";
+import { defineAsyncComponent } from "vue";
 
 export default {
   name: "GameModificationGraph",
 
   components: {
-    apexchart: () => import("vue-apexcharts")
+    apexchart: defineAsyncComponent(() => import("vue-apexcharts.vue")),
   },
 
   props: {
     inflation: {
       type: Array,
-      required: true
+      required: true,
     },
     keyRate: {
       type: Array,
-      required: true
+      required: true,
     },
     unemployment: {
       type: Array,
-      required: true
+      required: true,
     },
     GDP: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
 
   computed: {
@@ -36,22 +37,22 @@ export default {
       return [
         {
           name: "Inflation",
-          data: this.inflation
+          data: this.inflation,
         },
         {
           name: "Key rate",
-          data: this.keyRate
+          data: this.keyRate,
         },
         {
           name: "Unemployment",
-          data: this.unemployment
+          data: this.unemployment,
         },
         {
           name: "GDP",
-          data: this.GDP
-        }
+          data: this.GDP,
+        },
       ];
-    }
+    },
   },
 
   data() {
@@ -60,18 +61,18 @@ export default {
         chart: {
           height: 350,
           type: "line",
-          stacked: false
+          stacked: false,
         },
         yaxis: {
           labels: {
             formatter(val) {
               return $mGetPrice($mChain(val).round(2));
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     };
-  }
+  },
 };
 </script>
 

@@ -6,7 +6,7 @@
         :users="$friends"
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
       >
-        <template #actions="{userData}">
+        <template #actions="{ userData }">
           <UserButton :userId="userData.userId" type="openProfile" />
           <UserButton :userId="userData.userId" type="deleteFriend" />
           <UserButton :userId="userData.userId" type="writeMessage" />
@@ -21,17 +21,25 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "Home",
   components: {
-    RoomsController: () => import("@components/elements/Rooms/RoomsController.vue"),
-    UsersList: () => import("@components/elements/Users/UsersList.vue"),
-    UserButton: () => import("@components/elements/Users/UserButton.vue")
+    RoomsController: defineAsyncComponent(() =>
+      import("@components/elements/Rooms/RoomsController.vue")
+    ),
+    UsersList: defineAsyncComponent(() =>
+      import("@components/elements/Users/UsersList.vue")
+    ),
+    UserButton: defineAsyncComponent(() =>
+      import("@components/elements/Users/UserButton.vue")
+    ),
   },
   data() {
     return {
-      users: null
+      users: null,
     };
-  }
+  },
 };
 </script>

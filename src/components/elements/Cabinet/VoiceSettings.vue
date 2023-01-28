@@ -55,7 +55,7 @@
               link
               class="pa-0"
               v-for="(item, index) in SOUNDS_WITH_FILES.filter(
-                i => i.name !== soundSelected.name
+                (i) => i.name !== soundSelected.name
               )"
               :key="index"
             >
@@ -79,21 +79,24 @@
 
 <script>
 import { SOUNDS_WITH_FILES } from "@enums";
+import { defineAsyncComponent } from "vue";
 
 export default {
   name: "VoiceSettings",
   props: {
     chatSettings: {
       type: Object,
-      required: true
+      required: true,
     },
     type: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
-    ChatAudio: () => import("../../layouts/Chat/ChatAudio")
+    ChatAudio: defineAsyncComponent(() =>
+      import("../../layouts/Chat/ChatAudio")
+    ),
   },
   computed: {
     isTurnedOn: {
@@ -103,9 +106,9 @@ export default {
       set(val) {
         this.$emit("update:chatSettings", {
           ...this.chatSettings,
-          isTurnedOn: val
+          isTurnedOn: val,
         });
-      }
+      },
     },
     autoplay: {
       get() {
@@ -114,36 +117,36 @@ export default {
       set(val) {
         this.$emit("update:chatSettings", {
           ...this.chatSettings,
-          autoplay: val
+          autoplay: val,
         });
-      }
+      },
     },
     soundSelected: {
       get() {
         return this.SOUNDS_WITH_FILES.find(
-          i => i.name === this.chatSettings.soundSelected
+          (i) => i.name === this.chatSettings.soundSelected
         );
       },
       set(val) {
         this.$emit("update:chatSettings", {
           ...this.chatSettings,
-          soundSelected: val
+          soundSelected: val,
         });
-      }
-    }
+      },
+    },
   },
   data() {
     return {
       SOUNDS_WITH_FILES,
-      isOpen: false
+      isOpen: false,
     };
   },
   methods: {
     selectSound(sound) {
       this.soundSelected = sound;
       this.isOpen = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

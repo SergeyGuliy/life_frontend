@@ -30,12 +30,12 @@
 <script>
 export default {
   name: "RoomFilter",
-  components: {},
+
   props: {
     filterData: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     roomName: {
@@ -44,7 +44,7 @@ export default {
       },
       get() {
         return this.filterData.roomName;
-      }
+      },
     },
     typeOfRoom: {
       set(val) {
@@ -52,9 +52,9 @@ export default {
       },
       get() {
         return this.filterData.typeOfRoom;
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 

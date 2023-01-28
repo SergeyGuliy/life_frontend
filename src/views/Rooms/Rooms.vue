@@ -27,13 +27,18 @@
 
 <script>
 import roomLogic from "@mixins/roomLogic.js";
+import { defineAsyncComponent } from "vue";
 
 export default {
   name: "Rooms",
   components: {
-    RoomsList: () => import("@components/elements/Rooms/RoomsList.vue"),
-    RoomFilter: () => import("@components/elements/Rooms/RoomFilter.vue")
+    RoomsList: defineAsyncComponent(() =>
+      import("@components/elements/Rooms/RoomsList.vue")
+    ),
+    RoomFilter: defineAsyncComponent(() =>
+      import("@components/elements/Rooms/RoomFilter.vue")
+    ),
   },
-  mixins: [roomLogic]
+  mixins: [roomLogic],
 };
 </script>

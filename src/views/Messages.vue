@@ -18,13 +18,23 @@
 // import { MESSAGE_RECEIVER_TYPES } from "@enums.js";
 // const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
 
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "Messages",
   components: {
-    ChatForm: () => import("@components/layouts/Chat/ChatForm.vue"),
-    ChatBody: () => import("@components/layouts/Chat/ChatBody.vue"),
-    ChatHeader: () => import("@components/layouts/Chat/ChatHeader.vue"),
-    ChatTabs: () => import("@components/layouts/Chat/ChatTabs.vue"),
+    ChatForm: defineAsyncComponent(() =>
+      import("@components/layouts/Chat/ChatForm.vue")
+    ),
+    ChatBody: defineAsyncComponent(() =>
+      import("@components/layouts/Chat/ChatBody.vue")
+    ),
+    ChatHeader: defineAsyncComponent(() =>
+      import("@components/layouts/Chat/ChatHeader.vue")
+    ),
+    ChatTabs: defineAsyncComponent(() =>
+      import("@components/layouts/Chat/ChatTabs.vue")
+    ),
   },
 
   mounted() {

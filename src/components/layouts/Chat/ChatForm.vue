@@ -68,23 +68,24 @@ import { chat_messageToServer } from "@constants/ws/chats.js";
 const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 const { TEXT, VOICE } = MESSAGE_TYPES;
 import { $chatKeys } from "@composable/$chatKeys";
+import { defineAsyncComponent } from "vue";
 const { getUserIdFromChatKey, getTypeFromChatKey } = $chatKeys();
 
 export default {
   name: "ChatForm",
   mixins: [recordingMixin],
   components: {
-    ChatAudio: () => import("./ChatAudio")
+    ChatAudio: defineAsyncComponent(() => import("./ChatAudio.vue")),
   },
   props: {
     activeChat: {
       required: true,
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
-      newMessage: ""
+      newMessage: "",
     };
   },
   methods: {
@@ -95,17 +96,17 @@ export default {
       const messageData = {
         messageSender: this.$user.userId,
         messageReceiverType: activeChat,
-        messageType: this.audio ? VOICE : TEXT
+        messageType: this.audio ? VOICE : TEXT,
       };
       if (this.audio) {
         const voice = new File([this.audio.audioBlob], "voice.pm3", {
           lastModified: new Date().getTime(),
-          type: "audio/mpeg"
+          type: "audio/mpeg",
         });
 
         const formData = new FormData();
         formData.append("voice", voice);
-        await api.uploader.uploadVoice(formData).then(audioId => {
+        await api.uploader.uploadVoice(formData).then((audioId) => {
           messageData.messageVoice = audioId;
         });
       } else {
@@ -122,8 +123,8 @@ export default {
       this.$socket.client.emit(chat_messageToServer, messageData);
       this.newMessage = "";
       this.audio = null;
-    }
-  }
+    },
+  },
 };
 </script>
 

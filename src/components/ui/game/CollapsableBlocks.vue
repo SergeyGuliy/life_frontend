@@ -13,35 +13,43 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "collapsableBlocks",
 
   components: {
-    GameCryptos: () => import("../../elements/Games/GameCrypto/GameCryptos"),
+    GameCryptos: defineAsyncComponent(() =>
+      import("../../elements/Games/GameCrypto/GameCryptos.vue")
+    ),
     GameUserCredits: () =>
-      import("../../elements/Games/GameUser/GameUserCredits"),
-    GameUserDeposits: () =>
-      import("../../elements/Games/GameUser/GameUserDeposits"),
-    GameUserCrypto: () =>
-      import("../../elements/Games/GameUser/GameUserCrypto"),
-    GamesCredits: () =>
-      import("../../elements/Games/GamesCreditsDeposits/GamesCredits"),
-    GamesDeposits: () =>
-      import("../../elements/Games/GamesCreditsDeposits/GamesDeposits")
+      import("../../elements/Games/GameUser/GameUserCredits.vue"),
+    GameUserDeposits: defineAsyncComponent(() =>
+      import("../../elements/Games/GameUser/GameUserDeposits.vue")
+    ),
+    GameUserCrypto: defineAsyncComponent(() =>
+      import("../../elements/Games/GameUser/GameUserCrypto.vue")
+    ),
+    GamesCredits: defineAsyncComponent(() =>
+      import("../../elements/Games/GamesCreditsDeposits/GamesCredits.vue")
+    ),
+    GamesDeposits: defineAsyncComponent(() =>
+      import("../../elements/Games/GamesCreditsDeposits/GamesDeposits.vue")
+    ),
   },
 
   props: {
     blocks: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
     return {
-      activeBlock: []
+      activeBlock: [],
     };
-  }
+  },
 };
 </script>
 

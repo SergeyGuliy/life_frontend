@@ -8,24 +8,26 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "UserBox",
   components: {
-    UserInfo: () => import("./UserInfo")
+    UserInfo: defineAsyncComponent(() => import("./UserInfo.vue")),
   },
   props: {
     userData: {
       required: true,
-      type: [Object, undefined]
+      type: [Object, undefined],
     },
     showUserRoomInfo: {
       default: () => false,
-      type: Boolean
-    }
+      type: Boolean,
+    },
   },
   data() {
     return {
-      timestamp: new Date()
+      timestamp: new Date(),
     };
   },
   mounted() {
@@ -46,7 +48,7 @@ export default {
       const userData = this.$f.dictGetUserById(this.userData?.userId);
       if (this.timestamp) return userData;
       return userData;
-    }
-  }
+    },
+  },
 };
 </script>

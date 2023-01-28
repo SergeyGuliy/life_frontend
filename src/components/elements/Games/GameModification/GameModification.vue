@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "GameModification",
 
@@ -55,13 +57,15 @@ export default {
         month1: "Last month",
         month3: "Last 3 month",
         month6: "Last 6 month",
-        month12: "Last 12 month"
-      }
+        month12: "Last 12 month",
+      },
     };
   },
 
   components: {
-    GameModificationGraph: () => import("./GameModificationGraph")
+    GameModificationGraph: defineAsyncComponent(() =>
+      import("./GameModificationGraph.vue")
+    ),
   },
 
   computed: {
@@ -85,11 +89,11 @@ export default {
         inflation: this.$gameModifiers.inflation,
         keyRate: this.$gameModifiers.keyRate,
         unemployment: this.$gameModifiers.unemployment,
-        GDP: this.$gameModifiers.unemployment
+        GDP: this.$gameModifiers.unemployment,
       };
-    }
+    },
   },
 
-  methods: {}
+  methods: {},
 };
 </script>

@@ -13,7 +13,7 @@
         <v-card-text>
           <VoiceSettings
             v-if="chatSettings"
-            :chatSettings.sync="getActiveChat"
+            v-model:chatSettings="getActiveChat"
             :type="data.chatType"
           />
         </v-card-text>
@@ -33,9 +33,10 @@
 
 <script>
 import modal from "@mixins/modal";
-import { SOUNDS_WITH_FILES } from "@enums";
+// import { SOUNDS_WITH_FILES } from "@enums";
 import { cloneDeep } from "lodash";
 import { $currentUserActions } from "@composable/$currentUserActions";
+import { defineAsyncComponent } from "vue";
 const { updateUserSettings } = $currentUserActions();
 
 export default {
@@ -43,12 +44,14 @@ export default {
   mixins: [modal],
 
   components: {
-    VoiceSettings: () => import("../elements/Cabinet/VoiceSettings")
+    VoiceSettings: defineAsyncComponent(() =>
+      import("../elements/Cabinet/VoiceSettings.vue")
+    ),
   },
   data() {
     return {
-      SOUNDS_WITH_FILES,
-      chatSettings: null
+      // SOUNDS_WITH_FILES,
+      chatSettings: null,
     };
   },
   computed: {
@@ -58,8 +61,8 @@ export default {
       },
       set(val) {
         this.$set(this.chatSettings, this.data.chatType, cloneDeep(val));
-      }
-    }
+      },
+    },
   },
   created() {
     this.$set(this, "chatSettings", cloneDeep(this.data.chatSettings));
@@ -69,7 +72,7 @@ export default {
       updateUserSettings({ chatSettings: this.chatSettings }).then(() =>
         this.close()
       );
-    }
-  }
+    },
+  },
 };
 </script>

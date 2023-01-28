@@ -10,19 +10,21 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "ChatMessageBody",
 
   props: {
     message: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   components: {
-    ChatAudio: () => import("../ChatAudio")
-  }
+    ChatAudio: defineAsyncComponent(() => import("../ChatAudio.vue")),
+  },
 };
 </script>
 

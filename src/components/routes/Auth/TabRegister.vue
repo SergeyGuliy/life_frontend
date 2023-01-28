@@ -48,7 +48,7 @@
 <script>
 export default {
   name: "TabRegister",
-  components: {},
+
   data() {
     return {
       showPassword: true,
@@ -57,19 +57,19 @@ export default {
         email: "test.user@gmail.com",
         phone: "+2(222) 222-2212",
         password: "23yg43kvgq",
-        passwordRepeat: "23yg43kvgq"
+        passwordRepeat: "23yg43kvgq",
       },
       rules: {
         email: [
-          v => !!v || "E-mail is required",
-          v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+          (v) => !!v || "E-mail is required",
+          (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
         ],
-        password: [v => !!v || "E-mail is required"],
+        password: [(v) => !!v || "E-mail is required"],
         passwordRepeat: [
-          v => !!v || "E-mail is required",
-          v => v === this.authData.password || "Password must be same"
-        ]
-      }
+          (v) => !!v || "E-mail is required",
+          (v) => v === this.authData.password || "Password must be same",
+        ],
+      },
     };
   },
   methods: {
@@ -79,18 +79,18 @@ export default {
           .dispatch("auth/registration", {
             email: this.authData.email,
             phone: this.authData.phone,
-            password: this.authData.password
+            password: this.authData.password,
           })
           .then(() => {
             this.$vuetify.theme.dark = this.$store.state.user.user.isDarkTheme;
             this.$router.push({ name: "Home" });
           })
-          .catch(e => {
+          .catch((e) => {
             this.$emit("onError", e);
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

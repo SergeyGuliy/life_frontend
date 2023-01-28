@@ -4,6 +4,7 @@
 
 <script>
 import { options } from "./graphOptions";
+import { defineAsyncComponent } from "vue";
 
 export default {
   name: "GameCryptoGraph",
@@ -14,34 +15,36 @@ export default {
 
       data: [],
 
-      loading: true
+      loading: true,
     };
   },
 
-  components: { apexchart: () => import("vue-apexcharts") },
+  components: {
+    apexchart: defineAsyncComponent(() => import("vue-apexcharts.vue")),
+  },
 
   props: {
-    crypto: {}
+    crypto: {},
   },
 
   computed: {
     series() {
       return [{ data: this.data }];
-    }
+    },
   },
 
   $initSocketListener() {
     this.$gameAction("gamesCryptos", "getCryptoHistory", {
       name: this.crypto.name,
-      gameId: this.$gameId
-    }).then(cryptoHistory => {
+      gameId: this.$gameId,
+    }).then((cryptoHistory) => {
       cryptoHistory
         .filter(({ date }) => date.monthCode && date.year)
         .forEach(this.addHistory);
       this.loading = false;
 
       this.$socketInit({
-        games_tick: this.tickGameData
+        games_tick: this.tickGameData,
       });
     });
   },
@@ -53,19 +56,19 @@ export default {
           crypto.previousPrice,
           crypto.previousPrice,
           crypto.currentPrice,
-          crypto.currentPrice
-        ]
+          crypto.currentPrice,
+        ],
       });
     },
 
     tickGameData({ cryptos, date }) {
-      let crypto = cryptos.find(crypto => crypto.name === this.crypto.name);
+      let crypto = cryptos.find((crypto) => crypto.name === this.crypto.name);
 
       this.addHistory({
         ...crypto,
-        date
+        date,
       });
-    }
-  }
+    },
+  },
 };
 </script>

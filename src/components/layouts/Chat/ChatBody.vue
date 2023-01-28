@@ -27,25 +27,28 @@
 
 <script>
 import ResizeObserver from "resize-observer-polyfill";
+import { defineAsyncComponent } from "vue";
 
 export default {
   name: "ChatBody",
   components: {
-    ChatMessage: () => import("./Message/ChatMessage")
+    ChatMessage: defineAsyncComponent(() =>
+      import("./Message/ChatMessage.vue")
+    ),
   },
   props: {
     activeChat: {
       required: true,
-      type: String
+      type: String,
     },
     isSmall: {
       default: () => true,
-      type: Boolean
-    }
+      type: Boolean,
+    },
   },
   data() {
     return {
-      ro: null
+      ro: null,
     };
   },
   mounted() {
@@ -56,9 +59,9 @@ export default {
     }
     this.ro = new ResizeObserver(scrollToBottom).observe(chatBodyInner);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     delete this.ro;
-  }
+  },
 };
 </script>
 

@@ -13,12 +13,12 @@
 <script>
 export default {
   name: "UserId",
-  components: {},
+
   computed: {
     userData() {
       return this.$f.dictGetUserById(this.$route.params.id);
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -9,17 +9,19 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "RoomBox",
   components: {
-    RoomInfo: () => import("./RoomInfo")
+    RoomInfo: defineAsyncComponent(() => import("./RoomInfo.vue")),
   },
   props: {
     roomData: {
       required: true,
-      type: Object
-    }
-  }
+      type: Object,
+    },
+  },
 };
 </script>
 

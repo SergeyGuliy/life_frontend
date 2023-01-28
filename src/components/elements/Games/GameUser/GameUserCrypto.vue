@@ -36,30 +36,35 @@
 
 <script>
 import { $mChain } from "@utils/mathjs";
+import { defineAsyncComponent } from "vue";
 
 export default {
   name: "GameUserCrypto",
 
   components: {
-    ChipGrowLoss: () => import("../../../ui/game/ChipGrowLoss"),
-    BuySellButtons: () => import("../../../ui/game/BuySellButtons")
+    ChipGrowLoss: defineAsyncComponent(() =>
+      import("../../../ui/game/ChipGrowLoss.vue")
+    ),
+    BuySellButtons: defineAsyncComponent(() =>
+      import("../../../ui/game/BuySellButtons.vue")
+    ),
   },
 
   computed: {
     userCrypto() {
-      return this.$gameUserData.cryptos.map(crypto => {
+      return this.$gameUserData.cryptos.map((crypto) => {
         let { currentPrice } = this.$gameCryptos.find(
-          c => c.name === crypto.name
+          (c) => c.name === crypto.name
         );
         return {
           ...crypto,
           currentPrice,
           grow_loss: $mChain((currentPrice / crypto.median) * 100 - 100)
             .round(2)
-            .done()
+            .done(),
         };
       });
-    }
-  }
+    },
+  },
 };
 </script>

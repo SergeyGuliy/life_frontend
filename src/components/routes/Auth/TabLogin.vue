@@ -33,9 +33,7 @@
           @click:append="showPassword = !showPassword"
           :append-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
         />
-        <v-btn color="primary" block @click="login">
-          Войти
-        </v-btn>
+        <v-btn color="primary" block @click="login"> Войти </v-btn>
       </v-form>
     </v-card>
   </v-tab-item>
@@ -44,7 +42,7 @@
 <script>
 export default {
   name: "TabLogin",
-  components: {},
+
   data() {
     return {
       showPassword: true,
@@ -53,20 +51,20 @@ export default {
       authData: {
         email: "test.user@gmail.com",
         phone: "test.user@gmail.com",
-        password: "23yg43kvgq"
+        password: "23yg43kvgq",
       },
       rules: {
         email: [
-          v => !!v || "E-mail is required",
-          v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+          (v) => !!v || "E-mail is required",
+          (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
         ],
-        password: [v => !!v || "E-mail is required"],
+        password: [(v) => !!v || "E-mail is required"],
         phone: [
-          v =>
+          (v) =>
             /^[+][0-9]{1}[(][0-9]{3}[)][ ][0-9]{3}[-][0-9]{4}$/.test(v) ||
-            "E-mail is required"
-        ]
-      }
+            "E-mail is required",
+        ],
+      },
     };
   },
   methods: {
@@ -76,17 +74,17 @@ export default {
       this.$store
         .dispatch("auth/logIn", {
           email: this.authData.email,
-          password: this.authData.password
+          password: this.authData.password,
         })
         .then(() => {
           this.$vuetify.theme.dark = this.$store.state.user.user.isDarkTheme;
           this.$router.push({ name: "Home" });
         })
-        .catch(e => {
+        .catch((e) => {
           this.$emit("onError", e);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

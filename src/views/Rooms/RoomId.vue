@@ -8,14 +8,20 @@
 <script>
 // import roomSetup from "@/mixins/roomSetup";
 
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "RoomId",
 
   // mixins: [roomSetup],
 
   components: {
-    Room: () => import("@components/elements/Rooms/Room.vue"),
-    Games: () => import("@components/elements/Games/Game.vue"),
+    Room: defineAsyncComponent(() =>
+      import("@components/elements/Rooms/Room.vue")
+    ),
+    Games: defineAsyncComponent(() =>
+      import("@components/elements/Games/Game.vue")
+    ),
   },
 
   async beforeRouteLeave(to, from, next) {

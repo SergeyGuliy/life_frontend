@@ -45,6 +45,8 @@
 <script>
 // import { FRIENDSHIP_STATUSES } from "@enums";
 
+import { defineAsyncComponent } from "vue";
+
 const connectsIncomingPending = "connectsIncomingPending";
 const connectsIncomingIgnored = "connectsIncomingIgnored";
 const connectsOutgoingPending = "connectsOutgoingPending";
@@ -53,8 +55,12 @@ export default {
   name: "Friends",
 
   components: {
-    UsersList: () => import("@components/elements/Users/UsersList.vue"),
-    UserButton: () => import("@components/elements/Users/UserButton.vue"),
+    UsersList: defineAsyncComponent(() =>
+      import("@components/elements/Users/UsersList.vue")
+    ),
+    UserButton: defineAsyncComponent(() =>
+      import("@components/elements/Users/UserButton.vue")
+    ),
   },
   data() {
     return {

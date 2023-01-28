@@ -13,14 +13,17 @@
 
 <script>
 import { api } from "@api";
+import { defineAsyncComponent } from "vue";
 
 export default {
   name: "Game",
 
   components: {
-    GameDate: () => import("./GameDate"),
-    GameUser: () => import("./GameUser/GameUser"),
-    CollapsableBlocks: () => import("../../ui/game/CollapsableBlocks")
+    GameDate: defineAsyncComponent(() => import("./GameDate.vue")),
+    GameUser: defineAsyncComponent(() => import("./GameUser/GameUser.vue")),
+    CollapsableBlocks: defineAsyncComponent(() =>
+      import("../../ui/game/CollapsableBlocks.vue")
+    ),
   },
 
   data() {
@@ -30,14 +33,14 @@ export default {
       rightCol: {
         GameUserCrypto: "My crypto",
         GameUserCredits: "My credits",
-        GameUserDeposits: "My deposits"
+        GameUserDeposits: "My deposits",
       },
 
       leftCol: {
         GameCryptos: "Crypto",
         GamesCredits: "Credits",
-        GamesDeposits: "Deposits"
-      }
+        GamesDeposits: "Deposits",
+      },
     };
   },
 
@@ -47,7 +50,7 @@ export default {
       .then(this.tickGameData)
       .then(() => {
         this.$socketInit({
-          games_tick: this.tickGameData
+          games_tick: this.tickGameData,
         });
       });
     let req2 = api.games
@@ -55,7 +58,7 @@ export default {
       .then(this.tickUserData)
       .then(() => {
         this.$socketInit({
-          games_sendUserData: this.tickUserData
+          games_sendUserData: this.tickUserData,
         });
       });
 
@@ -82,8 +85,8 @@ export default {
       if (userNews) {
         this.$gameUserNews = userNews;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

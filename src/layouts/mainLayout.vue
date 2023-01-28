@@ -15,18 +15,25 @@
 import { api } from "@api";
 import chatLogic from "@mixins/chatLogic";
 import friendsLogic from "@mixins/friendsLogic";
+import { defineAsyncComponent } from "vue";
 
 export default {
   name: "mainLayout",
   mixins: [chatLogic, friendsLogic],
   components: {
-    SideBar: () => import("@components/layouts/SideBar/SideBar.vue"),
-    NavBar: () => import("@components/layouts/NavBar.vue"),
-    Chat: () => import("@components/layouts/Chat/Chat.vue")
+    SideBar: defineAsyncComponent(() =>
+      import("@components/layouts/SideBar/SideBar.vue")
+    ),
+    NavBar: defineAsyncComponent(() =>
+      import("@components/layouts/NavBar.vue")
+    ),
+    Chat: defineAsyncComponent(() =>
+      import("@components/layouts/Chat/Chat.vue")
+    ),
   },
   data() {
     return {
-      drawer: false
+      drawer: false,
     };
   },
   watch: {
@@ -34,10 +41,10 @@ export default {
       if (this.$user) {
         api.userSettings
           .changeTheme({ isDarkTheme: val })
-          .then(data => {
+          .then((data) => {
             this.$store.commit("user/setUserSettings", data);
           })
-          .catch(e => {
+          .catch((e) => {
             console.log(e);
           });
       }
@@ -46,20 +53,20 @@ export default {
       if (this.$user) {
         api.userSettings
           .changeLocale({ locale: val })
-          .then(data => {
+          .then((data) => {
             this.$store.commit("user/setUserSettings", data);
           })
-          .catch(e => {
+          .catch((e) => {
             console.log(e);
           });
       }
-    }
+    },
   },
   methods: {
     updateDrawer(value) {
       this.drawer = value;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -15,9 +15,7 @@
                   v-else-if="profileSettings.avatarBig"
                 />
                 <v-btn class="green" v-else icon @click="clickInput">
-                  <v-icon dark>
-                    mdi-image-plus
-                  </v-icon>
+                  <v-icon dark> mdi-image-plus </v-icon>
                 </v-btn>
                 <template v-if="hover">
                   <v-btn
@@ -27,9 +25,7 @@
                     v-if="imgSrc"
                     absolute
                   >
-                    <v-icon dark>
-                      mdi-image-remove
-                    </v-icon>
+                    <v-icon dark> mdi-image-remove </v-icon>
                   </v-btn>
                   <v-btn
                     class="red"
@@ -38,9 +34,7 @@
                     v-else-if="profileSettings.avatarBig"
                     absolute
                   >
-                    <v-icon dark>
-                      mdi-image-remove
-                    </v-icon>
+                    <v-icon dark> mdi-image-remove </v-icon>
                   </v-btn>
                 </template>
               </v-avatar>
@@ -106,14 +100,14 @@
             <template v-slot:selection="slotData">
               <v-list-item-content
                 v-text="
-                  LOCALES_WITH_KEYS.find(i => i.key === slotData.item).title
+                  LOCALES_WITH_KEYS.find((i) => i.key === slotData.item).title
                 "
               />
             </template>
             <template v-slot:item="slotData">
               <v-list-item-content
                 v-text="
-                  LOCALES_WITH_KEYS.find(i => i.key === slotData.item).title
+                  LOCALES_WITH_KEYS.find((i) => i.key === slotData.item).title
                 "
               />
             </template>
@@ -158,9 +152,7 @@
           <Title :title="$t('pages.cabinet.userProfile')">
             <template #actions>
               <v-btn color="green" @click="saveSettings">
-                <v-icon>
-                  mdi-content-save
-                </v-icon>
+                <v-icon> mdi-content-save </v-icon>
               </v-btn>
             </template>
           </Title>
@@ -216,12 +208,15 @@
           <v-row>
             <Title :title="$t('pages.cabinet.chatSettings')" />
             <VoiceSettings
-              :chatSettings.sync="chatSettings.global"
+              v-model:chatSettings="chatSettings.global"
               type="global"
             />
-            <VoiceSettings :chatSettings.sync="chatSettings.room" type="room" />
             <VoiceSettings
-              :chatSettings.sync="chatSettings.private"
+              v-model:chatSettings="chatSettings.room"
+              type="room"
+            />
+            <VoiceSettings
+              v-model:chatSettings="chatSettings.private"
               type="private"
             />
           </v-row>
@@ -237,12 +232,15 @@ import { api } from "@api";
 import { ProfileSettingsParser } from "../utils/parsers";
 
 import { $currentUserActions } from "@composable/$currentUserActions";
+import { defineAsyncComponent } from "vue";
 const { updateUserSettings, changeLocale } = $currentUserActions();
 
 export default {
   name: "Cabinet",
   components: {
-    VoiceSettings: () => import("@components/elements/Cabinet/VoiceSettings.vue")
+    VoiceSettings: defineAsyncComponent(() =>
+      import("@components/elements/Cabinet/VoiceSettings.vue")
+    ),
   },
   data() {
     return {
@@ -251,7 +249,7 @@ export default {
       imgSrc: "",
       imgFile: null,
       profileSettings: null,
-      chatSettings: null
+      chatSettings: null,
     };
   },
   created() {
@@ -262,7 +260,7 @@ export default {
       deep: true,
       handler() {
         this.parseDefaultData();
-      }
+      },
     },
     imgFile(val) {
       if (val && typeof val === "object") {
@@ -270,7 +268,7 @@ export default {
       } else {
         this.imgSrc = "";
       }
-    }
+    },
   },
   methods: {
     changeLocale,
@@ -300,9 +298,9 @@ export default {
     async saveSettings() {
       await updateUserSettings({
         chatSettings: this.chatSettings,
-        profileSettings: this.profileSettings
+        profileSettings: this.profileSettings,
       });
-    }
-  }
+    },
+  },
 };
 </script>

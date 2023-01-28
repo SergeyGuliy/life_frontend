@@ -24,16 +24,18 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
+
 export default {
   name: "GameUserData",
 
   components: {
-    GameUserWork: () => import("./GameUserWork")
+    GameUserWork: defineAsyncComponent(() => import("./GameUserWork.vue")),
   },
   methods: {
     openNews(type) {
       this.$openModal("Game/News", { type }).catch(() => {});
-    }
-  }
+    },
+  },
 };
 </script>
