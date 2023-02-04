@@ -1,16 +1,19 @@
 import { defineStore } from "pinia";
 
-export const useAuthStore = defineStore("auth", {
-  // convert to a function
+export const useModalStore = defineStore("modal", {
   state: () => ({
-    firstName: "",
+    data: {},
+    component: null
   }),
-  getters: {
-    fullName: (state) => state.firstName,
-  },
+
   actions: {
-    updateUser(payload) {
-      this.firstName = payload.firstName;
+    setModal({ data, component }) {
+      console.log('setModal')
+      this.data = data;
+      this.component = component;
     },
+    closeModal() {
+      this.$reset()
+    }
   },
 });

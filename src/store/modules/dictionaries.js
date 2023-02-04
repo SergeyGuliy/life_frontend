@@ -1,6 +1,6 @@
 import Vue from "@vue/compat";
 import { api } from "@api";
-// import { UPDATE_TIME_DELTA } from "@constants/index.js";
+// import { UPDATE_TIME_DELTA } from "@constants/pinia.js";
 const UPDATE_TIME_DELTA = 100000;
 import { store } from "@store";
 

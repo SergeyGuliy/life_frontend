@@ -5,7 +5,6 @@ import {installGlobalContext} from "./modules/globalContext";
 // import "./modules/vuePropotype/index";
 // import "./modules/bus";
 // import "./modules/mask";
-// import "./modules/notify";
 // import "./modules/longClick";
 // import "./modules/vueWorker";
 // import "./modules/debounce";

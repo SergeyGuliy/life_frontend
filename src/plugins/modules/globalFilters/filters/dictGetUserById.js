@@ -1,4 +1,4 @@
-import { store } from "../../../../store";
+import { store } from "../../globalContext/modules/pinia";
 
 export const dictGetUserById = (user) => {
   if (typeof user === "number") {
