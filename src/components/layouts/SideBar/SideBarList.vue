@@ -6,13 +6,13 @@
       link
       @click="$router.push(item.linkParams)"
     >
-      <v-list-item-icon>
-        <v-icon>{{ item.icon }}</v-icon>
-      </v-list-item-icon>
+      <template v-slot:prepend>
+        <v-icon :icon="item.icon"></v-icon>
+      </template>
 
-      <v-list-item-content>
+      <v-list-item-title>
         <v-list-item-title>{{ $t(item.title) }}</v-list-item-title>
-      </v-list-item-content>
+      </v-list-item-title>
     </v-list-item>
   </v-list>
 </template>

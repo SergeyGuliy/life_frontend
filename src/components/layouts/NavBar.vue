@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app class="NavBar">
-    <v-btn icon @click="$emit('updateDrawer', !value)">
+      <v-btn icon @click="$emit('update:modelValue', !modelValue)">
       <v-icon icon="mdi-menu"/>
     </v-btn>
     <v-spacer />
@@ -49,8 +49,9 @@ export default {
       ]
     };
   },
+
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       required: true
     }

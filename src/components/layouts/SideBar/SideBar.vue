@@ -1,13 +1,16 @@
 <template>
-  <v-navigation-drawer absolute temporary :value="value" @input="updateDrawer">
-    <template v-slot:prepend>
-      <SideBarUserBlock />
-      <SideBarList :items="itemsSettings" />
-    </template>
+  <v-navigation-drawer temporary v-model="localDrawer">
+    <SideBarUserBlock />
     <v-divider />
+
     <SideBarList :items="itemsPrivate" />
     <v-divider />
+
     <SideBarList :items="itemsGlobal" />
+    <v-divider />
+
+    <SideBarList :items="itemsSettings" />
+
 
     <template v-slot:append>
       <div class="pa-2">
@@ -27,12 +30,26 @@ const { logOutMiddleware } = $currentUserActions();
 
 export default {
   name: "SideBar",
+  emits: ['updateDrawer'],
+
   components: {
     SideBarList: defineAsyncComponent(() => import("./SideBarList.vue")),
     SideBarUserBlock: defineAsyncComponent(() => import("./SideBarUserBlock.vue")),
   },
+
+  computed: {
+    localDrawer: {
+      get() {
+        return this.modelValue
+      },
+      set(val) {
+        this.$emit("updateDrawer", val);
+      }
+    }
+  },
+
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       required: true,
     },
@@ -79,9 +96,6 @@ export default {
   },
   methods: {
     logOutMiddleware,
-    updateDrawer(value) {
-      this.$emit("updateDrawer", value);
-    },
   },
 };
 </script>

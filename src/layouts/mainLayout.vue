@@ -1,7 +1,7 @@
 <template>
   <div class="my-wrapper">
-<!--    <SideBar :value="drawer" @updateDrawer="updateDrawer" />-->
-    <NavBar :value="drawer" @updateDrawer="updateDrawer" />
+    <NavBar v-model="drawer" />
+    <SideBar v-model="drawer" />
     <v-main>
       <v-container>
         <slot />
@@ -16,7 +16,7 @@ import { api } from "@api";
 // import chatLogic from "@mixins/chatLogic";
 // import friendsLogic from "@mixins/friendsLogic";
 
-// import SideBar from "../components/layouts/SideBar/SideBar.vue";
+import SideBar from "../components/layouts/SideBar/SideBar.vue";
 import NavBar from "../components/layouts/NavBar.vue";
 // import Chat from "../components/layouts/Chat/Chat.vue";
 
@@ -24,7 +24,7 @@ export default {
   name: "mainLayout",
   // mixins: [chatLogic, friendsLogic],
   components: {
-    // SideBar,
+    SideBar,
     NavBar,
     // Chat,
   },
@@ -33,6 +33,7 @@ export default {
       drawer: false,
     };
   },
+
   watch: {
     // "$vuetify.theme.dark"(val) {
     //   if (this.$user) {
@@ -58,11 +59,6 @@ export default {
     //       });
     //   }
     // },
-  },
-  methods: {
-    updateDrawer(value) {
-      this.drawer = value;
-    },
   },
 };
 </script>
