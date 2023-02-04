@@ -86,6 +86,9 @@
 import modal from "@mixins/modal";
 import { api } from "@api";
 
+import {useNotify} from '@composable/useNotify'
+const {notifyInfo} = useNotify()
+
 export default {
   name: "ChangePassword",
   mixins: [modal],
@@ -128,11 +131,11 @@ export default {
       await api.userSettings
         .changePassword(this.formData)
         .then(() => {
-          this.$noti().info("ffff");
+          notifyInfo("ffff");
           this.close(true);
         })
         .catch(() => {
-          this.$noti().error("ffff");
+          notifyInfo("ffff");
         });
     }
   }

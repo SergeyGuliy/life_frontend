@@ -6,3 +6,5 @@ import {installPlugins} from "./plugins";
 let vue = createApp(App)
 
 installPlugins(vue)
+
+vue.mount("#app")

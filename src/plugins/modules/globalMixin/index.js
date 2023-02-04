@@ -5,7 +5,6 @@ import eventListenersInit from "@plugins/modules/globalMixin/modules/eventListen
 import game from "@plugins/modules/globalMixin/modules/game";
 import room from "@plugins/modules/globalMixin/modules/room";
 import modal from "@plugins/modules/globalMixin/modules/modal";
-import notify from "@plugins/modules/globalMixin/modules/notify";
 import socketInit from "@plugins/modules/globalMixin/modules/socketInit";
 import users from "@plugins/modules/globalMixin/modules/users";
 

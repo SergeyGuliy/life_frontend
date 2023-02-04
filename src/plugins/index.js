@@ -1,10 +1,6 @@
-import { pinia } from "../store";
-import { vuetify } from "./modules/vuetify";
-import { i18n } from "./modules/i18n";
-import {router} from "../router";
 
 import {installGlobalComponents} from "./modules/globalComponents";
-
+import {installGlobalContext} from "./modules/globalContext";
 // import "./modules/globalFilters/index";
 // import "./modules/vuePropotype/index";
 // import "./modules/bus";
@@ -19,23 +15,9 @@ import {installGlobalComponents} from "./modules/globalComponents";
 // import "./modules/vuelidate";
 // import "./modules/apexCharts";
 
-function installGlobalUse(vue) {
-  const plugins = [
-    pinia,
-    vuetify,
-    i18n,
-    router
-  ]
 
-  plugins.forEach(plugin => {
-    vue.use(plugin)
-  })
-}
 
 export function installPlugins(vue) {
-  installGlobalUse(vue)
+  installGlobalContext(vue)
   installGlobalComponents(vue)
-
-
-  vue.mount("#app")
 }
