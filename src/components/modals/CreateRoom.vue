@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { required } from "vuelidate/lib/validators";
+// import { required } from "vuelidate/lib/validators";
 
 import modal from "@mixins/modal";
 import { api } from "@api";
@@ -82,7 +82,9 @@ export default {
     this.$v_setup(
       "roomData",
       {
-        roomName: { required },
+        roomName: {
+          // required
+        },
         roomPassword: {
           required: v => this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC || !!v,
           wrongPassword: v =>

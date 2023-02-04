@@ -1,4 +1,3 @@
-
 import {installGlobalComponents} from "./modules/globalComponents";
 import {installGlobalContext} from "./modules/globalContext";
 // import "./modules/globalFilters/index";

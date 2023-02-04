@@ -3,10 +3,12 @@ import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
-      loading: false
+      loading: false,
+      component: 'fff',
+      data: {}
     };
   },
   computed: {
-    ...mapState("modals", ["data", "component"])
+    close(){}
   },
 };

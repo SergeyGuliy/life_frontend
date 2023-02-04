@@ -1,23 +1,15 @@
-import {installPinnia} from "./modules/pinia";
-import {vuetify} from "../vuetify";
-import {i18n} from "../i18n";
-import {router} from "../../../router";
+import {installPinia} from "./modules/pinia";
+import {installVuetify} from "../vuetify";
+import {installI18n} from "./modules/i18n";
+import {installRouter} from "./modules/router";
+
 import {installNotify} from "./modules/notify";
 
-
-const plugins = [
-  vuetify,
-  i18n,
-  router,
-]
-
-
 export function installGlobalContext(vue) {
+  installPinia(vue)
+  installVuetify(vue)
+  installI18n(vue)
+  installRouter(vue)
 
-  plugins.forEach(plugin => {
-    vue.use(plugin)
-  })
-
-  installPinnia(vue)
   installNotify(vue)
 }

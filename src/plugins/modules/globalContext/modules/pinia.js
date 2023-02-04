@@ -1,7 +1,7 @@
 import { createPinia } from "pinia";
 
-export const pinia = createPinia();
+const pinia = createPinia();
 
-export function installPinnia(vue) {
+export function installPinia(vue) {
   vue.use(pinia)
 }

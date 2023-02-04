@@ -1,12 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
-
-// import { isLoggedIn } from "./middlewares/loginStatusMiddleware.js";
-
-import { loginStatusMiddleware } from "./middlewares/loginStatusMiddleware.js";
-import { refreshToken } from "./middlewares/refreshToken.js";
-import { isJoinedRoom } from "./middlewares/isJoinedRoom.js";
-
-const routes = [
+export const routes = [
   {
     path: "/auth",
     name: "Auth",
@@ -105,16 +97,3 @@ const routes = [
     },
   },
 ];
-
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes,
-});
-
-router.beforeEach(async (to, from, next) => {
-  await refreshToken(to, from, next);
-  loginStatusMiddleware(to, from, next);
-  isJoinedRoom(to, from, next);
-});
-
-export {router};

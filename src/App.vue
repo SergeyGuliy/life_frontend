@@ -3,15 +3,15 @@
     <component :is="layout">
       <router-view />
     </component>
-      <modalWrapper />
-      <notifications group="foo" />
+    <ModalWrapper />
+    <notifications group="foo" />
   </v-app>
 </template>
 
 <script>
 import mainLayout from "./layouts/mainLayout.vue";
 import authLayout from "./layouts/authLayout.vue";
-import modalWrapper from "./components/layouts/modalWrapper.vue";
+import ModalWrapper from "./components/layouts/ModalWrapper.vue";
 
 
 
@@ -28,7 +28,7 @@ export default {
   components: {
     mainLayout,
     authLayout,
-    modalWrapper
+    ModalWrapper
   },
   computed: {
     layout() {

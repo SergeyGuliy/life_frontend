@@ -15,3 +15,7 @@ export const vuetify = createVuetify({
     },
   },
 });
+
+export function installVuetify(vue) {
+  vue.use(vuetify)
+}

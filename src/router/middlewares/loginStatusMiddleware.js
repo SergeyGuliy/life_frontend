@@ -1,5 +1,3 @@
-// import { store } from "../../store/pinia.js";
-
 export function loginStatusMiddleware(to, from, next) {
   // if (store.state.user.user && ["Auth", "Closer"].includes(to.name)) {
   //   next({ name: "Home" });

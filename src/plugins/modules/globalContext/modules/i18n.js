@@ -1,7 +1,7 @@
 import { createI18n } from "vue-i18n";
 
-import { en } from "../../locales/en.js";
-import { ru } from "../../locales/ru.js";
+import { en } from "../../../../locales/en.js";
+import { ru } from "../../../../locales/ru.js";
 
 const messages = {
   en,
@@ -17,3 +17,7 @@ export const i18n = createI18n({
 
   messages,
 });
+
+export function installI18n(vue) {
+  vue.use(i18n)
+}

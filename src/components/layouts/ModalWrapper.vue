@@ -1,5 +1,6 @@
 <template>
-  <component :is="component" />
+<!--  <component v-if="getComponent" :is="component" />-->
+  <div></div>
 </template>
 
 <script>
@@ -25,29 +26,25 @@ export default {
   },
 
 
-  mounted() {
-    setTimeout(() => {
-      this.openModal("Promt", {
-        title: `You want to leave your work?`,
-        submit: "Leave",
-        cancel: this.$t("buttons.cancel")
-      })
-    }, 2000)
-  },
-
-  setup() {
-    const {openModal, component} = useModal()
-
-    return {component, openModal}
-  },
-
+  // mounted() {
+  //   setTimeout(() => {
+  //     this.openModal("Promt", {
+  //       title: `You want to leave your work?`,
+  //       submit: "Leave",
+  //       cancel: this.$t("buttons.cancel")
+  //     })
+  //   }, 2000)
+  // },
+  //
+  // setup() {
+  //   const {openModal, component} = useModal()
+  //
+  //   return {component, openModal}
+  // },
+  //
   // computed: {
   //   async getComponent() {
-  //     if (this.component) {
-  //       console.log(defineAsyncComponent(await import(`@components/modals/${this.component}.vue`)).default)
-  //       return (await import(`@components/modals/${this.component}.vue`)).default;
-  //     }
-  //     return null;
+  //     return this.component
   //   },
   // }
 }
