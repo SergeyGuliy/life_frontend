@@ -1,9 +1,7 @@
 <template>
   <v-app-bar app class="NavBar">
     <v-btn icon @click="$emit('updateDrawer', !value)">
-      <v-icon>
-        mdi-menu
-      </v-icon>
+      <v-icon icon="mdi-menu"/>
     </v-btn>
     <v-spacer />
     <v-menu offset-y class="lang-selector" auto>
@@ -34,11 +32,14 @@
 
 <script>
 import { LOCALES_WITH_KEYS } from "@enums";
+
 import { $currentUserActions } from "@composable/$currentUserActions";
 const { changeLocale, changeTheme, logOutMiddleware } = $currentUserActions();
 
 export default {
   name: "NavBar",
+  emits: ['updateDrawer'],
+
   data() {
     return {
       LOCALES_WITH_KEYS,

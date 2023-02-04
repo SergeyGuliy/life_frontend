@@ -1,5 +1,5 @@
 <template>
-  <apexchart :options="options" :series="series" :height="200" />
+<!--  <apexchart :options="options" :series="series" :height="200" />-->
 </template>
 
 <script>
@@ -19,9 +19,9 @@ export default {
     };
   },
 
-  components: {
-    apexchart: defineAsyncComponent(() => import("vue-apexcharts.vue")),
-  },
+  // components: {
+  //   apexchart: defineAsyncComponent(() => import("vue-apexcharts.vue")),
+  // },
 
   props: {
     crypto: {},

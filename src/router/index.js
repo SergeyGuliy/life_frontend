@@ -117,4 +117,4 @@ router.beforeEach(async (to, from, next) => {
   isJoinedRoom(to, from, next);
 });
 
-export default router;
+export {router};

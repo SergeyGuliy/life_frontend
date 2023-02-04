@@ -1,6 +1,6 @@
 import { myVue } from "@main";
 import { api } from "@api";
-import { store } from "../store";
+// import { store } from "../store";
 
 export function $usersActions() {
   function writeMessage(userId) {
@@ -19,7 +19,7 @@ export function $usersActions() {
         const indexToDelete = myVue.$friendsRequests.findIndex(
           (i) => i.friendshipsId === data.friendshipsId
         );
-        store.commit("friends/deleteFriend", indexToDelete);
+        // store.commit("friends/deleteFriend", indexToDelete);
       })
       .catch(() => {});
   }

@@ -1,5 +1,5 @@
 <template>
-  <apexchart :options="options" :series="series" :height="200" />
+<!--  <apexchart :options="options" :series="series" :height="200" />-->
 </template>
 
 <script>
@@ -9,9 +9,9 @@ import { defineAsyncComponent } from "vue";
 export default {
   name: "GameModificationGraph",
 
-  components: {
-    apexchart: defineAsyncComponent(() => import("vue-apexcharts.vue")),
-  },
+  // components: {
+  //   apexchart: defineAsyncComponent(() => import("vue-apexcharts.vue")),
+  // },
 
   props: {
     inflation: {

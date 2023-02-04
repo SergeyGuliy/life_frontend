@@ -23,19 +23,12 @@
   </v-card>
 </template>
 
-<script>
-import { defineAsyncComponent } from "vue";
+<script setup>
+import GameUserWork from "./GameUserWork";
 
-export default {
-  name: "GameUserData",
+import {openModal} from "../../../../composable/useModal";
 
-  components: {
-    GameUserWork: defineAsyncComponent(() => import("./GameUserWork.vue")),
-  },
-  methods: {
-    openNews(type) {
-      this.$openModal("Game/News", { type }).catch(() => {});
-    },
-  },
-};
+function openNews(type) {
+  openModal("Game/News", { type }).catch(() => {});
+}
 </script>

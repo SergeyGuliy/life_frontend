@@ -4,8 +4,8 @@
     id="chat_body"
     :class="{ 'chat-body__inner-small': isSmall }"
   >
-    <v-tabs-items v-model="activeChat" id="chat_body_inner">
-      <v-tab-item
+    <v-window v-model="activeChat" id="chat_body_inner">
+      <v-window-item
         :value="chatTab"
         v-for="(chatTab, index) in $chatTabs"
         :key="index"
@@ -20,8 +20,8 @@
             />
           </v-list>
         </v-card-text>
-      </v-tab-item>
-    </v-tabs-items>
+      </v-window-item>
+    </v-window>
   </div>
 </template>
 

@@ -1,7 +1,5 @@
 <template>
   <v-tabs v-model="activeChatLocal" :vertical="vertical">
-    <v-tabs-slider color="yellow"></v-tabs-slider>
-
     <v-tab
       v-for="(chatTab, index) in $chatTabs"
       :key="index"
@@ -19,12 +17,12 @@ export default {
   props: {
     value: {
       required: true,
-      type: String
+      type: String,
     },
     vertical: {
       default: () => false,
-      type: Boolean
-    }
+      type: Boolean,
+    },
   },
   computed: {
     activeChatLocal: {
@@ -33,8 +31,8 @@ export default {
       },
       set(val) {
         this.$emit("input", val);
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

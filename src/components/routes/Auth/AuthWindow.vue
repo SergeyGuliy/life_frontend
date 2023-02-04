@@ -22,23 +22,21 @@
       dark
       icons-and-text
     >
-      <v-tabs-slider></v-tabs-slider>
-
-      <v-tab href="#tab-login">
+      <v-tab value="tab-login">
         Login
         <v-icon>mdi-login</v-icon>
       </v-tab>
 
-      <v-tab href="#tab-registration">
+      <v-tab value="tab-registration">
         Registration
         <v-icon>mdi-login</v-icon>
       </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tab">
+    <v-window v-model="tab">
       <TabLogin @onError="onError" />
       <TabRegister @onError="onError" />
-    </v-tabs-items>
+    </v-window>
   </v-card>
 </template>
 

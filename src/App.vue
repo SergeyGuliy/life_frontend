@@ -3,7 +3,7 @@
     <component :is="layout">
       <router-view />
     </component>
-    <!--    <component v-if="getComponent" :is="getComponent"></component>-->
+        <component v-if="getComponent" :is="getComponent"></component>
     <!--    <notifications group="foo" />-->
   </v-app>
 </template>
@@ -11,6 +11,9 @@
 <script>
 import { mapState } from "vuex";
 import { defineAsyncComponent } from "vue";
+
+import mainLayout from "./layouts/mainLayout.vue";
+import authLayout from "./layouts/authLayout.vue";
 // import {
 //   socketSetup_callUserIdToServer,
 //   socketSetup_forceDisconnect,
@@ -21,20 +24,21 @@ export default {
   name: "App",
 
   components: {
-    mainLayout: defineAsyncComponent(() => import("./layouts/mainLayout.vue")),
-    authLayout: defineAsyncComponent(() => import("./layouts/authLayout.vue")),
+    mainLayout,
+    authLayout,
   },
   computed: {
     ...mapState("modals", ["component"]),
+
     layout() {
       return this.$route?.meta?.layout;
     },
-    // getComponent() {
-    //   if (this.component) {
-    //     return require(`@components/modals/${this.component}.vue`).default;
-    //   }
-    //   return null;
-    // },
+    getComponent() {
+      // if (this.component) {
+      //   return require(`@components/modals/${this.component}.vue`).default;
+      // }
+      return null;
+    },
   },
 
   // $initSocketListener() {

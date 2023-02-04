@@ -1,5 +1,6 @@
 <template>
-  <v-tab-item value="tab-login">
+  <v-window-item value="tab-login">
+    <pre>{{user}}</pre>
     <v-card flat class="px-2 py-8">
       <v-form ref="form" v-model="isFormValid" lazy-validation>
         <v-text-field
@@ -33,15 +34,25 @@
           @click:append="showPassword = !showPassword"
           :append-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
         />
-        <v-btn color="primary" block @click="login"> Войти </v-btn>
+        <v-btn color="primary" block @click="logInAction"> Войти </v-btn>
       </v-form>
     </v-card>
-  </v-tab-item>
+  </v-window-item>
 </template>
 
 <script>
+import {useAuth} from "../../../composable/useAuth";
+import {useVuetifyTheme} from "../../../composable/useVuetifyTheme";
+
 export default {
   name: "TabLogin",
+
+  setup() {
+    const {logIn} = useAuth()
+    const {setTheme} = useVuetifyTheme()
+
+    return {logIn, setTheme}
+  },
 
   data() {
     return {
@@ -68,17 +79,15 @@ export default {
     };
   },
   methods: {
-    login() {
+    logInAction() {
       if (!this.$refs.form.validate()) return;
 
-      this.$store
-        .dispatch("auth/logIn", {
-          email: this.authData.email,
-          password: this.authData.password,
-        })
+      this.logIn({
+        email: this.authData.email,
+        password: this.authData.password,
+      })
         .then(() => {
-          this.$vuetify.theme.dark = this.$store.state.user.user.isDarkTheme;
-          this.$router.push({ name: "Home" });
+          this.setTheme(this.userIsDarkTheme)
         })
         .catch((e) => {
           this.$emit("onError", e);
@@ -87,8 +96,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.TabLogin {
-}
-</style>

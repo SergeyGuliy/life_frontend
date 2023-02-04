@@ -1,5 +1,5 @@
 <template>
-  <v-tab-item value="tab-registration">
+  <v-window-item value="tab-registration">
     <v-card flat class="px-2 py-8">
       <v-form ref="form" v-model="isFormValid" lazy-validation>
         <v-text-field
@@ -37,17 +37,29 @@
           placeholder="Placeholder"
           outlined
         />
-        <v-btn color="primary" block @click="registration">
+        <v-btn color="primary" block @click="registrationAction">
           Зарегистрировать
         </v-btn>
       </v-form>
     </v-card>
-  </v-tab-item>
+  </v-window-item>
 </template>
 
 <script>
+import {useAuth} from "../../../composable/useAuth";
+import {useVuetifyTheme} from "../../../composable/useVuetifyTheme";
+import {mapState} from "vuex";
+import {useStoreAuth} from "../../../stores/user";
+
 export default {
   name: "TabRegister",
+
+  setup() {
+    const {registration} = useAuth()
+    const {setTheme} = useVuetifyTheme()
+
+    return {registration, setTheme}
+  },
 
   data() {
     return {
@@ -72,29 +84,27 @@ export default {
       },
     };
   },
+
+  computed: {
+    ...mapGetters(useStoreAuth, {userIsDarkTheme: 'userIsDarkTheme'})
+  },
+
   methods: {
-    registration() {
-      if (this.$refs.form.validate()) {
-        this.$store
-          .dispatch("auth/registration", {
-            email: this.authData.email,
-            phone: this.authData.phone,
-            password: this.authData.password,
-          })
-          .then(() => {
-            this.$vuetify.theme.dark = this.$store.state.user.user.isDarkTheme;
-            this.$router.push({ name: "Home" });
-          })
-          .catch((e) => {
-            this.$emit("onError", e);
-          });
-      }
+    registrationAction() {
+      if (!this.$refs.form.validate()) return
+
+      this.registration({
+        email: this.authData.email,
+        phone: this.authData.phone,
+        password: this.authData.password,
+      })
+        .then(() => {
+          this.setTheme(this.userIsDarkTheme)
+        })
+        .catch((e) => {
+          this.$emit("onError", e);
+        });
     },
   },
 };
 </script>
-
-<style lang="scss">
-.TabRegister {
-}
-</style>

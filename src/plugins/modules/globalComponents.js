@@ -1,5 +1,3 @@
-import Vue from "vue";
-
 import Grid from "@components/global/Grid.vue";
 import Title from "@components/global/Title.vue";
 import UserAvatar from "@components/global/UserAvatar.vue";
@@ -20,6 +18,8 @@ const globalComponents = {
   FTextPassword
 };
 
-Object.entries(globalComponents).forEach(([componentName, component]) => {
-  Vue.component(componentName, component);
-});
+export function installGlobalComponents(vue) {
+  Object.entries(globalComponents).forEach(([componentName, component]) => {
+    vue.component(componentName, component);
+  })
+};

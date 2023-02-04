@@ -34,7 +34,7 @@ export default {
         cancel: this.$t("buttons.cancel"),
       })
         .then(async () => {
-          await this.$store.dispatch("user/leaveRoom");
+          await this.$store.dispatch("user/leaveRoomAction");
           next();
         })
         .catch((e) => {

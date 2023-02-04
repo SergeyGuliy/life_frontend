@@ -29,9 +29,7 @@ export default {
   name: "SideBar",
   components: {
     SideBarList: defineAsyncComponent(() => import("./SideBarList.vue")),
-    SideBarUserBlock: defineAsyncComponent(() =>
-      import("./SideBarUserBlock.vue")
-    ),
+    SideBarUserBlock: defineAsyncComponent(() => import("./SideBarUserBlock.vue")),
   },
   props: {
     value: {

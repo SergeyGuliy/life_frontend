@@ -1,5 +1,4 @@
-"use strict";
-import { store } from "../../store";
+// import { store } from "../../store";
 
 import axios from "axios";
 import { clearLocalStorageKeys } from "../../utils/localStorageKeys";
@@ -32,18 +31,18 @@ axiosWithAuth.interceptors.response.use(
   },
   async function (error) {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      await store.dispatch("auth/refreshToken");
-      if (store.state.user.user) {
-        return axiosWithAuth(originalRequest);
-      }
-    } else if (error.response.status === 401) {
-      await store.dispatch("auth/logOut");
-      clearLocalStorageKeys();
-    } else {
-      return Promise.reject(error);
-    }
+    // if (error.response.status === 401 && !originalRequest._retry) {
+    //   originalRequest._retry = true;
+    //   await store.dispatch("auth/refreshToken");
+    //   if (store.state.user.user) {
+    //     return axiosWithAuth(originalRequest);
+    //   }
+    // } else if (error.response.status === 401) {
+    //   await store.dispatch("auth/logOut");
+    //   clearLocalStorageKeys();
+    // } else {
+    //   return Promise.reject(error);
+    // }
   }
 );
 

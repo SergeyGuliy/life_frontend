@@ -1,8 +1,9 @@
-import Vue from "@vue/compat";
-
-import { store } from "../store";
+import { pinia } from "../store";
 import { vuetify } from "./modules/vuetify";
 import { i18n } from "./modules/i18n";
+import {router} from "../router";
+
+import {installGlobalComponents} from "./modules/globalComponents";
 
 // import "./modules/globalFilters/index";
 // import "./modules/vuePropotype/index";
@@ -15,10 +16,26 @@ import { i18n } from "./modules/i18n";
 // import "./modules/socket";
 // import "./modules/moment";
 // import "./modules/globalMixin/index";
-// import "./modules/globalComponents";
 // import "./modules/vuelidate";
 // import "./modules/apexCharts";
 
-Vue.config.productionTip = false;
+function installGlobalUse(vue) {
+  const plugins = [
+    pinia,
+    vuetify,
+    i18n,
+    router
+  ]
 
-export { store, vuetify, i18n };
+  plugins.forEach(plugin => {
+    vue.use(plugin)
+  })
+}
+
+export function installPlugins(vue) {
+  installGlobalUse(vue)
+  installGlobalComponents(vue)
+
+
+  vue.mount("#app")
+}
