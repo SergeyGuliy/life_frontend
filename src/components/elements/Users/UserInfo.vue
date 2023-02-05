@@ -1,7 +1,9 @@
 <template>
   <div class="UserInfo">
     <div class="d-flex align-center">
-      <v-card-title class="py-0">{{ userData | getUserName }} </v-card-title>
+      <v-card-title class="py-0"
+        >{{ $filters.getUserName(userData) }}
+      </v-card-title>
       <v-spacer></v-spacer>
 
       <v-chip

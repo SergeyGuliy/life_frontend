@@ -73,7 +73,7 @@ export default {
           messages: [],
           // key: PRIVATE,
           userId,
-          userData: await this.$f.dictGetUserById(userId),
+          userData: await this.$filters.dictGetUserById(userId),
         });
       }
     },
@@ -126,7 +126,7 @@ export default {
         //   userData:
         //     user.messageReceiverUserId === this.$user.userId
         //       ? user.messageSender
-        //       : await this.$f.dictGetUserById(user.messageReceiverUserId),
+        //       : await this.$filters.dictGetUserById(user.messageReceiverUserId),
         //   messages: messageWithUsers.filter(
         //     message =>
         //       message.messageReceiverUserId === userId ||

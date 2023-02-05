@@ -2,7 +2,7 @@
   <v-avatar color="indigo" size="40">
     <v-img
       v-if="userData && userData.avatarSmall"
-      :src="userData.avatarSmall | avatarLink"
+      :src="$filters.avatarLink(userData.avatarSmall)"
     />
     <span v-else class="white--text">{{ getAbs }}</span>
   </v-avatar>

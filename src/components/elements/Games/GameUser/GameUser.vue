@@ -3,7 +3,7 @@
     <v-card-title class="py-0">
       User data
       <v-spacer></v-spacer>
-      {{ $user | getUserName }}
+      {{ $filters.getUserName($user) }}
     </v-card-title>
     <v-card-title>
       Cash:

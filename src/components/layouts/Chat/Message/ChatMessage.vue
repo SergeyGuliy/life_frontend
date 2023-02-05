@@ -52,7 +52,7 @@ export default {
     userDataLocal(val) {
       console.log(val);
       return val;
-      // const userData = this.$f.dictGetUserById(this.userData?.userId);
+      // const userData = this.$filters.dictGetUserById(this.userData?.userId);
       // if (this.timestamp) return userData;
       // return userData;
     },

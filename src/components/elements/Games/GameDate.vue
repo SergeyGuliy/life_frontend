@@ -3,7 +3,7 @@
     <v-card-title class="py-0">
       Current date:
       <v-spacer></v-spacer>
-      {{ $gameDate | gameDate }}
+      {{ $filters.gameDate($gameDate) }}
     </v-card-title>
 
     <v-card-actions>

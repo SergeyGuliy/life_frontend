@@ -9,7 +9,7 @@
     <v-list-item-title>
       <v-list-item-title class="d-flex justify-space-between">
         <span>{{ getChatWriterName }}</span>
-        <span>{{ createdAt | chatDate }}</span>
+        <span>{{ $filters.chatDate(createdAt) }}</span>
       </v-list-item-title>
     </v-list-item-title>
   </v-list-item>
@@ -27,9 +27,11 @@ export default {
 
   computed: {
     getChatWriterName() {
-      const messageSender = this.$f.dictGetUserById(this.messageSender);
+      const messageSender = this.$filters.dictGetUserById(this.messageSender);
       if (messageSender) {
-        return this.isYouAuthor ? "Me" : this.$f.getUserName(messageSender);
+        return this.isYouAuthor
+          ? "Me"
+          : this.$filters.getUserName(messageSender);
       }
       return "";
     },

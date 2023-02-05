@@ -9,7 +9,7 @@
               <v-avatar width="200" height="200" class="mx-auto d-flex">
                 <v-img :src="imgSrc" alt="" v-if="imgSrc" cover />
                 <v-img
-                  :src="profileSettings.avatarBig | avatarLink"
+                  :src="$filters.avatarLink(profileSettings.avatarBig)"
                   alt=""
                   cover
                   v-else-if="profileSettings.avatarBig"

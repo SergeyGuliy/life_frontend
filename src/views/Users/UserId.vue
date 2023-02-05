@@ -16,7 +16,7 @@ export default {
 
   computed: {
     userData() {
-      return this.$f.dictGetUserById(this.$route.params.id);
+      return this.$filters.dictGetUserById(this.$route.params.id);
     },
   },
 };

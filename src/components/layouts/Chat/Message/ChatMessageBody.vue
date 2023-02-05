@@ -4,7 +4,10 @@
       <p>{{ message.messageText }}</p>
     </v-card-text>
     <v-card-text class="pt-1 pb-4 px-1" v-else>
-      <ChatAudio class="mt-1" :file="message.messageVoice | voiceLink" />
+      <ChatAudio
+        class="mt-1"
+        :file="$filters.voiceLink(message.messageVoice)"
+      />
     </v-card-text>
   </div>
 </template>

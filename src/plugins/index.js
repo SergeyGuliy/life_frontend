@@ -1,5 +1,6 @@
 import { installGlobalComponents } from "./modules/globalComponents";
 import { installGlobalContext } from "./modules/globalContext";
+import { installGlobalFilters } from "./modules/globalFilters";
 // import "./modules/globalFilters/index";
 // import "./modules/vuePropotype/index";
 // import "./modules/bus";
@@ -16,4 +17,5 @@ import { installGlobalContext } from "./modules/globalContext";
 export function installPlugins(vue) {
   installGlobalContext(vue);
   installGlobalComponents(vue);
+  installGlobalFilters(vue);
 }

@@ -15,7 +15,9 @@
         <tbody>
           <tr v-for="(credit, index) in userCredits" :key="index">
             <td width="16%" class="text-center">{{ credit.duration }}</td>
-            <td width="20%" class="text-center">{{ credit.end | gameDate }}</td>
+            <td width="20%" class="text-center">
+              {{ $filters.gameDate(credit.end) }}
+            </td>
             <td width="16%" class="text-center">{{ credit.percent }} %</td>
             <td width="16%" class="text-center">{{ credit.cash }} $</td>
             <td width="16%" class="text-center">{{ credit.perMonth }} $</td>

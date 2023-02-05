@@ -6,7 +6,7 @@
       class="ma-0"
       :href="`#${chatTab}`"
     >
-      {{ chatTab | getChatTabName }}
+      {{ $filters.getChatTabName(chatTab) }}
     </v-tab>
   </v-tabs>
 </template>

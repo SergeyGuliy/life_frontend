@@ -1,4 +1,3 @@
-import Vue from "vue";
 import { chatDate } from "./filters/chatDate";
 import { avatarLink } from "./filters/avatarLink";
 import { voiceLink } from "./filters/voiceLink";
@@ -7,16 +6,16 @@ import { getChatTabName } from "./filters/getChatTabName";
 import { dictGetUserById } from "./filters/dictGetUserById";
 import { gameDate } from "./filters/gameDate";
 
-Vue.filter("chatDate", chatDate);
+const filters = {
+  chatDate,
+  avatarLink,
+  voiceLink,
+  getUserName,
+  getChatTabName,
+  dictGetUserById,
+  gameDate,
+};
 
-Vue.filter("avatarLink", avatarLink);
-
-Vue.filter("voiceLink", voiceLink);
-
-Vue.filter("getUserName", getUserName);
-
-Vue.filter("getChatTabName", getChatTabName);
-
-Vue.filter("dictGetUserById", dictGetUserById);
-
-Vue.filter("gameDate", gameDate);
+export function installGlobalFilters(vue) {
+  vue.config.globalProperties.$filters = filters;
+}

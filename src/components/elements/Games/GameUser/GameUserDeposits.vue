@@ -16,7 +16,7 @@
           <tr v-for="(deposit, index) in userDeposits" :key="index">
             <td width="16%" class="text-center">{{ deposit.duration }}</td>
             <td width="20%" class="text-center">
-              {{ deposit.end | gameDate }}
+              {{ $filters.gameDate(deposit.end) }}
             </td>
             <td width="16%" class="text-center">{{ deposit.percent }} %</td>
             <td width="16%" class="text-center">{{ deposit.cash }} $</td>

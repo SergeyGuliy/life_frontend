@@ -5,7 +5,7 @@
     </template>
 
     <v-list-item-title>
-      <v-list-item-title>{{ $user | getUserName }}</v-list-item-title>
+      <v-list-item-title>{{ $filters.getUserName($user) }}</v-list-item-title>
       <v-list-item-subtitle>Logged In</v-list-item-subtitle>
     </v-list-item-title>
   </v-list-item>
