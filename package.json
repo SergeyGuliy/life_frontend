@@ -9,9 +9,7 @@
   "scripts": {
     "serve": "vite",
     "build": "vite build",
-    "test:unit": "vue-cli-service test:unit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "test:dev": "http-server dist -p 9999 -c 1 --push-state"
   },
   "dependencies": {
     "@kyvg/vue3-notification": "^2.8.0",
