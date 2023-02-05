@@ -1,23 +1,23 @@
-import {API_getRoomById} from "@api/rooms";
+import { API_getRoomById } from "@api/rooms";
 
 import {
   rooms_updateRoomAdmin,
   rooms_updateToggleLockRoom,
   rooms_updateUsersListInRoom,
   rooms_userConnectsRoom,
-  rooms_userKickedFromRoom
+  rooms_userKickedFromRoom,
 } from "@constants/ws/rooms";
 
 export default {
   $initSocketListener() {
     API_getRoomById(this.$roomId)
-      .then(data => {
+      .then((data) => {
         this.$roomData = data;
         this.$gameId = data.gameId;
 
         this.$socket.client.emit(rooms_userConnectsRoom, {
           userId: this.$user.userId,
-          roomId: this.$roomId
+          roomId: this.$roomId,
         });
 
         this.$socketInit({
@@ -25,7 +25,7 @@ export default {
           [rooms_updateRoomAdmin]: this.updateRoomAdmin,
           [rooms_userKickedFromRoom]: this.userKickedFromRoom,
           [rooms_updateToggleLockRoom]: this.updateToggleLockRoom,
-          games_gameStarted: this.gameStarted
+          games_gameStarted: this.gameStarted,
         });
       })
       .catch(() => {
@@ -41,23 +41,23 @@ export default {
 
     updateRoomAdmin(newAdmin) {
       let indexOldAdmin = this.$usersInRoom.findIndex(
-        user => typeof user.roomCreatedId === "number"
+        (user) => typeof user.roomCreatedId === "number"
       );
       this.$store.commit("room/updateUser", {
         index: indexOldAdmin,
         userData: {
-          roomCreatedId: null
-        }
+          roomCreatedId: null,
+        },
       });
 
       let indexNewAdmin = this.$usersInRoom.findIndex(
-        user => user.userId === newAdmin.userId
+        (user) => user.userId === newAdmin.userId
       );
       this.$store.commit("room/updateUser", {
         index: indexNewAdmin,
         userData: {
-          roomCreatedId: this.$roomId
-        }
+          roomCreatedId: this.$roomId,
+        },
       });
 
       if (newAdmin.userId === this.$user.userId) {
@@ -79,15 +79,15 @@ export default {
 
     updateToggleLockRoom(lockState) {
       this.$roomData = {
-        isBlocked: lockState
+        isBlocked: lockState,
       };
     },
 
     gameStarted(game) {
       this.$roomData = {
-        gameId: game._id
+        gameId: game._id,
       };
       this.$gameId = game._id;
-    }
-  }
+    },
+  },
 };

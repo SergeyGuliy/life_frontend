@@ -7,7 +7,7 @@ export const clearLocalStorageKeys = () => {
 export const setLocalStorageKeys = ({
   accessToken,
   refreshToken,
-  userData
+  userData,
 }) => {
   localStorage.setItem("accessToken", accessToken);
   localStorage.setItem("refreshToken", refreshToken);

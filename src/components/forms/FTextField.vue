@@ -11,16 +11,16 @@ export default {
   props: {
     error: {
       type: String,
-      default: () => ""
+      default: () => "",
     },
     value: {
       type: String,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     localValue: {
@@ -29,8 +29,8 @@ export default {
       },
       set(val) {
         this.$emit("input", val);
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

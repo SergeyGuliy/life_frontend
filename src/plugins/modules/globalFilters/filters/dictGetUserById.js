@@ -9,5 +9,5 @@ export const dictGetUserById = (user) => {
   //   return store.state.dictionaries.users[user.userId];
   // }
 
-  return user
+  return user;
 };

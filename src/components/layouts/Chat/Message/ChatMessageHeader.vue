@@ -22,7 +22,7 @@ export default {
   props: {
     createdAt: {},
     isYouAuthor: {},
-    messageSender: {}
+    messageSender: {},
   },
 
   computed: {
@@ -32,7 +32,7 @@ export default {
         return this.isYouAuthor ? "Me" : this.$f.getUserName(messageSender);
       }
       return "";
-    }
-  }
+    },
+  },
 };
 </script>

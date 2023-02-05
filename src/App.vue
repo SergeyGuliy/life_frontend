@@ -13,14 +13,11 @@ import mainLayout from "./layouts/mainLayout.vue";
 import authLayout from "./layouts/authLayout.vue";
 import ModalWrapper from "./components/layouts/ModalWrapper.vue";
 
-
-
 // import {
 //   socketSetup_callUserIdToServer,
 //   socketSetup_forceDisconnect,
 //   socketSetup_giveUserIdToServer
 // } from "@constants/ws/socketSetup.js";
-
 
 export default {
   name: "App",
@@ -28,7 +25,7 @@ export default {
   components: {
     mainLayout,
     authLayout,
-    ModalWrapper
+    ModalWrapper,
   },
   computed: {
     layout() {

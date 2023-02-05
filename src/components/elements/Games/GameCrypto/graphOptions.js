@@ -3,7 +3,7 @@ import {
   $mChain,
   $mChangePrise,
   $mGetPercent,
-  $mGetPrice
+  $mGetPrice,
 } from "@utils/mathjs";
 
 function generateTooltip({ seriesIndex, dataPointIndex, w }) {
@@ -45,22 +45,22 @@ function generateTooltip({ seriesIndex, dataPointIndex, w }) {
 
 export const options = {
   chart: {
-    type: "candlestick"
+    type: "candlestick",
   },
   tooltip: {
-    custom: generateTooltip
+    custom: generateTooltip,
   },
   xaxis: {
-    type: "datetime"
+    type: "datetime",
   },
   yaxis: {
     labels: {
       formatter(val) {
         return $mGetPrice($mChain(val).round(2));
-      }
+      },
     },
     tooltip: {
-      enabled: true
-    }
-  }
+      enabled: true,
+    },
+  },
 };

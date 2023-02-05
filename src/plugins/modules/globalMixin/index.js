@@ -7,15 +7,8 @@ import room from "@plugins/modules/globalMixin/modules/room";
 import socketInit from "@plugins/modules/globalMixin/modules/socketInit";
 import users from "@plugins/modules/globalMixin/modules/users";
 
-let mixins = [
-  busInit,
-  eventListenersInit,
-  game,
-  socketInit,
-  users,
-  room
-];
+let mixins = [busInit, eventListenersInit, game, socketInit, users, room];
 
-mixins.forEach(mixin => {
+mixins.forEach((mixin) => {
   Vue.mixin(mixin);
 });

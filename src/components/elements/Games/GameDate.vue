@@ -10,9 +10,7 @@
       <v-btn @click="votePause" color="orange" width="50%">
         Vote for pause
       </v-btn>
-      <v-btn @click="skipRound" color="red" width="50%">
-        Skip round
-      </v-btn>
+      <v-btn @click="skipRound" color="red" width="50%"> Skip round </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -25,12 +23,12 @@ export default {
     getDate() {
       const { monthCode, year } = this.$gameDate;
       return `${monthCode} ${year}`;
-    }
+    },
   },
 
   methods: {
     votePause() {},
-    skipRound() {}
-  }
+    skipRound() {},
+  },
 };
 </script>

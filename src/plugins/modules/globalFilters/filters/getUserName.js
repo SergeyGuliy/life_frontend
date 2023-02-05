@@ -1,4 +1,4 @@
-export const getUserName = userData => {
+export const getUserName = (userData) => {
   if (!userData) return "";
   const { firstName, lastName, email } = userData;
   if (firstName || lastName) {

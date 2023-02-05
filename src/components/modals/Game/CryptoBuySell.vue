@@ -1,10 +1,5 @@
 <template>
-  <v-dialog
-    persistent
-    class="p-2"
-    :model-value="!!component"
-    width="500"
-  >
+  <v-dialog persistent class="p-2" :model-value="!!component" width="500">
     <v-card class="CreateRoom">
       <v-form ref="buySell" v-model="valid">
         <v-card-title class="pb-0">
@@ -83,14 +78,14 @@
 
 <script>
 import { $mChain } from "@utils/mathjs";
-import {useModal} from "../../../composable/useModal";
+import { useModal } from "../../../composable/useModal";
 
 export default {
   name: "CryptoBuySell",
 
   setup() {
-    const { data, component, closeModal } = useModal()
-    return { data, component, closeModal }
+    const { data, component, closeModal } = useModal();
+    return { data, component, closeModal };
   },
   created() {
     this.activeTab = this.data.type;
@@ -108,7 +103,7 @@ export default {
       );
       let defaultCrypto = {
         count: 0,
-        name: this.data.name
+        name: this.data.name,
       };
 
       return userCrypto || defaultCrypto;
@@ -119,11 +114,11 @@ export default {
         return this.tabs[this.tabIndex];
       },
       set(val) {
-        this.tabIndex = this.tabs.findIndex(item => item === val);
-      }
+        this.tabIndex = this.tabs.findIndex((item) => item === val);
+      },
     },
     cryptoData() {
-      return this.$gameCryptos.find(crypto => crypto.name === this.data.name);
+      return this.$gameCryptos.find((crypto) => crypto.name === this.data.name);
     },
     operationType() {
       return this.operationPrice === this.cryptoData.currentPrice
@@ -156,7 +151,7 @@ export default {
       }
 
       return options;
-    }
+    },
   },
 
   watch: {
@@ -168,27 +163,27 @@ export default {
     },
     activeTab() {
       this.$refs?.buySell?.validate();
-    }
+    },
   },
 
   data() {
     return {
       rules: {
         number: [
-          v => !!v || "Can't be empty",
-          v => typeof v === "number" || "Must be number",
-          v => v > 0 || "Must be positive value"
+          (v) => !!v || "Can't be empty",
+          (v) => typeof v === "number" || "Must be number",
+          (v) => v > 0 || "Must be positive value",
         ],
         operationCount: [
-          v => {
+          (v) => {
             if (this.activeTab === "SELL") {
               return v <= this.userCrypto.count || "Not enough crypto";
             }
             return (
               this.$gameUserCash >= this.operationTotal || "Not enough cash"
             );
-          }
-        ]
+          },
+        ],
       },
 
       valid: false,
@@ -200,7 +195,7 @@ export default {
       changePriceDisabled: true,
 
       operationPrice: 0,
-      operationCount: 1
+      operationCount: 1,
     };
   },
   methods: {
@@ -219,19 +214,19 @@ export default {
         operationType: this.operationType,
         operationPrice: this.operationPrice,
         operationCount: this.operationCount,
-        operationTotal: this.operationTotal
+        operationTotal: this.operationTotal,
       };
 
       this.loading = true;
       this.$gameAction("gamesCryptos", "buySell", data)
-        .then(res => {
+        .then((res) => {
           this.$gameUserData = res;
         })
         .finally(() => {
           this.loading = false;
           this.closeModal();
         });
-    }
-  }
+    },
+  },
 };
 </script>

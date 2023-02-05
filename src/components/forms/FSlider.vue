@@ -37,24 +37,24 @@ export default {
   props: {
     value: {
       type: Number,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      required: true
+      required: true,
     },
     min: {
       type: Number,
-      required: true
+      required: true,
     },
     max: {
       type: Number,
-      required: true
+      required: true,
     },
     step: {
       type: Number,
-      default: 1
-    }
+      default: 1,
+    },
   },
   computed: {
     localValue: {
@@ -63,8 +63,8 @@ export default {
       },
       set(val) {
         this.$emit("input", val);
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

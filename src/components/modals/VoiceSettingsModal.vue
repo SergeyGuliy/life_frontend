@@ -1,9 +1,5 @@
 <template>
-  <v-dialog
-    persistent
-    :model-value="!!component"
-    width="500"
-  >
+  <v-dialog persistent :model-value="!!component" width="500">
     <v-card>
       <v-form>
         <v-card-title class="pb-6">
@@ -34,20 +30,19 @@
 import { defineAsyncComponent } from "vue";
 import { cloneDeep } from "lodash";
 
-import {useUserSettings} from "../../composable/useUserSettings";
-import {useModal} from "../../composable/useModal";
+import { useUserSettings } from "../../composable/useUserSettings";
+import { useModal } from "../../composable/useModal";
 
 // import { SOUNDS_WITH_FILES } from "@enums";
 
 export default {
   name: "VoiceSettingsModal",
 
-
   setup() {
-    const { data, component, closeModal } = useModal()
+    const { data, component, closeModal } = useModal();
     const { updateUserSettings } = useUserSettings();
 
-    return { data, component, closeModal, updateUserSettings }
+    return { data, component, closeModal, updateUserSettings };
   },
 
   components: {

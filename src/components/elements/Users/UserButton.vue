@@ -6,8 +6,8 @@
 
 <script>
 // import { $usersActions } from "@/composable/$usersActions";
-import {API_acceptRequest, API_ignoreRequest} from "@api/friendship";
-import {API_kickUser, API_setAdmin} from "@api/rooms";
+import { API_acceptRequest, API_ignoreRequest } from "@api/friendship";
+import { API_kickUser, API_setAdmin } from "@api/rooms";
 
 // const {
 //   writeMessage,

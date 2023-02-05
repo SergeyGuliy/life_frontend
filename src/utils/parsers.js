@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import {API_updateUserSettings} from "./api/modules/userSettings";
+import { API_updateUserSettings } from "./api/modules/userSettings";
 // import { store } from "../store";
 
 export class ProfileSettingsParser {

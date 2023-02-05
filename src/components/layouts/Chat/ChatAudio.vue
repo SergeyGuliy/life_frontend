@@ -6,7 +6,7 @@
   >
     <v-card-text class="pa-0" v-if="loaded">
       <v-row class="align-center px-2 py-1">
-        <v-col cols="2" class="pa-0 ">
+        <v-col cols="2" class="pa-0">
           <v-btn
             outlined
             icon
@@ -24,7 +24,7 @@
             v-model="percentage"
             class="my-2"
             height="5"
-            style="margin-top: 15px; margin-bottom: 15px;"
+            style="margin-top: 15px; margin-bottom: 15px"
             @click.native="setPosition()"
             :disabled="!loaded"
           />
@@ -59,45 +59,45 @@
 <script>
 import getBlobDuration from "get-blob-duration";
 
-const formatTime = second =>
+const formatTime = (second) =>
   new Date(second * 1000).toISOString().substr(11, 8);
 export default {
   name: "ChatAudio",
   props: {
     flat: {
       type: Boolean,
-      default: true
+      default: true,
     },
     file: {
       type: String,
-      default: null
+      default: null,
     },
     showVoiceControls: {
       type: Boolean,
-      default: () => true
+      default: () => true,
     },
     autoPlay: {
       type: Boolean,
-      default: () => true
+      default: () => true,
     },
     ended: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
     canPlay: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
     color: {
       type: String,
-      default: null
-    }
+      default: null,
+    },
   },
   computed: {
-    duration: function() {
+    duration: function () {
       // console.log(this.totalDuration);
       return this.audio ? formatTime(this.totalDuration) : "";
-    }
+    },
   },
   data() {
     return {
@@ -110,7 +110,7 @@ export default {
       currentTime: "00:00:00",
       audio: undefined,
       totalDuration: 0,
-      playerVolume: 0.5
+      playerVolume: 0.5,
     };
   },
   methods: {
@@ -143,13 +143,13 @@ export default {
       this.audio.currentTime = 0;
       this.loaded = true;
     },
-    _handlePlayingUI: function() {
+    _handlePlayingUI: function () {
       this.audio.volume = this.playerVolume;
       this.percentage = (this.audio.currentTime / this.audio.duration) * 100;
       this.currentTime = formatTime(this.audio.currentTime);
       // this.playing = true;
     },
-    _handlePlayPause: function(e) {
+    _handlePlayPause: function (e) {
       if (e.type === "play" && this.firstPlay) {
         this.audio.currentTime = 0;
         if (this.firstPlay) {
@@ -166,7 +166,7 @@ export default {
     },
     _handleEnded() {
       this.paused = this.playing = false;
-    }
+    },
   },
   async mounted() {
     this.audio = this.$refs.player;
@@ -176,13 +176,13 @@ export default {
     this.audio.addEventListener("play", this._handlePlayPause);
     this.audio.addEventListener("ended", this._handleEnded);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.audio.removeEventListener("timeupdate", this._handlePlayingUI);
     this.audio.removeEventListener("loadeddata", this._handleLoaded);
     this.audio.removeEventListener("pause", this._handlePlayPause);
     this.audio.removeEventListener("play", this._handlePlayPause);
     this.audio.removeEventListener("ended", this._handleEnded);
-  }
+  },
 };
 </script>
 

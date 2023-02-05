@@ -9,8 +9,8 @@
 // import roomSetup from "@/mixins/roomSetup";
 
 import { defineAsyncComponent } from "vue";
-import {useModal} from "../../composable/useModal";
-const {openModal} =useModal()
+import { useModal } from "../../composable/useModal";
+const { openModal } = useModal();
 
 export default {
   name: "RoomId",

@@ -3,24 +3,23 @@ import {
   rooms_unSubscribeRoomsUpdate,
   rooms_roomInListCreated,
   rooms_roomInListDeleted,
-  rooms_roomInListUpdated
+  rooms_roomInListUpdated,
 } from "@constants/ws/rooms.js";
-import {useModal} from "@composable/useModal";
-const {openModal} = useModal()
+import { useModal } from "@composable/useModal";
+const { openModal } = useModal();
 
-import {API_getRooms, API_joinRoom} from "@api/rooms";
+import { API_getRooms, API_joinRoom } from "@api/rooms";
 
 export default {
   data() {
     return {
       filterData: {
         roomName: "",
-        typeOfRoom: ["PUBLIC"]
+        typeOfRoom: ["PUBLIC"],
       },
-      rooms: []
+      rooms: [],
     };
   },
-
 
   async $initSocketListener() {
     const typeOfRoom = localStorage.getItem("typeOfRoom");
@@ -29,18 +28,18 @@ export default {
     }
     await this.fetchRooms();
     this.$socket.client.emit(rooms_subscribeRoomsUpdate, {
-      userId: this.$user.userId
+      userId: this.$user.userId,
     });
     this.$socketInit({
       [rooms_roomInListCreated]: this.roomInListCreated,
       [rooms_roomInListDeleted]: this.roomInListDeleted,
-      [rooms_roomInListUpdated]: this.roomInListUpdated
+      [rooms_roomInListUpdated]: this.roomInListUpdated,
     });
   },
 
   beforeDestroy() {
     this.$socket.client.emit(rooms_unSubscribeRoomsUpdate, {
-      userId: this.$user?.userId
+      userId: this.$user?.userId,
     });
   },
 
@@ -52,17 +51,19 @@ export default {
     },
     roomInListDeleted(roomId) {
       this.rooms.splice(
-        this.rooms.findIndex(i => i.roomId === roomId),
+        this.rooms.findIndex((i) => i.roomId === roomId),
         1
       );
     },
     roomInListUpdated({ roomId, roomData }) {
-      const roomIndex = this.rooms.findIndex(room => +room.roomId === +roomId);
+      const roomIndex = this.rooms.findIndex(
+        (room) => +room.roomId === +roomId
+      );
       this.$set(this.rooms, roomIndex, roomData);
     },
     async createRoomHandler() {
       await openModal("CreateRoom")
-        .then(data => {
+        .then((data) => {
           this.$store.commit("user/adminRoom", data.roomId);
           this.$store.commit("user/joinRoom", data.roomId);
           this.$router.push({ name: "RoomId", params: { id: data.roomId } });
@@ -71,7 +72,7 @@ export default {
     },
     async fetchRooms() {
       localStorage.setItem("typeOfRoom", this.filterData.typeOfRoom);
-      API_getRooms(this.filterData).then(data => {
+      API_getRooms(this.filterData).then((data) => {
         this.rooms = data;
       });
     },
@@ -83,25 +84,25 @@ export default {
           title: "To enter room you need to input its password",
           submit: "enter",
           cancel: "cancel",
-          roomId
+          roomId,
         }).catch(() => {});
       } else {
         await openModal("Promt", {
           title: `${this.$t("modals.enterRoom")} ${roomName} ?`,
           submit: this.$t("buttons.join"),
-          cancel: this.$t("buttons.cancel")
+          cancel: this.$t("buttons.cancel"),
         })
           .then(() =>
-            API_joinRoom(roomId).then(data => {
+            API_joinRoom(roomId).then((data) => {
               this.$store.commit("user/joinRoom", data.roomJoinedId);
               this.$router.push({
                 name: "RoomId",
-                params: { id: data.roomJoinedId }
+                params: { id: data.roomJoinedId },
               });
             })
           )
           .catch(() => {});
       }
-    }
-  }
+    },
+  },
 };

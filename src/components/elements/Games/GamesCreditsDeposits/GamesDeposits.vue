@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import {useModal} from "@composable/useModal";
-const {openModal} =useModal()
+import { useModal } from "@composable/useModal";
+const { openModal } = useModal();
 
 export default {
   name: "GamesDeposits",
@@ -46,15 +46,15 @@ export default {
     getDate() {
       const { monthCode, year } = this.$gameDeposits.date;
       return `${monthCode} ${year}`;
-    }
+    },
   },
 
   methods: {
     takeDeposit({ duration }) {
       openModal("Game/TakeDeposit", {
-        duration
+        duration,
       }).catch(() => {});
-    }
-  }
+    },
+  },
 };
 </script>

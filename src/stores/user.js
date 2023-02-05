@@ -4,7 +4,7 @@ import {
   clearLocalStorageKeys,
   setLocalStorageKeys,
 } from "../utils/localStorageKeys";
-import {API_leaveRoom} from "@api/rooms";
+import { API_leaveRoom } from "@api/rooms";
 
 export const useStoreAuth = defineStore("auth", {
   state: () => ({

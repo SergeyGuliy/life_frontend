@@ -10,7 +10,7 @@ export default {
       recordingTime: 0,
       recordingInterval: null,
       maxAudioLength: 100,
-      audioChunks: []
+      audioChunks: [],
     };
   },
   watch: {
@@ -30,12 +30,12 @@ export default {
       if (val >= this.maxAudioLength) {
         this.stopRecording();
       }
-    }
+    },
   },
   async created() {
     navigator.getUserMedia(
       {
-        audio: true
+        audio: true,
       },
       () => {
         this.isRecordingAvaliable = true;
@@ -66,21 +66,21 @@ export default {
     },
     async rec() {
       // eslint-disable-next-line no-async-promise-executor
-      return await new Promise(async resolve => {
+      return await new Promise(async (resolve) => {
         const stream = await navigator.mediaDevices.getUserMedia({
-          audio: true
+          audio: true,
         });
         const mediaRecorder = new MediaRecorder(stream);
         this.audioChunks = [];
 
-        mediaRecorder.addEventListener("dataavailable", event => {
+        mediaRecorder.addEventListener("dataavailable", (event) => {
           this.audioChunks.push(event.data);
         });
 
         const start = () => mediaRecorder.start();
 
         const stop = () =>
-          new Promise(resolve => {
+          new Promise((resolve) => {
             mediaRecorder.addEventListener("stop", () => {
               const audioBlob = new Blob(this.audioChunks);
               const audioUrl = URL.createObjectURL(audioBlob);
@@ -94,6 +94,6 @@ export default {
 
         resolve({ start, stop });
       });
-    }
-  }
+    },
+  },
 };

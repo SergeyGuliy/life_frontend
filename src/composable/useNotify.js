@@ -1,12 +1,11 @@
 import { notify } from "@kyvg/vue3-notification";
 
-
 export function useNotify() {
   function notifyError(message) {
     notify({
       group: "foo",
       type: "error",
-      title: message
+      title: message,
     });
   }
 
@@ -14,7 +13,7 @@ export function useNotify() {
     notify({
       group: "foo",
       type: "warn",
-      title: message
+      title: message,
     });
   }
 
@@ -22,22 +21,22 @@ export function useNotify() {
     notify({
       group: "foo",
       type: "success",
-      title: message
+      title: message,
     });
   }
 
   function notifyInfo(message) {
-    console.warn('notifyInfo')
+    console.warn("notifyInfo");
     notify({
       group: "foo",
       type: "info",
-      title: message
+      title: message,
     });
   }
   return {
     notifyError,
     notifyWarning,
     notifySuccess,
-    notifyInfo
+    notifyInfo,
   };
 }

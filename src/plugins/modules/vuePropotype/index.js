@@ -3,7 +3,7 @@ import Vue from "vue";
 import {
   $v_setup,
   $v_validate,
-  $v_getErrorMessage
+  $v_getErrorMessage,
 } from "./modules/$vuelidate";
 
 Vue.prototype.$v_setup = $v_setup;

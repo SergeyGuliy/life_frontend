@@ -36,16 +36,14 @@
           Quit your job
         </v-btn>
       </template>
-      <v-btn v-else @click="findJob" block color="green">
-        Find job
-      </v-btn>
+      <v-btn v-else @click="findJob" block color="green"> Find job </v-btn>
     </v-card-actions>
   </div>
 </template>
 
 <script>
-import {useModal} from "@composable/useModal";
-const {openModal} =useModal()
+import { useModal } from "@composable/useModal";
+const { openModal } = useModal();
 
 export default {
   name: "GameUserWork",
@@ -56,7 +54,7 @@ export default {
     },
     getWorkName() {
       return this.isWorkExist ? this.$gameUserWork.name : "Unemployed";
-    }
+    },
   },
 
   methods: {
@@ -66,10 +64,10 @@ export default {
       openModal("Promt", {
         title: `You want to leave your work?`,
         submit: "Leave",
-        cancel: this.$t("buttons.cancel")
+        cancel: this.$t("buttons.cancel"),
       })
         .then(() => this.$gameAction("gamesWork", "leaveWork"))
-        .then(newUserData => {
+        .then((newUserData) => {
           this.$gameUserData = newUserData;
         });
     },
@@ -77,7 +75,7 @@ export default {
     askRaiseSalary() {},
     async findJob() {
       await openModal("Game/WorkList").catch(() => {});
-    }
-  }
+    },
+  },
 };
 </script>

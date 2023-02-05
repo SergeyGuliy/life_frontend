@@ -5,27 +5,27 @@ export const en = {
     users: "Users",
     friends: "Friends",
     rooms: "Rooms",
-    logout: "LogOut"
+    logout: "LogOut",
   },
   pages: {
     friends: {
       yourFriendsListIsEmpty: "Your friends list is empty",
       connectsIncomingPending: "Your incoming list or requests is empty",
       connectsIncomingIgnored: "Your ignored list or requests is empty",
-      connectsOutgoingPending: "Your outgoing requests"
+      connectsOutgoingPending: "Your outgoing requests",
     },
     rooms: {
       roomsFilter: "Rooms filter",
-      roomsList: "List of rooms"
+      roomsList: "List of rooms",
     },
     cabinet: {
       userProfile: "User profile",
       profileSettings: "Profile settings",
-      chatSettings: "Chat settings"
+      chatSettings: "Chat settings",
     },
     chats: {
-      chatsList: "List of chats"
-    }
+      chatsList: "List of chats",
+    },
   },
   misc: {
     roomAdmin: "Room Admin",
@@ -36,7 +36,7 @@ export const en = {
     userId: "User ID:",
     roomId: "Room ID:",
     userGameStatus: "User in game status:",
-    roomJoinedId: "Room joined ID:"
+    roomJoinedId: "Room joined ID:",
   },
   buttons: {
     join: "Join",
@@ -68,7 +68,7 @@ export const en = {
     buy: "buy",
     sell: "sell",
     short: "short",
-    long: "long"
+    long: "long",
   },
   enums: {
     ROOM_ADMIN: "Room Admin",
@@ -82,7 +82,7 @@ export const en = {
     OFFLINE: "Offline",
     NOT_IN_GAME: "Not in game",
     WAITING_GAME_STARTING: "Waiting game starting",
-    GAME_IN_PROGRESS: "Game in progress"
+    GAME_IN_PROGRESS: "Game in progress",
   },
   forms: {
     labels: {
@@ -110,36 +110,36 @@ export const en = {
         selectMessageVoice: "Select global chat sound",
         soundEnabling: {
           enable: "Global chat messages sound turned on",
-          disable: "Global chat messages sound turned off"
+          disable: "Global chat messages sound turned off",
         },
         autoplayEnabling: {
           enable: "Global chat messages autoplay turned on",
-          disable: "Global chat messages autoplay turned off"
-        }
+          disable: "Global chat messages autoplay turned off",
+        },
       },
       room: {
         selectMessageVoice: "Select room chat sound",
         soundEnabling: {
           enable: "Room chat messages sound turned on",
-          disable: "Room chat messages sound turned off"
+          disable: "Room chat messages sound turned off",
         },
         autoplayEnabling: {
           enable: "Room chat messages autoplay turned on",
-          disable: "Room chat messages autoplay turned off"
-        }
+          disable: "Room chat messages autoplay turned off",
+        },
       },
       private: {
         selectMessageVoice: "Select private chat sound",
         soundEnabling: {
           enable: "Private chat messages sound turned on",
-          disable: "Private chat messages sound turned off"
+          disable: "Private chat messages sound turned off",
         },
         autoplayEnabling: {
           enable: "Private chat messages autoplay turned on",
-          disable: "Private chat messages autoplay turned off"
-        }
-      }
-    }
+          disable: "Private chat messages autoplay turned off",
+        },
+      },
+    },
   },
   modals: {
     enterRoom: "Enter room",
@@ -147,6 +147,6 @@ export const en = {
     enterRoomWithPassword: "To enter room you need to input its password",
     createRoom: "Creating game room",
     changePassword: "Change password",
-    wantLeaveRoom: "Are you sure that you want to leave room?"
-  }
+    wantLeaveRoom: "Are you sure that you want to leave room?",
+  },
 };

@@ -76,8 +76,8 @@
 
 <script>
 import { defineAsyncComponent } from "vue";
-import {API_startGame} from "@api/games";
-import {API_deleteRoom, API_toggleLockRoom} from "@api/rooms";
+import { API_startGame } from "@api/games";
+import { API_deleteRoom, API_toggleLockRoom } from "@api/rooms";
 
 export default {
   name: "Room",
@@ -110,7 +110,9 @@ export default {
     },
 
     async toggleLockRoom() {
-      await API_toggleLockRoom(this.$roomId,{lockState: !this.$roomData.isBlocked });
+      await API_toggleLockRoom(this.$roomId, {
+        lockState: !this.$roomData.isBlocked,
+      });
     },
 
     async deleteRoom() {

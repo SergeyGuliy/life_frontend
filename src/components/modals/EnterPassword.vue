@@ -1,9 +1,5 @@
 <template>
-  <v-dialog
-    persistent
-    :model-value="!!component"
-    width="500"
-  >
+  <v-dialog persistent :model-value="!!component" width="500">
     <v-card class="CreateRoom">
       <v-form>
         <v-card-title class="pb-6">
@@ -38,36 +34,35 @@
 </template>
 
 <script>
-import {useModal} from "../../composable/useModal";
-import {API_joinRoom} from "@api/rooms";
+import { useModal } from "../../composable/useModal";
+import { API_joinRoom } from "@api/rooms";
 
 export default {
   name: "EnterPassword",
 
-
   setup() {
-    const { data, component, closeModal } = useModal()
-    return { data, component, closeModal }
+    const { data, component, closeModal } = useModal();
+    return { data, component, closeModal };
   },
   data() {
     return {
       showPassword: true,
-      roomPassword: ""
+      roomPassword: "",
     };
   },
   methods: {
     enterRoom() {
       API_joinRoom(this.data.roomId, this.roomPassword)
-        .then(data => {
+        .then((data) => {
           this.$store.commit("user/joinRoom", data.roomJoinedId);
           this.closeModal(true);
           this.$router.push({
             name: "RoomId",
-            params: { id: data.roomJoinedId }
+            params: { id: data.roomJoinedId },
           });
         })
         .catch(() => {});
-    }
-  }
+    },
+  },
 };
 </script>

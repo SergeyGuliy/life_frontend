@@ -6,20 +6,20 @@ export const ru = {
     users: "Users",
     friends: "Friends",
     rooms: "Rooms",
-    logout: "LogOut"
+    logout: "LogOut",
   },
   pages: {
     rooms: {
       yourFriendsListIsEmpty: "Your friends list is empty.",
       connectsIncomingPending: "Your incoming list or requests is empty.",
       connectsIncomingIgnored: "Your ignored list or requests is empty.",
-      connectsOutgoingPending: "Your outgoing requests."
+      connectsOutgoingPending: "Your outgoing requests.",
     },
     cabinet: {
       userProfile: "User profile",
       profileSettings: "Profile settings",
-      chatSettings: "Chat settings"
-    }
+      chatSettings: "Chat settings",
+    },
   },
   misc: {
     roomAdmin: "Room Admin",
@@ -30,7 +30,7 @@ export const ru = {
     userId: "User ID:",
     roomId: "Room ID:",
     userGameStatus: "User in game status:",
-    roomJoinedId: "Room joined ID:"
+    roomJoinedId: "Room joined ID:",
   },
   buttons: {
     join: "Join",
@@ -53,7 +53,7 @@ export const ru = {
     deleteFriend: "Delete friend",
     connectsIncomingPending: "Incoming Requests",
     connectsOutgoingPending: "Outgoing requests",
-    connectsIncomingIgnored: "Ignored list"
+    connectsIncomingIgnored: "Ignored list",
   },
   enums: {
     ROOM_ADMIN: "Room Admin",
@@ -67,7 +67,7 @@ export const ru = {
     OFFLINE: "Offline",
     NOT_IN_GAME: "Not in game",
     WAITING_GAME_STARTING: "Waiting game starting",
-    GAME_IN_PROGRESS: "Game in progress"
+    GAME_IN_PROGRESS: "Game in progress",
   },
   forms: {
     labels: {
@@ -88,35 +88,35 @@ export const ru = {
       global: {
         soundEnabling: {
           enable: "Global chat messages sound turned on",
-          disable: "Global chat messages sound turned off"
+          disable: "Global chat messages sound turned off",
         },
         autoplayEnabling: {
           enable: "Global chat messages autoplay turned on",
-          disable: "Global chat messages autoplay turned off"
-        }
+          disable: "Global chat messages autoplay turned off",
+        },
       },
       room: {
         soundEnabling: {
           enable: "Room chat messages sound turned on",
-          disable: "Room chat messages sound turned off"
+          disable: "Room chat messages sound turned off",
         },
         autoplayEnabling: {
           enable: "Room chat messages autoplay turned on",
-          disable: "Room chat messages autoplay turned off"
-        }
+          disable: "Room chat messages autoplay turned off",
+        },
       },
       private: {
         soundEnabling: {
           enable: "Private chat messages sound turned on",
-          disable: "Private chat messages sound turned off"
+          disable: "Private chat messages sound turned off",
         },
         autoplayEnabling: {
           enable: "Private chat messages autoplay turned on",
-          disable: "Private chat messages autoplay turned off"
-        }
-      }
+          disable: "Private chat messages autoplay turned off",
+        },
+      },
     },
-    rules: {}
+    rules: {},
   },
   modals: {
     enterRoom: "Enter room",
@@ -125,6 +125,6 @@ export const ru = {
     changePassword: "Change password",
     wantLeaveRoom: "Are you sure that you want to leave room?",
     min: "Min",
-    max: "Max"
-  }
+    max: "Max",
+  },
 };

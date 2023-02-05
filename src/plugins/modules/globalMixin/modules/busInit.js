@@ -10,6 +10,6 @@ export default {
           this.$bus.off(busKey, busCallback);
         });
       });
-    }
-  }
+    },
+  },
 };

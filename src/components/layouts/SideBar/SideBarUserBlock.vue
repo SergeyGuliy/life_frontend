@@ -13,6 +13,6 @@
 
 <script>
 export default {
-  name: "SideBarUserBlock"
+  name: "SideBarUserBlock",
 };
 </script>

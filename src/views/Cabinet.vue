@@ -233,12 +233,12 @@ import { ProfileSettingsParser } from "@utils/parsers";
 
 import { COUNTRIES, LOCALES_WITH_KEYS } from "@enums";
 
-import {useLocale} from "@composable/useLocale";
-import {useUserSettings} from "@composable/useUserSettings";
-import {useModal} from "@composable/useModal";
-const {openModal} =useModal()
+import { useLocale } from "@composable/useLocale";
+import { useUserSettings } from "@composable/useUserSettings";
+import { useModal } from "@composable/useModal";
+const { openModal } = useModal();
 
-import {API_uploadAvatar} from "@api/uploader";
+import { API_uploadAvatar } from "@api/uploader";
 
 export default {
   name: "Cabinet",
@@ -248,11 +248,11 @@ export default {
     ),
   },
 
-  setup(){
+  setup() {
     const { changeLocale } = useLocale();
     const { updateUserSettings } = useUserSettings();
 
-    return {changeLocale,updateUserSettings}
+    return { changeLocale, updateUserSettings };
   },
 
   data() {
@@ -283,7 +283,6 @@ export default {
       }
     },
   },
-
 
   methods: {
     parseDefaultData() {

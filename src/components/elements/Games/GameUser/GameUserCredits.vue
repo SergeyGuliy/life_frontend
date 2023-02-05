@@ -37,8 +37,8 @@ export default {
   computed: {
     userCredits() {
       return this.$gameUserData.credits;
-    }
-  }
+    },
+  },
 };
 </script>
 

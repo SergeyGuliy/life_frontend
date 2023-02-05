@@ -16,7 +16,7 @@ export default {
       return this.$store.state.friends?.friends;
     },
     $friends() {
-      return this.$friendsRequests.map(i => {
+      return this.$friendsRequests.map((i) => {
         const { friendshipReceiver, friendshipSender } = i;
         return +friendshipReceiver.userId === +this.$user.userId
           ? friendshipSender
@@ -25,6 +25,6 @@ export default {
     },
     $connects() {
       return this.$store.state.friends?.connects;
-    }
-  }
+    },
+  },
 };

@@ -11,7 +11,6 @@
 
     <SideBarList :items="itemsSettings" />
 
-
     <template v-slot:append>
       <div class="pa-2">
         <v-btn block @click="logOutMiddleware">
@@ -26,32 +25,34 @@
 <script>
 import { defineAsyncComponent } from "vue";
 
-import {useAuth} from "../../../composable/useAuth";
+import { useAuth } from "../../../composable/useAuth";
 
 export default {
   name: "SideBar",
-  emits: ['update:modelValue'],
+  emits: ["update:modelValue"],
 
   components: {
     SideBarList: defineAsyncComponent(() => import("./SideBarList.vue")),
-    SideBarUserBlock: defineAsyncComponent(() => import("./SideBarUserBlock.vue")),
+    SideBarUserBlock: defineAsyncComponent(() =>
+      import("./SideBarUserBlock.vue")
+    ),
   },
 
   setup() {
     const { logOutMiddleware } = useAuth();
 
-    return {logOutMiddleware}
+    return { logOutMiddleware };
   },
 
   computed: {
     localDrawer: {
       get() {
-        return this.modelValue
+        return this.modelValue;
       },
       set(val) {
         this.$emit("update:modelValue", val);
-      }
-    }
+      },
+    },
   },
 
   props: {

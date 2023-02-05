@@ -1,13 +1,13 @@
 <template>
   <v-app-bar app class="NavBar">
     <v-btn icon @click="$emit('update:modelValue', !modelValue)">
-      <v-icon icon="mdi-menu"/>
+      <v-icon icon="mdi-menu" />
     </v-btn>
 
     <v-spacer />
 
     <v-menu offset-y class="lang-selector" auto>
-      <template v-slot:activator="{ props  }">
+      <template v-slot:activator="{ props }">
         <v-btn icon v-bind="props">
           <v-icon>mdi-translate</v-icon>
         </v-btn>
@@ -37,21 +37,20 @@
 <script>
 import { LOCALES_WITH_KEYS } from "@enums";
 
-import {useLocale} from "../../composable/useLocale";
-import {useVuetifyTheme} from "../../composable/useVuetifyTheme";
-import {useAuth} from "../../composable/useAuth";
-
+import { useLocale } from "../../composable/useLocale";
+import { useVuetifyTheme } from "../../composable/useVuetifyTheme";
+import { useAuth } from "../../composable/useAuth";
 
 export default {
   name: "NavBar",
-  emits: ['update:modelValue'],
+  emits: ["update:modelValue"],
 
   setup() {
     const { changeLocale } = useLocale();
     const { logOutMiddleware } = useAuth();
-    const {toggleTheme} = useVuetifyTheme()
+    const { toggleTheme } = useVuetifyTheme();
 
-    return {toggleTheme,changeLocale, logOutMiddleware}
+    return { toggleTheme, changeLocale, logOutMiddleware };
   },
 
   data() {
@@ -59,16 +58,16 @@ export default {
       LOCALES_WITH_KEYS,
       items: [
         { title: "English", key: "en" },
-        { title: "Russian", key: "ru" }
-      ]
+        { title: "Russian", key: "ru" },
+      ],
     };
   },
 
   props: {
     modelValue: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
 };
 </script>

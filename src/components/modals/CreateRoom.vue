@@ -1,9 +1,5 @@
 <template>
-  <v-dialog
-    persistent
-    :model-value="!!component"
-    width="500"
-  >
+  <v-dialog persistent :model-value="!!component" width="500">
     <v-card class="CreateRoom">
       <v-form>
         <v-card-title class="pb-6">
@@ -38,8 +34,8 @@
             </v-col>
             <v-col class="py-0">
               <FRange
-                :minValue.sync="roomData.minCountOfUsers"
-                :maxValue.sync="roomData.maxCountOfUsers"
+                v-model:minValue="roomData.minCountOfUsers"
+                v-model:maxValue="roomData.maxCountOfUsers"
                 :label="$t('forms.labels.countOfUsers')"
                 :max="10"
                 :min="1"
@@ -65,8 +61,8 @@
 <script>
 // import { required } from "vuelidate/lib/validators";
 import { ROOM_TYPES } from "@enums/index";
-import {useModal} from "../../composable/useModal";
-import {API_create} from "@api/rooms";
+import { useModal } from "../../composable/useModal";
+import { API_create } from "@api/rooms";
 
 export default {
   name: "CreateRoom",
@@ -74,11 +70,9 @@ export default {
   validations: {},
   validationsMessages: {},
 
-
-
   setup() {
-    const { data, component, closeModal } = useModal()
-    return { data, component, closeModal }
+    const { data, component, closeModal } = useModal();
+    return { data, component, closeModal };
   },
   beforeCreate() {
     // this.$v_setup(
@@ -113,7 +107,7 @@ export default {
 
   data() {
     return {
-      roomData: null
+      roomData: null,
     };
   },
   watch: {
@@ -121,7 +115,7 @@ export default {
       if (val) {
         this.roomData.roomPassword = "";
       }
-    }
+    },
   },
   computed: {
     getSwitchLabel() {
@@ -137,18 +131,18 @@ export default {
       },
       set(val) {
         this.roomData.typeOfRoom = val ? ROOM_TYPES.PUBLIC : ROOM_TYPES.PRIVATE;
-      }
-    }
+      },
+    },
   },
   methods: {
     async createRoom() {
       this.$v_validate(() => {
-        API_create(this.roomData).then(data => {
+        API_create(this.roomData).then((data) => {
           this.closeModal(data);
         });
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

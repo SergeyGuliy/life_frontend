@@ -7,7 +7,7 @@
 // } from "@constants/ws/rooms.js";
 
 import { $chatKeys } from "@composable/$chatKeys";
-import {API_getGlobalMessages, API_getPrivateMessages} from "@api/chats";
+import { API_getGlobalMessages, API_getPrivateMessages } from "@api/chats";
 const { getUserChatKey } = $chatKeys();
 
 export default {

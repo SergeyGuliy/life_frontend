@@ -26,33 +26,26 @@ function $mMedian([median1, count1], [median2, count2]) {
 }
 
 function $mChangePrise(oldPrice, newPrice) {
-  let dif = $mChain(oldPrice)
-    .subtract(newPrice)
-    .divide(100);
+  let dif = $mChain(oldPrice).subtract(newPrice).divide(100);
 
   return round(+dif, 2);
 }
 
 function $mRoundUpper(val, roundUpper) {
-  const minus = $m
-    .chain(val)
-    .mod(roundUpper)
-    .done();
+  const minus = $m.chain(val).mod(roundUpper).done();
   return $m.chain(val).subtract(minus);
 }
 
 function $mBasicParams(base, delta, step = 0.05, roundLess = 2) {
   const min = base - delta;
   const max = base + delta;
-  return $mRoundUpper(random(min, max), step)
-    .round(roundLess)
-    .done();
+  return $mRoundUpper(random(min, max), step).round(roundLess).done();
 }
 
 function $mGenerateLine(duration, start, target) {
   const randomizer = (target - start) / duration;
 
-  return [...Array(duration).keys()].map(i => {
+  return [...Array(duration).keys()].map((i) => {
     const localTarget = randomizer * i + start;
     return $mBasicParams(localTarget, randomizer, 0.01, 2);
   });
@@ -73,5 +66,5 @@ export {
   $mGetPrice,
   $mGetPercent,
   $mBasicParams,
-  $mGenerateLine
+  $mGenerateLine,
 };

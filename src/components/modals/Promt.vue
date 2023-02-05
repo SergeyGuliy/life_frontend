@@ -1,9 +1,5 @@
 <template>
-  <v-dialog
-    persistent
-    :model-value="!!component"
-    width="500"
-  >
+  <v-dialog persistent :model-value="!!component" width="500">
     <v-card>
       <v-form>
         <v-card-title class="pb-6">
@@ -25,22 +21,22 @@
 </template>
 
 <script>
-import {useModal} from "../../composable/useModal";
+import { useModal } from "../../composable/useModal";
 
 export default {
   name: "Promt",
 
   setup() {
-    const { data, component, closeModal } = useModal()
-    return { data, component, closeModal }
+    const { data, component, closeModal } = useModal();
+    return { data, component, closeModal };
   },
 
   mounted() {
-    console.error(this.component)
+    console.error(this.component);
   },
 
   data() {
     return {};
-  }
+  },
 };
 </script>

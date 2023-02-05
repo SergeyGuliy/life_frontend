@@ -1,20 +1,19 @@
-import {useStoreAuth} from "../stores/user";
-import {useRoute, useRouter} from "vue-router";
-import {clearLocalStorageKeys} from "../utils/localStorageKeys";
-import {API_refreshToken, API_registration, API_login} from "@api/auth";
-
+import { useStoreAuth } from "../stores/user";
+import { useRoute, useRouter } from "vue-router";
+import { clearLocalStorageKeys } from "../utils/localStorageKeys";
+import { API_refreshToken, API_registration, API_login } from "@api/auth";
 
 export function useAuth() {
-  const route = useRoute()
-  const router = useRouter()
-  const {setUser,cleanUser} = useStoreAuth()
+  const route = useRoute();
+  const router = useRouter();
+  const { setUser, cleanUser } = useStoreAuth();
 
   async function logIn(authData) {
     try {
       const data = await API_login(authData);
       await setUser(data);
 
-      await router.push({name: "Home"});
+      await router.push({ name: "Home" });
     } catch (e) {
       console.log(`Error in store action 'logIn': ${e}`);
       throw e;
@@ -26,7 +25,7 @@ export function useAuth() {
       const data = await API_registration(authData);
       await setUser(data);
 
-      await router.push({name: "Home"});
+      await router.push({ name: "Home" });
     } catch (e) {
       console.log(`Error in store action 'createNewUser': ${e.message}`);
       throw e.message;
@@ -46,10 +45,10 @@ export function useAuth() {
   async function logOutMiddleware() {
     if (route.name === "RoomId") {
       await openModal("Promt", {
-          title: myVue.$t("modals.wantLeaveRoom"),
-          submit: myVue.$t("buttons.leave"),
-          cancel: myVue.$t("buttons.cancel")
-        })
+        title: myVue.$t("modals.wantLeaveRoom"),
+        submit: myVue.$t("buttons.leave"),
+        cancel: myVue.$t("buttons.cancel"),
+      })
         .then(logOut)
         .catch(() => {});
     } else {
@@ -76,5 +75,5 @@ export function useAuth() {
     }
   }
 
-  return {logOut,logOutMiddleware,logIn,registration,refreshToken}
+  return { logOut, logOutMiddleware, logIn, registration, refreshToken };
 }

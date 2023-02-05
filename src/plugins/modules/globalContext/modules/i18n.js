@@ -19,5 +19,5 @@ export const i18n = createI18n({
 });
 
 export function installI18n(vue) {
-  vue.use(i18n)
+  vue.use(i18n);
 }

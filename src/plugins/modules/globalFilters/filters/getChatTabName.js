@@ -2,7 +2,7 @@ import { myVue } from "@main";
 import { MESSAGE_RECEIVER_TYPES } from "@enums";
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 
-export const getChatTabName = chatTab => {
+export const getChatTabName = (chatTab) => {
   if (myVue.$chats[chatTab].key === GLOBAL) {
     return myVue.$t(`enums.${GLOBAL}`);
   } else if (myVue.$chats[chatTab].key === ROOM) {

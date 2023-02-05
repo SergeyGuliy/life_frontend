@@ -49,13 +49,13 @@ export default {
       return this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC
         ? "mdi-account-group"
         : "mdi-account-key";
-    }
+    },
   },
   props: {
     roomData: {
       required: true,
-      type: Object
-    }
-  }
+      type: Object,
+    },
+  },
 };
 </script>

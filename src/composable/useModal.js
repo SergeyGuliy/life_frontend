@@ -1,21 +1,19 @@
-import {useModalStore} from "../stores/modals";
-import {storeToRefs} from "pinia";
+import { useModalStore } from "../stores/modals";
+import { storeToRefs } from "pinia";
 
 export function useModal() {
-  const store = useModalStore()
+  const store = useModalStore();
 
-  const { component, data } = storeToRefs(store)
-
-
+  const { component, data } = storeToRefs(store);
 
   function openModal(modalName, data = {}) {
     store.setModal({
       component: modalName,
-      data: data
+      data: data,
     });
 
-    return new Promise(function(resolve, reject) {
-      let callback = data => {
+    return new Promise(function (resolve, reject) {
+      let callback = (data) => {
         if (data.detail !== null) {
           resolve(data.detail);
         } else {
@@ -30,13 +28,13 @@ export function useModal() {
   function closeModal(data = null) {
     if (!this.loading) {
       window.dispatchEvent(
-          new CustomEvent("modalClose", {
-            detail: data
-          })
+        new CustomEvent("modalClose", {
+          detail: data,
+        })
       );
       store.closeModal();
     }
   }
 
-  return { openModal, closeModal, component, data}
+  return { openModal, closeModal, component, data };
 }

@@ -49,24 +49,24 @@ export default {
   props: {
     minValue: {
       type: Number,
-      required: true
+      required: true,
     },
     maxValue: {
       type: Number,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      required: true
+      required: true,
     },
     min: {
       type: Number,
-      required: true
+      required: true,
     },
     max: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     localValue: {
@@ -76,7 +76,7 @@ export default {
       set(val) {
         this.$emit("update:minValue", +Math.min(val[0], val[1]));
         this.$emit("update:maxValue", +Math.max(val[0], val[1]));
-      }
+      },
     },
     localMin() {
       return Math.min(this.minValue, +this.maxValue);
@@ -90,7 +90,7 @@ export default {
       },
       set(val) {
         this.$emit("update:minValue", +val);
-      }
+      },
     },
     localValueMax: {
       get() {
@@ -98,9 +98,9 @@ export default {
       },
       set(val) {
         this.$emit("update:maxValue", +val);
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 

@@ -6,7 +6,7 @@ export default {
       },
       set(val) {
         this.$store.commit("room/setRoomData", val);
-      }
+      },
     },
     $usersInRoom: {
       get() {
@@ -14,7 +14,7 @@ export default {
       },
       set(val) {
         this.$store.commit("room/setUsersInRoom", val);
-      }
+      },
     },
 
     $roomId() {
@@ -22,6 +22,6 @@ export default {
     },
     $isRoomAdmin() {
       return this.$user.roomCreatedId === this.$roomId;
-    }
-  }
+    },
+  },
 };

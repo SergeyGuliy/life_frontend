@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import {useModal} from "@composable/useModal";
-const {openModal} =useModal()
+import { useModal } from "@composable/useModal";
+const { openModal } = useModal();
 
 export default {
   name: "GamesCredits",
@@ -46,15 +46,15 @@ export default {
     getDate() {
       const { monthCode, year } = this.$gameCredits.date;
       return `${monthCode} ${year}`;
-    }
+    },
   },
 
   methods: {
     takeCredit({ duration }) {
       openModal("Game/TakeCredit", {
-        duration
+        duration,
       }).catch(() => {});
-    }
-  }
+    },
+  },
 };
 </script>

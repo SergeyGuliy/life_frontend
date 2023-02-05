@@ -15,11 +15,11 @@ const globalComponents = {
   FSwitch,
   FRange,
   FSlider,
-  FTextPassword
+  FTextPassword,
 };
 
 export function installGlobalComponents(vue) {
   Object.entries(globalComponents).forEach(([componentName, component]) => {
     vue.component(componentName, component);
-  })
-};
+  });
+}

@@ -46,19 +46,19 @@
 </template>
 
 <script>
-import {useAuth} from "../../../composable/useAuth";
-import {useVuetifyTheme} from "../../../composable/useVuetifyTheme";
-import {mapState} from "vuex";
-import {useStoreAuth} from "../../../stores/user";
+import { useAuth } from "../../../composable/useAuth";
+import { useVuetifyTheme } from "../../../composable/useVuetifyTheme";
+import { mapState } from "vuex";
+import { useStoreAuth } from "../../../stores/user";
 
 export default {
   name: "TabRegister",
 
   setup() {
-    const {registration} = useAuth()
-    const {setTheme} = useVuetifyTheme()
+    const { registration } = useAuth();
+    const { setTheme } = useVuetifyTheme();
 
-    return {registration, setTheme}
+    return { registration, setTheme };
   },
 
   data() {
@@ -86,12 +86,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(useStoreAuth, {userIsDarkTheme: 'userIsDarkTheme'})
+    ...mapGetters(useStoreAuth, { userIsDarkTheme: "userIsDarkTheme" }),
   },
 
   methods: {
     registrationAction() {
-      if (!this.$refs.form.validate()) return
+      if (!this.$refs.form.validate()) return;
 
       this.registration({
         email: this.authData.email,
@@ -99,7 +99,7 @@ export default {
         password: this.authData.password,
       })
         .then(() => {
-          this.setTheme(this.userIsDarkTheme)
+          this.setTheme(this.userIsDarkTheme);
         })
         .catch((e) => {
           this.$emit("onError", e);

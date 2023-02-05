@@ -9,7 +9,7 @@ export default {
     gameUserNews: null,
     credits: null,
     deposits: null,
-    modifiers: null
+    modifiers: null,
   },
   mutations: {
     setGameId(state, gameId) {
@@ -38,6 +38,6 @@ export default {
     },
     setGameUserNews(state, gameUserNews) {
       state.gameUserNews = gameUserNews;
-    }
-  }
+    },
+  },
 };

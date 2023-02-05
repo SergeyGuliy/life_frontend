@@ -37,7 +37,7 @@ export function $v_getErrorMessage(key) {
   let errorMessagesObject = get(this.$options.validationsMessages, key, {});
 
   const filteredErrorMessages = Object.fromEntries(
-    Object.entries(errorObject).filter(i => i[0][0] !== "$")
+    Object.entries(errorObject).filter((i) => i[0][0] !== "$")
   );
   const firstMessage = Object.entries(filteredErrorMessages)
     .map(([errorCode, errorStatus]) => {
@@ -45,7 +45,7 @@ export function $v_getErrorMessage(key) {
         return errorMessagesObject[errorCode];
       }
     })
-    .find(i => !!i);
+    .find((i) => !!i);
 
   return firstMessage || "";
 }

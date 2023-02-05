@@ -26,8 +26,8 @@
 <script setup>
 import GameUserWork from "./GameUserWork";
 
-import {useModal} from "../../../../composable/useModal";
-const {openModal} =useModal()
+import { useModal } from "../../../../composable/useModal";
+const { openModal } = useModal();
 
 function openNews(type) {
   openModal("Game/News", { type }).catch(() => {});

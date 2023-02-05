@@ -26,7 +26,7 @@ export default {
 
   props: {
     messageSenderId: {},
-    messageId: {}
+    messageId: {},
   },
 
   data() {
@@ -37,28 +37,28 @@ export default {
       items: [
         {
           title: this.$t("buttons.openProfile"),
-          action: openProfile
+          action: openProfile,
         },
         {
           title: this.$t("buttons.writeMessage"),
-          action: writeMessage
+          action: writeMessage,
         },
         {
           title: this.$t("buttons.addToFriend"),
-          action: addToFriend
-        }
-      ]
+          action: addToFriend,
+        },
+      ],
     };
   },
 
   mounted() {
     this.$busInit({
       clickOutside: this.hideContextMenu,
-      openContext: this.openContext
+      openContext: this.openContext,
     });
 
     this.$eventListenersInit({
-      scroll: [this.hideContextMenu, document]
+      scroll: [this.hideContextMenu, document],
     });
   },
 
@@ -84,7 +84,7 @@ export default {
         this.x = e.clientX;
         this.y = e.clientY;
       }, 0);
-    }
-  }
+    },
+  },
 };
 </script>

@@ -39,8 +39,8 @@ export default {
   computed: {
     userDeposits() {
       return this.$gameUserData.deposits;
-    }
-  }
+    },
+  },
 };
 </script>
 

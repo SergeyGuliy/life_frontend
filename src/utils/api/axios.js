@@ -54,7 +54,4 @@ axiosWithoutAuth.interceptors.response.use(
     return error;
   }
 );
-export {
-  axiosWithAuth,
-  axiosWithoutAuth,
-};
+export { axiosWithAuth, axiosWithoutAuth };

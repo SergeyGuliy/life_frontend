@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="label mb-2" style="flex: 0;">{{ label }}</div>
+    <div class="label mb-2" style="flex: 0">{{ label }}</div>
     <v-switch
       class="mt-0 mb-6 ml-2"
       v-model="localValue"
@@ -17,16 +17,16 @@ export default {
   props: {
     value: {
       type: Boolean,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      default: ""
+      default: "",
     },
     valueText: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     localValue: {
@@ -35,8 +35,8 @@ export default {
       },
       set(val) {
         this.$emit("input", val);
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

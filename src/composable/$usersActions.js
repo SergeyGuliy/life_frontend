@@ -1,5 +1,5 @@
 import { myVue } from "@main";
-import {API_deleteFriend, API_sendRequest} from "@api/friendship";
+import { API_deleteFriend, API_sendRequest } from "@api/friendship";
 // import { store } from "../store";
 
 export function $usersActions() {

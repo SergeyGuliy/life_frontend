@@ -17,8 +17,8 @@ export default {
   props: {
     growLoss: {
       type: Number,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>

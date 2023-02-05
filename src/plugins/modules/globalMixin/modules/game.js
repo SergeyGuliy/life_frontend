@@ -1,5 +1,5 @@
 import { $mChangePrise } from "@utils/mathjs";
-import {API_userEvent} from "@api/games";
+import { API_userEvent } from "@api/games";
 
 export default {
   computed: {
@@ -9,7 +9,7 @@ export default {
       },
       set(val) {
         this.$store.commit("game/setGameId", val);
-      }
+      },
     },
     $gameDate: {
       get() {
@@ -17,7 +17,7 @@ export default {
       },
       set(val) {
         this.$store.commit("game/setGameDate", val);
-      }
+      },
     },
     $gameShares: {
       get() {
@@ -25,18 +25,18 @@ export default {
       },
       set(val) {
         this.$store.commit("game/setGameShares", val);
-      }
+      },
     },
     $gameCryptos: {
       get() {
-        return this.$store.state.game?.gameCryptos.map(crypto => ({
+        return this.$store.state.game?.gameCryptos.map((crypto) => ({
           ...crypto,
-          grow_loss: $mChangePrise(crypto.currentPrice, crypto.previousPrice)
+          grow_loss: $mChangePrise(crypto.currentPrice, crypto.previousPrice),
         }));
       },
       set(val) {
         this.$store.commit("game/setGameCryptos", val);
-      }
+      },
     },
     $gameCredits: {
       get() {
@@ -44,7 +44,7 @@ export default {
       },
       set(val) {
         this.$store.commit("game/setGameCredits", val);
-      }
+      },
     },
     $gameDeposits: {
       get() {
@@ -52,7 +52,7 @@ export default {
       },
       set(val) {
         this.$store.commit("game/setGameDeposits", val);
-      }
+      },
     },
     $gameModifiers: {
       get() {
@@ -60,7 +60,7 @@ export default {
       },
       set(val) {
         this.$store.commit("game/setGameModifiers", val);
-      }
+      },
     },
     $gameUserData: {
       get() {
@@ -68,7 +68,7 @@ export default {
       },
       set(val) {
         this.$store.commit("game/setGameUserData", val);
-      }
+      },
     },
     $gameUserNews: {
       get() {
@@ -76,7 +76,7 @@ export default {
       },
       set(val) {
         this.$store.commit("game/setGameUserNews", val);
-      }
+      },
     },
     $gameUserCash() {
       return this.$store.state.game?.gameUserData.cash;
@@ -87,8 +87,8 @@ export default {
       },
       set(val) {
         this.$gameUserData.work = val;
-      }
-    }
+      },
+    },
   },
 
   methods: {
@@ -97,8 +97,8 @@ export default {
         actionModule,
         actionMethod,
         gameId: this.$gameId,
-        actionData
+        actionData,
       });
-    }
-  }
+    },
+  },
 };

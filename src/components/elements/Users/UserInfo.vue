@@ -47,18 +47,18 @@ export default {
   computed: {
     getChipClass() {
       return this.userData.role === ROOM_TYPES.PUBLIC ? "primary" : "warning";
-    }
+    },
   },
 
   props: {
     userData: {
       required: true,
-      type: Object
+      type: Object,
     },
     showUserRoomInfo: {
       default: () => false,
-      type: Boolean
-    }
-  }
+      type: Boolean,
+    },
+  },
 };
 </script>

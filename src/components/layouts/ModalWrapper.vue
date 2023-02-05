@@ -1,12 +1,12 @@
 <template>
   <div>
-    {{component}}
+    {{ component }}
     <component v-if="component" :is="component" />
   </div>
 </template>
 
 <script>
-import {useModal} from "../../composable/useModal";
+import { useModal } from "../../composable/useModal";
 
 import ChangePassword from "../modals/ChangePassword.vue";
 import CreateRoom from "../modals/CreateRoom.vue";
@@ -26,19 +26,17 @@ export default {
   },
 
   setup() {
-    const {openModal, component} = useModal()
+    const { openModal, component } = useModal();
 
-    return {component, openModal}
+    return { component, openModal };
   },
 
   computed: {
     async getComponent() {
-      return this.component
+      return this.component;
     },
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,10 +1,5 @@
 <template>
-  <v-dialog
-    persistent
-    class="p-2"
-    :model-value="!!component"
-    width="500"
-  >
+  <v-dialog persistent class="p-2" :model-value="!!component" width="500">
     <v-card class="TakeCredits">
       <v-form ref="takeDeposit" v-model="valid">
         <v-tabs v-model="tabIndex" center-active>
@@ -66,32 +61,30 @@
 
 <script>
 import { $mChain } from "@utils/mathjs";
-import {useModal} from "../../../composable/useModal";
+import { useModal } from "../../../composable/useModal";
 
 export default {
   name: "TakeCredits",
 
   setup() {
-    const { data, component, closeModal } = useModal()
-    return { data, component, closeModal }
+    const { data, component, closeModal } = useModal();
+    return { data, component, closeModal };
   },
   created() {
     let duration = this.data.duration;
-    this.tabIndex = this.tabs.findIndex(i => i === duration);
+    this.tabIndex = this.tabs.findIndex((i) => i === duration);
   },
 
   computed: {
     tabs() {
-      return this.$gameDeposits.deposits.map(i => i.duration);
+      return this.$gameDeposits.deposits.map((i) => i.duration);
     },
     selectedDeposit() {
       return this.$gameDeposits.deposits[this.tabIndex];
     },
     incomePerMonth() {
       let { percent } = this.selectedDeposit;
-      let monthPercent = $mChain(percent)
-        .divide(12)
-        .done();
+      let monthPercent = $mChain(percent).divide(12).done();
       return $mChain(this.cash)
         .percent(monthPercent)
         .subtract(this.cash)
@@ -100,11 +93,8 @@ export default {
     },
     incomeTotal() {
       let { duration } = this.selectedDeposit;
-      return $mChain(this.incomePerMonth)
-        .multiply(duration)
-        .round(2)
-        .done();
-    }
+      return $mChain(this.incomePerMonth).multiply(duration).round(2).done();
+    },
   },
 
   data() {
@@ -115,12 +105,12 @@ export default {
       cash: 1000,
       rules: {
         cash: [
-          v => !!v || "Can't be empty",
-          v => typeof v === "number" || "Must be number",
-          v => v > 0 || "Must be positive value",
-          () => this.$gameUserCash >= this.cash || "Not enough cash"
-        ]
-      }
+          (v) => !!v || "Can't be empty",
+          (v) => typeof v === "number" || "Must be number",
+          (v) => v > 0 || "Must be positive value",
+          () => this.$gameUserCash >= this.cash || "Not enough cash",
+        ],
+      },
     };
   },
 
@@ -131,18 +121,18 @@ export default {
 
       let data = {
         cash: this.cash,
-        deposit: this.selectedDeposit
+        deposit: this.selectedDeposit,
       };
 
       this.$gameAction("gamesDeposits", "take", data)
-        .then(res => {
+        .then((res) => {
           this.$gameUserData = res;
         })
         .finally(() => {
           this.loading = false;
           this.closeModal();
         });
-    }
-  }
+    },
+  },
 };
 </script>

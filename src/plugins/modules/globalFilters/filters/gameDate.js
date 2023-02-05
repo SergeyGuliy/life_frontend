@@ -1,4 +1,4 @@
-export const gameDate = date => {
+export const gameDate = (date) => {
   const { monthCode, year } = date;
   return `${monthCode} ${year}`;
 };

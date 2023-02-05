@@ -6,7 +6,7 @@
       <v-container>
         <slot />
       </v-container>
-<!--      <Chat v-if="$route.name !== 'Messages'" />-->
+      <!--      <Chat v-if="$route.name !== 'Messages'" />-->
     </v-main>
   </div>
 </template>
@@ -17,7 +17,7 @@
 
 import SideBar from "../components/layouts/SideBar/SideBar.vue";
 import NavBar from "../components/layouts/NavBar.vue";
-import {API_changeLocale, API_changeTheme} from "@api/userSettings";
+import { API_changeLocale, API_changeTheme } from "@api/userSettings";
 // import Chat from "../components/layouts/Chat/Chat.vue";
 
 export default {

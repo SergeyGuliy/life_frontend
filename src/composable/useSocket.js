@@ -1,6 +1,4 @@
 export function useSocket() {
-
-
   function socketConnect() {
     // myVue.$socket.client.connect();
   }

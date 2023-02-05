@@ -21,13 +21,13 @@ export default {
   props: {
     leftCol: {
       default: () => [6],
-      type: Array
+      type: Array,
     },
     rightCol: {
       default: () => [6],
-      type: Array
-    }
-  }
+      type: Array,
+    },
+  },
 };
 </script>
 

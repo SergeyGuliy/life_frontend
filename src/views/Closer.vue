@@ -12,8 +12,8 @@ export default {
     async goForward() {
       await this.$store.dispatch("auth/refreshToken");
       this.$router.push({ name: "Home" });
-    }
-  }
+    },
+  },
 };
 </script>
 

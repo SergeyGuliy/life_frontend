@@ -1,14 +1,7 @@
 <template>
-  <v-dialog
-    persistent
-    class="p-2"
-    :model-value="!!component"
-    width="700"
-  >
+  <v-dialog persistent class="p-2" :model-value="!!component" width="700">
     <v-card class="WorkList" v-if="works">
-      <v-card-title class="pb-0">
-        Available works:
-      </v-card-title>
+      <v-card-title class="pb-0"> Available works: </v-card-title>
 
       <v-list-item v-for="(work, index) in works" :key="index">
         <v-list-item-media>
@@ -44,9 +37,7 @@
           >
             Accept invoice
           </v-btn>
-          <v-btn v-else large>
-            You had fail interview
-          </v-btn>
+          <v-btn v-else large> You had fail interview </v-btn>
         </v-list-item-action>
       </v-list-item>
     </v-card>
@@ -54,14 +45,14 @@
 </template>
 
 <script>
-import {useModal} from "../../../composable/useModal";
+import { useModal } from "../../../composable/useModal";
 
 export default {
   name: "WorkList",
 
   setup() {
-    const { data, component, closeModal } = useModal()
-    return { data, component, closeModal }
+    const { data, component, closeModal } = useModal();
+    return { data, component, closeModal };
   },
 
   created() {
@@ -73,34 +64,36 @@ export default {
     $gameDate() {
       if (this.$gameUserWork) this.closeModal();
       this.fetchWorksList();
-    }
+    },
   },
 
   data() {
     return {
-      works: null
+      works: null,
     };
   },
 
   methods: {
     fetchWorksList() {
-      this.$gameAction("gamesWork", "getWorksList").then(worksList => {
+      this.$gameAction("gamesWork", "getWorksList").then((worksList) => {
         this.works = worksList;
       });
     },
 
     goToJobInterview(key) {
-      this.$gameAction("gamesWork", "goToJobInterview", key).then(worksList => {
-        this.works = worksList;
-      });
+      this.$gameAction("gamesWork", "goToJobInterview", key).then(
+        (worksList) => {
+          this.works = worksList;
+        }
+      );
     },
 
     acceptWork(key) {
-      this.$gameAction("gamesWork", "acceptWork", key).then(userData => {
+      this.$gameAction("gamesWork", "acceptWork", key).then((userData) => {
         this.$gameUserData = userData;
         this.closeModal();
       });
-    }
-  }
+    },
+  },
 };
 </script>

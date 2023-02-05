@@ -1,12 +1,10 @@
 <template>
-  <div class="Users container__inner">
-    Users
-  </div>
+  <div class="Users container__inner">Users</div>
 </template>
 
 <script>
 export default {
-  name: "Users"
+  name: "Users",
 };
 </script>
 

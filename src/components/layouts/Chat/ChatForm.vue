@@ -69,7 +69,7 @@ const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 const { TEXT, VOICE } = MESSAGE_TYPES;
 import { $chatKeys } from "@composable/$chatKeys";
 import { defineAsyncComponent } from "vue";
-import {API_uploadVoice} from "@api/uploader";
+import { API_uploadVoice } from "@api/uploader";
 const { getUserIdFromChatKey, getTypeFromChatKey } = $chatKeys();
 
 export default {

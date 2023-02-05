@@ -21,8 +21,8 @@ export default {
   props: {
     items: {
       required: true,
-      type: Array
-    }
-  }
+      type: Array,
+    },
+  },
 };
 </script>

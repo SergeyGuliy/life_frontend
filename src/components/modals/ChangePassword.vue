@@ -1,9 +1,5 @@
 <template>
-  <v-dialog
-    persistent
-    :model-value="!!component"
-    width="500"
-  >
+  <v-dialog persistent :model-value="!!component" width="500">
     <v-card class="CreateRoom">
       <v-form ref="changePassword">
         <v-card-title class="pb-6">
@@ -19,7 +15,8 @@
                 :label="$t('forms.labels.enterOldPassword')"
                 :rules="rules.oldPassword"
                 @click:append="
-                  passwordVisibility.oldPassword = !passwordVisibility.oldPassword
+                  passwordVisibility.oldPassword =
+                    !passwordVisibility.oldPassword
                 "
                 :append-icon="
                   passwordVisibility.oldPassword ? 'mdi-lock' : 'mdi-lock-open'
@@ -35,7 +32,8 @@
                 :label="$t('forms.labels.enterNewPassword')"
                 :rules="rules.newPassword"
                 @click:append="
-                  passwordVisibility.newPassword = !passwordVisibility.newPassword
+                  passwordVisibility.newPassword =
+                    !passwordVisibility.newPassword
                 "
                 :append-icon="
                   passwordVisibility.newPassword ? 'mdi-lock' : 'mdi-lock-open'
@@ -53,7 +51,8 @@
                 "
                 :rules="rules.newPasswordRepeat"
                 @click:append="
-                  passwordVisibility.newPasswordRepeat = !passwordVisibility.newPasswordRepeat
+                  passwordVisibility.newPasswordRepeat =
+                    !passwordVisibility.newPasswordRepeat
                 "
                 :append-icon="
                   passwordVisibility.newPasswordRepeat
@@ -82,50 +81,50 @@
 </template>
 
 <script>
-import {useNotify} from '@composable/useNotify'
-import {useModal} from "../../composable/useModal";
-import {API_changePassword} from "@api/userSettings";
-const {notifyInfo} = useNotify()
+import { useNotify } from "@composable/useNotify";
+import { useModal } from "../../composable/useModal";
+import { API_changePassword } from "@api/userSettings";
+const { notifyInfo } = useNotify();
 
 export default {
   name: "ChangePassword",
 
-
   setup() {
-    const { data, component, closeModal } = useModal()
+    const { data, component, closeModal } = useModal();
 
-    return { data, component, closeModal }
+    return { data, component, closeModal };
   },
   data() {
     return {
       formData: {
         oldPassword: "",
         newPassword: "",
-        newPasswordRepeat: ""
+        newPasswordRepeat: "",
       },
       rules: {
         oldPassword: [
-          v => /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v) || "Wrong password"
+          (v) => /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v) || "Wrong password",
         ],
         newPassword: [
-          v => /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v) || "Wrong password",
-          v =>
-            v !== this.formData.oldPassword || "Can't be same with old password"
-        ],
-        newPasswordRepeat: [
-          v => /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v) || "Wrong password",
-          v =>
+          (v) => /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v) || "Wrong password",
+          (v) =>
             v !== this.formData.oldPassword ||
             "Can't be same with old password",
-          v =>
-            v === this.formData.newPassword || "Must be same with new password"
-        ]
+        ],
+        newPasswordRepeat: [
+          (v) => /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v) || "Wrong password",
+          (v) =>
+            v !== this.formData.oldPassword ||
+            "Can't be same with old password",
+          (v) =>
+            v === this.formData.newPassword || "Must be same with new password",
+        ],
       },
       passwordVisibility: {
         oldPassword: true,
         newPassword: true,
-        newPasswordRepeat: true
-      }
+        newPasswordRepeat: true,
+      },
     };
   },
   methods: {
@@ -140,8 +139,8 @@ export default {
         .catch(() => {
           notifyInfo("ffff");
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

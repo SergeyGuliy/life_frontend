@@ -1,5 +1,5 @@
-import {installGlobalComponents} from "./modules/globalComponents";
-import {installGlobalContext} from "./modules/globalContext";
+import { installGlobalComponents } from "./modules/globalComponents";
+import { installGlobalContext } from "./modules/globalContext";
 // import "./modules/globalFilters/index";
 // import "./modules/vuePropotype/index";
 // import "./modules/bus";
@@ -13,9 +13,7 @@ import {installGlobalContext} from "./modules/globalContext";
 // import "./modules/vuelidate";
 // import "./modules/apexCharts";
 
-
-
 export function installPlugins(vue) {
-  installGlobalContext(vue)
-  installGlobalComponents(vue)
+  installGlobalContext(vue);
+  installGlobalComponents(vue);
 }

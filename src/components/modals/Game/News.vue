@@ -1,10 +1,5 @@
 <template>
-  <v-dialog
-    persistent
-    class="p-2"
-    :model-value="!!component"
-    width="625"
-  >
+  <v-dialog persistent class="p-2" :model-value="!!component" width="625">
     <v-card class="news">
       <v-form ref="News">
         <v-tabs v-model="tabIndex" fixed-tabs>
@@ -77,14 +72,14 @@
 <script>
 import { $mChain } from "@utils/mathjs";
 import { defineAsyncComponent } from "vue";
-import {useModal} from "../../../composable/useModal";
+import { useModal } from "../../../composable/useModal";
 
 export default {
   name: "News",
 
   setup() {
-    const { data, component, closeModal } = useModal()
-    return { data, component, closeModal }
+    const { data, component, closeModal } = useModal();
+    return { data, component, closeModal };
   },
   components: {
     GameModification: defineAsyncComponent(() =>

@@ -2,7 +2,7 @@ import Vue from "@vue/compat";
 // import { UPDATE_TIME_DELTA } from "@constants/pinia.js";
 const UPDATE_TIME_DELTA = 100000;
 import { store } from "@store";
-import {API_getById} from "@api/users";
+import { API_getById } from "@api/users";
 
 const requestUsersOrders = [];
 

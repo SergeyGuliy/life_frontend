@@ -13,8 +13,8 @@ export default {
   name: "UserAvatar",
   props: {
     userData: {
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     getAbs() {
@@ -29,7 +29,7 @@ export default {
       } else {
         return `${email[0]}`.toUpperCase();
       }
-    }
-  }
+    },
+  },
 };
 </script>

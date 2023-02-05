@@ -1,10 +1,10 @@
 import App from "./App.vue";
 import { createApp } from "vue";
 
-import {installPlugins} from "./plugins";
+import { installPlugins } from "./plugins";
 
-let vue = createApp(App)
+let vue = createApp(App);
 
-installPlugins(vue)
+installPlugins(vue);
 
-vue.mount("#app")
+vue.mount("#app");

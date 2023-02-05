@@ -21,13 +21,13 @@ export default {
         this.$on("hook:beforeDestroy", () => {
           this.$socket.client.off(socketKey, socketCallback);
         });
-        this.$watch("$socket.connected", val => {
+        this.$watch("$socket.connected", (val) => {
           if (val) return;
 
           this.$socket.client.off(socketKey, socketCallback);
           this.$socket.client.off(socketKey, socketCallback);
         });
       });
-    }
-  }
+    },
+  },
 };
