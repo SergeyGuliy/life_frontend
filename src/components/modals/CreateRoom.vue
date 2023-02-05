@@ -1,9 +1,8 @@
 <template>
   <v-dialog
     persistent
-    :value="!!component"
+    :model-value="!!component"
     width="500"
-    @click:outside.prevent.stop="close()"
   >
     <v-card class="CreateRoom">
       <v-form>
@@ -51,7 +50,7 @@
 
         <v-card-actions class="py-4 px-6">
           <v-spacer></v-spacer>
-          <v-btn color="danger" @click="close()">
+          <v-btn color="danger" @click="closeModal()">
             {{ $t("buttons.cancel") }}
           </v-btn>
           <v-btn color="primary" @click="createRoom">
@@ -66,9 +65,9 @@
 <script>
 // import { required } from "vuelidate/lib/validators";
 
-import modal from "@mixins/modal";
 import { api } from "@api";
 import { ROOM_TYPES } from "@enums/index";
+import {useModal} from "../../composable/useModal";
 
 export default {
   name: "CreateRoom",
@@ -76,8 +75,12 @@ export default {
   validations: {},
   validationsMessages: {},
 
-  mixins: [modal],
 
+
+  setup() {
+    const { data, component, closeModal } = useModal()
+    return { data, component, closeModal }
+  },
   beforeCreate() {
     this.$v_setup(
       "roomData",
@@ -142,7 +145,7 @@ export default {
     async createRoom() {
       this.$v_validate(() => {
         api.rooms.create(this.roomData).then(data => {
-          this.close(data);
+          this.closeModal(data);
         });
       });
     }

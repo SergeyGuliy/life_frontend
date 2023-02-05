@@ -2,9 +2,8 @@
   <v-dialog
     persistent
     class="p-2"
-    :value="!!component"
+    :model-value="!!component"
     width="700"
-    @click:outside.prevent.stop="close()"
   >
     <v-card class="WorkList" v-if="works">
       <v-card-title class="pb-0">
@@ -12,11 +11,11 @@
       </v-card-title>
 
       <v-list-item v-for="(work, index) in works" :key="index">
-        <v-list-item-avatar>
+        <v-list-item-media>
           <v-icon class="blue" dark text="mdi-gesture-tap-button"></v-icon>
-        </v-list-item-avatar>
+        </v-list-item-media>
 
-        <v-list-item-content>
+        <v-list-item-title>
           <v-list-item-title> Position: {{ work.name }} </v-list-item-title>
 
           <v-list-item-subtitle>
@@ -28,7 +27,7 @@
           <v-list-item-subtitle v-else>
             Salary: {{ work.baseSalary.min }} $ - {{ work.baseSalary.max }} $
           </v-list-item-subtitle>
-        </v-list-item-content>
+        </v-list-item-title>
 
         <v-list-item-action>
           <v-btn
@@ -55,21 +54,24 @@
 </template>
 
 <script>
-import modal from "@mixins/modal";
+import {useModal} from "../../../composable/useModal";
 
 export default {
   name: "WorkList",
 
-  mixins: [modal],
+  setup() {
+    const { data, component, closeModal } = useModal()
+    return { data, component, closeModal }
+  },
 
   created() {
-    if (this.$gameUserWork) this.close();
+    if (this.$gameUserWork) this.closeModal();
     this.fetchWorksList();
   },
 
   watch: {
     $gameDate() {
-      if (this.$gameUserWork) this.close();
+      if (this.$gameUserWork) this.closeModal();
       this.fetchWorksList();
     }
   },
@@ -96,7 +98,7 @@ export default {
     acceptWork(key) {
       this.$gameAction("gamesWork", "acceptWork", key).then(userData => {
         this.$gameUserData = userData;
-        this.close();
+        this.closeModal();
       });
     }
   }

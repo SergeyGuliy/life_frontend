@@ -1,9 +1,8 @@
 <template>
   <v-dialog
     persistent
-    :value="!!component"
+    :model-value="!!component"
     width="500"
-    @click:outside.prevent.stop="close()"
   >
     <v-card>
       <v-form>
@@ -13,10 +12,10 @@
 
         <v-card-actions class="py-4 px-6">
           <v-spacer></v-spacer>
-          <v-btn color="danger" @click="close()">
+          <v-btn color="danger" @click="closeModal()">
             {{ data.cancel }}
           </v-btn>
-          <v-btn color="primary" @click="close(true)">
+          <v-btn color="primary" @click="closeModal(true)">
             {{ data.submit }}
           </v-btn>
         </v-card-actions>
@@ -26,11 +25,20 @@
 </template>
 
 <script>
-import modal from "@mixins/modal";
+import {useModal} from "../../composable/useModal";
 
 export default {
   name: "Promt",
-  mixins: [modal],
+
+  setup() {
+    const { data, component, closeModal } = useModal()
+    return { data, component, closeModal }
+  },
+
+  mounted() {
+    console.error(this.component)
+  },
+
   data() {
     return {};
   }

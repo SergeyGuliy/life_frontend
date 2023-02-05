@@ -1,11 +1,13 @@
 import {api} from "../utils/api";
-import {router} from "../router";
 import {useStoreAuth} from "../stores/user";
-import {useVuetifyTheme} from "./useVuetifyTheme";
+import {useRoute, useRouter} from "vue-router";
 
-const {setUser,cleanUser} = useStoreAuth()
 
 export function useAuth() {
+  const route = useRoute()
+  const router = useRouter()
+  const {setUser,cleanUser} = useStoreAuth()
+
   async function logIn(authData) {
     try {
       const data = await api.auth.login(authData);
@@ -40,5 +42,19 @@ export function useAuth() {
     }
   }
 
-  return {logOut,logIn,registration}
+  async function logOutMiddleware() {
+    if (route.name === "RoomId") {
+      await openModal("Promt", {
+          title: myVue.$t("modals.wantLeaveRoom"),
+          submit: myVue.$t("buttons.leave"),
+          cancel: myVue.$t("buttons.cancel")
+        })
+        .then(logOut)
+        .catch(() => {});
+    } else {
+      logOut();
+    }
+  }
+
+  return {logOut,logOutMiddleware,logIn,registration}
 }

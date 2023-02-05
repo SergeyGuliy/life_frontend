@@ -2,9 +2,8 @@
   <v-dialog
     persistent
     class="p-2"
-    :value="!!component"
+    :model-value="!!component"
     width="500"
-    @click:outside.prevent.stop="close()"
   >
     <v-card class="TakeCredit">
       <v-form ref="takeCredit" v-model="valid">
@@ -66,13 +65,16 @@
 </template>
 
 <script>
-import modal from "@/mixins/modal";
 import { $mChain } from "@utils/mathjs";
+import {useModal} from "../../../composable/useModal";
 
 export default {
   name: "TakeCredit",
-  mixins: [modal],
 
+  setup() {
+    const { data, component, closeModal } = useModal()
+    return { data, component, closeModal }
+  },
   created() {
     let duration = this.data.duration;
     this.tabIndex = this.tabs.findIndex(i => i === duration);
@@ -138,7 +140,7 @@ export default {
         })
         .finally(() => {
           this.loading = false;
-          this.close();
+          this.closeModal();
         });
     }
   }

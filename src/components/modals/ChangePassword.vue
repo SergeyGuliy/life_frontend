@@ -1,9 +1,8 @@
 <template>
   <v-dialog
     persistent
-    :value="!!component"
+    :model-value="!!component"
     width="500"
-    @click:outside.prevent.stop="close()"
   >
     <v-card class="CreateRoom">
       <v-form ref="changePassword">
@@ -70,7 +69,7 @@
 
         <v-card-actions class="py-4 px-6">
           <v-spacer></v-spacer>
-          <v-btn color="danger" @click="close()">
+          <v-btn color="danger" @click="closeModal()">
             {{ $t("buttons.cancel") }}
           </v-btn>
           <v-btn color="primary" @click="changePassword">
@@ -87,11 +86,18 @@ import modal from "@mixins/modal";
 import { api } from "@api";
 
 import {useNotify} from '@composable/useNotify'
+import {useModal} from "../../composable/useModal";
 const {notifyInfo} = useNotify()
 
 export default {
   name: "ChangePassword",
-  mixins: [modal],
+
+
+  setup() {
+    const { data, component, closeModal } = useModal()
+
+    return { data, component, closeModal }
+  },
   data() {
     return {
       formData: {
@@ -132,7 +138,7 @@ export default {
         .changePassword(this.formData)
         .then(() => {
           notifyInfo("ffff");
-          this.close(true);
+          this.closeModal(true);
         })
         .catch(() => {
           notifyInfo("ffff");

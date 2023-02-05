@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import {useModal} from "../../../../composable/useModal";
+
 export default {
   name: "GameUserWork",
 
@@ -60,7 +62,7 @@ export default {
     quitYourJob() {
       if (!this.$gameUserWork) return;
 
-      this.$openModal("Promt", {
+      this.openModal("Promt", {
         title: `You want to leave your work?`,
         submit: "Leave",
         cancel: this.$t("buttons.cancel")
@@ -70,9 +72,17 @@ export default {
           this.$gameUserData = newUserData;
         });
     },
+
+
+
+    setup() {
+      const {openModal} =useModal()
+      return {openModal}
+    },
+
     askRaiseSalary() {},
     async findJob() {
-      await this.$openModal("Game/WorkList").catch(() => {});
+      await this.openModal("Game/WorkList").catch(() => {});
     }
   }
 };

@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
+
 import {
   clearLocalStorageKeys,
   setLocalStorageKeys,
 } from "../utils/localStorageKeys";
-import {router} from "../router";
 import { api } from "../utils/api";
 
 export const useStoreAuth = defineStore("auth", {
@@ -79,7 +79,6 @@ export const useStoreAuth = defineStore("auth", {
           clearLocalStorageKeys();
         }
       } else {
-        await this.logOut("logOut");
         clearLocalStorageKeys();
       }
     },

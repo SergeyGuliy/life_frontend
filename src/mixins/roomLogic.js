@@ -6,6 +6,7 @@ import {
   rooms_roomInListDeleted,
   rooms_roomInListUpdated
 } from "@constants/ws/rooms.js";
+import {useModal} from "../composable/useModal";
 
 export default {
   data() {
@@ -17,6 +18,12 @@ export default {
       rooms: []
     };
   },
+
+  setup() {
+    const {openModal} =useModal()
+    return {openModal}
+  },
+
   async $initSocketListener() {
     const typeOfRoom = localStorage.getItem("typeOfRoom");
     if (typeOfRoom) {
@@ -56,7 +63,7 @@ export default {
       this.$set(this.rooms, roomIndex, roomData);
     },
     async createRoomHandler() {
-      await this.$openModal("CreateRoom")
+      await this.openModal("CreateRoom")
         .then(data => {
           this.$store.commit("user/adminRoom", data.roomId);
           this.$store.commit("user/joinRoom", data.roomId);
@@ -74,14 +81,14 @@ export default {
     async joinRoom(roomData) {
       let { typeOfRoom, roomName, roomId } = roomData;
       if (typeOfRoom === "PRIVATE") {
-        await this.$openModal("EnterPassword", {
+        await this.openModal("EnterPassword", {
           title: "To enter room you need to input its password",
           submit: "enter",
           cancel: "cancel",
           roomId
         }).catch(() => {});
       } else {
-        await this.$openModal("Promt", {
+        await this.openModal("Promt", {
           title: `${this.$t("modals.enterRoom")} ${roomName} ?`,
           submit: this.$t("buttons.join"),
           cancel: this.$t("buttons.cancel")

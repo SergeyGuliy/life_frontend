@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import {useModal} from "../../../composable/useModal";
+
 export default {
   name: "BuySellButtons",
 
@@ -20,15 +22,20 @@ export default {
     }
   },
 
+  setup() {
+    const {openModal} =useModal()
+    return {openModal}
+  },
+
   methods: {
     async buy() {
-      await this.$openModal("Game/CryptoBuySell", {
+      await this.openModal("Game/CryptoBuySell", {
         type: "BUY",
         name: this.item.name
       }).catch(() => {});
     },
     async sell() {
-      await this.$openModal("Game/CryptoBuySell", {
+      await this.openModal("Game/CryptoBuySell", {
         type: "SELL",
         name: this.item.name
       }).catch(() => {});

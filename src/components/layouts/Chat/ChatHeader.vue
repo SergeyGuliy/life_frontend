@@ -23,6 +23,7 @@
 import { MESSAGE_RECEIVER_TYPES, MESSAGES_TYPES_MAP } from "@enums";
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 import { ProfileSettingsParser } from "../../../utils/parsers";
+import {useModal} from "../../../composable/useModal";
 
 export default {
   name: "ChatHeader",
@@ -49,6 +50,11 @@ export default {
       }
     }
   },
+
+  setup() {
+    const {openModal} =useModal()
+    return {openModal}
+  },
   methods: {
     getChatType(chatKey) {
       if ([GLOBAL, ROOM].includes(chatKey)) {
@@ -60,7 +66,7 @@ export default {
     async openChatSettingsModal() {
       const chatType = this.getChatType(this.activeChat);
       let { chatSettings } = new ProfileSettingsParser(this.$user);
-      await this.$openModal("VoiceSettingsModal", {
+      await this.openModal("VoiceSettingsModal", {
         chatType,
         chatSettings
       }).catch(e => {

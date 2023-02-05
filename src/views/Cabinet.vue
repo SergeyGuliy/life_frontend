@@ -98,14 +98,14 @@
             @input="changeLocale"
           >
             <template v-slot:selection="slotData">
-              <v-list-item-content
+              <v-list-item-title
                 v-text="
                   LOCALES_WITH_KEYS.find((i) => i.key === slotData.item).title
                 "
               />
             </template>
             <template v-slot:item="slotData">
-              <v-list-item-content
+              <v-list-item-title
                 v-text="
                   LOCALES_WITH_KEYS.find((i) => i.key === slotData.item).title
                 "
@@ -124,14 +124,14 @@
             hide-details
           >
             <template v-slot:selection="{ item }">
-              <v-list-item-content
+              <v-list-item-title
                 v-text="
                   item ? $t('forms.labels.dark') : $t('forms.labels.light')
                 "
               />
             </template>
             <template v-slot:item="{ item }">
-              <v-list-item-content
+              <v-list-item-title
                 v-text="
                   item ? $t('forms.labels.dark') : $t('forms.labels.light')
                 "
@@ -227,13 +227,16 @@
 </template>
 
 <script>
-import { COUNTRIES, LOCALES_WITH_KEYS } from "@enums";
+import { defineAsyncComponent } from "vue";
+
 import { api } from "@api";
 import { ProfileSettingsParser } from "../utils/parsers";
 
-import { $currentUserActions } from "@composable/$currentUserActions";
-import { defineAsyncComponent } from "vue";
-const { updateUserSettings, changeLocale } = $currentUserActions();
+import { COUNTRIES, LOCALES_WITH_KEYS } from "@enums";
+
+import {useLocale} from "../composable/useLocale";
+import {useUserSettings} from "../composable/useUserSettings";
+import {useModal} from "../composable/useModal";
 
 export default {
   name: "Cabinet",
@@ -242,6 +245,16 @@ export default {
       import("@components/elements/Cabinet/VoiceSettings.vue")
     ),
   },
+
+  setup(){
+    const { changeLocale } = useLocale();
+    const { updateUserSettings } = useUserSettings();
+
+    const {openModal} =useModal()
+
+    return {changeLocale,updateUserSettings, openModal}
+  },
+
   data() {
     return {
       COUNTRIES,
@@ -270,8 +283,9 @@ export default {
       }
     },
   },
+
+
   methods: {
-    changeLocale,
     parseDefaultData() {
       let profileSettings = new ProfileSettingsParser(this.$user);
       this.$set(this, "profileSettings", profileSettings.getProfileSettings);
@@ -293,10 +307,10 @@ export default {
       this.$store.commit("user/setProfileSettings", data);
     },
     async changePassword() {
-      await this.$openModal("ChangePassword").catch(() => {});
+      await this.openModal("ChangePassword").catch(() => {});
     },
     async saveSettings() {
-      await updateUserSettings({
+      await this.updateUserSettings({
         chatSettings: this.chatSettings,
         profileSettings: this.profileSettings,
       });

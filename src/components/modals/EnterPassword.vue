@@ -1,9 +1,8 @@
 <template>
   <v-dialog
     persistent
-    :value="!!component"
+    :model-value="!!component"
     width="500"
-    @click:outside.prevent.stop="close()"
   >
     <v-card class="CreateRoom">
       <v-form>
@@ -26,7 +25,7 @@
         </v-card-text>
         <v-card-actions class="py-4 px-6">
           <v-spacer></v-spacer>
-          <v-btn color="danger" @click="close()">
+          <v-btn color="danger" @click="closeModal()">
             {{ $t("buttons.cancel") }}
           </v-btn>
           <v-btn color="primary" @click="enterRoom">
@@ -39,12 +38,17 @@
 </template>
 
 <script>
-import modal from "@mixins/modal";
 import { api } from "@api";
+import {useModal} from "../../composable/useModal";
 
 export default {
   name: "EnterPassword",
-  mixins: [modal],
+
+
+  setup() {
+    const { data, component, closeModal } = useModal()
+    return { data, component, closeModal }
+  },
   data() {
     return {
       showPassword: true,
@@ -57,7 +61,7 @@ export default {
         .joinRoom(this.data.roomId, this.roomPassword)
         .then(data => {
           this.$store.commit("user/joinRoom", data.roomJoinedId);
-          this.close(true);
+          this.closeModal(true);
           this.$router.push({
             name: "RoomId",
             params: { id: data.roomJoinedId }

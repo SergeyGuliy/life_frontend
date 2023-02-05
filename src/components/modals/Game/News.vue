@@ -2,9 +2,8 @@
   <v-dialog
     persistent
     class="p-2"
-    :value="!!component"
+    :model-value="!!component"
     width="625"
-    @click:outside.prevent.stop="close()"
   >
     <v-card class="news">
       <v-form ref="News">
@@ -76,14 +75,17 @@
 </template>
 
 <script>
-import modal from "@/mixins/modal";
 import { $mChain } from "@utils/mathjs";
 import { defineAsyncComponent } from "vue";
+import {useModal} from "../../../composable/useModal";
 
 export default {
   name: "News",
-  mixins: [modal],
 
+  setup() {
+    const { data, component, closeModal } = useModal()
+    return { data, component, closeModal }
+  },
   components: {
     GameModification: defineAsyncComponent(() =>
       import("../../elements/Games/GameModification/GameModification.vue")

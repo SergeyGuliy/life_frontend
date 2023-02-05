@@ -8,7 +8,6 @@ export function useVuetifyTheme() {
   }
 
   function setTheme(isDarkTheme) {
-    console.log(isDarkTheme)
     theme.global.name.value = isDarkTheme ? 'dark' : 'light'
   }
 

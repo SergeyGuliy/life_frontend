@@ -2,9 +2,8 @@
   <v-dialog
     persistent
     class="p-2"
-    :value="!!component"
+    :model-value="!!component"
     width="500"
-    @click:outside.prevent.stop="close()"
   >
     <v-card class="CreateRoom">
       <v-form ref="buySell" v-model="valid">
@@ -83,13 +82,16 @@
 </template>
 
 <script>
-import modal from "@mixins/modal";
 import { $mChain } from "@utils/mathjs";
+import {useModal} from "../../../composable/useModal";
 
 export default {
   name: "CryptoBuySell",
-  mixins: [modal],
 
+  setup() {
+    const { data, component, closeModal } = useModal()
+    return { data, component, closeModal }
+  },
   created() {
     this.activeTab = this.data.type;
     this.updateOperationPriceIfTaker();
@@ -227,7 +229,7 @@ export default {
         })
         .finally(() => {
           this.loading = false;
-          this.close();
+          this.closeModal();
         });
     }
   }

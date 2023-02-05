@@ -24,17 +24,23 @@
 </template>
 
 <script>
-import { $currentUserActions } from "@composable/$currentUserActions";
 import { defineAsyncComponent } from "vue";
-const { logOutMiddleware } = $currentUserActions();
+
+import {useAuth} from "../../../composable/useAuth";
 
 export default {
   name: "SideBar",
-  emits: ['updateDrawer'],
+  emits: ['update:modelValue'],
 
   components: {
     SideBarList: defineAsyncComponent(() => import("./SideBarList.vue")),
     SideBarUserBlock: defineAsyncComponent(() => import("./SideBarUserBlock.vue")),
+  },
+
+  setup() {
+    const { logOutMiddleware } = useAuth();
+
+    return {logOutMiddleware}
   },
 
   computed: {
@@ -43,7 +49,7 @@ export default {
         return this.modelValue
       },
       set(val) {
-        this.$emit("updateDrawer", val);
+        this.$emit("update:modelValue", val);
       }
     }
   },
@@ -93,9 +99,6 @@ export default {
         },
       ],
     };
-  },
-  methods: {
-    logOutMiddleware,
   },
 };
 </script>

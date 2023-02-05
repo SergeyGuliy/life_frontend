@@ -1,9 +1,8 @@
 <template>
   <v-dialog
     persistent
-    :value="!!component"
+    :model-value="!!component"
     width="500"
-    @click:outside.prevent.stop="close()"
   >
     <v-card>
       <v-form>
@@ -19,7 +18,7 @@
         </v-card-text>
         <v-card-actions class="py-4 px-6">
           <v-spacer></v-spacer>
-          <v-btn color="danger" @click="close()">
+          <v-btn color="danger" @click="closeModal()">
             {{ $t("buttons.cancel") }}
           </v-btn>
           <v-btn color="primary" @click="updateUserSettingsHandler">
@@ -32,16 +31,24 @@
 </template>
 
 <script>
-import modal from "@mixins/modal";
-// import { SOUNDS_WITH_FILES } from "@enums";
-import { cloneDeep } from "lodash";
-import { $currentUserActions } from "@composable/$currentUserActions";
 import { defineAsyncComponent } from "vue";
-const { updateUserSettings } = $currentUserActions();
+import { cloneDeep } from "lodash";
+
+import {useUserSettings} from "../../composable/useUserSettings";
+import {useModal} from "../../composable/useModal";
+
+// import { SOUNDS_WITH_FILES } from "@enums";
 
 export default {
   name: "VoiceSettingsModal",
-  mixins: [modal],
+
+
+  setup() {
+    const { data, component, closeModal } = useModal()
+    const { updateUserSettings } = useUserSettings();
+
+    return { data, component, closeModal, updateUserSettings }
+  },
 
   components: {
     VoiceSettings: defineAsyncComponent(() =>
@@ -69,8 +76,8 @@ export default {
   },
   methods: {
     updateUserSettingsHandler() {
-      updateUserSettings({ chatSettings: this.chatSettings }).then(() =>
-        this.close()
+      this.updateUserSettings({ chatSettings: this.chatSettings }).then(() =>
+        this.closeModal()
       );
     },
   },

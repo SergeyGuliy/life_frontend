@@ -35,30 +35,30 @@ export default {
   },
 
   watch: {
-    // "$vuetify.theme.dark"(val) {
-    //   if (this.$user) {
-    //     api.userSettings
-    //       .changeTheme({ isDarkTheme: val })
-    //       .then((data) => {
-    //         this.$store.commit("user/setUserSettings", data);
-    //       })
-    //       .catch((e) => {
-    //         console.log(e);
-    //       });
-    //   }
-    // },
-    // "$i18n.locale"(val) {
-    //   if (this.$user) {
-    //     api.userSettings
-    //       .changeLocale({ locale: val })
-    //       .then((data) => {
-    //         this.$store.commit("user/setUserSettings", data);
-    //       })
-    //       .catch((e) => {
-    //         console.log(e);
-    //       });
-    //   }
-    // },
+    "$vuetify.theme.dark"(val) {
+      if (this.$user) {
+        api.userSettings
+          .changeTheme({ isDarkTheme: val })
+          .then((data) => {
+            this.$store.commit("user/setUserSettings", data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+    },
+    "$i18n.locale"(val) {
+      if (this.$user) {
+        api.userSettings
+          .changeLocale({ locale: val })
+          .then((data) => {
+            this.$store.commit("user/setUserSettings", data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+    },
   },
 };
 </script>

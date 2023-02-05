@@ -1,5 +1,5 @@
 import {installPinia} from "./modules/pinia";
-import {installVuetify} from "../vuetify";
+import {installVuetify} from "./modules/vuetify";
 import {installI18n} from "./modules/i18n";
 import {installRouter} from "./modules/router";
 
