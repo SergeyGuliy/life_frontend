@@ -1,4 +1,3 @@
-import { api } from "@api";
 import {
   rooms_subscribeRoomsUpdate,
   rooms_unSubscribeRoomsUpdate,
@@ -6,7 +5,10 @@ import {
   rooms_roomInListDeleted,
   rooms_roomInListUpdated
 } from "@constants/ws/rooms.js";
-import {useModal} from "../composable/useModal";
+import {useModal} from "@composable/useModal";
+const {openModal} = useModal()
+
+import {API_getRooms, API_joinRoom} from "@api/rooms";
 
 export default {
   data() {
@@ -19,10 +21,6 @@ export default {
     };
   },
 
-  setup() {
-    const {openModal} =useModal()
-    return {openModal}
-  },
 
   async $initSocketListener() {
     const typeOfRoom = localStorage.getItem("typeOfRoom");
@@ -63,7 +61,7 @@ export default {
       this.$set(this.rooms, roomIndex, roomData);
     },
     async createRoomHandler() {
-      await this.openModal("CreateRoom")
+      await openModal("CreateRoom")
         .then(data => {
           this.$store.commit("user/adminRoom", data.roomId);
           this.$store.commit("user/joinRoom", data.roomId);
@@ -73,7 +71,7 @@ export default {
     },
     async fetchRooms() {
       localStorage.setItem("typeOfRoom", this.filterData.typeOfRoom);
-      api.rooms.getRooms(this.filterData).then(data => {
+      API_getRooms(this.filterData).then(data => {
         this.rooms = data;
       });
     },
@@ -81,20 +79,20 @@ export default {
     async joinRoom(roomData) {
       let { typeOfRoom, roomName, roomId } = roomData;
       if (typeOfRoom === "PRIVATE") {
-        await this.openModal("EnterPassword", {
+        await openModal("EnterPassword", {
           title: "To enter room you need to input its password",
           submit: "enter",
           cancel: "cancel",
           roomId
         }).catch(() => {});
       } else {
-        await this.openModal("Promt", {
+        await openModal("Promt", {
           title: `${this.$t("modals.enterRoom")} ${roomName} ?`,
           submit: this.$t("buttons.join"),
           cancel: this.$t("buttons.cancel")
         })
           .then(() =>
-            api.rooms.joinRoom(roomId).then(data => {
+            API_joinRoom(roomId).then(data => {
               this.$store.commit("user/joinRoom", data.roomJoinedId);
               this.$router.push({
                 name: "RoomId",

@@ -1,3 +1,5 @@
+import {API_getRoomById} from "@api/rooms";
+
 import {
   rooms_updateRoomAdmin,
   rooms_updateToggleLockRoom,
@@ -5,12 +7,10 @@ import {
   rooms_userConnectsRoom,
   rooms_userKickedFromRoom
 } from "@constants/ws/rooms";
-import { api } from "@api";
 
 export default {
   $initSocketListener() {
-    api.rooms
-      .getRoomById(this.$roomId)
+    API_getRoomById(this.$roomId)
       .then(data => {
         this.$roomData = data;
         this.$gameId = data.gameId;

@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import { api } from "@api";
 import { defineAsyncComponent } from "vue";
+import {API_getGameById, API_getInGameUserData} from "@api/games";
 
 export default {
   name: "Game",
@@ -45,16 +45,14 @@ export default {
   },
 
   async $initSocketListener() {
-    let req1 = api.games
-      .getGameById(this.$gameId)
+    let req1 = API_getGameById(this.$gameId)
       .then(this.tickGameData)
       .then(() => {
         this.$socketInit({
           games_tick: this.tickGameData,
         });
       });
-    let req2 = api.games
-      .getInGameUserData(this.$gameId)
+    let req2 = API_getInGameUserData(this.$gameId)
       .then(this.tickUserData)
       .then(() => {
         this.$socketInit({

@@ -64,10 +64,9 @@
 
 <script>
 // import { required } from "vuelidate/lib/validators";
-
-import { api } from "@api";
 import { ROOM_TYPES } from "@enums/index";
 import {useModal} from "../../composable/useModal";
+import {API_create} from "@api/rooms";
 
 export default {
   name: "CreateRoom",
@@ -82,34 +81,34 @@ export default {
     return { data, component, closeModal }
   },
   beforeCreate() {
-    this.$v_setup(
-      "roomData",
-      {
-        roomName: {
-          // required
-        },
-        roomPassword: {
-          required: v => this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC || !!v,
-          wrongPassword: v =>
-            this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC ||
-            /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v)
-        }
-      },
-      {
-        roomName: { required: "Room Name required" },
-        roomPassword: {
-          required: "Password required",
-          wrongPassword: "wrong password"
-        }
-      },
-      {
-        roomName: "test game",
-        roomPassword: "",
-        typeOfRoom: ROOM_TYPES.PUBLIC,
-        minCountOfUsers: 1,
-        maxCountOfUsers: 10
-      }
-    );
+    // this.$v_setup(
+    //   "roomData",
+    //   {
+    //     roomName: {
+    //       // required
+    //     },
+    //     roomPassword: {
+    //       required: v => this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC || !!v,
+    //       wrongPassword: v =>
+    //         this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC ||
+    //         /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v)
+    //     }
+    //   },
+    //   {
+    //     roomName: { required: "Room Name required" },
+    //     roomPassword: {
+    //       required: "Password required",
+    //       wrongPassword: "wrong password"
+    //     }
+    //   },
+    //   {
+    //     roomName: "test game",
+    //     roomPassword: "",
+    //     typeOfRoom: ROOM_TYPES.PUBLIC,
+    //     minCountOfUsers: 1,
+    //     maxCountOfUsers: 10
+    //   }
+    // );
   },
 
   data() {
@@ -144,7 +143,7 @@ export default {
   methods: {
     async createRoom() {
       this.$v_validate(() => {
-        api.rooms.create(this.roomData).then(data => {
+        API_create(this.roomData).then(data => {
           this.closeModal(data);
         });
       });

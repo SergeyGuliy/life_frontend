@@ -1,8 +1,8 @@
 import Vue from "@vue/compat";
-import { api } from "@api";
 // import { UPDATE_TIME_DELTA } from "@constants/pinia.js";
 const UPDATE_TIME_DELTA = 100000;
 import { store } from "@store";
+import {API_getById} from "@api/users";
 
 const requestUsersOrders = [];
 
@@ -42,8 +42,7 @@ function fetchUserData(userId) {
   if (requestUsersOrders.includes(userId)) return;
 
   requestUsersOrders.push(userId);
-  api.users
-    .getById(userId)
+  API_getById(userId)
     .then((userData) => {
       if (userData) store.commit("dictionaries/setUser", userData);
     })

@@ -229,14 +229,16 @@
 <script>
 import { defineAsyncComponent } from "vue";
 
-import { api } from "@api";
-import { ProfileSettingsParser } from "../utils/parsers";
+import { ProfileSettingsParser } from "@utils/parsers";
 
 import { COUNTRIES, LOCALES_WITH_KEYS } from "@enums";
 
-import {useLocale} from "../composable/useLocale";
-import {useUserSettings} from "../composable/useUserSettings";
-import {useModal} from "../composable/useModal";
+import {useLocale} from "@composable/useLocale";
+import {useUserSettings} from "@composable/useUserSettings";
+import {useModal} from "@composable/useModal";
+const {openModal} =useModal()
+
+import {API_uploadAvatar} from "@api/uploader";
 
 export default {
   name: "Cabinet",
@@ -250,9 +252,7 @@ export default {
     const { changeLocale } = useLocale();
     const { updateUserSettings } = useUserSettings();
 
-    const {openModal} =useModal()
-
-    return {changeLocale,updateUserSettings, openModal}
+    return {changeLocale,updateUserSettings}
   },
 
   data() {
@@ -303,11 +303,11 @@ export default {
     async uploadAvatar() {
       const formData = new FormData();
       formData.append("avatarImg", this.imgFile);
-      let data = await api.uploader.uploadAvatar(formData);
+      let data = await API_uploadAvatar(formData);
       this.$store.commit("user/setProfileSettings", data);
     },
     async changePassword() {
-      await this.openModal("ChangePassword").catch(() => {});
+      await openModal("ChangePassword").catch(() => {});
     },
     async saveSettings() {
       await this.updateUserSettings({

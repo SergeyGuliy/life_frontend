@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import { api } from "@api";
 import {useModal} from "../../composable/useModal";
+import {API_joinRoom} from "@api/rooms";
 
 export default {
   name: "EnterPassword",
@@ -57,8 +57,7 @@ export default {
   },
   methods: {
     enterRoom() {
-      api.rooms
-        .joinRoom(this.data.roomId, this.roomPassword)
+      API_joinRoom(this.data.roomId, this.roomPassword)
         .then(data => {
           this.$store.commit("user/joinRoom", data.roomJoinedId);
           this.closeModal(true);

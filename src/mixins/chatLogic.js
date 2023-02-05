@@ -1,4 +1,3 @@
-import { api } from "@api";
 // import { MESSAGE_RECEIVER_TYPES } from "@enums";
 // const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 // import { chat_messageToClient } from "@constants/ws/chats.js";
@@ -8,6 +7,7 @@ import { api } from "@api";
 // } from "@constants/ws/rooms.js";
 
 import { $chatKeys } from "@composable/$chatKeys";
+import {API_getGlobalMessages, API_getPrivateMessages} from "@api/chats";
 const { getUserChatKey } = $chatKeys();
 
 export default {
@@ -78,7 +78,7 @@ export default {
       }
     },
     async fetchGlobalMessages() {
-      api.chats.getGlobalMessages().then((messages) => {
+      API_getGlobalMessages().then((messages) => {
         // this.setChat(GLOBAL, {
         //   key: GLOBAL,
         //   messages
@@ -89,13 +89,13 @@ export default {
       if (this.$user?.roomJoinedId) {
         // this.setChat(ROOM, {
         //   key: ROOM,
-        //   messages: await api.chats.getRoomMessages(),
+        //   messages: await index.chats.getRoomMessages(),
         //   roomId: this.$user.roomJoinedId
         // });
       }
     },
     async fetchPrivateMessages() {
-      const messages = await api.chats.getPrivateMessages();
+      const messages = await API_getPrivateMessages();
       const messageWithUsers = messages.filter(
         (message) => message.messageReceiverUserId
       );

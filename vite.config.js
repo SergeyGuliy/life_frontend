@@ -25,8 +25,8 @@ export default defineConfig({
       "@store": getPath("src/store"),
       "@plugins": getPath("src/plugins"),
       "@mixins": getPath("src/mixins"),
-      "@api": getPath("src/utils/api"),
       "@main": getPath("src/main.js"),
+      "@api": getPath("src/utils/api/modules"),
     },
   },
 });

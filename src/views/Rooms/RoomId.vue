@@ -10,6 +10,7 @@
 
 import { defineAsyncComponent } from "vue";
 import {useModal} from "../../composable/useModal";
+const {openModal} =useModal()
 
 export default {
   name: "RoomId",
@@ -25,16 +26,11 @@ export default {
     ),
   },
 
-  setup() {
-    const {openModal} =useModal()
-    return {openModal}
-  },
-
   async beforeRouteLeave(to, from, next) {
     if (!this.$user || +this.$user?.roomJoinedId !== this.$roomId) {
       next();
     } else {
-      await this.openModal("Promt", {
+      await openModal("Promt", {
         title: this.$t("modals.wantLeaveRoom"),
         submit: this.$t("buttons.leave"),
         cancel: this.$t("buttons.cancel"),

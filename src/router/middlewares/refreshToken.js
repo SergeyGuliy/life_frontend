@@ -1,5 +1,5 @@
 // import { store } from "../../store/index";
-import { api } from "@api";
+// import {API_login} from "@api/auth";
 // import { myVue } from "@main";
 
 export async function refreshToken(to) {
@@ -14,7 +14,7 @@ export async function refreshToken(to) {
   //
   // if (userId && refreshToken) {
   //   try {
-  //     const data = await api.auth.refreshToken({ userId, refreshToken });
+  //     const data = await API_refreshToken({ userId, refreshToken });
   //     await store.dispatch("user/setUserData", data);
   //     // myVue.$vuetify.theme.dark = store.state.user.user.isDarkTheme;
   //   } catch (e) {

@@ -4,7 +4,7 @@ import {
   clearLocalStorageKeys,
   setLocalStorageKeys,
 } from "../utils/localStorageKeys";
-import { api } from "../utils/api";
+import {API_leaveRoom} from "@api/rooms";
 
 export const useStoreAuth = defineStore("auth", {
   state: () => ({
@@ -58,28 +58,9 @@ export const useStoreAuth = defineStore("auth", {
       }
     },
     async leaveRoomAction() {
-      let { roomJoinedId } = await api.rooms.leaveRoom();
+      let { roomJoinedId } = await API_leaveRoom();
       if (!roomJoinedId) {
         this.leaveRoom();
-      }
-    },
-
-    async refreshToken() {
-      const userId = localStorage.getItem("userId");
-      const refreshToken = localStorage.getItem("refreshToken");
-      if (userId && refreshToken) {
-        try {
-          const data = await api.auth.refreshToken({
-            userId,
-            refreshToken,
-          });
-          await this.setUserData(data);
-        } catch (e) {
-          await this.logOut();
-          clearLocalStorageKeys();
-        }
-      } else {
-        clearLocalStorageKeys();
       }
     },
   },

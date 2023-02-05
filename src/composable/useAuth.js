@@ -1,6 +1,7 @@
-import {api} from "../utils/api";
 import {useStoreAuth} from "../stores/user";
 import {useRoute, useRouter} from "vue-router";
+import {clearLocalStorageKeys} from "../utils/localStorageKeys";
+import {API_refreshToken, API_registration, API_login} from "@api/auth";
 
 
 export function useAuth() {
@@ -10,7 +11,7 @@ export function useAuth() {
 
   async function logIn(authData) {
     try {
-      const data = await api.auth.login(authData);
+      const data = await API_login(authData);
       await setUser(data);
 
       await router.push({name: "Home"});
@@ -22,7 +23,7 @@ export function useAuth() {
 
   async function registration(authData) {
     try {
-      const data = await api.auth.registration(authData);
+      const data = await API_registration(authData);
       await setUser(data);
 
       await router.push({name: "Home"});
@@ -56,5 +57,24 @@ export function useAuth() {
     }
   }
 
-  return {logOut,logOutMiddleware,logIn,registration}
+  async function refreshToken() {
+    const userId = localStorage.getItem("userId");
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (userId && refreshToken) {
+      try {
+        const data = await API_refreshToken({
+          userId,
+          refreshToken,
+        });
+        await this.setUserData(data);
+      } catch (e) {
+        await this.logOut();
+        clearLocalStorageKeys();
+      }
+    } else {
+      clearLocalStorageKeys();
+    }
+  }
+
+  return {logOut,logOutMiddleware,logIn,registration,refreshToken}
 }

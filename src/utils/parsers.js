@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import { api } from "@api";
+import {API_updateUserSettings} from "./api/modules/userSettings";
 // import { store } from "../store";
 
 export class ProfileSettingsParser {
@@ -103,8 +103,7 @@ export class ProfileSettingsParser {
 
   static async pushNewUserSettings(data) {
     const dataToReturn = this.parseUserSettings(data);
-    return await api.userSettings
-      .updateUserSettings(dataToReturn)
+    return await API_updateUserSettings(dataToReturn)
       .then((data) => {
         // store.dispatch("user/updateUserSettings", data);
       })

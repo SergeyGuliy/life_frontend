@@ -63,12 +63,13 @@
 <script>
 import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "@enums";
 import recordingMixin from "@mixins/recordingMixin";
-import { api } from "@api";
+
 import { chat_messageToServer } from "@constants/ws/chats.js";
 const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 const { TEXT, VOICE } = MESSAGE_TYPES;
 import { $chatKeys } from "@composable/$chatKeys";
 import { defineAsyncComponent } from "vue";
+import {API_uploadVoice} from "@api/uploader";
 const { getUserIdFromChatKey, getTypeFromChatKey } = $chatKeys();
 
 export default {
@@ -106,7 +107,7 @@ export default {
 
         const formData = new FormData();
         formData.append("voice", voice);
-        await api.uploader.uploadVoice(formData).then((audioId) => {
+        await API_uploadVoice(formData).then((audioId) => {
           messageData.messageVoice = audioId;
         });
       } else {

@@ -1,5 +1,5 @@
-import { api } from "@api";
 import { $mChangePrise } from "@utils/mathjs";
+import {API_userEvent} from "@api/games";
 
 export default {
   computed: {
@@ -93,7 +93,7 @@ export default {
 
   methods: {
     $gameAction(actionModule, actionMethod, actionData = {}) {
-      return api.games.userEvent({
+      return API_userEvent({
         actionModule,
         actionMethod,
         gameId: this.$gameId,

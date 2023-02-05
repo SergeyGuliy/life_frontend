@@ -6,7 +6,8 @@
 
 <script>
 // import { $usersActions } from "@/composable/$usersActions";
-import { api } from "@api";
+import {API_acceptRequest, API_ignoreRequest} from "@api/friendship";
+import {API_kickUser, API_setAdmin} from "@api/rooms";
 
 // const {
 //   writeMessage,
@@ -82,11 +83,11 @@ export default {
     },
 
     async kickUser() {
-      await api.rooms.kickUser(this.$roomId, this.userId);
+      await API_kickUser(this.$roomId, this.userId);
     },
 
     async setAdmin() {
-      await api.rooms.setAdmin(this.$roomId, this.userId);
+      await API_setAdmin(this.$roomId, this.userId);
     },
 
     writeMessage,
@@ -95,8 +96,7 @@ export default {
     openProfile,
 
     async acceptFriend(userId) {
-      await api.friendship
-        .acceptRequest(userId)
+      await API_acceptRequest(userId)
         .then((data) => {
           const indexToDelete = this.getIndex(data.friendshipsId);
           this.$store.commit("friends/deleteConnection", indexToDelete);
@@ -106,8 +106,7 @@ export default {
     },
 
     async ignoreFriend(userId) {
-      await api.friendship
-        .ignoreRequest(userId)
+      await API_ignoreRequest(userId)
         .then((data) => {
           const indexToUpdate = this.getIndex(data.friendshipsId);
           this.$store.commit("friends/updateConnection", {

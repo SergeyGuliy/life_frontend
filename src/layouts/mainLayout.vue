@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import { api } from "@api";
 // import chatLogic from "@mixins/chatLogic";
 // import friendsLogic from "@mixins/friendsLogic";
 
 import SideBar from "../components/layouts/SideBar/SideBar.vue";
 import NavBar from "../components/layouts/NavBar.vue";
+import {API_changeLocale, API_changeTheme} from "@api/userSettings";
 // import Chat from "../components/layouts/Chat/Chat.vue";
 
 export default {
@@ -37,8 +37,7 @@ export default {
   watch: {
     "$vuetify.theme.dark"(val) {
       if (this.$user) {
-        api.userSettings
-          .changeTheme({ isDarkTheme: val })
+        API_changeTheme({ isDarkTheme: val })
           .then((data) => {
             this.$store.commit("user/setUserSettings", data);
           })
@@ -49,8 +48,7 @@ export default {
     },
     "$i18n.locale"(val) {
       if (this.$user) {
-        api.userSettings
-          .changeLocale({ locale: val })
+        API_changeLocale({ locale: val })
           .then((data) => {
             this.$store.commit("user/setUserSettings", data);
           })

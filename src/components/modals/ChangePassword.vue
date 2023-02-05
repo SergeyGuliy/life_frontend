@@ -82,11 +82,9 @@
 </template>
 
 <script>
-import modal from "@mixins/modal";
-import { api } from "@api";
-
 import {useNotify} from '@composable/useNotify'
 import {useModal} from "../../composable/useModal";
+import {API_changePassword} from "@api/userSettings";
 const {notifyInfo} = useNotify()
 
 export default {
@@ -134,8 +132,7 @@ export default {
     async changePassword() {
       if (!this.$refs.changePassword.validate()) return;
 
-      await api.userSettings
-        .changePassword(this.formData)
+      await API_changePassword(this.formData)
         .then(() => {
           notifyInfo("ffff");
           this.closeModal(true);

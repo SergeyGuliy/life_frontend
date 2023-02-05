@@ -1,5 +1,5 @@
 import { myVue } from "@main";
-import { api } from "@api";
+import {API_deleteFriend, API_sendRequest} from "@api/friendship";
 // import { store } from "../store";
 
 export function $usersActions() {
@@ -7,14 +7,12 @@ export function $usersActions() {
     myVue.$bus.emit("writeMessage", userId);
   }
   async function addToFriend(userId) {
-    await api.friendship
-      .sendRequest(userId)
+    await API_sendRequest(userId)
       .then(() => {})
       .catch(() => {});
   }
   async function deleteFriend(userId) {
-    await api.friendship
-      .deleteFriend(userId)
+    await API_deleteFriend(userId)
       .then((data) => {
         const indexToDelete = myVue.$friendsRequests.findIndex(
           (i) => i.friendshipsId === data.friendshipsId

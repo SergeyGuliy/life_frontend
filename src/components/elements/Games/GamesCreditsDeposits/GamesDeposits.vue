@@ -36,7 +36,8 @@
 </template>
 
 <script>
-import {useModal} from "../../../../composable/useModal";
+import {useModal} from "@composable/useModal";
+const {openModal} =useModal()
 
 export default {
   name: "GamesDeposits",
@@ -48,14 +49,9 @@ export default {
     }
   },
 
-  setup() {
-    const {openModal} =useModal()
-    return {openModal}
-  },
-
   methods: {
     takeDeposit({ duration }) {
-      this.openModal("Game/TakeDeposit", {
+      openModal("Game/TakeDeposit", {
         duration
       }).catch(() => {});
     }

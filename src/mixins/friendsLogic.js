@@ -1,17 +1,15 @@
-import { api } from "@api";
+import {API_getYourConnections, API_getYourFriends} from "@api/friendship";
 
 export default {
   async mounted() {
-    await api.friendship
-      .getYourFriends()
+    await API_getYourFriends()
       .then(data => {
         this.$store.commit("friends/setFriends", data);
       })
       .catch(e => {
         console.log(e);
       });
-    await api.friendship
-      .getYourConnections()
+    await API_getYourConnections()
       .then(data => {
         this.$store.commit("friends/setConnections", data);
       })
