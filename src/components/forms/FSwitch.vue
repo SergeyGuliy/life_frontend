@@ -14,8 +14,9 @@
 <script>
 export default {
   name: "FSwitch",
+  emits: ["update:modelValue"],
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       required: true,
     },
@@ -31,10 +32,10 @@ export default {
   computed: {
     localValue: {
       get() {
-        return this.value;
+        return this.modelValue;
       },
       set(val) {
-        this.$emit("input", val);
+        this.$emit("update:modelValue", val);
       },
     },
   },

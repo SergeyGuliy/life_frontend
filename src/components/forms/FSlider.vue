@@ -34,8 +34,9 @@
 <script>
 export default {
   name: "FSlider",
+  emits: ["update:modelValue"],
   props: {
-    value: {
+    modelValue: {
       type: Number,
       required: true,
     },
@@ -59,10 +60,10 @@ export default {
   computed: {
     localValue: {
       get() {
-        return this.value;
+        return this.modelValue;
       },
       set(val) {
-        this.$emit("input", val);
+        this.$emit("update:modelValue", val);
       },
     },
   },

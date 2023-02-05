@@ -46,6 +46,7 @@
 <script>
 export default {
   name: "FRange",
+  emits: ["update:minValue", "update:maxValue"],
   props: {
     minValue: {
       type: Number,

@@ -16,6 +16,7 @@
 <script>
 export default {
   name: "FTextPassword",
+  emits: ["update:modelValue"],
   data() {
     return {
       showPassword: true,
@@ -27,7 +28,7 @@ export default {
       type: String,
       default: () => "",
     },
-    value: {
+    modelValue: {
       type: String,
       required: true,
     },
@@ -39,10 +40,10 @@ export default {
   computed: {
     localValue: {
       get() {
-        return this.value;
+        return this.modelValue;
       },
       set(val) {
-        this.$emit("input", val);
+        this.$emit("update:modelValue", val);
       },
     },
   },

@@ -8,9 +8,6 @@ export const useModalStore = defineStore("modal", {
 
   actions: {
     setModal({ data, component }) {
-      console.log("setModal");
-      console.log(data);
-      console.log(component);
       this.data = data;
       this.component = component;
     },

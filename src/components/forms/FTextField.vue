@@ -8,12 +8,13 @@
 <script>
 export default {
   name: "FTextField",
+  emits: ["update:modelValue"],
   props: {
     error: {
       type: String,
       default: () => "",
     },
-    value: {
+    modelValue: {
       type: String,
       required: true,
     },
@@ -25,10 +26,10 @@ export default {
   computed: {
     localValue: {
       get() {
-        return this.value;
+        return this.modelValue;
       },
       set(val) {
-        this.$emit("input", val);
+        this.$emit("update:modelValue", val);
       },
     },
   },

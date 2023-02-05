@@ -3,15 +3,15 @@
     <v-card class="CreateRoom">
       <v-form>
         <v-card-title class="pb-6">
-          {{ $t("modals.createRoom") }}
+          {{ t("modals.createRoom") }}
         </v-card-title>
 
         <v-card-text>
           <v-row>
             <v-col cols="12" class="py-0">
               <FTextField
-                :label="$t('forms.labels.nameRoomLabel')"
-                :error="$v_getErrorMessage('roomData.roomName')"
+                :label="t('forms.labels.nameRoomLabel')"
+                :error="$v_getErrorMessage('roomName')"
                 v-model="roomData.roomName"
               />
             </v-col>
@@ -19,7 +19,7 @@
               <div class="d-flex">
                 <FSwitch
                   v-model="calculatedTypeOfRoom"
-                  :label="$t('forms.labels.typeOfRoom')"
+                  :label="t('forms.labels.typeOfRoom')"
                   :valueText="getSwitchLabel"
                 />
               </div>
@@ -27,8 +27,8 @@
             <v-col cols="12" class="py-0" v-if="isRoomPublic">
               <FTextPassword
                 required
-                :error="$v_getErrorMessage('roomData.roomPassword')"
-                :label="$t('forms.labels.passwordLabel')"
+                :error="$v_getErrorMessage('roomPassword')"
+                :label="t('forms.labels.passwordLabel')"
                 v-model="roomData.roomPassword"
               />
             </v-col>
@@ -36,7 +36,7 @@
               <FRange
                 v-model:minValue="roomData.minCountOfUsers"
                 v-model:maxValue="roomData.maxCountOfUsers"
-                :label="$t('forms.labels.countOfUsers')"
+                :label="t('forms.labels.countOfUsers')"
                 :max="10"
                 :min="1"
               />
@@ -47,10 +47,10 @@
         <v-card-actions class="py-4 px-6">
           <v-spacer></v-spacer>
           <v-btn color="danger" @click="closeModal()">
-            {{ $t("buttons.cancel") }}
+            {{ t("buttons.cancel") }}
           </v-btn>
           <v-btn color="primary" @click="createRoom">
-            {{ $t("buttons.create") }}
+            {{ t("buttons.create") }}
           </v-btn>
         </v-card-actions>
       </v-form>
@@ -58,92 +58,76 @@
   </v-dialog>
 </template>
 
-<script>
-// import { required } from "vuelidate/lib/validators";
+<script setup>
+import { computed, reactive, watch } from "vue";
+import { required } from "@vuelidate/validators";
 import { ROOM_TYPES } from "@enums/index";
-import { useModal } from "../../composable/useModal";
 import { API_create } from "@api/rooms";
 
-export default {
-  name: "CreateRoom",
+import { useModal } from "@composable/useModal";
+const { data, component, closeModal } = useModal();
 
-  validations: {},
-  validationsMessages: {},
+import { useMyVuelidate } from "@composable/useMyVuelidate";
 
-  setup() {
-    const { data, component, closeModal } = useModal();
-    return { data, component, closeModal };
-  },
-  beforeCreate() {
-    // this.$v_setup(
-    //   "roomData",
-    //   {
-    //     roomName: {
-    //       // required
-    //     },
-    //     roomPassword: {
-    //       required: v => this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC || !!v,
-    //       wrongPassword: v =>
-    //         this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC ||
-    //         /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v)
-    //     }
-    //   },
-    //   {
-    //     roomName: { required: "Room Name required" },
-    //     roomPassword: {
-    //       required: "Password required",
-    //       wrongPassword: "wrong password"
-    //     }
-    //   },
-    //   {
-    //     roomName: "test game",
-    //     roomPassword: "",
-    //     typeOfRoom: ROOM_TYPES.PUBLIC,
-    //     minCountOfUsers: 1,
-    //     maxCountOfUsers: 10
-    //   }
-    // );
-  },
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
-  data() {
-    return {
-      roomData: null,
-    };
-  },
-  watch: {
-    "roomData.typeOfRoom"(val) {
-      if (val) {
-        this.roomData.roomPassword = "";
-      }
-    },
-  },
-  computed: {
-    getSwitchLabel() {
-      return this.$t(`enums.${this.calculatedTypeOfRoom}`);
-    },
-    isRoomPublic() {
-      return this.roomData.typeOfRoom !== ROOM_TYPES.PUBLIC;
-    },
+import { helpers } from "@vuelidate/validators";
 
-    calculatedTypeOfRoom: {
-      get() {
-        return this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC;
-      },
-      set(val) {
-        this.roomData.typeOfRoom = val ? ROOM_TYPES.PUBLIC : ROOM_TYPES.PRIVATE;
-      },
-    },
+const roomData = reactive({
+  roomName: "",
+  roomPassword: "",
+  typeOfRoom: ROOM_TYPES.PUBLIC,
+  minCountOfUsers: 1,
+  maxCountOfUsers: 10,
+});
+const validations = {
+  roomName: {
+    required: helpers.withMessage("Room Name required", required),
   },
-  methods: {
-    async createRoom() {
-      this.$v_validate(() => {
-        API_create(this.roomData).then((data) => {
-          this.closeModal(data);
-        });
-      });
-    },
+  roomPassword: {
+    required: helpers.withMessage(
+      "Password required",
+      (v) => roomData.typeOfRoom === ROOM_TYPES.PUBLIC || !!v
+    ),
+    wrongPassword: helpers.withMessage(
+      "wrong password",
+      (v) =>
+        roomData.typeOfRoom === ROOM_TYPES.PUBLIC ||
+        /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/.test(v)
+    ),
   },
 };
+
+const { $v_validate, $v_getErrorMessage } = useMyVuelidate(
+  validations,
+  roomData
+);
+
+watch(roomData.typeOfRoom, async (val) => {
+  if (val) {
+    roomData.roomPassword = "";
+  }
+});
+
+const getSwitchLabel = computed(() => t(`enums.${calculatedTypeOfRoom.value}`));
+const isRoomPublic = computed(() => roomData.typeOfRoom !== ROOM_TYPES.PUBLIC);
+const calculatedTypeOfRoom = computed({
+  get() {
+    return roomData.typeOfRoom === ROOM_TYPES.PUBLIC;
+  },
+  set(val) {
+    roomData.typeOfRoom = val ? ROOM_TYPES.PUBLIC : ROOM_TYPES.PRIVATE;
+  },
+});
+
+async function createRoom() {
+  $v_validate(() => {
+    API_create(roomData).then((data) => {
+      closeModal(data);
+    });
+  });
+}
 </script>
 
 <style lang="scss">
