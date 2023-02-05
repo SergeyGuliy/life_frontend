@@ -1,27 +1,30 @@
 // import { MESSAGE_RECEIVER_TYPES } from "@enums";
 // const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
-// import { chat_messageToClient } from "@constants/ws/chats.js";
-// import {
-//   rooms_userLeaveRoom,
-//   rooms_userJoinRoom
-// } from "@constants/ws/rooms.js";
+import { chat_messageToClient } from "@constants/ws/chats.js";
+import {
+  rooms_userLeaveRoom,
+  rooms_userJoinRoom,
+} from "@constants/ws/rooms.js";
 
 import { $chatKeys } from "@composable/$chatKeys";
 import { API_getGlobalMessages, API_getPrivateMessages } from "@api/chats";
 const { getUserChatKey } = $chatKeys();
 
+import { useSocket } from "@composable/useSocket";
+const { onSocketInit } = useSocket();
+
 export default {
-  async $initSocketListener() {
+  async created() {
     await this.fetchGlobalMessages();
     await this.fetchPrivateMessages();
     await this.fetchRoomMessages();
 
     this.$busInit({ writeMessage: this.writeMessage });
 
-    this.$socketInit({
-      // [chat_messageToClient]: this.messageToClient,
-      // [rooms_userJoinRoom]: this.fetchRoomMessages,
-      // [rooms_userLeaveRoom]: this.userLeaveRoom
+    onSocketInit({
+      [chat_messageToClient]: this.messageToClient,
+      [rooms_userJoinRoom]: this.fetchRoomMessages,
+      [rooms_userLeaveRoom]: this.userLeaveRoom,
     });
   },
 

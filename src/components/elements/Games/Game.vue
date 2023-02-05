@@ -15,6 +15,9 @@
 import { defineAsyncComponent } from "vue";
 import { API_getGameById, API_getInGameUserData } from "@api/games";
 
+import { useSocket } from "@composable/useSocket";
+const { onSocketInit } = useSocket();
+
 export default {
   name: "Game",
 
@@ -44,20 +47,16 @@ export default {
     };
   },
 
-  async $initSocketListener() {
+  async created() {
     let req1 = API_getGameById(this.$gameId)
       .then(this.tickGameData)
       .then(() => {
-        this.$socketInit({
-          games_tick: this.tickGameData,
-        });
+        onSocketInit({ games_tick: this.tickGameData });
       });
     let req2 = API_getInGameUserData(this.$gameId)
       .then(this.tickUserData)
       .then(() => {
-        this.$socketInit({
-          games_sendUserData: this.tickUserData,
-        });
+        onSocketInit({ games_sendUserData: this.tickUserData });
       });
 
     Promise.all([req1, req2]).then(() => {

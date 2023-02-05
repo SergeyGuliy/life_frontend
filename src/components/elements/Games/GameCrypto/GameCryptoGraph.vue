@@ -4,7 +4,9 @@
 
 <script>
 import { options } from "./graphOptions";
-import { defineAsyncComponent } from "vue";
+
+import { useSocket } from "@composable/useSocket";
+const { onSocketInit } = useSocket();
 
 export default {
   name: "GameCryptoGraph",
@@ -33,7 +35,7 @@ export default {
     },
   },
 
-  $initSocketListener() {
+  created() {
     this.$gameAction("gamesCryptos", "getCryptoHistory", {
       name: this.crypto.name,
       gameId: this.$gameId,
@@ -43,9 +45,7 @@ export default {
         .forEach(this.addHistory);
       this.loading = false;
 
-      this.$socketInit({
-        games_tick: this.tickGameData,
-      });
+      onSocketInit({ games_tick: this.tickGameData });
     });
   },
   methods: {

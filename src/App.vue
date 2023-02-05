@@ -13,11 +13,14 @@ import mainLayout from "./layouts/mainLayout.vue";
 import authLayout from "./layouts/authLayout.vue";
 import ModalWrapper from "./components/layouts/ModalWrapper.vue";
 
-// import {
-//   socketSetup_callUserIdToServer,
-//   socketSetup_forceDisconnect,
-//   socketSetup_giveUserIdToServer
-// } from "@constants/ws/socketSetup.js";
+import { useSocket } from "./composable/useSocket";
+const { onSocketInit, socketEmit } = useSocket();
+
+import {
+  socketSetup_callUserIdToServer,
+  socketSetup_forceDisconnect,
+  socketSetup_giveUserIdToServer,
+} from "@constants/ws/socketSetup.js";
 
 export default {
   name: "App",
@@ -33,21 +36,21 @@ export default {
     },
   },
 
-  // $initSocketListener() {
-  //   this.$socketInit({
-  //     [socketSetup_callUserIdToServer]: this.callUserIdToServer,
-  //
-  //     [socketSetup_forceDisconnect]: this.forceDisconnect
-  //   });
-  // },
+  created() {
+    onSocketInit({
+      [socketSetup_callUserIdToServer]: this.callUserIdToServer,
+
+      [socketSetup_forceDisconnect]: this.forceDisconnect,
+    });
+  },
 
   methods: {
     callUserIdToServer(clientId) {
       if (this.$user?.userId) {
-        // this.$socket.client.emit(socketSetup_giveUserIdToServer, {
-        //   userId: this.$user.userId,
-        //   clientId
-        // });
+        socketEmit(socketSetup_giveUserIdToServer, {
+          userId: this.$user.userId,
+          clientId,
+        });
       }
     },
     async forceDisconnect() {

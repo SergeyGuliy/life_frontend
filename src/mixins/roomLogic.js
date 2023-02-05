@@ -1,3 +1,11 @@
+import { API_getRooms, API_joinRoom } from "@api/rooms";
+
+import { useModal } from "@composable/useModal";
+const { openModal } = useModal();
+
+import { useSocket } from "./composable/useSocket";
+const { onSocketInit, socketEmit } = useSocket();
+
 import {
   rooms_subscribeRoomsUpdate,
   rooms_unSubscribeRoomsUpdate,
@@ -5,10 +13,6 @@ import {
   rooms_roomInListDeleted,
   rooms_roomInListUpdated,
 } from "@constants/ws/rooms.js";
-import { useModal } from "@composable/useModal";
-const { openModal } = useModal();
-
-import { API_getRooms, API_joinRoom } from "@api/rooms";
 
 export default {
   data() {
@@ -21,16 +25,16 @@ export default {
     };
   },
 
-  async $initSocketListener() {
+  async created() {
     const typeOfRoom = localStorage.getItem("typeOfRoom");
     if (typeOfRoom) {
       this.$set(this.filterData, "typeOfRoom", typeOfRoom.split(","));
     }
     await this.fetchRooms();
-    this.$socket.client.emit(rooms_subscribeRoomsUpdate, {
-      userId: this.$user.userId,
-    });
-    this.$socketInit({
+
+    socketEmit(rooms_subscribeRoomsUpdate, { userId: this.$user.userId });
+
+    onSocketInit({
       [rooms_roomInListCreated]: this.roomInListCreated,
       [rooms_roomInListDeleted]: this.roomInListDeleted,
       [rooms_roomInListUpdated]: this.roomInListUpdated,
@@ -38,9 +42,7 @@ export default {
   },
 
   beforeDestroy() {
-    this.$socket.client.emit(rooms_unSubscribeRoomsUpdate, {
-      userId: this.$user?.userId,
-    });
+    socketEmit(rooms_unSubscribeRoomsUpdate, { userId: this.$user?.userId });
   },
 
   methods: {

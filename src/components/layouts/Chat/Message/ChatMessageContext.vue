@@ -18,7 +18,10 @@
 </template>
 
 <script>
+import { useEventListener } from "@vueuse/core";
+
 import { $usersActions } from "@composable/$usersActions";
+import { useEventsListener } from "../../../../composable/useEventsListener";
 const { writeMessage, addToFriend, openProfile } = $usersActions();
 
 export default {
@@ -51,13 +54,17 @@ export default {
     };
   },
 
+  setup() {
+    useEventListener();
+  },
+
   mounted() {
     this.$busInit({
       clickOutside: this.hideContextMenu,
       openContext: this.openContext,
     });
 
-    this.$eventListenersInit({
+    useEventsListener({
       scroll: [this.hideContextMenu, document],
     });
   },

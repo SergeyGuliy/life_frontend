@@ -61,16 +61,21 @@
 </template>
 
 <script>
-import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "@enums";
+import { defineAsyncComponent } from "vue";
+
+import { API_uploadVoice } from "@api/uploader";
 import recordingMixin from "@mixins/recordingMixin";
 
+import { $chatKeys } from "@composable/$chatKeys";
+const { getUserIdFromChatKey, getTypeFromChatKey } = $chatKeys();
+
+import { useSocket } from "@composable/useSocket";
+const { socketEmit } = useSocket();
+
+import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "@enums";
 import { chat_messageToServer } from "@constants/ws/chats.js";
 const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 const { TEXT, VOICE } = MESSAGE_TYPES;
-import { $chatKeys } from "@composable/$chatKeys";
-import { defineAsyncComponent } from "vue";
-import { API_uploadVoice } from "@api/uploader";
-const { getUserIdFromChatKey, getTypeFromChatKey } = $chatKeys();
 
 export default {
   name: "ChatForm",
@@ -121,7 +126,7 @@ export default {
           this.activeChat
         );
       }
-      this.$socket.client.emit(chat_messageToServer, messageData);
+      socketEmit(chat_messageToServer, messageData);
       this.newMessage = "";
       this.audio = null;
     },

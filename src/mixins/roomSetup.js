@@ -8,19 +8,22 @@ import {
   rooms_userKickedFromRoom,
 } from "@constants/ws/rooms";
 
+import { useSocket } from "@composable/useSocket";
+const { onSocketInit, socketEmit } = useSocket();
+
 export default {
-  $initSocketListener() {
+  created() {
     API_getRoomById(this.$roomId)
       .then((data) => {
         this.$roomData = data;
         this.$gameId = data.gameId;
 
-        this.$socket.client.emit(rooms_userConnectsRoom, {
+        socketEmit(rooms_userConnectsRoom, {
           userId: this.$user.userId,
           roomId: this.$roomId,
         });
 
-        this.$socketInit({
+        onSocketInit({
           [rooms_updateUsersListInRoom]: this.updateUserListInRoom,
           [rooms_updateRoomAdmin]: this.updateRoomAdmin,
           [rooms_userKickedFromRoom]: this.userKickedFromRoom,

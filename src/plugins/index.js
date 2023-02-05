@@ -8,7 +8,6 @@ import { installGlobalFilters } from "./modules/globalFilters";
 // import "./modules/longClick";
 // import "./modules/vueWorker";
 // import "./modules/debounce";
-// import "./modules/socket";
 // import "./modules/moment";
 // import "./modules/globalMixin/index";
 // import "./modules/vuelidate";
