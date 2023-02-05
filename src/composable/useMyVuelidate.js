@@ -8,7 +8,6 @@ export function useMyVuelidate(validations, formData) {
   function $v_validate(callback) {
     $v.value.$touch();
     if (!$v.value.$invalid) {
-      console.error("valid");
       callback();
     }
   }

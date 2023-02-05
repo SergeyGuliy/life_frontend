@@ -26,14 +26,14 @@ export function useModal() {
   }
 
   function closeModal(data = null) {
-    if (!this.loading) {
-      window.dispatchEvent(
-        new CustomEvent("modalClose", {
-          detail: data,
-        })
-      );
-      store.closeModal();
-    }
+    // if (this.loading) return;
+
+    window.dispatchEvent(
+      new CustomEvent("modalClose", {
+        detail: data,
+      })
+    );
+    store.closeModal();
   }
 
   return { openModal, closeModal, component, data };
