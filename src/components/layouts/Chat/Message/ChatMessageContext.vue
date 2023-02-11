@@ -20,9 +20,13 @@
 <script>
 import { useEventListener } from "@vueuse/core";
 
+import { useEventsListener } from "@composable/useEventsListener";
+
 import { $usersActions } from "@composable/$usersActions";
-import { useEventsListener } from "../../../../composable/useEventsListener";
 const { writeMessage, addToFriend, openProfile } = $usersActions();
+
+import { useBus } from "@composable/useBus";
+const { busInit } = useBus();
 
 export default {
   name: "ChatMessageContext",
@@ -54,12 +58,8 @@ export default {
     };
   },
 
-  setup() {
-    useEventListener();
-  },
-
   mounted() {
-    this.$busInit({
+    busInit({
       clickOutside: this.hideContextMenu,
       openContext: this.openContext,
     });

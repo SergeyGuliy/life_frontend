@@ -1,10 +1,14 @@
 import { myVue } from "@main";
 import { API_deleteFriend, API_sendRequest } from "@api/friendship";
+
+import { useBus } from "@composable/useBus";
+const { busEmit } = useBus();
+
 // import { store } from "../store";
 
 export function $usersActions() {
   function writeMessage(userId) {
-    myVue.$bus.emit("writeMessage", userId);
+    busEmit("writeMessage", userId);
   }
   async function addToFriend(userId) {
     await API_sendRequest(userId)

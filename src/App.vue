@@ -13,8 +13,11 @@ import mainLayout from "./layouts/mainLayout.vue";
 import authLayout from "./layouts/authLayout.vue";
 import ModalWrapper from "./components/layouts/ModalWrapper.vue";
 
-import { useSocket } from "./composable/useSocket";
+import { useSocket } from "@composable/useSocket";
 const { onSocketInit, socketEmit } = useSocket();
+
+import { useBus } from "@composable/useBus";
+const { busEmit } = useBus();
 
 import {
   socketSetup_callUserIdToServer,
@@ -66,13 +69,13 @@ export default {
       body.addEventListener("contextmenu", this.clickOutsideContext);
     },
     clickOutside() {
-      this.$bus.emit("clickOutside");
+      busEmit("clickOutside");
     },
     // eslint-disable-next-line no-unused-vars
     clickOutsideContext(e) {
       // TODO add prevent default on prod
       // e.preventDefault();
-      this.$bus.emit("clickOutside");
+      busEmit("clickOutside");
     },
   },
 };

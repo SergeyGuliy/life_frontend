@@ -27,6 +27,9 @@
 <script>
 import { defineAsyncComponent } from "vue";
 
+import { useBus } from "@composable/useBus";
+const { busEmit } = useBus();
+
 export default {
   name: "ChatMessage",
 
@@ -50,7 +53,6 @@ export default {
 
   computed: {
     userDataLocal(val) {
-      console.log(val);
       return val;
       // const userData = this.$filters.dictGetUserById(this.userData?.userId);
       // if (this.timestamp) return userData;
@@ -63,7 +65,7 @@ export default {
   methods: {
     showContextMenu(e) {
       e.preventDefault();
-      this.$bus.emit("openContext", this.message.messageId);
+      busEmit.emit("openContext", this.message.messageId);
       if (this.isYouAuthor) return;
       this.$refs.ChatMessageHeader.showContextMenu(e);
     },

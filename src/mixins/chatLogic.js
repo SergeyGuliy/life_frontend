@@ -6,12 +6,16 @@ import {
   rooms_userJoinRoom,
 } from "@constants/ws/rooms.js";
 
-import { $chatKeys } from "@composable/$chatKeys";
 import { API_getGlobalMessages, API_getPrivateMessages } from "@api/chats";
+
+import { $chatKeys } from "@composable/$chatKeys";
 const { getUserChatKey } = $chatKeys();
 
 import { useSocket } from "@composable/useSocket";
 const { onSocketInit } = useSocket();
+
+import { useBus } from "@composable/useBus";
+const { busInit, busEmit } = useBus();
 
 export default {
   async created() {
@@ -19,7 +23,7 @@ export default {
     await this.fetchPrivateMessages();
     await this.fetchRoomMessages();
 
-    this.$busInit({ writeMessage: this.writeMessage });
+    busInit({ writeMessage: this.writeMessage });
 
     onSocketInit({
       [chat_messageToClient]: this.messageToClient,
@@ -50,14 +54,14 @@ export default {
       // }
     },
     userLeaveRoom() {
-      this.$bus.emit("userLeaveChat");
+      busEmit("userLeaveChat");
       // this.$store.commit("chats/deleteChat", ROOM);
     },
     async writeMessage(userId) {
       await this.createUserChat(userId);
       const chatTab = getUserChatKey(userId);
-      this.$bus.emit("openChat");
-      this.$bus.emit("activateChat", chatTab);
+      busEmit("openChat");
+      busEmit("activateChat", chatTab);
     },
 
     setChat(chatName, chatData) {

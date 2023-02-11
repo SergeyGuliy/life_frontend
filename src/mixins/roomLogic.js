@@ -3,7 +3,7 @@ import { API_getRooms, API_joinRoom } from "@api/rooms";
 import { useModal } from "@composable/useModal";
 const { openModal } = useModal();
 
-import { useSocket } from "./composable/useSocket";
+import { useSocket } from "@composable/useSocket";
 const { onSocketInit, socketEmit } = useSocket();
 
 import {

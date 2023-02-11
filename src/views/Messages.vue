@@ -20,8 +20,12 @@
 
 import { defineAsyncComponent } from "vue";
 
+import { useBus } from "../composable/useBus";
+const { busInit } = useBus();
+
 export default {
   name: "Messages",
+
   components: {
     ChatForm: defineAsyncComponent(() =>
       import("@components/layouts/Chat/ChatForm.vue")
@@ -38,7 +42,7 @@ export default {
   },
 
   mounted() {
-    this.$busInit({
+    busInit({
       activateChat: this.activateChat,
       openChat: this.openChat,
       userLeaveChat: this.userLeaveChat,

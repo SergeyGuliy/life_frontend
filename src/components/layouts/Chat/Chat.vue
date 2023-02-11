@@ -31,16 +31,21 @@
 <script>
 import { defineAsyncComponent } from "vue";
 
+import { useBus } from "@composable/useBus";
+const { busInit } = useBus();
+
 // import { MESSAGE_RECEIVER_TYPES } from "@enums";
 // const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
 export default {
   name: "Chat",
+
   components: {
     ChatForm: defineAsyncComponent(() => import("./ChatForm.vue")),
     ChatBody: defineAsyncComponent(() => import("./ChatBody.vue")),
     ChatTabs: defineAsyncComponent(() => import("./ChatTabs.vue")),
     ChatHeader: defineAsyncComponent(() => import("./ChatHeader.vue")),
   },
+
   data() {
     return {
       isChatOpened: false,
@@ -49,7 +54,7 @@ export default {
   },
 
   mounted() {
-    this.$busInit({
+    busInit({
       activateChat: this.activateChat,
       openChat: this.openChat,
       userLeaveChat: this.userLeaveChat,

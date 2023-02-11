@@ -24,6 +24,7 @@
     "life_shared": "file:../life_shared",
     "lodash": "^4.17.21",
     "mathjs": "^11.3.2",
+    "mitt": "^3.0.0",
     "moment": "latest",
     "pinia": "^2.0.29",
     "register-service-worker": "^1.7.1",

@@ -3,7 +3,6 @@ import { installGlobalContext } from "./modules/globalContext";
 import { installGlobalFilters } from "./modules/globalFilters";
 // import "./modules/globalFilters/index";
 // import "./modules/vuePropotype/index";
-// import "./modules/bus";
 // import "./modules/mask";
 // import "./modules/longClick";
 // import "./modules/vueWorker";
