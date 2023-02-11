@@ -28,7 +28,7 @@ export default {
   async created() {
     const typeOfRoom = localStorage.getItem("typeOfRoom");
     if (typeOfRoom) {
-      this.$set(this.filterData, "typeOfRoom", typeOfRoom.split(","));
+      this.filterData.typeOfRoom = typeOfRoom.split(",");
     }
     await this.fetchRooms();
 

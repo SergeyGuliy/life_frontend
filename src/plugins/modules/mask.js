@@ -1,5 +1,5 @@
-import Vue from "vue";
+import VueMask from "@devindex/vue-mask"; // <-- ADD THIS LINE
 
-// As a plugin
-import VueMask from "v-mask";
-Vue.use(VueMask);
+export function installMask(vue) {
+  vue.use(VueMask);
+}

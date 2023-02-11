@@ -11,7 +11,7 @@
         />
         <v-text-field
           v-model="authData.phone"
-          v-mask="'+#(###) ###-####'"
+          v-mask="'+0(000) 000-0000'"
           :rules="rules.phone"
           label="Введите телефон"
           placeholder="Placeholder"

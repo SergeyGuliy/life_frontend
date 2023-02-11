@@ -1,4 +1,4 @@
-import { debounce } from "vue-debounce";
+import debounce from "debounce";
 
 export default {
   data() {

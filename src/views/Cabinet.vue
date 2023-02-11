@@ -171,7 +171,7 @@
             <v-col cols="12" class="py-0">
               <v-text-field
                 v-model="profileSettings.phone"
-                v-mask="'+#(###) ###-####'"
+                v-mask="'+0(000) 000-0000'"
                 :label="$t('forms.labels.newPhone')"
                 outlined
                 clearable
