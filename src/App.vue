@@ -16,17 +16,24 @@ import ModalWrapper from "./components/layouts/ModalWrapper.vue";
 import { useSocket } from "@composable/useSocket";
 const { onSocketInit, socketEmit } = useSocket();
 
-import { useBus } from "@composable/useBus";
-const { busEmit } = useBus();
-
 import {
   socketSetup_callUserIdToServer,
   socketSetup_forceDisconnect,
   socketSetup_giveUserIdToServer,
 } from "@constants/ws/socketSetup.js";
 
+import { useBus } from "@composable/useBus";
+const { busEmit } = useBus();
+
+import { useUsers } from "@composable/useUsers";
+
 export default {
   name: "App",
+
+  setup() {
+    const { myUser } = useUsers();
+    return { myUser };
+  },
 
   components: {
     mainLayout,
@@ -49,9 +56,9 @@ export default {
 
   methods: {
     callUserIdToServer(clientId) {
-      if (this.$user?.userId) {
+      if (this.myUser?.userId) {
         socketEmit(socketSetup_giveUserIdToServer, {
-          userId: this.$user.userId,
+          userId: this.myUser.userId,
           clientId,
         });
       }

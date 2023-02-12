@@ -1,15 +1,20 @@
-import { myVue } from "@main";
 import { API_deleteFriend, API_sendRequest } from "@api/friendship";
 
 import { useBus } from "@composable/useBus";
-const { busEmit } = useBus();
+import { useUsers } from "@composable/useUsers";
+import { useRouter } from "vue-router";
 
 // import { store } from "../store";
 
 export function $usersActions() {
+  const { friendsRequests } = useUsers();
+  const { busEmit } = useBus();
+  const router = useRouter();
+
   function writeMessage(userId) {
     busEmit("writeMessage", userId);
   }
+
   async function addToFriend(userId) {
     await API_sendRequest(userId)
       .then(() => {})
@@ -18,7 +23,7 @@ export function $usersActions() {
   async function deleteFriend(userId) {
     await API_deleteFriend(userId)
       .then((data) => {
-        const indexToDelete = myVue.$friendsRequests.findIndex(
+        const indexToDelete = friendsRequests.findIndex(
           (i) => i.friendshipsId === data.friendshipsId
         );
         // store.commit("friends/deleteFriend", indexToDelete);
@@ -26,7 +31,7 @@ export function $usersActions() {
       .catch(() => {});
   }
   async function openProfile(userId) {
-    await myVue.$router.push({ name: "UserId", params: { id: userId } });
+    await router.push({ name: "UserId", params: { id: userId } });
   }
   return {
     writeMessage,

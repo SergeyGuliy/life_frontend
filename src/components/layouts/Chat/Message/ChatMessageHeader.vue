@@ -2,7 +2,7 @@
   <v-list-item class="pa-0">
     <v-list-item-media color="grey darken-3 my-0">
       <UserAvatar
-        v-if="$users[messageSender.userId]"
+        v-if="users[messageSender.userId]"
         :userData="messageSender"
       />
     </v-list-item-media>
@@ -16,8 +16,15 @@
 </template>
 
 <script>
+import { useUsers } from "@composable/useUsers";
+
 export default {
   name: "ChatMessageHeader",
+
+  setup() {
+    const { users } = useUsers();
+    return { users };
+  },
 
   props: {
     createdAt: {},

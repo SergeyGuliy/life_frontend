@@ -239,6 +239,7 @@ import { useModal } from "@composable/useModal";
 const { openModal } = useModal();
 
 import { API_uploadAvatar } from "@api/uploader";
+import { useUsers } from "../composable/useUsers";
 
 export default {
   name: "Cabinet",
@@ -251,8 +252,10 @@ export default {
   setup() {
     const { changeLocale } = useLocale();
     const { updateUserSettings } = useUserSettings();
+    const { myUser } = useUsers();
+    return { myUser };
 
-    return { changeLocale, updateUserSettings };
+    return { changeLocale, updateUserSettings, myUser };
   },
 
   data() {
@@ -269,7 +272,7 @@ export default {
     this.parseDefaultData();
   },
   watch: {
-    $user: {
+    myUser: {
       deep: true,
       handler() {
         this.parseDefaultData();
@@ -286,7 +289,7 @@ export default {
 
   methods: {
     parseDefaultData() {
-      let profileSettings = new ProfileSettingsParser(this.$user);
+      let profileSettings = new ProfileSettingsParser(this.myUser);
       this.$set(this, "profileSettings", profileSettings.getProfileSettings);
       this.$set(this, "chatSettings", profileSettings.getChatSettings);
     },

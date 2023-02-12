@@ -3,7 +3,7 @@
     <template #leftCol>
       <Title :title="$t('pages.cabinet.profileSettings')" />
       <UsersList
-        :users="$friends"
+        :users="friends"
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
       >
         <template #actions="{ userData }">
@@ -43,9 +43,11 @@
 </template>
 
 <script>
-// import { FRIENDSHIP_STATUSES } from "@enums";
-
 import { defineAsyncComponent } from "vue";
+
+import { FRIENDSHIP_STATUSES } from "@enums";
+
+import { useUsers } from "@composable/useUsers";
 
 const connectsIncomingPending = "connectsIncomingPending";
 const connectsIncomingIgnored = "connectsIncomingIgnored";
@@ -53,6 +55,11 @@ const connectsOutgoingPending = "connectsOutgoingPending";
 
 export default {
   name: "Friends",
+
+  setup() {
+    const { myUser, connects, friends } = useUsers();
+    return { myUser, connects, friends };
+  },
 
   components: {
     UsersList: defineAsyncComponent(() =>
@@ -92,31 +99,31 @@ export default {
     },
 
     connectsInPending() {
-      // return this.getConnectionsByStatus(FRIENDSHIP_STATUSES.PENDING);
+      return this.getConnectionsByStatus(FRIENDSHIP_STATUSES.PENDING);
     },
     connectsInIgnored() {
-      // return this.getConnectionsByStatus(FRIENDSHIP_STATUSES.IGNORED);
+      return this.getConnectionsByStatus(FRIENDSHIP_STATUSES.IGNORED);
     },
     [connectsIncomingPending]() {
       return this.connectsInPending
-        .filter((i) => i.friendshipReceiver.userId === this.$user.userId)
+        .filter((i) => i.friendshipReceiver.userId === this.myUser.userId)
         .map((i) => i.friendshipSender);
     },
     [connectsOutgoingPending]() {
       return this.connectsInPending
-        .filter((i) => i.friendshipSender.userId === this.$user.userId)
+        .filter((i) => i.friendshipSender.userId === this.myUser.userId)
         .map((i) => i.friendshipReceiver);
     },
     [connectsIncomingIgnored]() {
       return this.connectsInIgnored
-        .filter((i) => i.friendshipReceiver.userId === this.$user.userId)
+        .filter((i) => i.friendshipReceiver.userId === this.myUser.userId)
         .map((i) => i.friendshipSender);
     },
   },
 
   methods: {
     getConnectionsByStatus(status) {
-      return this.$connects.filter((i) => i.friendshipsStatus === status);
+      return this.connects.filter((i) => i.friendshipsStatus === status);
     },
   },
 };

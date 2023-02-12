@@ -24,51 +24,36 @@
   </v-card>
 </template>
 
-<script>
-import { defineAsyncComponent } from "vue";
+<script setup>
+import { computed, ref } from "vue";
+
+import ChatMessageHeader from "./ChatMessageHeader.vue";
+import ChatMessageContext from "./ChatMessageContext.vue";
+import ChatMessageBody from "./ChatMessageBody.vue";
 
 import { useBus } from "@composable/useBus";
 const { busEmit } = useBus();
 
-export default {
-  name: "ChatMessage",
+import { useUsers } from "@composable/useUsers";
+const { myUser } = useUsers();
 
-  components: {
-    ChatMessageHeader: defineAsyncComponent(() =>
-      import("./ChatMessageHeader.vue")
-    ),
-    ChatMessageContext: defineAsyncComponent(() =>
-      import("./ChatMessageContext.vue")
-    ),
-    ChatMessageBody: defineAsyncComponent(() =>
-      import("./ChatMessageBody.vue")
-    ),
+const props = defineProps({
+  message: {
+    required: true,
+    type: Object,
   },
-  props: {
-    message: {
-      required: true,
-      type: Object,
-    },
-  },
+});
 
-  computed: {
-    userDataLocal(val) {
-      return val;
-      // const userData = this.$filters.dictGetUserById(this.userData?.userId);
-      // if (this.timestamp) return userData;
-      // return userData;
-    },
-    isYouAuthor() {
-      return this.message.messageSender.userId === this.$user.userId;
-    },
-  },
-  methods: {
-    showContextMenu(e) {
-      e.preventDefault();
-      busEmit.emit("openContext", this.message.messageId);
-      if (this.isYouAuthor) return;
-      this.$refs.ChatMessageHeader.showContextMenu(e);
-    },
-  },
-};
+const isYouAuthor = computed(
+  () => props.message.messageSender.userId === myUser.userId
+);
+
+const RefChatMessageHeader = ref(null);
+
+function showContextMenu(e) {
+  e.preventDefault();
+  busEmit.emit("openContext", props.message.messageId);
+  if (isYouAuthor.value) return;
+  RefChatMessageHeader.value.showContextMenu(e);
+}
 </script>

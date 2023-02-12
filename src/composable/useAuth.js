@@ -1,5 +1,8 @@
-import { useStoreAuth } from "../stores/user";
 import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
+import { useModal } from "./useModal";
+import { useStoreAuth } from "../stores/user";
+
 import { clearLocalStorageKeys } from "../utils/localStorageKeys";
 import { API_refreshToken, API_registration, API_login } from "@api/auth";
 
@@ -7,6 +10,9 @@ export function useAuth() {
   const route = useRoute();
   const router = useRouter();
   const { setUser, cleanUser } = useStoreAuth();
+  const { openModal } = useModal();
+
+  const { t } = useI18n();
 
   async function logIn(authData) {
     try {
@@ -45,9 +51,9 @@ export function useAuth() {
   async function logOutMiddleware() {
     if (route.name === "RoomId") {
       await openModal("Promt", {
-        title: myVue.$t("modals.wantLeaveRoom"),
-        submit: myVue.$t("buttons.leave"),
-        cancel: myVue.$t("buttons.cancel"),
+        title: t("modals.wantLeaveRoom"),
+        submit: t("buttons.leave"),
+        cancel: t("buttons.cancel"),
       })
         .then(logOut)
         .catch(() => {});
@@ -65,9 +71,9 @@ export function useAuth() {
           userId,
           refreshToken,
         });
-        await this.setUserData(data);
+        await setUser(data);
       } catch (e) {
-        await this.logOut();
+        await logOut();
         clearLocalStorageKeys();
       }
     } else {
@@ -75,5 +81,11 @@ export function useAuth() {
     }
   }
 
-  return { logOut, logOutMiddleware, logIn, registration, refreshToken };
+  return {
+    logOut,
+    logOutMiddleware,
+    logIn,
+    registration,
+    refreshToken,
+  };
 }

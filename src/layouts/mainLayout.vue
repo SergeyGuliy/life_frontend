@@ -18,11 +18,16 @@
 import SideBar from "../components/layouts/SideBar/SideBar.vue";
 import NavBar from "../components/layouts/NavBar.vue";
 import { API_changeLocale, API_changeTheme } from "@api/userSettings";
+import { useUsers } from "../composable/useUsers";
 // import Chat from "../components/layouts/Chat/Chat.vue";
 
 export default {
   name: "mainLayout",
   // mixins: [chatLogic, friendsLogic],
+  setup() {
+    const { myUser } = useUsers();
+    return { myUser };
+  },
   components: {
     SideBar,
     NavBar,
@@ -36,7 +41,7 @@ export default {
 
   watch: {
     "$vuetify.theme.dark"(val) {
-      if (this.$user) {
+      if (this.myUser) {
         API_changeTheme({ isDarkTheme: val })
           .then((data) => {
             this.$store.commit("user/setUserSettings", data);
@@ -47,7 +52,7 @@ export default {
       }
     },
     "$i18n.locale"(val) {
-      if (this.$user) {
+      if (this.myUser) {
         API_changeLocale({ locale: val })
           .then((data) => {
             this.$store.commit("user/setUserSettings", data);

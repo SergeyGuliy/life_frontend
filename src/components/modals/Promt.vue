@@ -20,19 +20,7 @@
   </v-dialog>
 </template>
 
-<script>
-import { useModal } from "../../composable/useModal";
-
-export default {
-  name: "Promt",
-
-  setup() {
-    const { data, component, closeModal } = useModal();
-    return { data, component, closeModal };
-  },
-
-  data() {
-    return {};
-  },
-};
+<script setup>
+import { useModal } from "@composable/useModal";
+const { data, component, closeModal } = useModal();
 </script>

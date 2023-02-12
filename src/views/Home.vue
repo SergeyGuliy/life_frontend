@@ -3,7 +3,7 @@
     <template #leftCol>
       <Title :title="$t('pages.friends.yourFriendsListIsEmpty')" />
       <UsersList
-        :users="$friends"
+        :users="friends"
         :emptyText="$t(`pages.friends.yourFriendsListIsEmpty`)"
       >
         <template #actions="{ userData }">
@@ -22,9 +22,14 @@
 
 <script>
 import { defineAsyncComponent } from "vue";
+import { useUsers } from "../composable/useUsers";
 
 export default {
   name: "Home",
+  setup() {
+    const { friends } = useUsers();
+    return { friends };
+  },
   components: {
     RoomsController: defineAsyncComponent(() =>
       import("@components/elements/Rooms/RoomsController.vue")

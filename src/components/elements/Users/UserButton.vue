@@ -10,6 +10,7 @@ import { API_acceptRequest, API_ignoreRequest } from "@api/friendship";
 import { API_kickUser, API_setAdmin } from "@api/rooms";
 
 import { useRooms } from "@composable/useRooms";
+import { useUsers } from "../../../composable/useUsers";
 const { roomId } = useRooms();
 
 // const {
@@ -32,6 +33,12 @@ const supportedKeys = [
 
 export default {
   name: "UserButton",
+
+  setup() {
+    const { connects } = useUsers();
+    return { connects };
+  },
+
   props: {
     userId: {
       type: [Number, null],
@@ -121,7 +128,7 @@ export default {
     },
 
     getIndex(friendshipsId) {
-      return this.$connects.findIndex((i) => i.friendshipsId === friendshipsId);
+      return this.connects.findIndex((i) => i.friendshipsId === friendshipsId);
     },
   },
 };

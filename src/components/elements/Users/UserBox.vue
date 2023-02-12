@@ -9,12 +9,18 @@
 
 <script>
 import { defineAsyncComponent } from "vue";
+import { useUsers } from "../../../composable/useUsers";
 
 export default {
   name: "UserBox",
   components: {
     UserInfo: defineAsyncComponent(() => import("./UserInfo.vue")),
   },
+  setup() {
+    const { myUser } = useUsers();
+    return { myUser };
+  },
+
   props: {
     userData: {
       required: true,
@@ -37,7 +43,7 @@ export default {
   },
   computed: {
     isYou() {
-      return this.userDataLocal?.userId === this.$user?.userId;
+      return this.userDataLocal?.userId === this.myUser?.userId;
     },
 
     userIdExists() {

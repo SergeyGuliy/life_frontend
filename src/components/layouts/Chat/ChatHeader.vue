@@ -21,6 +21,7 @@ const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 import { ProfileSettingsParser } from "@utils/parsers";
 
 import { useModal } from "@composable/useModal";
+import { useUsers } from "../../../composable/useUsers";
 const { openModal } = useModal();
 
 export default {
@@ -38,6 +39,10 @@ export default {
       required: false,
       type: String,
     },
+  },
+  setup() {
+    const { myUser } = useUsers();
+    return { myUser };
   },
   computed: {
     getChatName() {
@@ -59,7 +64,7 @@ export default {
     },
     async openChatSettingsModal() {
       const chatType = this.getChatType(this.activeChat);
-      let { chatSettings } = new ProfileSettingsParser(this.$user);
+      let { chatSettings } = new ProfileSettingsParser(this.myUser);
       await openModal("VoiceSettingsModal", {
         chatType,
         chatSettings,

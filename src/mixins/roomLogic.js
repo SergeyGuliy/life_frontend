@@ -13,6 +13,7 @@ import {
   rooms_roomInListDeleted,
   rooms_roomInListUpdated,
 } from "@constants/ws/rooms.js";
+import { useUsers } from "../composable/useUsers";
 
 export default {
   data() {
@@ -24,6 +25,10 @@ export default {
       rooms: [],
     };
   },
+  setup() {
+    const { myUser } = useUsers();
+    return { myUser };
+  },
 
   async created() {
     const typeOfRoom = localStorage.getItem("typeOfRoom");
@@ -32,7 +37,7 @@ export default {
     }
     await this.fetchRooms();
 
-    socketEmit(rooms_subscribeRoomsUpdate, { userId: this.$user.userId });
+    socketEmit(rooms_subscribeRoomsUpdate, { userId: this.myUser.userId });
 
     onSocketInit({
       [rooms_roomInListCreated]: this.roomInListCreated,
@@ -42,7 +47,7 @@ export default {
   },
 
   beforeDestroy() {
-    socketEmit(rooms_unSubscribeRoomsUpdate, { userId: this.$user?.userId });
+    socketEmit(rooms_unSubscribeRoomsUpdate, { userId: this.myUser?.userId });
   },
 
   methods: {

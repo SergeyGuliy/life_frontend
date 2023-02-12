@@ -15,6 +15,7 @@ import { useSocket } from "@composable/useSocket";
 const { onSocketInit } = useSocket();
 
 import { useBus } from "@composable/useBus";
+import { useUsers } from "../composable/useUsers";
 const { busInit, busEmit } = useBus();
 
 export default {
@@ -32,6 +33,11 @@ export default {
     });
   },
 
+  setup() {
+    const { myUser } = useUsers();
+    return { myUser };
+  },
+
   methods: {
     async messageToClient(messageToClient) {
       // const {
@@ -45,7 +51,7 @@ export default {
       //   this.pushMessageToChatChat(ROOM, messageToClient);
       // } else if (messageReceiverType === PRIVATE && messageReceiverUserId) {
       //   const userId =
-      //     messageSender.userId === this.$user.userId
+      //     messageSender.userId === this.myUser.userId
       //       ? messageReceiverUserId
       //       : messageSender.userId;
       //   await this.createUserChat(userId);
@@ -93,11 +99,11 @@ export default {
       });
     },
     async fetchRoomMessages() {
-      if (this.$user?.roomJoinedId) {
+      if (this.myUser?.roomJoinedId) {
         // this.setChat(ROOM, {
         //   key: ROOM,
         //   messages: await index.chats.getRoomMessages(),
-        //   roomId: this.$user.roomJoinedId
+        //   roomId: this.myUser.roomJoinedId
         // });
       }
     },
@@ -109,7 +115,7 @@ export default {
       const usersIds = [];
       messageWithUsers.forEach((message) => {
         if (!usersIds.includes(message.messageReceiverUserId)) {
-          if (message.messageReceiverUserId !== this.$user.userId) {
+          if (message.messageReceiverUserId !== this.myUser.userId) {
             usersIds.push(message.messageReceiverUserId);
           } else {
             usersIds.push(message.messageSender.userId);
@@ -127,11 +133,11 @@ export default {
         // this.setChat(userChatKey, {
         //   key: PRIVATE,
         //   userId:
-        //     user.messageReceiverUserId === this.$user.userId
+        //     user.messageReceiverUserId === this.myUser.userId
         //       ? user.messageSender.userId
         //       : user.messageReceiverUserId,
         //   userData:
-        //     user.messageReceiverUserId === this.$user.userId
+        //     user.messageReceiverUserId === this.myUser.userId
         //       ? user.messageSender
         //       : await this.$filters.dictGetUserById(user.messageReceiverUserId),
         //   messages: messageWithUsers.filter(

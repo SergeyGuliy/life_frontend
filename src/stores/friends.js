@@ -1,16 +1,31 @@
 import { defineStore } from "pinia";
 
-export const useAuthStore = defineStore("auth", {
-  // convert to a function
+export const useAuthFriends = defineStore("friends", {
   state: () => ({
-    firstName: "",
+    friends: [],
+    connects: [],
   }),
   getters: {
     fullName: (state) => state.firstName,
   },
   actions: {
-    updateUser(payload) {
-      this.firstName = payload.firstName;
+    setFriends(friends) {
+      this.friends = friends;
+    },
+    setConnections(connects) {
+      this.connects = connects;
+    },
+    addFriend(friend) {
+      this.friends.push(friend);
+    },
+    deleteConnection(indexToDelete) {
+      this.connects = this.connects.filter((_, id) => id !== indexToDelete);
+    },
+    updateConnection({ indexToUpdate, data }) {
+      this.connects[indexToUpdate] = data;
+    },
+    deleteFriend(indexToDelete) {
+      this.friends = this.friends.filter((_, id) => id !== indexToDelete);
     },
   },
 });

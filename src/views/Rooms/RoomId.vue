@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { defineAsyncComponent, onBeforeMount } from "vue";
+import { onBeforeMount } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 
 import Room from "@components/elements/Rooms/Room.vue";
@@ -30,6 +30,15 @@ const { onSocketInit, socketEmit } = useSocket();
 import { useRooms } from "@composable/useRooms";
 let { roomId, usersInRoom, roomData } = useRooms();
 
+import { useUsers } from "@composable/useUsers";
+const { myUser } = useUsers();
+
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
+import { useRouter } from "vue-router";
+const router = useRouter();
+
 onBeforeMount(() => {
   API_getRoomById(roomId)
     .then((data) => {
@@ -37,7 +46,7 @@ onBeforeMount(() => {
       this.$gameId = data.gameId;
 
       socketEmit(rooms_userConnectsRoom, {
-        userId: this.$user.userId,
+        userId: myUser.userId,
         roomId: roomId,
       });
 
@@ -51,18 +60,18 @@ onBeforeMount(() => {
     })
     .catch(() => {
       this.$store.commit("user/leaveRoom");
-      this.$router.push({ name: "Home" });
+      router.push({ name: "Home" });
     });
 });
 
 onBeforeRouteLeave(async (to, from, next) => {
-  if (!this.$user || +this.$user?.roomJoinedId !== roomId) {
+  if (!myUser || +myUser?.roomJoinedId !== roomId) {
     next();
   } else {
     await openModal("Promt", {
-      title: this.$t("modals.wantLeaveRoom"),
-      submit: this.$t("buttons.leave"),
-      cancel: this.$t("buttons.cancel"),
+      title: t("modals.wantLeaveRoom"),
+      submit: t("buttons.leave"),
+      cancel: t("buttons.cancel"),
     })
       .then(async () => {
         await this.$store.dispatch("user/leaveRoomAction");
@@ -99,7 +108,7 @@ function updateRoomAdmin(newAdmin) {
     },
   });
 
-  if (newAdmin.userId === this.$user.userId) {
+  if (newAdmin.userId === myUser.userId) {
     this.$store.commit("user/setRoomId", roomId);
   } else {
     this.$store.commit("user/setRoomId", null);
@@ -109,10 +118,10 @@ function updateRoomAdmin(newAdmin) {
 async function userKickedFromRoom(userId) {
   this.$store.commit("room/kickUser", userId);
 
-  const isKickedUserMe = +this.$user.userId === +userId;
+  const isKickedUserMe = +myUser.userId === +userId;
   if (isKickedUserMe) {
     this.$store.commit("user/leaveRoom");
-    await this.$router.push({ name: "Home" });
+    await router.push({ name: "Home" });
   }
 }
 
