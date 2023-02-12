@@ -1,12 +1,12 @@
 <template>
-  <Grid v-if="$roomData">
+  <Grid v-if="roomData">
     <template #leftCol>
-      <RoomInfo :roomData="$roomData">
-        <template #actions v-if="$isRoomAdmin">
-          <v-btn v-if="!$roomData.isBlocked" @click="toggleLockRoom">
+      <RoomInfo :roomData="roomData">
+        <template #actions v-if="isRoomAdmin">
+          <v-btn v-if="!roomData.isBlocked" @click="toggleLockRoom">
             {{ $t("buttons.lockRoom") }}
           </v-btn>
-          <v-btn v-else-if="$roomData.isBlocked" @click="toggleLockRoom">
+          <v-btn v-else-if="roomData.isBlocked" @click="toggleLockRoom">
             {{ $t("buttons.unLockRoom") }}
           </v-btn>
           <v-btn @click="deleteRoom">
@@ -37,24 +37,24 @@
         :step="1"
       />
 
-      <v-btn @click="startGame" block v-if="$isRoomAdmin">
+      <v-btn @click="startGame" block v-if="isRoomAdmin">
         {{ $t("buttons.startGame") }}
       </v-btn>
     </template>
     <template #rightCol>
       <UsersList
-        :users="$usersInRoom"
+        :users="usersInRoom"
         :showUserRoomInfo="true"
         :sortType="'adminFirst'"
       >
         <template #actions="{ userData, isYou }">
           <UserButton
-            v-if="!isYou && $isRoomAdmin"
+            v-if="!isYou && isRoomAdmin"
             :userId="userData?.userId"
             type="kickUser"
           />
           <UserButton
-            v-if="!isYou && $isRoomAdmin"
+            v-if="!isYou && isRoomAdmin"
             :userId="userData?.userId"
             type="setAdmin"
           />
@@ -74,50 +74,36 @@
   </Grid>
 </template>
 
-<script>
-import { defineAsyncComponent } from "vue";
+<script setup>
+import { reactive } from "vue";
+
+import RoomInfo from "@components/elements/Rooms/RoomInfo.vue";
+import UsersList from "@components/elements/Users/UsersList.vue";
+import UserButton from "@components/elements/Users/UserButton.vue";
+
 import { API_startGame } from "@api/games";
 import { API_deleteRoom, API_toggleLockRoom } from "@api/rooms";
 
-export default {
-  name: "Room",
+import { useRooms } from "@composable/useRooms";
+const { roomId, roomData, isRoomAdmin } = useRooms();
 
-  components: {
-    RoomInfo: defineAsyncComponent(() =>
-      import("@components/elements/Rooms/RoomInfo.vue")
-    ),
-    UsersList: defineAsyncComponent(() =>
-      import("@components/elements/Users/UsersList.vue")
-    ),
-    UserButton: defineAsyncComponent(() =>
-      import("@components/elements/Users/UserButton.vue")
-    ),
-  },
+const gameSettings = reactive({
+  timePerTurn: 5,
+  timeAdditional: 180,
+  gameYearsCount: 40 * 12,
+});
 
-  data() {
-    return {
-      gameSettings: {
-        timePerTurn: 5,
-        timeAdditional: 180,
-        gameYearsCount: 40 * 12,
-      },
-    };
-  },
+function startGame() {
+  API_startGame(roomId, gameSettings);
+}
 
-  methods: {
-    startGame() {
-      API_startGame(this.$roomId, this.gameSettings);
-    },
+async function toggleLockRoom() {
+  await API_toggleLockRoom(roomId, {
+    lockState: !roomData.isBlocked,
+  });
+}
 
-    async toggleLockRoom() {
-      await API_toggleLockRoom(this.$roomId, {
-        lockState: !this.$roomData.isBlocked,
-      });
-    },
-
-    async deleteRoom() {
-      await API_deleteRoom(this.$roomId);
-    },
-  },
-};
+async function deleteRoom() {
+  await API_deleteRoom(roomId);
+}
 </script>

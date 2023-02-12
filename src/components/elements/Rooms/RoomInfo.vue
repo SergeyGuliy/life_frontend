@@ -25,7 +25,7 @@
       <div class="mr-2">
         {{ $t("misc.max") }} {{ roomData.maxCountOfUsers }}
       </div>
-      <div class="mr-2">{{ $t("misc.current") }} {{ $usersInRoom.length }}</div>
+      <div class="mr-2">{{ $t("misc.current") }} {{ usersInRoom.length }}</div>
     </v-card-text>
 
     <v-card-actions>
@@ -34,28 +34,27 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed } from "vue";
+
 import { ROOM_TYPES } from "@enums/index";
 
-export default {
-  name: "RoomInfo",
-  computed: {
-    getChipClass() {
-      return this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC
-        ? "primary"
-        : "warning";
-    },
-    getChipType() {
-      return this.roomData.typeOfRoom === ROOM_TYPES.PUBLIC
-        ? "mdi-account-group"
-        : "mdi-account-key";
-    },
+import { useRooms } from "@composable/useRooms";
+const { usersInRoom } = useRooms();
+
+const props = defineProps({
+  roomData: {
+    required: true,
+    type: Object,
   },
-  props: {
-    roomData: {
-      required: true,
-      type: Object,
-    },
-  },
-};
+});
+
+const getChipClass = computed(() =>
+  props.roomData.typeOfRoom === ROOM_TYPES.PUBLIC ? "primary" : "warning"
+);
+const getChipType = computed(() =>
+  props.roomData.typeOfRoom === ROOM_TYPES.PUBLIC
+    ? "mdi-account-group"
+    : "mdi-account-key"
+);
 </script>

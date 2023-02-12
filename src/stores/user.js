@@ -12,7 +12,7 @@ export const useStoreAuth = defineStore("auth", {
   }),
 
   getters: {
-    userIsDarkTheme: (state) => user.userSettings.isDarkTheme,
+    userIsDarkTheme: (state) => state.user.userSettings.isDarkTheme,
   },
 
   actions: {

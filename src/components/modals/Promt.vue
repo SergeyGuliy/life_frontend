@@ -31,10 +31,6 @@ export default {
     return { data, component, closeModal };
   },
 
-  mounted() {
-    console.error(this.component);
-  },
-
   data() {
     return {};
   },

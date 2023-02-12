@@ -9,6 +9,9 @@
 import { API_acceptRequest, API_ignoreRequest } from "@api/friendship";
 import { API_kickUser, API_setAdmin } from "@api/rooms";
 
+import { useRooms } from "@composable/useRooms";
+const { roomId } = useRooms();
+
 // const {
 //   writeMessage,
 //   addToFriend,
@@ -83,11 +86,11 @@ export default {
     },
 
     async kickUser() {
-      await API_kickUser(this.$roomId, this.userId);
+      await API_kickUser(roomId, this.userId);
     },
 
     async setAdmin() {
-      await API_setAdmin(this.$roomId, this.userId);
+      await API_setAdmin(roomId, this.userId);
     },
 
     writeMessage,

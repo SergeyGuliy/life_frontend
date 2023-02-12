@@ -40,27 +40,23 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { reactive } from "vue";
+
 import { ROOM_TYPES } from "@enums/index";
 
-export default {
-  name: "UserInfo",
-
-  computed: {
-    getChipClass() {
-      return this.userData.role === ROOM_TYPES.PUBLIC ? "primary" : "warning";
-    },
+const props = defineProps({
+  userData: {
+    required: true,
+    type: Object,
   },
-
-  props: {
-    userData: {
-      required: true,
-      type: Object,
-    },
-    showUserRoomInfo: {
-      default: () => false,
-      type: Boolean,
-    },
+  showUserRoomInfo: {
+    default: () => false,
+    type: Boolean,
   },
-};
+});
+
+const getChipClass = reactive(() =>
+  props.userData.role === ROOM_TYPES.PUBLIC ? "primary" : "warning"
+);
 </script>
