@@ -1,16 +1,29 @@
 import { defineStore } from "pinia";
 
-export const useAuthStore = defineStore("auth", {
-  // convert to a function
+import { MESSAGE_RECEIVER_TYPES } from "@enums";
+const { GLOBAL } = MESSAGE_RECEIVER_TYPES;
+
+export const useStoreChats = defineStore("chats", {
   state: () => ({
-    firstName: "",
+    chats: {
+      GLOBAL: {
+        key: GLOBAL,
+        messages: [],
+      },
+    },
   }),
   getters: {
-    fullName: (state) => state.firstName,
+    chatTabs: (state) => Object.keys(state.chats),
   },
   actions: {
-    updateUser(payload) {
-      this.firstName = payload.firstName;
+    setChat({ chatName, chatData }) {
+      this.chats[chatName] = chatData;
+    },
+    pushMessageToChatChat({ chatName, messageData }) {
+      this.chats[chatName].messages.push(messageData);
+    },
+    deleteChat(chatName) {
+      delete this.chats[chatName];
     },
   },
 });

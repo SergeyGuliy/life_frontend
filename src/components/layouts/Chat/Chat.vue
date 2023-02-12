@@ -18,7 +18,6 @@
         <v-icon> mdi-chat </v-icon>
       </v-btn>
     </template>
-    <!--    <pre>{{$chatTabs}}</pre>-->
     <v-card class="elevation-12" width="500">
       <ChatHeader v-model="isChatOpened" :activeChat="activeChat" />
       <ChatTabs v-model="activeChat" />
@@ -28,51 +27,38 @@
   </v-menu>
 </template>
 
-<script>
-import { defineAsyncComponent } from "vue";
+<script setup>
+import { ref } from "vue";
+
+import ChatForm from "./ChatForm.vue";
+import ChatBody from "./ChatBody.vue";
+import ChatTabs from "./ChatTabs.vue";
+import ChatHeader from "./ChatHeader.vue";
 
 import { useBus } from "@composable/useBus";
 const { busInit } = useBus();
 
-// import { MESSAGE_RECEIVER_TYPES } from "@enums";
-// const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
-export default {
-  name: "Chat",
+import { MESSAGE_RECEIVER_TYPES } from "@enums";
+const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
 
-  components: {
-    ChatForm: defineAsyncComponent(() => import("./ChatForm.vue")),
-    ChatBody: defineAsyncComponent(() => import("./ChatBody.vue")),
-    ChatTabs: defineAsyncComponent(() => import("./ChatTabs.vue")),
-    ChatHeader: defineAsyncComponent(() => import("./ChatHeader.vue")),
-  },
+const isChatOpened = ref(false);
+const activeChat = ref(GLOBAL);
 
-  data() {
-    return {
-      isChatOpened: false,
-      activeChat: "GLOBAL",
-    };
-  },
+busInit({
+  activateChat: activateChat,
+  openChat: openChat,
+  userLeaveChat: userLeaveChat,
+});
 
-  mounted() {
-    busInit({
-      activateChat: this.activateChat,
-      openChat: this.openChat,
-      userLeaveChat: this.userLeaveChat,
-    });
-  },
-
-  methods: {
-    async openChat() {
-      this.isChatOpened = true;
-    },
-    activateChat(chatName) {
-      this.activeChat = chatName;
-    },
-    userLeaveChat() {
-      if (this.activeChat === "ROOM") {
-        this.activeChat = "GLOBAL";
-      }
-    },
-  },
-};
+function openChat() {
+  isChatOpened.value = true;
+}
+function activateChat(chatName) {
+  activeChat.value = chatName;
+}
+function userLeaveChat() {
+  if (activeChat.value === ROOM) {
+    activeChat.value = GLOBAL;
+  }
+}
 </script>

@@ -1,4 +1,4 @@
-import { onUnmounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 import mitt from "mitt";
 
 export function useBus() {
@@ -8,7 +8,9 @@ export function useBus() {
     const busEntries = Object.entries(busObject);
 
     busEntries.forEach(([busKey, busCallback]) => {
-      bus.on(busKey, busCallback);
+      onMounted(() => {
+        bus.on(busKey, busCallback);
+      });
 
       onUnmounted(() => {
         bus.off(busKey, busCallback);

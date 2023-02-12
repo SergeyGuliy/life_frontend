@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const useAuthDictionares = defineStore("dictionaries", {
+export const useStoreDictionaries = defineStore("dictionaries", {
   state: () => ({
     users: {},
   }),

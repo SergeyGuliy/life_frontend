@@ -7,14 +7,14 @@
     <v-window v-model="activeChat" id="chat_body_inner">
       <v-window-item
         :value="chatTab"
-        v-for="(chatTab, index) in $chatTabs"
+        v-for="(chatTab, index) in chatTabs"
         :key="index"
         :href="`#${chatTab}`"
       >
         <v-card-text class="chat-body pa-0">
           <v-list>
             <ChatMessage
-              v-for="(message, index) in $chats[activeChat].messages"
+              v-for="(message, index) in chats[activeChat].messages"
               :key="index"
               :message="message"
             />
@@ -28,9 +28,16 @@
 <script>
 import ResizeObserver from "resize-observer-polyfill";
 import { defineAsyncComponent } from "vue";
+import { useStoreChats } from "../../../stores/chats";
 
 export default {
   name: "ChatBody",
+
+  setup() {
+    const { chats, chatTabs } = useStoreChats();
+    return { chats, chatTabs };
+  },
+
   components: {
     ChatMessage: defineAsyncComponent(() =>
       import("./Message/ChatMessage.vue")

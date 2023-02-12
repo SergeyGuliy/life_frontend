@@ -75,6 +75,7 @@ const { socketEmit } = useSocket();
 import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "@enums";
 import { chat_messageToServer } from "@constants/ws/chats.js";
 import { useUsers } from "../../../composable/useUsers";
+import { useStoreChats } from "../../../stores/chats";
 const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 const { TEXT, VOICE } = MESSAGE_TYPES;
 
@@ -85,8 +86,10 @@ export default {
     ChatAudio: defineAsyncComponent(() => import("./ChatAudio.vue")),
   },
   setup() {
+    const { chats } = useStoreChats();
     const { myUser } = useUsers();
-    return { myUser };
+
+    return { myUser, chats };
   },
   props: {
     activeChat: {
@@ -124,7 +127,7 @@ export default {
         messageData.messageText = this.newMessage;
       }
       if (activeChat === ROOM) {
-        messageData.messageReceiverRoomId = this.$chats[ROOM].roomId;
+        messageData.messageReceiverRoomId = this.chats[ROOM].roomId;
       }
       if (activeChat === PRIVATE) {
         messageData.messageReceiverUserId = getUserIdFromChatKey(
