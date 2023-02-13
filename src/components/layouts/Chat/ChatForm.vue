@@ -66,8 +66,8 @@ import { defineAsyncComponent } from "vue";
 import { API_uploadVoice } from "@api/uploader";
 import recordingMixin from "@mixins/recordingMixin";
 
-import { $chatKeys } from "@composable/$chatKeys";
-const { getUserIdFromChatKey, getTypeFromChatKey } = $chatKeys();
+import { useChatKeys } from "@composable/useChatKeys";
+const { getUserIdFromChatKey, getTypeFromChatKey } = useChatKeys();
 
 import { useSocket } from "@composable/useSocket";
 const { socketEmit } = useSocket();

@@ -4,7 +4,7 @@ import { useBus } from "@composable/useBus";
 import { useUsers } from "@composable/useUsers";
 import { useRouter } from "vue-router";
 
-export function $usersActions() {
+export function useUsersActions() {
   const { friendsRequests } = useUsers();
   const { busEmit } = useBus();
   const router = useRouter();

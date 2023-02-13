@@ -1,7 +1,7 @@
 import { MESSAGE_RECEIVER_TYPES } from "@enums";
 const { PRIVATE } = MESSAGE_RECEIVER_TYPES;
 
-export function $chatKeys() {
+export function useChatKeys() {
   function getUserChatKey(user) {
     if (typeof user === "number") {
       return `${PRIVATE}_${user}`;

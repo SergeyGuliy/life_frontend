@@ -18,12 +18,10 @@
 </template>
 
 <script>
-import { useEventListener } from "@vueuse/core";
-
 import { useEventsListener } from "@composable/useEventsListener";
 
-import { $usersActions } from "@composable/$usersActions";
-const { writeMessage, addToFriend, openProfile } = $usersActions();
+import { useUsersActions } from "@composable/useUsersActions";
+const { writeMessage, addToFriend, openProfile } = useUsersActions();
 
 import { useBus } from "@composable/useBus";
 const { busInit } = useBus();

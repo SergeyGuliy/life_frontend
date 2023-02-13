@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// import { $usersActions } from "@/composable/$usersActions";
+import { useUsersActions } from "@/composable/useUsersActions";
 import { API_acceptRequest, API_ignoreRequest } from "@api/friendship";
 import { API_kickUser, API_setAdmin } from "@api/rooms";
 
@@ -13,12 +13,8 @@ import { useRooms } from "@composable/useRooms";
 import { useUsers } from "../../../composable/useUsers";
 const { roomId } = useRooms();
 
-// const {
-//   writeMessage,
-//   addToFriend,
-//   deleteFriend,
-//   openProfile
-// } = $usersActions();
+const { writeMessage, addToFriend, deleteFriend, openProfile } =
+  useUsersActions();
 
 const supportedKeys = [
   "writeMessage",

@@ -12,8 +12,8 @@ import {
   API_getRoomMessages,
 } from "@api/chats";
 
-import { $chatKeys } from "@composable/$chatKeys";
-const { getUserChatKey } = $chatKeys();
+import { useChatKeys } from "@composable/useChatKeys";
+const { getUserChatKey } = useChatKeys();
 
 import { useSocket } from "@composable/useSocket";
 const { onSocketInit } = useSocket();
