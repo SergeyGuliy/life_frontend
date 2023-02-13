@@ -1,14 +1,14 @@
-// import { store } from "../../store/index";
+import { useUsers } from "../../composable/useUsers";
 
 export function isJoinedRoom(to, from, next) {
-  // if (store.state.user?.user?.roomJoinedId && to.name !== "RoomId") {
-  //   next({
-  //     name: "RoomId",
-  //     params: { id: store.state.user?.user?.roomJoinedId },
-  //   });
-  // } else {
-  //   next();
-  // }
+  const { myUser } = useUsers();
 
-  next();
+  if (myUser?.roomJoinedId && to.name !== "RoomId") {
+    next({
+      name: "RoomId",
+      params: { id: myUser?.roomJoinedId },
+    });
+  } else {
+    next();
+  }
 }

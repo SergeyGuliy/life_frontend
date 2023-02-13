@@ -1,6 +1,7 @@
+import { createRouter, createWebHistory } from "vue-router";
+
 import { routes } from "../../../../router";
 
-import { createRouter, createWebHistory } from "vue-router";
 import { refreshTokenMiddleware } from "../../../../router/middlewares/refreshToken";
 import { loginStatusMiddleware } from "../../../../router/middlewares/loginStatusMiddleware";
 import { isJoinedRoom } from "../../../../router/middlewares/isJoinedRoom";

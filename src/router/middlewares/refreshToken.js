@@ -6,9 +6,7 @@ import { useAuth } from "../../composable/useAuth";
 
 export async function refreshTokenMiddleware(to) {
   const { refreshToken } = useAuth();
-  // if (store.state.user.user) {
-  //   return;
-  // }
+
   if (["Auth", "Closer"].includes(to.name)) {
     return;
   }
