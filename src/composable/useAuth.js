@@ -5,10 +5,12 @@ import { useStoreAuth } from "../stores/user";
 import { clearLocalStorageKeys } from "../utils/localStorageKeys";
 import { API_refreshToken, API_registration, API_login } from "@api/auth";
 import { i18n } from "../plugins/modules/globalContext/modules/i18n";
+import { useVuetifyTheme } from "./useVuetifyTheme";
 
 export function useAuth() {
   const route = useRoute();
   const router = useRouter();
+  const { setTheme } = useVuetifyTheme();
   const { setUser, cleanUser } = useStoreAuth();
   const { openModal } = useModal();
 
@@ -16,7 +18,7 @@ export function useAuth() {
     try {
       const data = await API_login(authData);
       await setUser(data);
-
+      setTheme(data.userData.userSettings.isDarkTheme);
       await router.push({ name: "Home" });
     } catch (e) {
       console.log(`Error in store action 'logIn': ${e}`);
@@ -28,7 +30,7 @@ export function useAuth() {
     try {
       const data = await API_registration(authData);
       await setUser(data);
-
+      setTheme(data.userData.userSettings.isDarkTheme);
       await router.push({ name: "Home" });
     } catch (e) {
       console.log(`Error in store action 'createNewUser': ${e.message}`);
@@ -38,14 +40,10 @@ export function useAuth() {
 
   async function logOut() {
     clearLocalStorageKeys();
-    console.log("logOut");
-    try {
-      cleanUser();
-      // socketDisconnect();
-      await router.push({ name: "Auth" });
-    } catch (e) {
-      cleanUser();
-    }
+    cleanUser();
+    setTheme(false);
+    // socketDisconnect();
+    await router.push({ name: "Auth" });
   }
 
   async function logOutMiddleware() {
@@ -68,6 +66,7 @@ export function useAuth() {
     try {
       const data = await API_refreshToken();
       await setUser(data);
+      setTheme(data.userData.userSettings.isDarkTheme);
     } catch (e) {
       await logOut();
     }

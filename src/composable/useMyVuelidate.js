@@ -3,7 +3,6 @@ import { useVuelidate } from "@vuelidate/core";
 
 export function useMyVuelidate(validations, formData) {
   const $v = useVuelidate(validations, formData);
-  console.clear();
 
   function $v_validate(callback) {
     $v.value.$touch();

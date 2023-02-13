@@ -4,8 +4,6 @@ import { useBus } from "@composable/useBus";
 import { useUsers } from "@composable/useUsers";
 import { useRouter } from "vue-router";
 
-// import { store } from "../store";
-
 export function $usersActions() {
   const { friendsRequests } = useUsers();
   const { busEmit } = useBus();
@@ -33,6 +31,7 @@ export function $usersActions() {
   async function openProfile(userId) {
     await router.push({ name: "UserId", params: { id: userId } });
   }
+
   return {
     writeMessage,
     addToFriend,

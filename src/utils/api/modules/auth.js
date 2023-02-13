@@ -5,13 +5,13 @@ import {
 } from "../../localStorageKeys";
 
 const API_login = async (body) => {
-  let data = axiosWithoutAuth.post("api/auth/login", body);
+  let data = await axiosWithoutAuth.post("api/auth/login", body);
   setLocalStorageKeys(data);
   return data;
 };
 
 const API_registration = async (body) => {
-  let data = axiosWithoutAuth.post("api/auth/registration", body);
+  let data = await axiosWithoutAuth.post("api/auth/registration", body);
   setLocalStorageKeys(data);
   return data;
 };
@@ -21,7 +21,7 @@ const API_refreshToken = async () => {
   const refreshToken = localStorage.getItem("refreshToken");
 
   if (userId && refreshToken) {
-    const data = axiosWithoutAuth.post("api/auth/refresh-token", {
+    const data = await axiosWithoutAuth.post("api/auth/refresh-token", {
       userId,
       refreshToken,
     });

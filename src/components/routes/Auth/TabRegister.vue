@@ -47,18 +47,14 @@
 
 <script>
 import { useAuth } from "../../../composable/useAuth";
-import { useVuetifyTheme } from "../../../composable/useVuetifyTheme";
-import { mapState } from "vuex";
-import { useStoreAuth } from "../../../stores/user";
 
 export default {
   name: "TabRegister",
 
   setup() {
     const { registration } = useAuth();
-    const { setTheme } = useVuetifyTheme();
 
-    return { registration, setTheme };
+    return { registration };
   },
 
   data() {
@@ -85,10 +81,6 @@ export default {
     };
   },
 
-  computed: {
-    ...mapGetters(useStoreAuth, { userIsDarkTheme: "userIsDarkTheme" }),
-  },
-
   methods: {
     registrationAction() {
       if (!this.$refs.form.validate()) return;
@@ -97,13 +89,9 @@ export default {
         email: this.authData.email,
         phone: this.authData.phone,
         password: this.authData.password,
-      })
-        .then(() => {
-          this.setTheme(this.userIsDarkTheme);
-        })
-        .catch((e) => {
-          this.$emit("onError", e);
-        });
+      }).catch((e) => {
+        this.$emit("onError", e);
+      });
     },
   },
 };

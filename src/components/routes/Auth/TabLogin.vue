@@ -42,16 +42,14 @@
 
 <script>
 import { useAuth } from "../../../composable/useAuth";
-import { useVuetifyTheme } from "../../../composable/useVuetifyTheme";
 
 export default {
   name: "TabLogin",
 
   setup() {
     const { logIn } = useAuth();
-    const { setTheme } = useVuetifyTheme();
 
-    return { logIn, setTheme };
+    return { logIn };
   },
 
   data() {
@@ -85,13 +83,9 @@ export default {
       this.logIn({
         email: this.authData.email,
         password: this.authData.password,
-      })
-        .then(() => {
-          this.setTheme(this.userIsDarkTheme);
-        })
-        .catch((e) => {
-          this.$emit("onError", e);
-        });
+      }).catch((e) => {
+        this.$emit("onError", e);
+      });
     },
   },
 };

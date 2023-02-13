@@ -1,16 +1,14 @@
-import { useTheme } from "vuetify";
+import { vuetify } from "../plugins/modules/globalContext/modules/vuetify";
 
 export function useVuetifyTheme() {
-  const theme = useTheme();
+  const { name, current } = vuetify.theme.global;
 
   function toggleTheme() {
-    theme.global.name.value = theme.global.current.value.dark
-      ? "light"
-      : "dark";
+    name.value = current.value.dark ? "light" : "dark";
   }
 
   function setTheme(isDarkTheme) {
-    theme.global.name.value = isDarkTheme ? "dark" : "light";
+    name.value = isDarkTheme ? "dark" : "light";
   }
 
   return { toggleTheme, setTheme };
