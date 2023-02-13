@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { clearLocalStorageKeys } from "../localStorageKeys";
+import { useAuth } from "../../composable/useAuth";
 // import { index } from "../assets/utils/index";
 // import { myVue } from "@main";
 
@@ -30,19 +31,19 @@ axiosWithAuth.interceptors.response.use(
     return response.data;
   },
   async function (error) {
+    const { refreshToken, logOut } = useAuth();
+
     const originalRequest = error.config;
-    // if (error.response.status === 401 && !originalRequest._retry) {
-    //   originalRequest._retry = true;
-    //   await store.dispatch("auth/refreshToken");
-    //   if (store.state.user.user) {
-    //     return axiosWithAuth(originalRequest);
-    //   }
-    // } else if (error.response.status === 401) {
-    //   await store.dispatch("auth/logOut");
-    //   clearLocalStorageKeys();
-    // } else {
-    //   return Promise.reject(error);
-    // }
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      await refreshToken();
+
+      return axiosWithAuth(originalRequest);
+    } else if (error.response.status === 401) {
+      await logOut();
+    } else {
+      return Promise.reject(error);
+    }
   }
 );
 

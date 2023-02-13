@@ -1,9 +1,9 @@
 <template>
-  <v-card class="GameDate" v-if="$gameDate">
+  <v-card class="GameDate" v-if="gameDate">
     <v-card-title class="py-0">
       Current date:
       <v-spacer></v-spacer>
-      {{ $filters.gameDate($gameDate) }}
+      {{ $filters.gameDate(gameDate) }}
     </v-card-title>
 
     <v-card-actions>
@@ -15,20 +15,11 @@
   </v-card>
 </template>
 
-<script>
-export default {
-  name: "GameDate",
+<script setup>
+import { useGame } from "../../../composable/useGame";
 
-  computed: {
-    getDate() {
-      const { monthCode, year } = this.$gameDate;
-      return `${monthCode} ${year}`;
-    },
-  },
+const { gameDate } = useGame();
 
-  methods: {
-    votePause() {},
-    skipRound() {},
-  },
-};
+function votePause() {}
+function skipRound() {}
 </script>

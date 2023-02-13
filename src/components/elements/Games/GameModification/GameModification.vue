@@ -47,10 +47,14 @@
 
 <script>
 import { defineAsyncComponent } from "vue";
+import { useGame } from "../../../../composable/useGame";
 
 export default {
   name: "GameModification",
-
+  setup() {
+    const { gameModifiers } = useGame();
+    return { gameModifiers };
+  },
   data() {
     return {
       tableKeys: {
@@ -70,26 +74,26 @@ export default {
 
   computed: {
     inflation() {
-      return this.$gameModifiers?.inflation;
+      return this.gameModifiers?.inflation;
     },
     keyRate() {
-      return this.$gameModifiers?.keyRate;
+      return this.gameModifiers?.keyRate;
     },
     unemployment() {
-      return this.$gameModifiers?.unemployment;
+      return this.gameModifiers?.unemployment;
     },
     GDP() {
-      return this.$gameModifiers?.GDP;
+      return this.gameModifiers?.GDP;
     },
     basic() {
-      return this.$gameModifiers?.basic;
+      return this.gameModifiers?.basic;
     },
     tickModifiers() {
       return {
-        inflation: this.$gameModifiers.inflation,
-        keyRate: this.$gameModifiers.keyRate,
-        unemployment: this.$gameModifiers.unemployment,
-        GDP: this.$gameModifiers.unemployment,
+        inflation: this.gameModifiers.inflation,
+        keyRate: this.gameModifiers.keyRate,
+        unemployment: this.gameModifiers.unemployment,
+        GDP: this.gameModifiers.unemployment,
       };
     },
   },

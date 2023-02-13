@@ -1,9 +1,5 @@
 import { defineStore } from "pinia";
 
-import {
-  clearLocalStorageKeys,
-  setLocalStorageKeys,
-} from "../utils/localStorageKeys";
 import { API_leaveRoom } from "@api/rooms";
 
 export const useStoreAuth = defineStore("auth", {
@@ -16,8 +12,7 @@ export const useStoreAuth = defineStore("auth", {
   },
 
   actions: {
-    setUser({ userData, accessToken, refreshToken }) {
-      setLocalStorageKeys({ accessToken, refreshToken, userData });
+    setUser({ userData }) {
       this.user = userData;
     },
     cleanUser() {

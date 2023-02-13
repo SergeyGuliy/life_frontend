@@ -73,12 +73,15 @@
 import { $mChain } from "@utils/mathjs";
 import { defineAsyncComponent } from "vue";
 import { useModal } from "../../../composable/useModal";
+import { useGame } from "../../../composable/useGame";
 
 export default {
   name: "News",
 
   setup() {
     const { data, component, closeModal } = useModal();
+    const { gameUserNews } = useGame();
+
     return { data, component, closeModal };
   },
   components: {
@@ -159,15 +162,15 @@ export default {
 
   computed: {
     cashIncome() {
-      return this.$gameUserNews?.cashIncome;
+      return this.gameUserNews?.cashIncome;
     },
     cash() {
-      return this.$gameUserNews?.cash;
+      return this.gameUserNews?.cash;
     },
 
     tableUserNews() {
       let { creditTick, creditEnd, depositTick, depositEnd, expanses, salary } =
-        this.$gameUserNews;
+        this.gameUserNews;
 
       let tableData = [];
 

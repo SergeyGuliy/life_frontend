@@ -1,6 +1,6 @@
 <template>
   <v-data-table
-    v-if="$gameCryptos && $gameCryptos.length"
+    v-if="gameCryptos && gameCryptos.length"
     :headers="cryptosHeaders"
     :items="filteredCryptos"
     :single-expand="true"
@@ -37,9 +37,15 @@
 
 <script>
 import { defineAsyncComponent } from "vue";
+import { useGame } from "../../../../composable/useGame";
 
 export default {
   name: "GameCryptos",
+
+  setup() {
+    const { gameCryptos } = useGame();
+    return { gameCryptos };
+  },
 
   components: {
     GameCryptoGraph: defineAsyncComponent(() =>
@@ -56,11 +62,11 @@ export default {
   computed: {
     filteredCryptos() {
       if (this.filterName) {
-        return this.$gameCryptos.filter(({ name }) =>
+        return this.gameCryptos.filter(({ name }) =>
           name.includes(this.filterName.toUpperCase())
         );
       }
-      return this.$gameCryptos;
+      return this.gameCryptos;
     },
   },
 

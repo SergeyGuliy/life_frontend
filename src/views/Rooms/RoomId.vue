@@ -1,7 +1,7 @@
 <template>
   <div style="width: 100%">
-    <Room v-show="!$gameId" />
-    <Game v-if="$gameId" />
+    <Room v-show="!gameId" />
+    <Game v-if="gameId" />
   </div>
 </template>
 
@@ -39,11 +39,14 @@ const { t } = useI18n();
 import { useRouter } from "vue-router";
 const router = useRouter();
 
+import { useGame } from "@composable/useGame";
+const { gameId } = useGame();
+
 onBeforeMount(() => {
   API_getRoomById(roomId)
     .then((data) => {
       roomData = data;
-      this.$gameId = data.gameId;
+      gameId.value = data.gameId;
 
       socketEmit(rooms_userConnectsRoom, {
         userId: myUser.userId,
@@ -131,6 +134,6 @@ function updateToggleLockRoom(lockState) {
 
 function gameStarted(game) {
   roomData = { gameId: game._id };
-  this.$gameId = game._id;
+  gameId.value = game._id;
 }
 </script>

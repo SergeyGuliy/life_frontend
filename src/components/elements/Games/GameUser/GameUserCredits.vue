@@ -32,16 +32,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "GameUserCredits",
+<script setup>
+import { computed } from "vue";
 
-  computed: {
-    userCredits() {
-      return this.$gameUserData.credits;
-    },
-  },
-};
+import { useGame } from "@composable/useGame";
+const { gameUserData } = useGame();
+
+const userCredits = computed(() => gameUserData.value.credits);
 </script>
 
 <style scoped></style>

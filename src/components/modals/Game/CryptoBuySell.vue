@@ -19,7 +19,7 @@
         <v-card-subtitle class="pb-0 d-flex">
           <div class="mr-5" style="width: 150px">
             <div class="mb-2">Operation type: {{ operationType }}</div>
-            <div class="mb-2">Cash: {{ $gameUserCash }} $</div>
+            <div class="mb-2">Cash: {{ gameUserCash }} $</div>
             <div class="mb-4">
               Balance: {{ userCrypto.count }} {{ data.name }}
             </div>
@@ -79,13 +79,24 @@
 <script>
 import { $mChain } from "@utils/mathjs";
 import { useModal } from "../../../composable/useModal";
+import { useGame } from "../../../composable/useGame";
 
 export default {
   name: "CryptoBuySell",
 
   setup() {
     const { data, component, closeModal } = useModal();
-    return { data, component, closeModal };
+    const { gameAction, gameUserData, gameUserCash, gameCryptos } = useGame();
+
+    return {
+      data,
+      component,
+      closeModal,
+      gameUserData,
+      gameAction,
+      gameUserCash,
+      gameCryptos,
+    };
   },
   created() {
     this.activeTab = this.data.type;
@@ -98,7 +109,7 @@ export default {
 
   computed: {
     userCrypto() {
-      let userCrypto = this.$gameUserData.cryptos.find(
+      let userCrypto = this.gameUserData.cryptos.find(
         ({ name }) => name === this.data.name
       );
       let defaultCrypto = {
@@ -118,7 +129,7 @@ export default {
       },
     },
     cryptoData() {
-      return this.$gameCryptos.find((crypto) => crypto.name === this.data.name);
+      return this.gameCryptos.find((crypto) => crypto.name === this.data.name);
     },
     operationType() {
       return this.operationPrice === this.cryptoData.currentPrice
@@ -180,7 +191,7 @@ export default {
               return v <= this.userCrypto.count || "Not enough crypto";
             }
             return (
-              this.$gameUserCash >= this.operationTotal || "Not enough cash"
+              this.gameUserCash >= this.operationTotal || "Not enough cash"
             );
           },
         ],
@@ -218,9 +229,9 @@ export default {
       };
 
       this.loading = true;
-      this.$gameAction("gamesCryptos", "buySell", data)
+      this.gameAction("gamesCryptos", "buySell", data)
         .then((res) => {
-          this.$gameUserData = res;
+          this.gameUserData = res;
         })
         .finally(() => {
           this.loading = false;

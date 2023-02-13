@@ -31,19 +31,19 @@ export default {
   },
 
   async created() {
-    const typeOfRoom = localStorage.getItem("typeOfRoom");
-    if (typeOfRoom) {
-      this.filterData.typeOfRoom = typeOfRoom.split(",");
-    }
-    await this.fetchRooms();
-
-    socketEmit(rooms_subscribeRoomsUpdate, { userId: this.myUser.userId });
-
-    onSocketInit({
-      [rooms_roomInListCreated]: this.roomInListCreated,
-      [rooms_roomInListDeleted]: this.roomInListDeleted,
-      [rooms_roomInListUpdated]: this.roomInListUpdated,
-    });
+    // const typeOfRoom = localStorage.getItem("typeOfRoom");
+    // if (typeOfRoom) {
+    //   this.filterData.typeOfRoom = typeOfRoom.split(",");
+    // }
+    // await this.fetchRooms();
+    //
+    // socketEmit(rooms_subscribeRoomsUpdate, { userId: this.myUser.userId });
+    //
+    // onSocketInit({
+    //   [rooms_roomInListCreated]: this.roomInListCreated,
+    //   [rooms_roomInListDeleted]: this.roomInListDeleted,
+    //   [rooms_roomInListUpdated]: this.roomInListUpdated,
+    // });
   },
 
   beforeDestroy() {

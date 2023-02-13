@@ -6,8 +6,8 @@ import { installRouter } from "./modules/router";
 import { installNotify } from "./modules/notify";
 
 export function installGlobalContext(vue) {
-  installRouter(vue);
   installPinia(vue);
+  installRouter(vue);
 
   installVuetify(vue);
   installI18n(vue);

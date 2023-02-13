@@ -18,8 +18,8 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ $gameUserWork.economicSectors }}</td>
-            <td>{{ $gameUserWork.salary }}</td>
+            <td>{{ gameUserWork.economicSectors }}</td>
+            <td>{{ gameUserWork.salary }}</td>
             <td>''</td>
             <td class="text-right">''</td>
           </tr>
@@ -43,32 +43,38 @@
 
 <script>
 import { useModal } from "@composable/useModal";
+import { useGame } from "../../../../composable/useGame";
 const { openModal } = useModal();
 
 export default {
   name: "GameUserWork",
 
+  setup() {
+    const { gameId, gameAction, gameUserData, gameUserWork } = useGame();
+    return { gameId, gameAction, gameUserData, gameUserWork };
+  },
+
   computed: {
     isWorkExist() {
-      return !!this.$gameUserWork;
+      return !!this.gameUserWork;
     },
     getWorkName() {
-      return this.isWorkExist ? this.$gameUserWork.name : "Unemployed";
+      return this.isWorkExist ? this.gameUserWork.name : "Unemployed";
     },
   },
 
   methods: {
     quitYourJob() {
-      if (!this.$gameUserWork) return;
+      if (!this.gameUserWork) return;
 
       openModal("Promt", {
         title: `You want to leave your work?`,
         submit: "Leave",
         cancel: this.$t("buttons.cancel"),
       })
-        .then(() => this.$gameAction("gamesWork", "leaveWork"))
+        .then(() => this.gameAction("gamesWork", "leaveWork"))
         .then((newUserData) => {
-          this.$gameUserData = newUserData;
+          this.gameUserData = newUserData;
         });
     },
 

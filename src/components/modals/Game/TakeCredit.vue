@@ -62,13 +62,24 @@
 <script>
 import { $mChain } from "@utils/mathjs";
 import { useModal } from "../../../composable/useModal";
+import { useGame } from "../../../composable/useGame";
 
 export default {
   name: "TakeCredit",
 
   setup() {
     const { data, component, closeModal } = useModal();
-    return { data, component, closeModal };
+    const { gameUserData, gameAction, gameCredits, gameUserCash } = useGame();
+
+    return {
+      data,
+      component,
+      closeModal,
+      gameAction,
+      gameUserData,
+      gameCredits,
+      gameUserCash,
+    };
   },
   created() {
     let duration = this.data.duration;
@@ -77,10 +88,10 @@ export default {
 
   computed: {
     tabs() {
-      return this.$gameCredits.credits.map((i) => i.duration);
+      return this.gameCredits.credits.map((i) => i.duration);
     },
     selectedCredit() {
-      return this.$gameCredits.credits[this.tabIndex];
+      return this.gameCredits.credits[this.tabIndex];
     },
     payPerMonth() {
       let { percent } = this.selectedCredit;
@@ -108,7 +119,7 @@ export default {
           (v) => !!v || "Can't be empty",
           (v) => typeof v === "number" || "Must be number",
           (v) => v > 0 || "Must be positive value",
-          () => this.$gameUserCash >= this.cash || "Not enough cash",
+          () => this.gameUserCash >= this.cash || "Not enough cash",
         ],
       },
     };
@@ -124,9 +135,9 @@ export default {
         credit: this.selectedCredit,
       };
 
-      this.$gameAction("gamesCredits", "take", data)
+      this.gameAction("gamesCredits", "take", data)
         .then((res) => {
-          this.$gameUserData = res;
+          this.gameUserData = res;
         })
         .finally(() => {
           this.loading = false;

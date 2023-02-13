@@ -46,23 +46,34 @@
 
 <script>
 import { useModal } from "../../../composable/useModal";
+import { useGame } from "../../../composable/useGame";
 
 export default {
   name: "WorkList",
 
   setup() {
     const { data, component, closeModal } = useModal();
-    return { data, component, closeModal };
+    const { gameDate, gameAction, gameUserData, gameUserWork } = useGame();
+
+    return {
+      data,
+      component,
+      closeModal,
+      gameAction,
+      gameUserData,
+      gameUserWork,
+      gameDate,
+    };
   },
 
   created() {
-    if (this.$gameUserWork) this.closeModal();
+    if (this.gameUserWork) this.closeModal();
     this.fetchWorksList();
   },
 
   watch: {
-    $gameDate() {
-      if (this.$gameUserWork) this.closeModal();
+    gameDate() {
+      if (this.gameUserWork) this.closeModal();
       this.fetchWorksList();
     },
   },
@@ -75,13 +86,13 @@ export default {
 
   methods: {
     fetchWorksList() {
-      this.$gameAction("gamesWork", "getWorksList").then((worksList) => {
+      this.gameAction("gamesWork", "getWorksList").then((worksList) => {
         this.works = worksList;
       });
     },
 
     goToJobInterview(key) {
-      this.$gameAction("gamesWork", "goToJobInterview", key).then(
+      this.gameAction("gamesWork", "goToJobInterview", key).then(
         (worksList) => {
           this.works = worksList;
         }
@@ -89,8 +100,8 @@ export default {
     },
 
     acceptWork(key) {
-      this.$gameAction("gamesWork", "acceptWork", key).then((userData) => {
-        this.$gameUserData = userData;
+      this.gameAction("gamesWork", "acceptWork", key).then((userData) => {
+        this.gameUserData = userData;
         this.closeModal();
       });
     },

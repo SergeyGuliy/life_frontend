@@ -4,7 +4,7 @@ import { installGlobalFilters } from "./modules/globalFilters";
 import { installGlobalDirectives } from "./modules/globalDirectives";
 
 import { installMask } from "./modules/mask";
-import { installApexCharts } from "./modules/apexCharts";
+// import { installApexCharts } from "./modules/apexCharts";
 
 export function installPlugins(vue) {
   installGlobalContext(vue);

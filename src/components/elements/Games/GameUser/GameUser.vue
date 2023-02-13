@@ -1,5 +1,5 @@
 <template>
-  <v-card class="GameUserData" v-if="$gameUserData">
+  <v-card class="GameUserData" v-if="gameUserData">
     <v-card-title class="py-0">
       User data
       <v-spacer></v-spacer>
@@ -8,7 +8,7 @@
     <v-card-title>
       Cash:
       <v-spacer></v-spacer>
-      {{ $gameUserCash }} $
+      {{ gameUserCash }} $
     </v-card-title>
     <v-card-actions>
       <v-btn @click="openNews(0)" color="green" width="50%">
@@ -31,6 +31,9 @@ const { openModal } = useModal();
 
 import { useUsers } from "@composable/useUsers";
 const { myUser } = useUsers();
+
+import { useGame } from "@composable/useGame";
+const { gameUserData, gameUserCash } = useGame();
 
 function openNews(type) {
   openModal("Game/News", { type }).catch(() => {});

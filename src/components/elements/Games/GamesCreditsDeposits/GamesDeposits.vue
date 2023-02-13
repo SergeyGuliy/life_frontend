@@ -1,5 +1,5 @@
 <template>
-  <div class="GamesDeposits" v-if="$gameDeposits">
+  <div class="GamesDeposits" v-if="gameDeposits">
     <v-card-subtitle class="py-0">
       Last updated: {{ getDate }}
     </v-card-subtitle>
@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(deposit, index) in $gameDeposits.deposits" :key="index">
+          <tr v-for="(deposit, index) in gameDeposits.deposits" :key="index">
             <td width="28%">{{ deposit.duration }} month</td>
             <td width="28%" class="text-center">{{ deposit.percent }} %</td>
             <td class="text-right">
@@ -37,14 +37,21 @@
 
 <script>
 import { useModal } from "@composable/useModal";
+
+import { useGame } from "@composable/useGame";
 const { openModal } = useModal();
 
 export default {
   name: "GamesDeposits",
 
+  setup() {
+    const { gameDeposits } = useGame();
+    return { gameDeposits };
+  },
+
   computed: {
     getDate() {
-      const { monthCode, year } = this.$gameDeposits.date;
+      const { monthCode, year } = this.gameDeposits.date;
       return `${monthCode} ${year}`;
     },
   },

@@ -1,18 +1,16 @@
 import { useRoute, useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
 import { useModal } from "./useModal";
 import { useStoreAuth } from "../stores/user";
 
 import { clearLocalStorageKeys } from "../utils/localStorageKeys";
 import { API_refreshToken, API_registration, API_login } from "@api/auth";
+import { i18n } from "../plugins/modules/globalContext/modules/i18n";
 
 export function useAuth() {
   const route = useRoute();
   const router = useRouter();
   const { setUser, cleanUser } = useStoreAuth();
   const { openModal } = useModal();
-
-  const { t } = useI18n();
 
   async function logIn(authData) {
     try {
@@ -39,6 +37,8 @@ export function useAuth() {
   }
 
   async function logOut() {
+    clearLocalStorageKeys();
+    console.log("logOut");
     try {
       cleanUser();
       // socketDisconnect();
@@ -49,6 +49,8 @@ export function useAuth() {
   }
 
   async function logOutMiddleware() {
+    const { t } = i18n;
+
     if (route.name === "RoomId") {
       await openModal("Promt", {
         title: t("modals.wantLeaveRoom"),
@@ -58,26 +60,16 @@ export function useAuth() {
         .then(logOut)
         .catch(() => {});
     } else {
-      logOut();
+      await logOut();
     }
   }
 
   async function refreshToken() {
-    const userId = localStorage.getItem("userId");
-    const refreshToken = localStorage.getItem("refreshToken");
-    if (userId && refreshToken) {
-      try {
-        const data = await API_refreshToken({
-          userId,
-          refreshToken,
-        });
-        await setUser(data);
-      } catch (e) {
-        await logOut();
-        clearLocalStorageKeys();
-      }
-    } else {
-      clearLocalStorageKeys();
+    try {
+      const data = await API_refreshToken();
+      await setUser(data);
+    } catch (e) {
+      await logOut();
     }
   }
 

@@ -16,10 +16,36 @@ import { defineAsyncComponent } from "vue";
 import { API_getGameById, API_getInGameUserData } from "@api/games";
 
 import { useSocket } from "@composable/useSocket";
+import { useGame } from "../../../composable/useGame";
 const { onSocketInit } = useSocket();
 
 export default {
   name: "Game",
+
+  setup() {
+    const {
+      gameId,
+      gameDate,
+      gameShares,
+      gameCryptos,
+      gameCredits,
+      gameDeposits,
+      gameModifiers,
+      gameUserNews,
+      gameUserData,
+    } = useGame();
+    return {
+      gameId,
+      gameDate,
+      gameShares,
+      gameCryptos,
+      gameCredits,
+      gameDeposits,
+      gameModifiers,
+      gameUserNews,
+      gameUserData,
+    };
+  },
 
   components: {
     GameDate: defineAsyncComponent(() => import("./GameDate.vue")),
@@ -48,12 +74,12 @@ export default {
   },
 
   async created() {
-    let req1 = API_getGameById(this.$gameId)
+    let req1 = API_getGameById(this.gameId)
       .then(this.tickGameData)
       .then(() => {
         onSocketInit({ games_tick: this.tickGameData });
       });
-    let req2 = API_getInGameUserData(this.$gameId)
+    let req2 = API_getInGameUserData(this.gameId)
       .then(this.tickUserData)
       .then(() => {
         onSocketInit({ games_sendUserData: this.tickUserData });
@@ -68,19 +94,18 @@ export default {
     tickGameData(gameData) {
       const { date, shares, cryptos, credits, modifiers, deposits } = gameData;
 
-      this.$gameDate = date;
-      this.$gameShares = shares;
-      this.$gameCryptos = cryptos;
-      this.$gameCryptos = cryptos;
-      this.$gameCredits = credits;
-      this.$gameDeposits = deposits;
-      this.$gameModifiers = modifiers;
+      this.gameDate = date;
+      this.gameShares = shares;
+      this.gameCryptos = cryptos;
+      this.gameCredits = credits;
+      this.gameDeposits = deposits;
+      this.gameModifiers = modifiers;
     },
 
     tickUserData({ userData, userNews }) {
-      this.$gameUserData = userData;
+      this.gameUserData = userData;
       if (userNews) {
-        this.$gameUserNews = userNews;
+        this.gameUserNews = userNews;
       }
     },
   },

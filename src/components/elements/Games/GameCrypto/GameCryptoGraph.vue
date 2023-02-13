@@ -8,6 +8,8 @@ import { options } from "./graphOptions";
 import { useSocket } from "@composable/useSocket";
 const { onSocketInit } = useSocket();
 
+import { useGame } from "@composable/useGame";
+
 export default {
   name: "GameCryptoGraph",
 
@@ -19,6 +21,11 @@ export default {
 
       loading: true,
     };
+  },
+
+  setup() {
+    const { gameId, gameAction } = useGame();
+    return { gameId, gameAction };
   },
 
   // components: {
@@ -36,9 +43,9 @@ export default {
   },
 
   created() {
-    this.$gameAction("gamesCryptos", "getCryptoHistory", {
+    this.gameAction("gamesCryptos", "getCryptoHistory", {
       name: this.crypto.name,
-      gameId: this.$gameId,
+      gameId: this.gameId,
     }).then((cryptoHistory) => {
       cryptoHistory
         .filter(({ date }) => date.monthCode && date.year)
