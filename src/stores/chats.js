@@ -16,10 +16,10 @@ export const useStoreChats = defineStore("chats", {
     chatTabs: (state) => Object.keys(state.chats),
   },
   actions: {
-    setChat({ chatName, chatData }) {
+    setChat(chatName, chatData) {
       this.chats[chatName] = chatData;
     },
-    pushMessageToChatChat({ chatName, messageData }) {
+    pushMessageToChatChat(chatName, messageData) {
       this.chats[chatName].messages.push(messageData);
     },
     deleteChat(chatName) {

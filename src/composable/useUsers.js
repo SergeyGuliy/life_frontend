@@ -2,12 +2,12 @@ import { computed } from "vue";
 
 import { useStoreAuth } from "../stores/user";
 import { useStoreDictionaries } from "../stores/dictionares";
-import { useAuthFriends } from "../stores/friends";
+import { useStoreFriends } from "../stores/friends";
 
 export function useUsers() {
   const { user: myUser } = useStoreAuth();
   const { users } = useStoreDictionaries();
-  const { friends: friendsRequests, connects } = useAuthFriends();
+  const { friends: friendsRequests, connects } = useStoreFriends();
 
   const friends = computed(() =>
     friendsRequests.map(({ friendshipReceiver, friendshipSender }) =>

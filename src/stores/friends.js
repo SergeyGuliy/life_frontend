@@ -1,13 +1,10 @@
 import { defineStore } from "pinia";
 
-export const useAuthFriends = defineStore("friends", {
+export const useStoreFriends = defineStore("friends", {
   state: () => ({
     friends: [],
     connects: [],
   }),
-  getters: {
-    fullName: (state) => state.firstName,
-  },
   actions: {
     setFriends(friends) {
       this.friends = friends;

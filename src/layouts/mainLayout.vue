@@ -19,14 +19,24 @@ import SideBar from "../components/layouts/SideBar/SideBar.vue";
 import NavBar from "../components/layouts/NavBar.vue";
 import { API_changeLocale, API_changeTheme } from "@api/userSettings";
 import { useUsers } from "../composable/useUsers";
+import {
+  API_getYourConnections,
+  API_getYourFriends,
+} from "../utils/api/modules/friendship";
+import { useStoreFriends } from "../stores/friends";
+import { useChatLogic } from "../composable/useChatLogic";
 // import Chat from "../components/layouts/Chat/Chat.vue";
 
 export default {
   name: "mainLayout",
   // mixins: [chatLogic, friendsLogic],
   setup() {
+    useChatLogic();
+
     const { myUser } = useUsers();
-    return { myUser };
+    const { setFriends, setConnections } = useStoreFriends();
+
+    return { myUser, setFriends, setConnections };
   },
   components: {
     SideBar,
@@ -37,6 +47,19 @@ export default {
     return {
       drawer: false,
     };
+  },
+
+  async mounted() {
+    await API_getYourFriends()
+      .then(this.setFriends)
+      .catch((e) => {
+        console.log(e);
+      });
+    await API_getYourConnections()
+      .then(this.setConnections)
+      .catch((e) => {
+        console.log(e);
+      });
   },
 
   watch: {

@@ -22,7 +22,7 @@ export default defineConfig({
       "@components": getPath("src/components/"),
       "@composable": getPath("src/composable"),
       "@utils": getPath("src/utils"),
-      "@store": getPath("src/store"),
+      "@stores": getPath("src/stores"),
       "@plugins": getPath("src/plugins"),
       "@mixins": getPath("src/mixins"),
       "@main": getPath("src/main.js"),
