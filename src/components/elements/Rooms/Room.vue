@@ -1,3 +1,37 @@
+<script setup>
+import { reactive } from "vue";
+
+import RoomInfo from "@components/elements/Rooms/RoomInfo.vue";
+import UsersList from "@components/elements/Users/UsersList.vue";
+import UserButton from "@components/elements/Users/UserButton.vue";
+
+import { API_startGame } from "@api/games";
+import { API_deleteRoom, API_toggleLockRoom } from "@api/rooms";
+
+import { useRooms } from "@composable/useRooms";
+const { roomId, roomData, isRoomAdmin } = useRooms();
+
+const gameSettings = reactive({
+  timePerTurn: 5,
+  timeAdditional: 180,
+  gameYearsCount: 40 * 12,
+});
+
+function startGame() {
+  API_startGame(roomId, gameSettings);
+}
+
+async function toggleLockRoom() {
+  await API_toggleLockRoom(roomId, {
+    lockState: !roomData.isBlocked,
+  });
+}
+
+async function deleteRoom() {
+  await API_deleteRoom(roomId);
+}
+</script>
+
 <template>
   <Grid v-if="roomData">
     <template #leftCol>
@@ -73,37 +107,3 @@
     </template>
   </Grid>
 </template>
-
-<script setup>
-import { reactive } from "vue";
-
-import RoomInfo from "@components/elements/Rooms/RoomInfo.vue";
-import UsersList from "@components/elements/Users/UsersList.vue";
-import UserButton from "@components/elements/Users/UserButton.vue";
-
-import { API_startGame } from "@api/games";
-import { API_deleteRoom, API_toggleLockRoom } from "@api/rooms";
-
-import { useRooms } from "@composable/useRooms";
-const { roomId, roomData, isRoomAdmin } = useRooms();
-
-const gameSettings = reactive({
-  timePerTurn: 5,
-  timeAdditional: 180,
-  gameYearsCount: 40 * 12,
-});
-
-function startGame() {
-  API_startGame(roomId, gameSettings);
-}
-
-async function toggleLockRoom() {
-  await API_toggleLockRoom(roomId, {
-    lockState: !roomData.isBlocked,
-  });
-}
-
-async function deleteRoom() {
-  await API_deleteRoom(roomId);
-}
-</script>

@@ -1,11 +1,12 @@
 import { onBeforeUnmount, onMounted, reactive, ref } from "vue";
 
-import { API_getRooms, API_joinRoom } from "@api/rooms";
+import { useRouter } from "vue-router";
 
+import { API_getRooms, API_joinRoom } from "@api/rooms";
 import { useModal } from "@composable/useModal";
 import { useUsers } from "./useUsers";
-import { useSocket } from "@composable/useSocket";
 
+import { useSocket } from "@composable/useSocket";
 import {
   rooms_subscribeRoomsUpdate,
   rooms_unSubscribeRoomsUpdate,
@@ -14,7 +15,6 @@ import {
   rooms_roomInListUpdated,
 } from "@constants/ws/rooms.mjs";
 import { i18n } from "../plugins/modules/globalContext/modules/i18n";
-import { useRouter } from "vue-router";
 import { useStoreAuth } from "../stores/user";
 
 export function useRoomLogic() {

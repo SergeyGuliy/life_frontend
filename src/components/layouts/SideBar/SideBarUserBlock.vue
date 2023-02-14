@@ -1,3 +1,8 @@
+<script setup>
+import { useUsers } from "@composable/useUsers";
+const { myUser } = useUsers();
+</script>
+
 <template>
   <v-list-item two-line>
     <template v-slot:prepend>
@@ -10,8 +15,3 @@
     </v-list-item-title>
   </v-list-item>
 </template>
-
-<script>
-import { useUsers } from "@composable/useUsers";
-const { myUser } = useUsers();
-</script>

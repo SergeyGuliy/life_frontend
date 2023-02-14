@@ -19,7 +19,7 @@ socket.on("disconnect", () => {
 export function useSocket() {
   const socketConnect = socket.connect;
   const socketDisconnect = socket.close;
-  const socketEmit = socket.emit;
+  const socketEmit = socket.emit.bind(socket);
   const socketOn = socket.on;
   const socketOff = socket.off;
 
@@ -51,6 +51,8 @@ export function useSocket() {
   }
 
   return {
+    socket,
+
     socketConnected,
 
     socketConnect,

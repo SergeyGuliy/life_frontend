@@ -1,3 +1,28 @@
+<script setup>
+import { computed } from "vue";
+
+import { ROOM_TYPES } from "@enums/index.mjs";
+
+import { useRooms } from "@composable/useRooms";
+const { usersInRoom } = useRooms();
+
+const props = defineProps({
+  roomData: {
+    required: true,
+    type: Object,
+  },
+});
+
+const getChipClass = computed(() =>
+  props.roomData.typeOfRoom === ROOM_TYPES.PUBLIC ? "primary" : "warning"
+);
+const getChipType = computed(() =>
+  props.roomData.typeOfRoom === ROOM_TYPES.PUBLIC
+    ? "mdi-account-group"
+    : "mdi-account-key"
+);
+</script>
+
 <template>
   <div class="RoomInfo">
     <div class="d-flex justify-space-between align-center">
@@ -33,28 +58,3 @@
     </v-card-actions>
   </div>
 </template>
-
-<script setup>
-import { computed } from "vue";
-
-import { ROOM_TYPES } from "@enums/index.mjs";
-
-import { useRooms } from "@composable/useRooms";
-const { usersInRoom } = useRooms();
-
-const props = defineProps({
-  roomData: {
-    required: true,
-    type: Object,
-  },
-});
-
-const getChipClass = computed(() =>
-  props.roomData.typeOfRoom === ROOM_TYPES.PUBLIC ? "primary" : "warning"
-);
-const getChipType = computed(() =>
-  props.roomData.typeOfRoom === ROOM_TYPES.PUBLIC
-    ? "mdi-account-group"
-    : "mdi-account-key"
-);
-</script>

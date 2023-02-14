@@ -9,7 +9,7 @@
     >
       {{ snackbar.text }}
 
-      <template v-slot:action="{ attrs }">
+      <template v-slot:actions="{ attrs }">
         <v-btn icon v-bind="attrs" @click="snackbar.isOpened = false">
           <v-icon> mdi-close </v-icon>
         </v-btn>

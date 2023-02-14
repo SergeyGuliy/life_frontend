@@ -1,5 +1,35 @@
+<script setup>
+import { computed, defineProps } from "vue";
+
+const emit = defineEmits(["update:roomName", "update:typeOfRoom", "submit"]);
+const props = defineProps({
+  filterData: {
+    type: Object,
+    required: true,
+  },
+});
+
+const roomName = computed({
+  set(val) {
+    emit("update:roomName", val);
+  },
+  get() {
+    return props.filterData.roomName;
+  },
+});
+
+const typeOfRoom = computed({
+  set(val) {
+    emit("update:typeOfRoom", val);
+  },
+  get() {
+    return props.filterData.typeOfRoom;
+  },
+});
+</script>
+
 <template>
-  <div fluid class="RoomFilter pa-0">
+  <div class="RoomFilter pa-0">
     <v-text-field v-model="roomName" dense label="Outlined" outlined />
     <v-row class="my-1">
       <v-col cols="6" class="d-flex">
@@ -19,44 +49,13 @@
         />
       </v-col>
       <v-col cols="6">
-        <v-btn small block @click="$emit('submit')">
+        <v-btn small block @click="emit('submit')">
           {{ $t("buttons.search") }}
         </v-btn>
       </v-col>
     </v-row>
   </div>
 </template>
-
-<script>
-export default {
-  name: "RoomFilter",
-
-  props: {
-    filterData: {
-      type: Object,
-      required: true,
-    },
-  },
-  computed: {
-    roomName: {
-      set(val) {
-        this.$emit("update:roomName", val);
-      },
-      get() {
-        return this.filterData.roomName;
-      },
-    },
-    typeOfRoom: {
-      set(val) {
-        this.$emit("update:typeOfRoom", val);
-      },
-      get() {
-        return this.filterData.typeOfRoom;
-      },
-    },
-  },
-};
-</script>
 
 <style lang="scss">
 .RoomFilter {

@@ -1,3 +1,14 @@
+<script setup>
+import RoomBox from "./RoomBox.vue";
+
+defineProps({
+  rooms: {
+    type: Array,
+    default: () => [],
+  },
+});
+</script>
+
 <template>
   <div class="RoomsList pa-0">
     <RoomBox
@@ -11,20 +22,3 @@
     </RoomBox>
   </div>
 </template>
-
-<script>
-import { defineAsyncComponent } from "vue";
-
-export default {
-  name: "RoomsList",
-  props: {
-    rooms: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  components: {
-    RoomBox: defineAsyncComponent(() => import("./RoomBox.vue")),
-  },
-};
-</script>

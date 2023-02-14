@@ -27,7 +27,6 @@ export function useChatLogic() {
   const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 
   onMounted(async () => {
-    console.warn("onMounted");
     await fetchGlobalMessages();
     await fetchPrivateMessages();
     await fetchRoomMessages();

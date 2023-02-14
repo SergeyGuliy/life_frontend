@@ -1,3 +1,14 @@
+<script setup>
+import RoomInfo from "./RoomInfo.vue";
+
+defineProps({
+  roomData: {
+    required: true,
+    type: Object,
+  },
+});
+</script>
+
 <template>
   <v-card class="RoomBox pa-2 mb-2">
     <RoomInfo :roomData="roomData">
@@ -7,25 +18,3 @@
     </RoomInfo>
   </v-card>
 </template>
-
-<script>
-import { defineAsyncComponent } from "vue";
-
-export default {
-  name: "RoomBox",
-  components: {
-    RoomInfo: defineAsyncComponent(() => import("./RoomInfo.vue")),
-  },
-  props: {
-    roomData: {
-      required: true,
-      type: Object,
-    },
-  },
-};
-</script>
-
-<style lang="scss">
-.RoomBox {
-}
-</style>

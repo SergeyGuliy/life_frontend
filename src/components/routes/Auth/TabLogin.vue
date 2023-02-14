@@ -1,6 +1,5 @@
 <template>
   <v-window-item value="tab-login">
-    <pre>{{ user }}</pre>
     <v-card flat class="px-2 py-8">
       <v-form ref="form" v-model="isFormValid" lazy-validation>
         <v-text-field
@@ -41,7 +40,7 @@
 </template>
 
 <script>
-import { useAuth } from "../../../composable/useAuth";
+import { useAuth } from "@composable/useAuth";
 
 export default {
   name: "TabLogin",
