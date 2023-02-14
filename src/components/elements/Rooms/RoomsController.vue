@@ -1,3 +1,18 @@
+<script setup>
+import { useRoomLogic } from "@mixins/useRoomLogic";
+import RoomsList from "@components/elements/Rooms/RoomsList.vue";
+import RoomFilter from "@components/elements/Rooms/RoomFilter.vue";
+
+const {
+  rooms,
+  filterData,
+
+  createRoomHandler,
+  joinRoom,
+  fetchRooms,
+} = useRoomLogic();
+</script>
+
 <template>
   <div class="RoomsController">
     <v-btn block @click="createRoomHandler" class="mb-2">
@@ -18,22 +33,3 @@
     </RoomsList>
   </div>
 </template>
-
-<script>
-import roomLogic from "@mixins/roomLogic";
-import { defineAsyncComponent } from "vue";
-
-export default {
-  name: "RoomsController",
-  components: {
-    RoomsList: defineAsyncComponent(() => import("./RoomsList.vue")),
-    RoomFilter: defineAsyncComponent(() => import("./RoomFilter.vue")),
-  },
-  mixins: [roomLogic],
-};
-</script>
-
-<style lang="scss">
-.RoomsController {
-}
-</style>

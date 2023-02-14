@@ -18,10 +18,10 @@ export const useStoreAuth = defineStore("auth", {
     cleanUser() {
       this.$reset();
     },
-    adminRoom(roomId) {
+    setAdminRoom(roomId) {
       this.user.roomCreatedId = roomId;
     },
-    joinRoom(roomId) {
+    setJoinedRoom(roomId) {
       this.user.roomJoinedId = roomId;
     },
     leaveRoom() {

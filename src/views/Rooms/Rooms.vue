@@ -1,3 +1,18 @@
+<script setup>
+import { useRoomLogic } from "@mixins/useRoomLogic";
+import RoomsList from "@components/elements/Rooms/RoomsList.vue";
+import RoomFilter from "@components/elements/Rooms/RoomFilter.vue";
+
+const {
+  rooms,
+  filterData,
+
+  createRoomHandler,
+  joinRoom,
+  fetchRooms,
+} = useRoomLogic();
+</script>
+
 <template>
   <Grid>
     <template #leftCol>
@@ -24,21 +39,3 @@
     </template>
   </Grid>
 </template>
-
-<script>
-import roomLogic from "@mixins/roomLogic.js";
-import { defineAsyncComponent } from "vue";
-
-export default {
-  name: "Rooms",
-  components: {
-    RoomsList: defineAsyncComponent(() =>
-      import("@components/elements/Rooms/RoomsList.vue")
-    ),
-    RoomFilter: defineAsyncComponent(() =>
-      import("@components/elements/Rooms/RoomFilter.vue")
-    ),
-  },
-  mixins: [roomLogic],
-};
-</script>

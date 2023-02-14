@@ -7,6 +7,7 @@ import { i18n } from "../../globalContext/modules/i18n";
 
 export const getChatTabName = (chatTab) => {
   const { chats } = useStoreChats();
+
   const { t } = i18n;
 
   if (chats[chatTab].key === GLOBAL) {
