@@ -43,7 +43,7 @@
 <script setup>
 import { reactive } from "vue";
 
-import { ROOM_TYPES } from "@enums/index";
+import { ROOM_TYPES } from "@enums/index.mjs";
 
 const props = defineProps({
   userData: {

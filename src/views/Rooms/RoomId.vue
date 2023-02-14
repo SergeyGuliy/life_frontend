@@ -19,7 +19,7 @@ import {
   rooms_updateUsersListInRoom,
   rooms_userConnectsRoom,
   rooms_userKickedFromRoom,
-} from "@constants/ws/rooms";
+} from "@constants/ws/rooms.mjs";
 
 import { useModal } from "@composable/useModal";
 const { openModal } = useModal();

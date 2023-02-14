@@ -12,7 +12,7 @@ import {
   rooms_roomInListCreated,
   rooms_roomInListDeleted,
   rooms_roomInListUpdated,
-} from "@constants/ws/rooms.js";
+} from "@constants/ws/rooms.mjs";
 import { i18n } from "../plugins/modules/globalContext/modules/i18n";
 import { useRouter } from "vue-router";
 import { useStoreAuth } from "../stores/user";

@@ -73,7 +73,7 @@ import { useSocket } from "@composable/useSocket";
 const { socketEmit } = useSocket();
 
 import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "@enums";
-import { chat_messageToServer } from "@constants/ws/chats.js";
+import { chat_messageToServer } from "@constants/ws/chats.mjs";
 import { useUsers } from "../../../composable/useUsers";
 import { useStoreChats } from "../../../stores/chats";
 const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;

@@ -61,7 +61,7 @@
 <script setup>
 import { computed, reactive, watch } from "vue";
 import { required } from "@vuelidate/validators";
-import { ROOM_TYPES } from "@enums/index";
+import { ROOM_TYPES } from "@enums/index.mjs";
 import { API_create } from "@api/rooms";
 
 import { useModal } from "@composable/useModal";

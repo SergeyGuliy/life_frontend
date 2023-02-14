@@ -17,8 +17,9 @@ export default defineConfig({
   resolve: {
     alias: {
       // vue: getPath("node_modules/@vue/compat"),
-      "@constants": getPath("node_modules/life_shared/constants"),
-      "@enums": getPath("node_modules/life_shared/enums"),
+      "@constants": getPath("node_modules/life_shared/esm/constants"),
+      "@enums": getPath("node_modules/life_shared/esm/enums"),
+
       "@components": getPath("src/components/"),
       "@composable": getPath("src/composable"),
       "@utils": getPath("src/utils"),
