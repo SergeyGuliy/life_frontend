@@ -3,7 +3,7 @@ import { onBeforeUnmount, onMounted, reactive, ref } from "vue";
 import { API_getRooms, API_joinRoom } from "@api/rooms";
 
 import { useModal } from "@composable/useModal";
-import { useUsers } from "../composable/useUsers";
+import { useUsers } from "./useUsers";
 import { useSocket } from "@composable/useSocket";
 
 import {

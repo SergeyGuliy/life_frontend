@@ -1,7 +1,8 @@
 <script setup>
-import { useRoomLogic } from "@mixins/useRoomLogic";
 import RoomsList from "@components/elements/Rooms/RoomsList.vue";
 import RoomFilter from "@components/elements/Rooms/RoomFilter.vue";
+
+import { useRoomLogic } from "@composable/useRoomLogic";
 
 const {
   rooms,
