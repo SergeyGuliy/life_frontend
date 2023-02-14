@@ -64,7 +64,7 @@
 import { defineAsyncComponent } from "vue";
 
 import { API_uploadVoice } from "@api/uploader";
-import recordingMixin from "@mixins/recordingMixin";
+import { useRecording } from "@composable/useRecording";
 
 import { useChatKeys } from "@composable/useChatKeys";
 const { getUserIdFromChatKey, getTypeFromChatKey } = useChatKeys();
@@ -81,15 +81,34 @@ const { TEXT, VOICE } = MESSAGE_TYPES;
 
 export default {
   name: "ChatForm",
-  mixins: [recordingMixin],
+
   components: {
     ChatAudio: defineAsyncComponent(() => import("./ChatAudio.vue")),
   },
   setup() {
     const { chats } = useStoreChats();
     const { myUser } = useUsers();
+    const {
+      isRecording,
+      startRecording,
+      stopRecording,
+      isRecordingAvailable,
+      deleteVoice,
+      audio,
+      recordingTime,
+    } = useRecording();
 
-    return { myUser, chats };
+    return {
+      myUser,
+      chats,
+      isRecording,
+      startRecording,
+      stopRecording,
+      isRecordingAvailable,
+      deleteVoice,
+      audio,
+      recordingTime,
+    };
   },
   props: {
     activeChat: {
