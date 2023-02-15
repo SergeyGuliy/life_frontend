@@ -14,10 +14,12 @@ import { useI18n } from "vue-i18n";
 
 import { API_acceptRequest, API_ignoreRequest } from "@api/friendship";
 import { API_kickUser, API_setAdmin } from "@api/rooms";
+import { useStoreFriends } from "@stores/friends";
 
 const { roomId } = useRooms();
 const { connects } = useUsers();
 const { t } = useI18n();
+const { deleteConnection, addFriend, updateConnection } = useStoreFriends();
 const { writeMessage, addToFriend, deleteFriend, openProfile } =
   useUsersActions();
 
@@ -68,7 +70,7 @@ const props = defineProps({
 });
 
 const getTranslation = computed(() => mapTranslations[props.type]);
-const handleClick = () => mapMethods[props.type](this.userId);
+const handleClick = () => mapMethods[props.type](props.userId);
 
 async function kickUser() {
   await API_kickUser(roomId, props.userId);
@@ -82,8 +84,8 @@ async function acceptFriend(userId) {
   await API_acceptRequest(userId)
     .then((data) => {
       const indexToDelete = getIndex(data.friendshipsId);
-      this.$store.commit("friends/deleteConnection", indexToDelete);
-      this.$store.commit("friends/addFriend", data);
+      deleteConnection(indexToDelete);
+      addFriend(data);
     })
     .catch(() => {});
 }
@@ -92,10 +94,7 @@ async function ignoreFriend(userId) {
   await API_ignoreRequest(userId)
     .then((data) => {
       const indexToUpdate = getIndex(data.friendshipsId);
-      this.$store.commit("friends/updateConnection", {
-        indexToUpdate,
-        data,
-      });
+      updateConnection({ indexToUpdate, data });
     })
     .catch(() => {});
 }
