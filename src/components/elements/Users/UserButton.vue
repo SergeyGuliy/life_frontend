@@ -4,15 +4,20 @@
   </v-btn>
 </template>
 
-<script>
+<script setup>
+import { computed } from "vue";
+
 import { useUsersActions } from "@/composable/useUsersActions";
+import { useRooms } from "@composable/useRooms";
+import { useUsers } from "@composable/useUsers";
+import { useI18n } from "vue-i18n";
+
 import { API_acceptRequest, API_ignoreRequest } from "@api/friendship";
 import { API_kickUser, API_setAdmin } from "@api/rooms";
 
-import { useRooms } from "@composable/useRooms";
-import { useUsers } from "../../../composable/useUsers";
 const { roomId } = useRooms();
-
+const { connects } = useUsers();
+const { t } = useI18n();
 const { writeMessage, addToFriend, deleteFriend, openProfile } =
   useUsersActions();
 
@@ -27,105 +32,74 @@ const supportedKeys = [
   "ignoreFriend",
 ];
 
-export default {
-  name: "UserButton",
-
-  setup() {
-    const { connects } = useUsers();
-    return { connects };
-  },
-
-  props: {
-    userId: {
-      type: [Number, null],
-      default: null,
-    },
-    type: {
-      type: String,
-      required: true,
-      validator: (val) => {
-        return supportedKeys.includes(val);
-      },
-    },
-  },
-
-  data() {
-    return {
-      mapTranslations: {
-        writeMessage: this.$t("buttons.writeMessage"),
-        addToFriend: this.$t("buttons.addToFriend"),
-        deleteFriend: this.$t("buttons.deleteFriend"),
-        openProfile: this.$t("buttons.openProfile"),
-        kickUser: this.$t("buttons.kickUser"),
-        setAdmin: this.$t("buttons.setAdmin"),
-        acceptFriend: this.$t("buttons.acceptFriend"),
-        ignoreFriend: this.$t("buttons.ignoreFriend"),
-      },
-      mapMethods: {
-        writeMessage: this.writeMessage,
-        addToFriend: this.addToFriend,
-        deleteFriend: this.deleteFriend,
-        openProfile: this.openProfile,
-        kickUser: this.kickUser,
-        setAdmin: this.setAdmin,
-        acceptFriend: this.acceptFriend,
-        ignoreFriend: this.ignoreFriend,
-      },
-    };
-  },
-
-  computed: {
-    getTranslation() {
-      return this.mapTranslations[this.type];
-    },
-    getMethod() {
-      return this.mapMethods[this.type];
-    },
-  },
-
-  methods: {
-    handleClick() {
-      this.getMethod(this.userId);
-    },
-
-    async kickUser() {
-      await API_kickUser(roomId, this.userId);
-    },
-
-    async setAdmin() {
-      await API_setAdmin(roomId, this.userId);
-    },
-
-    writeMessage,
-    addToFriend,
-    deleteFriend,
-    openProfile,
-
-    async acceptFriend(userId) {
-      await API_acceptRequest(userId)
-        .then((data) => {
-          const indexToDelete = this.getIndex(data.friendshipsId);
-          this.$store.commit("friends/deleteConnection", indexToDelete);
-          this.$store.commit("friends/addFriend", data);
-        })
-        .catch(() => {});
-    },
-
-    async ignoreFriend(userId) {
-      await API_ignoreRequest(userId)
-        .then((data) => {
-          const indexToUpdate = this.getIndex(data.friendshipsId);
-          this.$store.commit("friends/updateConnection", {
-            indexToUpdate,
-            data,
-          });
-        })
-        .catch(() => {});
-    },
-
-    getIndex(friendshipsId) {
-      return this.connects.findIndex((i) => i.friendshipsId === friendshipsId);
-    },
-  },
+const mapTranslations = {
+  writeMessage: t("buttons.writeMessage"),
+  addToFriend: t("buttons.addToFriend"),
+  deleteFriend: t("buttons.deleteFriend"),
+  openProfile: t("buttons.openProfile"),
+  kickUser: t("buttons.kickUser"),
+  setAdmin: t("buttons.setAdmin"),
+  acceptFriend: t("buttons.acceptFriend"),
+  ignoreFriend: t("buttons.ignoreFriend"),
 };
+const mapMethods = {
+  writeMessage: writeMessage,
+  addToFriend: addToFriend,
+  deleteFriend: deleteFriend,
+  openProfile: openProfile,
+  kickUser: kickUser,
+  setAdmin: setAdmin,
+  acceptFriend: acceptFriend,
+  ignoreFriend: ignoreFriend,
+};
+
+const props = defineProps({
+  userId: {
+    type: [Number, null],
+    default: null,
+  },
+  type: {
+    type: String,
+    required: true,
+    validator: (val) => {
+      return supportedKeys.includes(val);
+    },
+  },
+});
+
+const getTranslation = computed(() => mapTranslations[props.type]);
+const handleClick = () => mapMethods[props.type](this.userId);
+
+async function kickUser() {
+  await API_kickUser(roomId, props.userId);
+}
+
+async function setAdmin() {
+  await API_setAdmin(roomId, props.userId);
+}
+
+async function acceptFriend(userId) {
+  await API_acceptRequest(userId)
+    .then((data) => {
+      const indexToDelete = getIndex(data.friendshipsId);
+      this.$store.commit("friends/deleteConnection", indexToDelete);
+      this.$store.commit("friends/addFriend", data);
+    })
+    .catch(() => {});
+}
+
+async function ignoreFriend(userId) {
+  await API_ignoreRequest(userId)
+    .then((data) => {
+      const indexToUpdate = getIndex(data.friendshipsId);
+      this.$store.commit("friends/updateConnection", {
+        indexToUpdate,
+        data,
+      });
+    })
+    .catch(() => {});
+}
+
+const getIndex = (friendshipsId) =>
+  connects.findIndex((i) => i.friendshipsId === friendshipsId);
 </script>

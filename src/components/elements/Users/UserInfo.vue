@@ -1,3 +1,24 @@
+<script setup>
+import { reactive } from "vue";
+
+import { ROOM_TYPES } from "@enums/index.mjs";
+
+const props = defineProps({
+  userData: {
+    required: true,
+    type: Object,
+  },
+  showUserRoomInfo: {
+    default: () => false,
+    type: Boolean,
+  },
+});
+
+const getChipClass = reactive(() =>
+  props.userData.role === ROOM_TYPES.PUBLIC ? "primary" : "warning"
+);
+</script>
+
 <template>
   <div class="UserInfo">
     <div class="d-flex align-center">
@@ -39,24 +60,3 @@
     </v-card-text>
   </div>
 </template>
-
-<script setup>
-import { reactive } from "vue";
-
-import { ROOM_TYPES } from "@enums/index.mjs";
-
-const props = defineProps({
-  userData: {
-    required: true,
-    type: Object,
-  },
-  showUserRoomInfo: {
-    default: () => false,
-    type: Boolean,
-  },
-});
-
-const getChipClass = reactive(() =>
-  props.userData.role === ROOM_TYPES.PUBLIC ? "primary" : "warning"
-);
-</script>

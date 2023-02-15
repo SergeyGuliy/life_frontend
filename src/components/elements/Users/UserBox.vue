@@ -1,3 +1,39 @@
+<script setup>
+import { computed, defineProps, onMounted, ref } from "vue";
+
+import UserInfo from "./UserInfo.vue";
+import { useUsers } from "@composable/useUsers";
+
+const { myUser } = useUsers();
+
+const props = defineProps({
+  userData: {
+    required: true,
+    type: [Object, undefined],
+  },
+  showUserRoomInfo: {
+    default: () => false,
+    type: Boolean,
+  },
+});
+
+const timestamp = ref(new Date());
+
+const userDataLocal = computed(() => {
+  const userData = this.$filters.dictGetUserById(this.userData?.userId);
+  if (timestamp.value) return userData;
+  return userData;
+});
+const isYou = computed(() => userDataLocal.value?.userId === myUser?.userId);
+const userIdExists = computed(() => props.userData?.userId);
+
+onMounted(() => {
+  setInterval(() => {
+    timestamp.value = new Date();
+  }, 1000);
+});
+</script>
+
 <template>
   <v-card class="UserBox" v-if="userIdExists">
     <UserInfo :userData="userData" :showUserRoomInfo="showUserRoomInfo" />
@@ -6,55 +42,3 @@
     </v-card-actions>
   </v-card>
 </template>
-
-<script>
-import { defineAsyncComponent } from "vue";
-import { useUsers } from "../../../composable/useUsers";
-
-export default {
-  name: "UserBox",
-  components: {
-    UserInfo: defineAsyncComponent(() => import("./UserInfo.vue")),
-  },
-  setup() {
-    const { myUser } = useUsers();
-    return { myUser };
-  },
-
-  props: {
-    userData: {
-      required: true,
-      type: [Object, undefined],
-    },
-    showUserRoomInfo: {
-      default: () => false,
-      type: Boolean,
-    },
-  },
-  data() {
-    return {
-      timestamp: new Date(),
-    };
-  },
-  mounted() {
-    setInterval(() => {
-      this.timestamp = new Date();
-    }, 1000);
-  },
-  computed: {
-    isYou() {
-      return this.userDataLocal?.userId === this.myUser?.userId;
-    },
-
-    userIdExists() {
-      return this.userData?.userId;
-    },
-
-    userDataLocal() {
-      const userData = this.$filters.dictGetUserById(this.userData?.userId);
-      if (this.timestamp) return userData;
-      return userData;
-    },
-  },
-};
-</script>

@@ -1,3 +1,37 @@
+<script setup>
+import { computed, defineProps } from "vue";
+
+import UserBox from "./UserBox.vue";
+
+const props = defineProps({
+  emptyText: {
+    type: String,
+    required: false,
+  },
+  users: {
+    type: Array,
+    default: () => [],
+  },
+  showUserRoomInfo: {
+    default: () => false,
+    type: Boolean,
+  },
+  sortType: {
+    default: () => null,
+    type: String,
+  },
+});
+
+const sortedUsers = computed(() => {
+  if (props.sortType === "adminFirst") {
+    return [...props.users].sort((user) =>
+      user.roomCreatedId === user.roomJoinedId ? -1 : 1
+    );
+  }
+  return props.users;
+});
+</script>
+
 <template>
   <div class="UsersList">
     <template v-if="users.length">
@@ -17,42 +51,3 @@
     </div>
   </div>
 </template>
-
-<script>
-import { defineAsyncComponent } from "vue";
-
-export default {
-  name: "UsersList",
-  props: {
-    emptyText: {
-      type: String,
-      required: false,
-    },
-    users: {
-      type: Array,
-      default: () => [],
-    },
-    showUserRoomInfo: {
-      default: () => false,
-      type: Boolean,
-    },
-    sortType: {
-      default: () => null,
-      type: String,
-    },
-  },
-  components: {
-    UserBox: defineAsyncComponent(() => import("./UserBox.vue")),
-  },
-  computed: {
-    sortedUsers() {
-      if (this.sortType === "adminFirst") {
-        return [...this.users].sort((user) =>
-          user.roomCreatedId === user.roomJoinedId ? -1 : 1
-        );
-      }
-      return this.users;
-    },
-  },
-};
-</script>
