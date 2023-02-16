@@ -6,10 +6,11 @@ import { clearLocalStorageKeys } from "../utils/localStorageKeys";
 import { API_refreshToken, API_registration, API_login } from "@api/auth";
 import { i18n } from "../plugins/modules/globalContext/modules/i18n";
 import { useVuetifyTheme } from "./useVuetifyTheme";
+import { router } from "../plugins/modules/globalContext/modules/router";
 
 export function useAuth() {
   const route = useRoute();
-  const router = useRouter();
+  // const router = useRouter();
   const { setTheme } = useVuetifyTheme();
   const { setUser, cleanUser } = useStoreAuth();
   const { openModal } = useModal();
@@ -43,6 +44,8 @@ export function useAuth() {
     cleanUser();
     setTheme(false);
     // socketDisconnect();
+    console.log(router);
+    console.log(router.currentRoute.value);
     await router.push({ name: "Auth" });
   }
 

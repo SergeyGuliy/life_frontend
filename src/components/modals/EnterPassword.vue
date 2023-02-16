@@ -13,8 +13,8 @@
           <v-text-field
             v-model="roomPassword"
             :type="showPassword ? 'password' : 'text'"
-            @click:append="showPassword = !showPassword"
-            :append-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
+            @click:appendInner="showPassword = !showPassword"
+            :append-inner-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
             outlined
             dense
           />

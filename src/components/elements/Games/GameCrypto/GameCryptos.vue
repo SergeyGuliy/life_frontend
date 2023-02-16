@@ -13,7 +13,7 @@
     <template v-slot:top>
       <v-text-field
         v-model="filterName"
-        append-icon="mdi-magnify"
+        append-inner-icon="mdi-magnify"
         label="Search"
         single-line
         outlined

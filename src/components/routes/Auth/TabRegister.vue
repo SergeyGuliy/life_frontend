@@ -18,9 +18,9 @@
           outlined
         />
         <v-text-field
-          :append-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
+          :append-inner-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
           :type="showPassword ? 'password' : 'text'"
-          @click:append="showPassword = !showPassword"
+          @click:appendInner="showPassword = !showPassword"
           v-model="authData.password"
           :rules="rules.password"
           label="Введите пароль"
@@ -28,9 +28,9 @@
           outlined
         />
         <v-text-field
-          :append-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
+          :append-inner-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
           :type="showPassword ? 'password' : 'text'"
-          @click:append="showPassword = !showPassword"
+          @click:appendInner="showPassword = !showPassword"
           v-model="authData.passwordRepeat"
           :rules="rules.passwordRepeat"
           label="Повторите пароль"

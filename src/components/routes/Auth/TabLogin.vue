@@ -9,8 +9,8 @@
           label="Введите email"
           placeholder="Placeholder"
           outlined
-          @click:append="isEmailMode = false"
-          append-icon="mdi-cellphone-android"
+          @click:appendInner="isEmailMode = false"
+          append-inner-icon="mdi-cellphone-android"
         />
         <v-text-field
           v-else
@@ -20,8 +20,8 @@
           label="Введите телефон"
           placeholder="Placeholder"
           outlined
-          @click:append="isEmailMode = true"
-          append-icon="mdi-email"
+          @click:appendInner="isEmailMode = true"
+          append-inner-icon="mdi-email"
         />
         <v-text-field
           v-model="authData.password"
@@ -30,8 +30,8 @@
           placeholder="Placeholder"
           outlined
           :type="showPassword ? 'password' : 'text'"
-          @click:append="showPassword = !showPassword"
-          :append-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
+          @click:appendInner="showPassword = !showPassword"
+          :append-inner-icon="showPassword ? 'mdi-lock' : 'mdi-lock-open'"
         />
         <v-btn color="primary" block @click="logInAction"> Войти </v-btn>
       </v-form>

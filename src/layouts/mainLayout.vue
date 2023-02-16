@@ -6,7 +6,7 @@
       <v-container>
         <slot />
       </v-container>
-      <!--      <Chat v-if="$route.name !== 'Messages'" />-->
+      <Chat v-if="$route.name !== 'Messages'" />
     </v-main>
   </div>
 </template>
@@ -25,7 +25,7 @@ import {
 } from "../utils/api/modules/friendship";
 import { useStoreFriends } from "../stores/friends";
 import { useChatLogic } from "../composable/useChatLogic";
-// import Chat from "../components/layouts/Chat/Chat.vue";
+import Chat from "../components/layouts/Chat/Chat.vue";
 
 export default {
   name: "mainLayout",
@@ -41,7 +41,7 @@ export default {
   components: {
     SideBar,
     NavBar,
-    // Chat,
+    Chat,
   },
   data() {
     return {

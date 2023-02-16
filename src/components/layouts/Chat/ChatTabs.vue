@@ -1,27 +1,15 @@
-<template>
-  <v-tabs v-model="activeChatLocal" :vertical="vertical">
-    <v-tab
-      v-for="(chatTab, index) in chatTabs"
-      :key="index"
-      class="ma-0"
-      :href="`#${chatTab}`"
-    >
-      {{ $filters.getChatTabName(chatTab) }}
-    </v-tab>
-  </v-tabs>
-</template>
-
 <script setup>
 import { computed } from "vue";
 
 import { useStoreChats } from "@stores/chats";
+import { getChatTabName } from "../../../plugins/modules/globalFilters/filters/getChatTabName";
 const { chatTabs } = useStoreChats();
 
-const emit = defineEmits(["input"]);
+const emit = defineEmits(["update:modelValue"]);
 const props = defineProps({
-  value: {
+  modelValue: {
     required: true,
-    type: String,
+    type: [String, Number],
   },
   vertical: {
     default: () => false,
@@ -34,7 +22,20 @@ const activeChatLocal = computed({
     return props.value;
   },
   set(val) {
-    emit("input", val);
+    emit("update:modelValue", val);
   },
 });
 </script>
+
+<template>
+  <v-tabs v-model="activeChatLocal" :vertical="vertical">
+    <v-tab
+      v-for="(chatTab, index) in chatTabs"
+      :key="index"
+      class="ma-0"
+      :href="`#${chatTab}`"
+    >
+      {{ getChatTabName(chatTab) }}
+    </v-tab>
+  </v-tabs>
+</template>

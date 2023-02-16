@@ -8,7 +8,7 @@ import { i18n } from "../../globalContext/modules/i18n";
 export const getChatTabName = (chatTab) => {
   const { chats } = useStoreChats();
 
-  const { t } = i18n;
+  const { t } = i18n.global;
 
   if (chats[chatTab].key === GLOBAL) {
     return t(`enums.${GLOBAL}`);

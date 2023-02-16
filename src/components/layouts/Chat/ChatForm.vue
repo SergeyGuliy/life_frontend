@@ -1,3 +1,79 @@
+<script setup>
+import { defineProps, ref } from "vue";
+
+import ChatAudio from "./ChatAudio.vue";
+
+import { API_uploadVoice } from "@api/uploader";
+import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "@enums";
+import { chat_messageToServer } from "@constants/ws/chats.mjs";
+
+import { useRecording } from "@composable/useRecording";
+import { useChatKeys } from "@composable/useChatKeys";
+import { useSocket } from "@composable/useSocket";
+import { useUsers } from "@composable/useUsers";
+import { useStoreChats } from "@stores/chats";
+
+const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
+const { TEXT, VOICE } = MESSAGE_TYPES;
+
+const { getUserIdFromChatKey, getTypeFromChatKey } = useChatKeys();
+const { chats } = useStoreChats();
+const { myUser } = useUsers();
+const { socketEmit } = useSocket();
+const {
+  isRecording,
+  startRecording,
+  stopRecording,
+  deleteVoice,
+  audio,
+  recordingTime,
+  isRecordingAvailable,
+} = useRecording();
+
+const props = defineProps({
+  activeChat: {
+    required: true,
+    type: [String, Number],
+  },
+});
+
+const newMessage = ref("");
+
+async function sendMessage(event) {
+  event.preventDefault();
+  if (!(newMessage.value.length || audio)) return;
+  const activeChat = getTypeFromChatKey(props.activeChat);
+  const messageData = {
+    messageSender: myUser.userId,
+    messageReceiverType: activeChat,
+    messageType: audio ? VOICE : TEXT,
+  };
+  if (audio) {
+    const voice = new File([audio.audioBlob], "voice.pm3", {
+      lastModified: new Date().getTime(),
+      type: "audio/mpeg",
+    });
+
+    const formData = new FormData();
+    formData.append("voice", voice);
+    await API_uploadVoice(formData).then((audioId) => {
+      messageData.messageVoice = audioId;
+    });
+  } else {
+    messageData.messageText = newMessage.value;
+  }
+  if (activeChat === ROOM) {
+    messageData.messageReceiverRoomId = chats[ROOM].roomId;
+  }
+  if (activeChat === PRIVATE) {
+    messageData.messageReceiverUserId = getUserIdFromChatKey(props.activeChat);
+  }
+  socketEmit(chat_messageToServer, messageData);
+  newMessage.value = "";
+  audio.value = null;
+}
+</script>
+
 <template>
   <v-card-actions class="ChatForm">
     <v-form class="d-flex align-stretch" style="width: 100%">
@@ -43,7 +119,7 @@
         </v-btn>
         <v-btn
           v-else
-          :disabled="!isRecordingAvaliable"
+          :disabled="!isRecordingAvailable"
           dark
           small
           :color="isRecording ? 'red' : 'primary'"
@@ -59,107 +135,6 @@
     </v-form>
   </v-card-actions>
 </template>
-
-<script>
-import { defineAsyncComponent } from "vue";
-
-import { API_uploadVoice } from "@api/uploader";
-import { useRecording } from "@composable/useRecording";
-
-import { useChatKeys } from "@composable/useChatKeys";
-const { getUserIdFromChatKey, getTypeFromChatKey } = useChatKeys();
-
-import { useSocket } from "@composable/useSocket";
-const { socketEmit } = useSocket();
-
-import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "@enums";
-import { chat_messageToServer } from "@constants/ws/chats.mjs";
-import { useUsers } from "../../../composable/useUsers";
-import { useStoreChats } from "../../../stores/chats";
-const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
-const { TEXT, VOICE } = MESSAGE_TYPES;
-
-export default {
-  name: "ChatForm",
-
-  components: {
-    ChatAudio: defineAsyncComponent(() => import("./ChatAudio.vue")),
-  },
-  setup() {
-    const { chats } = useStoreChats();
-    const { myUser } = useUsers();
-    const {
-      isRecording,
-      startRecording,
-      stopRecording,
-      isRecordingAvailable,
-      deleteVoice,
-      audio,
-      recordingTime,
-    } = useRecording();
-
-    return {
-      myUser,
-      chats,
-      isRecording,
-      startRecording,
-      stopRecording,
-      isRecordingAvailable,
-      deleteVoice,
-      audio,
-      recordingTime,
-    };
-  },
-  props: {
-    activeChat: {
-      required: true,
-      type: String,
-    },
-  },
-  data() {
-    return {
-      newMessage: "",
-    };
-  },
-  methods: {
-    async sendMessage(event) {
-      event.preventDefault();
-      if (!(this.newMessage.length || this.audio)) return;
-      const activeChat = getTypeFromChatKey(this.activeChat);
-      const messageData = {
-        messageSender: this.myUser.userId,
-        messageReceiverType: activeChat,
-        messageType: this.audio ? VOICE : TEXT,
-      };
-      if (this.audio) {
-        const voice = new File([this.audio.audioBlob], "voice.pm3", {
-          lastModified: new Date().getTime(),
-          type: "audio/mpeg",
-        });
-
-        const formData = new FormData();
-        formData.append("voice", voice);
-        await API_uploadVoice(formData).then((audioId) => {
-          messageData.messageVoice = audioId;
-        });
-      } else {
-        messageData.messageText = this.newMessage;
-      }
-      if (activeChat === ROOM) {
-        messageData.messageReceiverRoomId = this.chats[ROOM].roomId;
-      }
-      if (activeChat === PRIVATE) {
-        messageData.messageReceiverUserId = getUserIdFromChatKey(
-          this.activeChat
-        );
-      }
-      socketEmit(chat_messageToServer, messageData);
-      this.newMessage = "";
-      this.audio = null;
-    },
-  },
-};
-</script>
 
 <style lang="scss">
 .ChatForm {

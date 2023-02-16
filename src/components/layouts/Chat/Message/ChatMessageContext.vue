@@ -1,95 +1,90 @@
+<script setup>
+import { useEventsListener } from "@composable/useEventsListener";
+import { useUsersActions } from "@composable/useUsersActions";
+import { useBus } from "@composable/useBus";
+import { defineProps, onUnmounted, reactive, ref } from "vue";
+
+const { writeMessage, addToFriend, openProfile } = useUsersActions();
+const { busInit } = useBus();
+
+defineProps({
+  messageSenderId: {},
+  messageId: {},
+});
+
+const showMenu = ref(false);
+const coords = reactive({
+  x: 0,
+  y: 0,
+});
+const items = ref([
+  {
+    title: this.$t("buttons.openProfile"),
+    action: openProfile,
+  },
+  {
+    title: this.$t("buttons.writeMessage"),
+    action: writeMessage,
+  },
+  {
+    title: this.$t("buttons.addToFriend"),
+    action: addToFriend,
+  },
+]);
+
+onUnmounted(() => {
+  busInit({
+    clickOutside: hideContextMenu,
+    openContext: openContext,
+  });
+
+  useEventsListener({
+    scroll: [hideContextMenu, document],
+  });
+});
+
+function hideContextMenu() {
+  showMenu.value = false;
+  coords.x = 0;
+  coords.y = 0;
+}
+
+function openContext(messageId) {
+  const otherMessageOpened = messageId !== this.messageId;
+
+  if (otherMessageOpened && this.showMenu) {
+    showMenu.value = false;
+  }
+}
+
+function showContextMenu(e) {
+  showMenu.value = false;
+  setTimeout(() => {
+    showMenu.value = true;
+    coords.x = e.clientX;
+    coords.y = e.clientY;
+  }, 0);
+}
+</script>
+
 <template>
   <v-menu
     v-model="showMenu"
-    :position-x="x"
-    :position-y="y"
+    :position-x="coords.x"
+    :position-y="coords.y"
     absolute
     offset-y
     transition="scale-transition"
   >
     <v-list v-if="showMenu">
-      <template v-for="({ action, title }, index) in items">
-        <v-list-item :key="index" link @click="action(messageSenderId)">
-          <v-list-item-title>{{ title }}</v-list-item-title>
-        </v-list-item>
-      </template>
+      <v-list-item
+        v-for="({ action, title }, index) in items"
+        :key="index"
+        link
+        @click="action(messageSenderId)"
+      >
+        <v-list-item-title>{{ title }}</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-menu>
 </template>
-
-<script>
-import { useEventsListener } from "@composable/useEventsListener";
-
-import { useUsersActions } from "@composable/useUsersActions";
-const { writeMessage, addToFriend, openProfile } = useUsersActions();
-
-import { useBus } from "@composable/useBus";
-const { busInit } = useBus();
-
-export default {
-  name: "ChatMessageContext",
-
-  props: {
-    messageSenderId: {},
-    messageId: {},
-  },
-
-  data() {
-    return {
-      showMenu: false,
-      x: 0,
-      y: 0,
-      items: [
-        {
-          title: this.$t("buttons.openProfile"),
-          action: openProfile,
-        },
-        {
-          title: this.$t("buttons.writeMessage"),
-          action: writeMessage,
-        },
-        {
-          title: this.$t("buttons.addToFriend"),
-          action: addToFriend,
-        },
-      ],
-    };
-  },
-
-  mounted() {
-    busInit({
-      clickOutside: this.hideContextMenu,
-      openContext: this.openContext,
-    });
-
-    useEventsListener({
-      scroll: [this.hideContextMenu, document],
-    });
-  },
-
-  methods: {
-    hideContextMenu() {
-      this.showMenu = false;
-      this.x = 0;
-      this.y = 0;
-    },
-
-    openContext(messageId) {
-      const otherMessageOpened = messageId !== this.messageId;
-
-      if (otherMessageOpened && this.showMenu) {
-        this.showMenu = false;
-      }
-    },
-
-    showContextMenu(e) {
-      this.showMenu = false;
-      setTimeout(() => {
-        this.showMenu = true;
-        this.x = e.clientX;
-        this.y = e.clientY;
-      }, 0);
-    },
-  },
-};
-</script>

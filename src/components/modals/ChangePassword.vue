@@ -14,11 +14,11 @@
                 :type="passwordVisibility.oldPassword ? 'password' : 'text'"
                 :label="$t('forms.labels.enterOldPassword')"
                 :rules="rules.oldPassword"
-                @click:append="
+                @click:appendInner="
                   passwordVisibility.oldPassword =
                     !passwordVisibility.oldPassword
                 "
-                :append-icon="
+                :append-inner-icon="
                   passwordVisibility.oldPassword ? 'mdi-lock' : 'mdi-lock-open'
                 "
                 outlined
@@ -31,11 +31,11 @@
                 :type="passwordVisibility.newPassword ? 'password' : 'text'"
                 :label="$t('forms.labels.enterNewPassword')"
                 :rules="rules.newPassword"
-                @click:append="
+                @click:appendInner="
                   passwordVisibility.newPassword =
                     !passwordVisibility.newPassword
                 "
-                :append-icon="
+                :append-inner-icon="
                   passwordVisibility.newPassword ? 'mdi-lock' : 'mdi-lock-open'
                 "
                 outlined
@@ -50,11 +50,11 @@
                   passwordVisibility.newPasswordRepeat ? 'password' : 'text'
                 "
                 :rules="rules.newPasswordRepeat"
-                @click:append="
+                @click:appendInner="
                   passwordVisibility.newPasswordRepeat =
                     !passwordVisibility.newPasswordRepeat
                 "
-                :append-icon="
+                :append-inner-icon="
                   passwordVisibility.newPasswordRepeat
                     ? 'mdi-lock'
                     : 'mdi-lock-open'

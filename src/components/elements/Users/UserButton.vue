@@ -1,9 +1,3 @@
-<template>
-  <v-btn @click="handleClick" v-if="userId">
-    {{ getTranslation }}
-  </v-btn>
-</template>
-
 <script setup>
 import { computed } from "vue";
 
@@ -102,3 +96,9 @@ async function ignoreFriend(userId) {
 const getIndex = (friendshipsId) =>
   connects.findIndex((i) => i.friendshipsId === friendshipsId);
 </script>
+
+<template>
+  <v-btn @click="handleClick" v-if="userId">
+    {{ getTranslation }}
+  </v-btn>
+</template>

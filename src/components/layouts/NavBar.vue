@@ -1,6 +1,33 @@
+<script setup>
+import { defineEmits, defineProps, ref } from "vue";
+
+import { LOCALES_WITH_KEYS } from "@enums";
+import { useLocale } from "@composable/useLocale";
+import { useVuetifyTheme } from "@composable/useVuetifyTheme";
+import { useAuth } from "@composable/useAuth";
+
+const emit = defineEmits(["update:modelValue"]);
+defineProps({
+  modelValue: {
+    type: Boolean,
+    required: true,
+  },
+});
+
+const { changeLocale } = useLocale();
+const { logOutMiddleware } = useAuth();
+const { toggleTheme } = useVuetifyTheme();
+
+const items = ref([
+  { title: "English", key: "en" },
+  { title: "Russian", key: "ru" },
+]);
+const localesWithKeys = ref(LOCALES_WITH_KEYS);
+</script>
+
 <template>
   <v-app-bar app class="NavBar">
-    <v-btn icon @click="$emit('update:modelValue', !modelValue)">
+    <v-btn icon @click="emit('update:modelValue', !modelValue)">
       <v-icon icon="mdi-menu" />
     </v-btn>
 
@@ -15,7 +42,7 @@
       <v-list class="lang-selector__list">
         <v-list-item
           link
-          v-for="(item, index) in LOCALES_WITH_KEYS"
+          v-for="(item, index) in localesWithKeys"
           :key="index"
           @click="changeLocale(item.key)"
         >
@@ -34,47 +61,3 @@
   </v-app-bar>
 </template>
 
-<script>
-import { LOCALES_WITH_KEYS } from "@enums";
-
-import { useLocale } from "../../composable/useLocale";
-import { useVuetifyTheme } from "../../composable/useVuetifyTheme";
-import { useAuth } from "../../composable/useAuth";
-
-export default {
-  name: "NavBar",
-  emits: ["update:modelValue"],
-
-  setup() {
-    const { changeLocale } = useLocale();
-    const { logOutMiddleware } = useAuth();
-    const { toggleTheme } = useVuetifyTheme();
-
-    return { toggleTheme, changeLocale, logOutMiddleware };
-  },
-
-  data() {
-    return {
-      LOCALES_WITH_KEYS,
-      items: [
-        { title: "English", key: "en" },
-        { title: "Russian", key: "ru" },
-      ],
-    };
-  },
-
-  props: {
-    modelValue: {
-      type: Boolean,
-      required: true,
-    },
-  },
-};
-</script>
-
-<style lang="scss">
-.NavBar {
-  .lang-selector {
-  }
-}
-</style>

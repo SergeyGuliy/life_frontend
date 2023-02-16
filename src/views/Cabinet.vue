@@ -49,7 +49,7 @@
             outlined
             show-size
             prepend-icon=""
-            append-icon="mdi-camera"
+            append-inner-icon="mdi-camera"
             truncate-length="50"
             accept="image/png, image/jpeg, image/bmp"
             v-model="imgFile"

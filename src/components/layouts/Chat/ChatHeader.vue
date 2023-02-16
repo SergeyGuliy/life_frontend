@@ -7,7 +7,7 @@
     </v-btn>
     <v-btn
       v-if="showClose"
-      @click="$emit('input', !value)"
+      @click="$emit('update:modelValue', !value)"
       color="blue darken-2"
     >
       <v-icon> mdi-close </v-icon>
@@ -22,12 +22,13 @@ import { ProfileSettingsParser } from "@utils/parsers";
 
 import { useModal } from "@composable/useModal";
 import { useUsers } from "../../../composable/useUsers";
-const { openModal } = useModal();
+import { getChatTabName } from "../../../plugins/modules/globalFilters/filters/getChatTabName";
 
 export default {
   name: "ChatHeader",
+  emits: ["update:modelValue"],
   props: {
-    value: {
+    modelValue: {
       required: false,
       type: Boolean,
     },
@@ -37,17 +38,19 @@ export default {
     },
     activeChat: {
       required: false,
-      type: String,
+      type: [String, Number],
     },
   },
   setup() {
     const { myUser } = useUsers();
-    return { myUser };
+    const { openModal } = useModal();
+
+    return { myUser, openModal, getChatTabName };
   },
   computed: {
     getChatName() {
       if (this.activeChat) {
-        return this.$filters.getChatTabName(this.activeChat);
+        return this.getChatTabName(this.activeChat);
       } else {
         return "Chat";
       }
@@ -65,7 +68,7 @@ export default {
     async openChatSettingsModal() {
       const chatType = this.getChatType(this.activeChat);
       let { chatSettings } = new ProfileSettingsParser(this.myUser);
-      await openModal("VoiceSettingsModal", {
+      await this.openModal("VoiceSettingsModal", {
         chatType,
         chatSettings,
       }).catch((e) => {

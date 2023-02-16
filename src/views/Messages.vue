@@ -15,8 +15,8 @@
 </template>
 
 <script>
-// import { MESSAGE_RECEIVER_TYPES } from "@enums.js";
-// const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
+import { MESSAGE_RECEIVER_TYPES } from "@enums/index.mjs";
+const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
 
 import { defineAsyncComponent } from "vue";
 
@@ -51,7 +51,7 @@ export default {
 
   data() {
     return {
-      activeChat: "GLOBAL",
+      activeChat: GLOBAL,
     };
   },
   methods: {
@@ -62,8 +62,8 @@ export default {
       this.activeChat = chatName;
     },
     userLeaveChat() {
-      if (this.activeChat === "ROOM") {
-        this.activeChat = "GLOBAL";
+      if (this.activeChat === ROOM) {
+        this.activeChat = GLOBAL;
       }
     },
   },
