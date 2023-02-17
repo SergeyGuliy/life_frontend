@@ -26,13 +26,15 @@ import { useBus } from "@composable/useBus";
 const { busEmit } = useBus();
 
 import { useUsers } from "@composable/useUsers";
+import { useAuth } from "./composable/useAuth";
 
 export default {
   name: "App",
 
   setup() {
+    const { logOut } = useAuth();
     const { myUser } = useUsers();
-    return { myUser };
+    return { myUser, logOut };
   },
 
   components: {
@@ -65,8 +67,7 @@ export default {
     },
     async forceDisconnect() {
       if (this.$route.meta.layout === "mainLayout") {
-        await this.$store.dispatch("auth/logOut");
-        await this.$router.push({ name: "Closer" });
+        await this.logOut("Closer");
       }
     },
 

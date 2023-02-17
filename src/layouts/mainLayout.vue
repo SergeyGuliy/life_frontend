@@ -26,6 +26,7 @@ import {
 import { useStoreFriends } from "../stores/friends";
 import { useChatLogic } from "../composable/useChatLogic";
 import Chat from "../components/layouts/Chat/Chat.vue";
+import { useStoreAuth } from "../stores/user";
 
 export default {
   name: "mainLayout",
@@ -35,8 +36,9 @@ export default {
 
     const { myUser } = useUsers();
     const { setFriends, setConnections } = useStoreFriends();
+    const { setUserSettings } = useStoreAuth();
 
-    return { myUser, setFriends, setConnections };
+    return { myUser, setFriends, setConnections, setUserSettings };
   },
   components: {
     SideBar,
@@ -64,26 +66,18 @@ export default {
 
   watch: {
     "$vuetify.theme.dark"(val) {
-      if (this.myUser) {
-        API_changeTheme({ isDarkTheme: val })
-          .then((data) => {
-            this.$store.commit("user/setUserSettings", data);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      }
+      if (!this.myUser) return;
+
+      API_changeTheme({ isDarkTheme: val })
+        .then((data) => this.setUserSettings(data))
+        .catch((e) => console.log(e));
     },
     "$i18n.locale"(val) {
-      if (this.myUser) {
-        API_changeLocale({ locale: val })
-          .then((data) => {
-            this.$store.commit("user/setUserSettings", data);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      }
+      if (!this.myUser) return;
+
+      API_changeLocale({ locale: val })
+        .then((data) => this.setUserSettings(data))
+        .catch((e) => console.log(e));
     },
   },
 };

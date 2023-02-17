@@ -13,6 +13,7 @@ export function useChatKeys() {
     return chatKey.split("_")[1];
   }
   function getTypeFromChatKey(chatKey) {
+    console.log(chatKey);
     return chatKey.split("_")[0];
   }
   return {

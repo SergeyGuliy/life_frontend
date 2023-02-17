@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { SOUNDS_WITH_FILES } from "@enums";
+import { SOUNDS_WITH_FILES } from "@utils/enums";
 import { defineAsyncComponent } from "vue";
 
 export default {

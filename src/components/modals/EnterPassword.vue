@@ -36,13 +36,15 @@
 <script>
 import { useModal } from "../../composable/useModal";
 import { API_joinRoom } from "@api/rooms";
+import { useStoreAuth } from "../../stores/user";
 
 export default {
   name: "EnterPassword",
 
   setup() {
+    const { setJoinedRoom } = useStoreAuth();
     const { data, component, closeModal } = useModal();
-    return { data, component, closeModal };
+    return { data, component, closeModal, setJoinedRoom };
   },
   data() {
     return {
@@ -54,7 +56,7 @@ export default {
     enterRoom() {
       API_joinRoom(this.data.roomId, this.roomPassword)
         .then((data) => {
-          this.$store.commit("user/joinRoom", data.roomJoinedId);
+          this.setJoinedRoom(data.roomJoinedId);
           this.closeModal(true);
           this.$router.push({
             name: "RoomId",

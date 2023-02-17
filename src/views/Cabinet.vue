@@ -240,6 +240,7 @@ const { openModal } = useModal();
 
 import { API_uploadAvatar } from "@api/uploader";
 import { useUsers } from "../composable/useUsers";
+import { useStoreAuth } from "../stores/user";
 
 export default {
   name: "Cabinet",
@@ -253,9 +254,9 @@ export default {
     const { changeLocale } = useLocale();
     const { updateUserSettings } = useUserSettings();
     const { myUser } = useUsers();
-    return { myUser };
+    const { setProfileSettings } = useStoreAuth();
 
-    return { changeLocale, updateUserSettings, myUser };
+    return { changeLocale, updateUserSettings, myUser, setProfileSettings };
   },
 
   data() {
@@ -290,8 +291,8 @@ export default {
   methods: {
     parseDefaultData() {
       let profileSettings = new ProfileSettingsParser(this.myUser);
-      this.$set(this, "profileSettings", profileSettings.getProfileSettings);
-      this.$set(this, "chatSettings", profileSettings.getChatSettings);
+      this.profileSettings = profileSettings.getProfileSettings;
+      this.chatSettings = profileSettings.getChatSettings;
     },
     clickInput() {
       document.querySelector("#avatarInput").click();
@@ -306,7 +307,7 @@ export default {
       const formData = new FormData();
       formData.append("avatarImg", this.imgFile);
       let data = await API_uploadAvatar(formData);
-      this.$store.commit("user/setProfileSettings", data);
+      this.setProfileSettings(data);
     },
     async changePassword() {
       await openModal("ChangePassword").catch(() => {});

@@ -33,7 +33,7 @@ import { cloneDeep } from "lodash";
 import { useUserSettings } from "../../composable/useUserSettings";
 import { useModal } from "../../composable/useModal";
 
-// import { SOUNDS_WITH_FILES } from "@enums";
+import { SOUNDS_WITH_FILES } from "@utils/enums";
 
 export default {
   name: "VoiceSettingsModal",
@@ -52,7 +52,7 @@ export default {
   },
   data() {
     return {
-      // SOUNDS_WITH_FILES,
+      SOUNDS_WITH_FILES,
       chatSettings: null,
     };
   },
@@ -62,17 +62,18 @@ export default {
         return this.chatSettings[this.data.chatType];
       },
       set(val) {
-        this.$set(this.chatSettings, this.data.chatType, cloneDeep(val));
+        this.chatSettings[this.data.chatType] = cloneDeep(val);
       },
     },
   },
   created() {
-    this.$set(this, "chatSettings", cloneDeep(this.data.chatSettings));
+    this.chatSettings = cloneDeep(this.data.chatSettings);
   },
+
   methods: {
     updateUserSettingsHandler() {
-      this.updateUserSettings({ chatSettings: this.chatSettings }).then(() =>
-        this.closeModal()
+      this.updateUserSettings({ chatSettings: this.chatSettings }).then(
+        this.closeModal
       );
     },
   },

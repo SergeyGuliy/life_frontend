@@ -39,14 +39,14 @@ export function useAuth() {
     }
   }
 
-  async function logOut() {
+  async function logOut(logoutRedirectRoute = "Auth") {
     clearLocalStorageKeys();
     cleanUser();
     setTheme(false);
     // socketDisconnect();
     console.log(router);
     console.log(router.currentRoute.value);
-    await router.push({ name: "Auth" });
+    await router.push({ name: logoutRedirectRoute });
   }
 
   async function logOutMiddleware() {

@@ -21,26 +21,26 @@ import {
   rooms_userKickedFromRoom,
 } from "@constants/ws/rooms.mjs";
 
+import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
 import { useModal } from "@composable/useModal";
+import { useSocket } from "@composable/useSocket";
+import { useRooms } from "@composable/useRooms";
+import { useUsers } from "@composable/useUsers";
+import { useGame } from "@composable/useGame";
+import { useStoreAuth } from "@stores/user";
+import { useStoreRooms } from "@stores/room";
+
+const router = useRouter();
+const { t } = useI18n();
+const { onSocketInit, socketEmit } = useSocket();
 const { openModal } = useModal();
 
-import { useSocket } from "@composable/useSocket";
-const { onSocketInit, socketEmit } = useSocket();
-
-import { useRooms } from "@composable/useRooms";
-let { roomId, usersInRoom, roomData } = useRooms();
-
-import { useUsers } from "@composable/useUsers";
 const { myUser } = useUsers();
-
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
-
-import { useRouter } from "vue-router";
-const router = useRouter();
-
-import { useGame } from "@composable/useGame";
 const { gameId } = useGame();
+const { leaveRoom, setRoomId, leaveRoomAction } = useStoreAuth();
+const { updateUser, kickUser } = useStoreRooms();
+let { roomId, usersInRoom, roomData } = useRooms();
 
 onBeforeMount(() => {
   API_getRoomById(roomId)
@@ -61,10 +61,7 @@ onBeforeMount(() => {
         games_gameStarted: gameStarted,
       });
     })
-    .catch(() => {
-      this.$store.commit("user/leaveRoom");
-      router.push({ name: "Home" });
-    });
+    .catch(exitRoom);
 });
 
 onBeforeRouteLeave(async (to, from, next) => {
@@ -77,7 +74,7 @@ onBeforeRouteLeave(async (to, from, next) => {
       cancel: t("buttons.cancel"),
     })
       .then(async () => {
-        await this.$store.dispatch("user/leaveRoomAction");
+        await leaveRoomAction();
         next();
       })
       .catch((e) => {
@@ -91,41 +88,40 @@ function updateUserListInRoom(argUsersInRoom) {
 }
 
 function updateRoomAdmin(newAdmin) {
-  let indexOldAdmin = usersInRoom.findIndex(
-    (user) => typeof user.roomCreatedId === "number"
+  let oldAdminId = usersInRoom.findIndex(
+    ({ roomCreatedId }) => typeof roomCreatedId === "number"
   );
-  this.$store.commit("room/updateUser", {
-    index: indexOldAdmin,
+
+  updateUser({
+    index: oldAdminId,
     userData: {
       roomCreatedId: null,
     },
   });
 
   let indexNewAdmin = usersInRoom.findIndex(
-    (user) => user.userId === newAdmin.userId
+    ({ userId }) => userId === newAdmin.userId
   );
-  this.$store.commit("room/updateUser", {
+
+  updateUser({
     index: indexNewAdmin,
     userData: {
       roomCreatedId: roomId,
     },
   });
-
-  if (newAdmin.userId === myUser.userId) {
-    this.$store.commit("user/setRoomId", roomId);
-  } else {
-    this.$store.commit("user/setRoomId", null);
-  }
+  setRoomId(newAdmin.userId === myUser.userId ? roomId : null);
 }
 
 async function userKickedFromRoom(userId) {
-  this.$store.commit("room/kickUser", userId);
-
+  kickUser(userId);
   const isKickedUserMe = +myUser.userId === +userId;
-  if (isKickedUserMe) {
-    this.$store.commit("user/leaveRoom");
-    await router.push({ name: "Home" });
-  }
+
+  if (isKickedUserMe) exitRoom();
+}
+
+function exitRoom() {
+  leaveRoom();
+  router.push({ name: "Home" });
 }
 
 function updateToggleLockRoom(lockState) {
