@@ -27,18 +27,25 @@ import { useStoreFriends } from "../stores/friends";
 import { useChatLogic } from "../composable/useChatLogic";
 import Chat from "../components/layouts/Chat/Chat.vue";
 import { useStoreAuth } from "../stores/user";
+import { useSocket } from "../composable/useSocket";
 
 export default {
   name: "mainLayout",
   // mixins: [chatLogic, friendsLogic],
   setup() {
     useChatLogic();
-
     const { myUser } = useUsers();
     const { setFriends, setConnections } = useStoreFriends();
     const { setUserSettings } = useStoreAuth();
+    const { socketConnect } = useSocket();
 
-    return { myUser, setFriends, setConnections, setUserSettings };
+    return {
+      myUser,
+      setFriends,
+      setConnections,
+      setUserSettings,
+      socketConnect,
+    };
   },
   components: {
     SideBar,
@@ -62,6 +69,7 @@ export default {
       .catch((e) => {
         console.log(e);
       });
+    this.socketConnect();
   },
 
   watch: {

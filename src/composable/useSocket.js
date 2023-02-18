@@ -17,16 +17,17 @@ socket.on("disconnect", () => {
 });
 
 export function useSocket() {
-  const socketConnect = socket.connect;
-  const socketDisconnect = socket.close;
+  const socketConnect = socket.connect.bind(socket);
+  const socketDisconnect = socket.close.bind(socket);
   const socketEmit = socket.emit.bind(socket);
-  const socketOn = socket.on;
-  const socketOff = socket.off;
+  const socketOn = socket.on.bind(socket);
+  const socketOff = socket.off.bind(socket);
 
   function onSocketInitInner(socketObject) {
     const socketEntries = Object.entries(socketObject);
 
     socketEntries.forEach(([socketKey, socketCallback]) => {
+      console.log(socketKey);
       socketOn(socketKey, socketCallback);
 
       onUnmounted(() => {

@@ -8,9 +8,7 @@ export function useBus() {
     const busEntries = Object.entries(busObject);
 
     busEntries.forEach(([busKey, busCallback]) => {
-      onMounted(() => {
-        bus.on(busKey, busCallback);
-      });
+      bus.on(busKey, busCallback);
 
       onUnmounted(() => {
         bus.off(busKey, busCallback);

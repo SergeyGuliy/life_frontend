@@ -50,7 +50,7 @@ export function useAuth() {
   }
 
   async function logOutMiddleware() {
-    const { t } = i18n;
+    const { t } = i18n.global;
 
     if (route.name === "RoomId") {
       await openModal("Promt", {

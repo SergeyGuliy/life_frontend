@@ -70,9 +70,10 @@ const { data, component, closeModal } = useModal();
 import { useMyVuelidate } from "@composable/useMyVuelidate";
 
 import { useI18n } from "vue-i18n";
-const { t } = useI18n();
+const { t } = i18n.global;
 
 import { helpers } from "@vuelidate/validators";
+import { i18n } from "../../plugins/modules/globalContext/modules/i18n";
 
 const roomData = reactive({
   roomName: "",

@@ -21,7 +21,7 @@ export function useRoomLogic() {
   const { myUser } = useUsers();
   const { onSocketInit, socketEmit } = useSocket();
   const { openModal } = useModal();
-  const { t } = i18n;
+  const { t } = i18n.global;
   const router = useRouter();
   const { setAdminRoom, setJoinedRoom } = useStoreAuth();
 

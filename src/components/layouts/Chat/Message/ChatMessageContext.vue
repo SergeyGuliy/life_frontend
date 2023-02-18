@@ -1,11 +1,14 @@
 <script setup>
+import { defineProps, onUnmounted, reactive, ref } from "vue";
+
 import { useEventsListener } from "@composable/useEventsListener";
 import { useUsersActions } from "@composable/useUsersActions";
 import { useBus } from "@composable/useBus";
-import { defineProps, onUnmounted, reactive, ref } from "vue";
+import { i18n } from "@plugins/modules/globalContext/modules/i18n";
 
 const { writeMessage, addToFriend, openProfile } = useUsersActions();
 const { busInit } = useBus();
+const { t } = i18n.global;
 
 defineProps({
   messageSenderId: {},
@@ -19,15 +22,15 @@ const coords = reactive({
 });
 const items = ref([
   {
-    title: this.$t("buttons.openProfile"),
+    title: t("buttons.openProfile"),
     action: openProfile,
   },
   {
-    title: this.$t("buttons.writeMessage"),
+    title: t("buttons.writeMessage"),
     action: writeMessage,
   },
   {
-    title: this.$t("buttons.addToFriend"),
+    title: t("buttons.addToFriend"),
     action: addToFriend,
   },
 ]);
@@ -65,6 +68,8 @@ function showContextMenu(e) {
     coords.y = e.clientY;
   }, 0);
 }
+
+defineExpose({ showContextMenu });
 </script>
 
 <template>

@@ -19,7 +19,7 @@ const props = defineProps({
 
 const activeChatLocal = computed({
   get() {
-    return props.value;
+    return props.modelValue;
   },
   set(val) {
     emit("update:modelValue", val);
@@ -33,7 +33,7 @@ const activeChatLocal = computed({
       v-for="(chatTab, index) in chatTabs"
       :key="index"
       class="ma-0"
-      :href="`#${chatTab}`"
+      :value="chatTab"
     >
       {{ getChatTabName(chatTab) }}
     </v-tab>

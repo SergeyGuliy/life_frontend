@@ -30,9 +30,10 @@ import { useUsers } from "@composable/useUsers";
 import { useGame } from "@composable/useGame";
 import { useStoreAuth } from "@stores/user";
 import { useStoreRooms } from "@stores/room";
+import { i18n } from "../../plugins/modules/globalContext/modules/i18n";
 
 const router = useRouter();
-const { t } = useI18n();
+const { t } = i18n.global;
 const { onSocketInit, socketEmit } = useSocket();
 const { openModal } = useModal();
 

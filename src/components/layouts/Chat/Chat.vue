@@ -42,14 +42,9 @@ function userLeaveChat() {
     :close-on-click="false"
     :close-on-content-click="false"
   >
-    <!--        <template v-slot:activator="{ props }">-->
-    <!--          <v-btn v-bind="props" color="blue darken-2 chat-activator">-->
-    <!--            <v-icon icon="mdi-chat" />-->
-    <!--          </v-btn>-->
-    <!--        </template>-->
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" color="blue darken-2" absolute right bottom>
-        <v-icon> mdi-chat </v-icon>
+        <v-icon> mdi-chat</v-icon>
       </v-btn>
     </template>
     <v-card class="elevation-12" width="500">

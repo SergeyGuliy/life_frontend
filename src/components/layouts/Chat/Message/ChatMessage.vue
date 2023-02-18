@@ -17,7 +17,7 @@
       <ChatMessageContext
         :messageSenderId="message.messageSender.userId"
         :messageId="message.messageId"
-        ref="ChatMessageHeader"
+        ref="RefChatMessageHeader"
       />
     </v-card-actions>
     <ChatMessageBody :message="message" />
@@ -52,7 +52,7 @@ const RefChatMessageHeader = ref(null);
 
 function showContextMenu(e) {
   e.preventDefault();
-  busEmit.emit("openContext", props.message.messageId);
+  busEmit("openContext", props.message.messageId);
   if (isYouAuthor.value) return;
   RefChatMessageHeader.value.showContextMenu(e);
 }

@@ -4,15 +4,15 @@ import { computed } from "vue";
 import { useUsersActions } from "@/composable/useUsersActions";
 import { useRooms } from "@composable/useRooms";
 import { useUsers } from "@composable/useUsers";
-import { useI18n } from "vue-i18n";
+import { useStoreFriends } from "@stores/friends";
+import { i18n } from "@plugins/modules/globalContext/modules/i18n";
 
 import { API_acceptRequest, API_ignoreRequest } from "@api/friendship";
 import { API_kickUser, API_setAdmin } from "@api/rooms";
-import { useStoreFriends } from "@stores/friends";
 
 const { roomId } = useRooms();
 const { connects } = useUsers();
-const { t } = useI18n();
+const { t } = i18n.global;
 const { deleteConnection, addFriend, updateConnection } = useStoreFriends();
 const { writeMessage, addToFriend, deleteFriend, openProfile } =
   useUsersActions();

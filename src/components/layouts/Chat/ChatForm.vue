@@ -46,10 +46,10 @@ async function sendMessage(event) {
   const messageData = {
     messageSender: myUser.userId,
     messageReceiverType: activeChat,
-    messageType: audio ? VOICE : TEXT,
+    messageType: audio.value ? VOICE : TEXT,
   };
-  if (audio) {
-    const voice = new File([audio.audioBlob], "voice.pm3", {
+  if (audio.value) {
+    const voice = new File([audio.value.audioBlob], "voice.pm3", {
       lastModified: new Date().getTime(),
       type: "audio/mpeg",
     });
@@ -68,6 +68,8 @@ async function sendMessage(event) {
   if (activeChat === PRIVATE) {
     messageData.messageReceiverUserId = getUserIdFromChatKey(props.activeChat);
   }
+  console.log(messageData);
+
   socketEmit(chat_messageToServer, messageData);
   newMessage.value = "";
   audio.value = null;
