@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
 
-import { useUsersActions } from "@/composable/useUsersActions";
+import { useUsersActions } from "@composable/useUsersActions";
 import { useRooms } from "@composable/useRooms";
 import { useUsers } from "@composable/useUsers";
 import { useStoreFriends } from "@stores/friends";

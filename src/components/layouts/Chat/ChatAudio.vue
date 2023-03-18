@@ -2,7 +2,7 @@
   <v-card
     class="ChatAudio"
     style="text-align: center; flex: 1 1 auto"
-    :flat="flat == undefined || flat == false ? false : true"
+    :flat="flat"
   >
     <v-card-text class="pa-0" v-if="loaded">
       <v-row class="align-center px-2 py-1">
@@ -12,7 +12,7 @@
             icon
             class=""
             :color="color"
-            @click.native="playing ? pause() : play()"
+            @click="playing ? pause() : play()"
             :disabled="!loaded"
           >
             <v-icon v-if="!playing || paused">mdi-play</v-icon>
@@ -25,7 +25,7 @@
             class="my-2"
             height="5"
             style="margin-top: 15px; margin-bottom: 15px"
-            @click.native="setPosition()"
+            @click="setPosition()"
             :disabled="!loaded"
           />
           <p class="mb-0">{{ currentTime }} / {{ duration }}</p>

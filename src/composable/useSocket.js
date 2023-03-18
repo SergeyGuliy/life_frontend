@@ -27,7 +27,6 @@ export function useSocket() {
     const socketEntries = Object.entries(socketObject);
 
     socketEntries.forEach(([socketKey, socketCallback]) => {
-      console.log(socketKey);
       socketOn(socketKey, socketCallback);
 
       onUnmounted(() => {

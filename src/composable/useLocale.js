@@ -7,5 +7,6 @@ export function useLocale() {
 
   return {
     changeLocale,
+    currentLocale: i18n.global,
   };
 }

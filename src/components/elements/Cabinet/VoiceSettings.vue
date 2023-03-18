@@ -1,3 +1,74 @@
+<script setup>
+import { computed, defineProps, onMounted, ref } from "vue";
+
+import ChatAudio from "../../layouts/Chat/ChatAudio.vue";
+
+import { getSoundsWithFile } from "@utils/enums";
+
+const emit = defineEmits(["update:chatSettings"]);
+const props = defineProps({
+  chatSettings: {
+    type: Object,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
+});
+
+const isOpen = ref(false);
+const soundsWithFile = ref([]);
+
+onMounted(async () => {
+  soundsWithFile.value = await getSoundsWithFile();
+});
+
+const isTurnedOn = computed({
+  get() {
+    return props.chatSettings.isTurnedOn;
+  },
+  set(val) {
+    emit("update:chatSettings", {
+      ...props.chatSettings,
+      isTurnedOn: val,
+    });
+  },
+});
+const autoplay = computed({
+  get() {
+    return props.chatSettings.autoplay;
+  },
+  set(val) {
+    emit("update:chatSettings", {
+      ...props.chatSettings,
+      autoplay: val,
+    });
+  },
+});
+
+const soundSelected = computed({
+  get() {
+    return (
+      soundsWithFile.value.find(
+        ({ name }) => name === props.chatSettings.soundSelected
+      ) || {}
+    );
+  },
+  set(val) {
+    emit("update:chatSettings", {
+      ...props.chatSettings,
+      soundSelected: val,
+    });
+  },
+});
+
+function selectSound(sound) {
+  soundSelected.value = sound;
+  isOpen.value = false;
+}
+</script>
+
 <template>
   <v-row class="VoiceSettings px-4">
     <v-col
@@ -37,12 +108,12 @@
           auto
           v-model="isOpen"
         >
-          <template v-slot:activator="{ on, attrs }">
+          <template v-slot:activator="{ props }">
             <v-list-item class="pa-0">
               <ChatAudio :showVoiceControls="false" :file="soundSelected.sound">
                 <template #prepend>
                   <v-col cols="2" class="px-0">
-                    <v-btn icon v-bind="attrs" v-on="on">
+                    <v-btn icon v-bind="props">
                       <v-icon>mdi-arrow-down</v-icon>
                     </v-btn>
                   </v-col>
@@ -54,7 +125,7 @@
             <v-list-item
               link
               class="pa-0"
-              v-for="(item, index) in SOUNDS_WITH_FILES.filter(
+              v-for="(item, index) in soundsWithFile.filter(
                 (i) => i.name !== soundSelected.name
               )"
               :key="index"
@@ -68,7 +139,7 @@
                   </v-col>
                 </template>
               </ChatAudio>
-              <!--                      <v-list-item-title>{{ item.name }}</v-list-item-title>-->
+              <!--              <v-list-item-title>{{ item.name }}</v-list-item-title>-->
             </v-list-item>
           </v-list>
         </v-menu>
@@ -76,79 +147,6 @@
     </template>
   </v-row>
 </template>
-
-<script>
-import { SOUNDS_WITH_FILES } from "@utils/enums";
-import { defineAsyncComponent } from "vue";
-
-export default {
-  name: "VoiceSettings",
-  props: {
-    chatSettings: {
-      type: Object,
-      required: true,
-    },
-    type: {
-      type: String,
-      required: true,
-    },
-  },
-  components: {
-    ChatAudio: defineAsyncComponent(() =>
-      import("../../layouts/Chat/ChatAudio")
-    ),
-  },
-  computed: {
-    isTurnedOn: {
-      get() {
-        return this.chatSettings.isTurnedOn;
-      },
-      set(val) {
-        this.$emit("update:chatSettings", {
-          ...this.chatSettings,
-          isTurnedOn: val,
-        });
-      },
-    },
-    autoplay: {
-      get() {
-        return this.chatSettings.autoplay;
-      },
-      set(val) {
-        this.$emit("update:chatSettings", {
-          ...this.chatSettings,
-          autoplay: val,
-        });
-      },
-    },
-    soundSelected: {
-      get() {
-        return this.SOUNDS_WITH_FILES.find(
-          (i) => i.name === this.chatSettings.soundSelected
-        );
-      },
-      set(val) {
-        this.$emit("update:chatSettings", {
-          ...this.chatSettings,
-          soundSelected: val,
-        });
-      },
-    },
-  },
-  data() {
-    return {
-      SOUNDS_WITH_FILES,
-      isOpen: false,
-    };
-  },
-  methods: {
-    selectSound(sound) {
-      this.soundSelected = sound;
-      this.isOpen = false;
-    },
-  },
-};
-</script>
 
 <style lang="scss">
 .VoiceSettings {

@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "exports": "./src/main.js",
-  "engines": {
-    "node": ">=14.16"
-  },
   "scripts": {
     "serve": "vite",
     "build": "vite build",

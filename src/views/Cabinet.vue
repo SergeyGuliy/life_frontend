@@ -2,7 +2,6 @@
   <Grid :leftCol="[4]" :rightCol="[8]">
     <template #leftCol>
       <v-row>
-        <!--              <pre>{{ profileSettings }}</pre>-->
         <v-col cols="12" class="pt-0">
           <v-card class="pa-4">
             <v-hover v-slot="{ hover }" open-delay="200">
@@ -85,59 +84,44 @@
             </v-btn>
           </div>
         </v-col>
-
         <v-col cols="12" class="py-0">
           <v-select
-            v-model="$i18n.locale"
+            v-model="localLocale"
             :menu-props="{ bottom: true, offsetY: true }"
             :label="$t('forms.labels.locale')"
-            :items="$i18n.availableLocales"
+            :items="LOCALES_WITH_KEYS"
+            item-title="title"
+            item-value="key"
             outlined
             hide-details
             class="mb-4"
-            @input="changeLocale"
-          >
-            <template v-slot:selection="slotData">
-              <v-list-item-title
-                v-text="
-                  LOCALES_WITH_KEYS.find((i) => i.key === slotData.item).title
-                "
-              />
-            </template>
-            <template v-slot:item="slotData">
-              <v-list-item-title
-                v-text="
-                  LOCALES_WITH_KEYS.find((i) => i.key === slotData.item).title
-                "
-              />
-            </template>
-          </v-select>
+          />
         </v-col>
         <v-col cols="12" class="py-0">
-          <v-select
-            v-model="$vuetify.theme.dark"
-            :menu-props="{ bottom: true, offsetY: true }"
-            :label="$t('forms.labels.theme')"
-            :items="[true, false]"
-            outlined
-            class="mb-4"
-            hide-details
-          >
-            <template v-slot:selection="{ item }">
-              <v-list-item-title
-                v-text="
-                  item ? $t('forms.labels.dark') : $t('forms.labels.light')
-                "
-              />
-            </template>
-            <template v-slot:item="{ item }">
-              <v-list-item-title
-                v-text="
-                  item ? $t('forms.labels.dark') : $t('forms.labels.light')
-                "
-              />
-            </template>
-          </v-select>
+          <!--          <v-select-->
+          <!--            v-model="$vuetify.theme.dark"-->
+          <!--            :menu-props="{ bottom: true, offsetY: true }"-->
+          <!--            :label="$t('forms.labels.theme')"-->
+          <!--            :items="[true, false]"-->
+          <!--            outlined-->
+          <!--            class="mb-4"-->
+          <!--            hide-details-->
+          <!--          >-->
+          <!--            <template v-slot:selection="{ item }">-->
+          <!--              <v-list-item-title-->
+          <!--                :item="-->
+          <!--                  item ? $t('forms.labels.dark') : $t('forms.labels.light')-->
+          <!--                "-->
+          <!--              />-->
+          <!--            </template>-->
+          <!--            <template v-slot:item="{ item }">-->
+          <!--              <v-list-item-title-->
+          <!--                :item="-->
+          <!--                  item ? $t('forms.labels.dark') : $t('forms.labels.light')-->
+          <!--                "-->
+          <!--              />-->
+          <!--            </template>-->
+          <!--          </v-select>-->
         </v-col>
         <v-col cols="12" class="py-0">
           <v-btn color="primary" large block @click="changePassword">
@@ -251,12 +235,29 @@ export default {
   },
 
   setup() {
-    const { changeLocale } = useLocale();
+    const { changeLocale, currentLocale } = useLocale();
     const { updateUserSettings } = useUserSettings();
     const { myUser } = useUsers();
     const { setProfileSettings } = useStoreAuth();
 
-    return { changeLocale, updateUserSettings, myUser, setProfileSettings };
+    return {
+      changeLocale,
+      updateUserSettings,
+      myUser,
+      setProfileSettings,
+      currentLocale,
+    };
+  },
+
+  computed: {
+    localLocale: {
+      get() {
+        return this.currentLocale.locale;
+      },
+      set(val) {
+        this.changeLocale(val);
+      },
+    },
   },
 
   data() {
@@ -272,6 +273,7 @@ export default {
   created() {
     this.parseDefaultData();
   },
+
   watch: {
     myUser: {
       deep: true,

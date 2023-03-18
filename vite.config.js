@@ -11,8 +11,8 @@ const getPath = (pathUrl) => path.resolve(__dirname, pathUrl);
 export default defineConfig({
   plugins: [vue(), vuetify()],
   server: {
-    host: "0.0.0.0",
     port: 8080,
+    host: true,
   },
   resolve: {
     alias: {
