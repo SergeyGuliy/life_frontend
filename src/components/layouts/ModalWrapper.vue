@@ -1,8 +1,5 @@
 <template>
-  <div>
-    {{ component }}
-    <component v-if="component" :is="component" />
-  </div>
+  <component v-if="component" :is="component" />
 </template>
 
 <script>
@@ -26,15 +23,8 @@ export default {
   },
 
   setup() {
-    const { openModal, component } = useModal();
-
-    return { component, openModal };
-  },
-
-  computed: {
-    async getComponent() {
-      return this.component;
-    },
+    const { component } = useModal();
+    return { component };
   },
 };
 </script>

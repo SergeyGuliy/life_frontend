@@ -15,14 +15,8 @@
   </v-list>
 </template>
 
-<script>
-export default {
-  name: "SideBarList",
-  props: {
-    items: {
-      required: true,
-      type: Array,
-    },
-  },
-};
+<script setup>
+defineProps({
+  items: { required: true, type: Array },
+});
 </script>

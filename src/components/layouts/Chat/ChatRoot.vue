@@ -16,22 +16,12 @@ const isChatOpened = ref(false);
 const activeChat = ref(GLOBAL);
 
 busInit({
-  activateChat: activateChat,
-  openChat: openChat,
-  userLeaveChat: userLeaveChat,
+  activateChat: (chatName) => (activeChat.value = chatName),
+  openChat: () => (isChatOpened.value = true),
+  userLeaveChat: () => {
+    if (activeChat.value === ROOM) activeChat.value = GLOBAL;
+  },
 });
-
-function openChat() {
-  isChatOpened.value = true;
-}
-function activateChat(chatName) {
-  activeChat.value = chatName;
-}
-function userLeaveChat() {
-  if (activeChat.value === ROOM) {
-    activeChat.value = GLOBAL;
-  }
-}
 </script>
 
 <template>

@@ -10,15 +10,8 @@
   </v-chip>
 </template>
 
-<script>
-export default {
-  name: "ChipGrowLoss",
-
-  props: {
-    growLoss: {
-      type: Number,
-      required: true,
-    },
-  },
-};
+<script setup>
+defineProps({
+  growLoss: { type: Number, required: true },
+});
 </script>

@@ -1,15 +1,8 @@
-<template>
-  <div style="width: 100%">
-    <Room v-show="!gameId" />
-    <Game v-if="gameId" />
-  </div>
-</template>
-
 <script setup>
 import { onBeforeMount } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 
-import Room from "@components/elements/Rooms/Room.vue";
+import RoomRoot from "@components/elements/Rooms/RoomRoot.vue";
 import Game from "@components/elements/Games/Game.vue";
 
 import { API_getRoomById } from "@api/rooms";
@@ -134,3 +127,10 @@ function gameStarted(game) {
   gameId.value = game._id;
 }
 </script>
+
+<template>
+  <div style="width: 100%">
+    <RoomRoot v-show="!gameId" />
+    <Game v-if="gameId" />
+  </div>
+</template>

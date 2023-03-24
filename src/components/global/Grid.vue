@@ -1,3 +1,10 @@
+<script setup>
+defineProps({
+  leftCol: { default: () => [6], type: Array },
+  rightCol: { default: () => [6], type: Array },
+});
+</script>
+
 <template>
   <div class="grid">
     <v-row class="grid__row">
@@ -14,22 +21,6 @@
     </v-row>
   </div>
 </template>
-
-<script>
-export default {
-  name: "Grid",
-  props: {
-    leftCol: {
-      default: () => [6],
-      type: Array,
-    },
-    rightCol: {
-      default: () => [6],
-      type: Array,
-    },
-  },
-};
-</script>
 
 <style lang="scss">
 .grid {

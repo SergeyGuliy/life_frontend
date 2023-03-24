@@ -1,72 +1,44 @@
 <script setup>
 import { computed, defineProps, onMounted, ref } from "vue";
 
-import ChatAudio from "../../layouts/Chat/ChatAudio.vue";
-
+import ChatAudio from "@components/layouts/Chat/ChatAudio.vue";
 import { getSoundsWithFile } from "@utils/enums";
 
 const emit = defineEmits(["update:chatSettings"]);
 const props = defineProps({
-  chatSettings: {
-    type: Object,
-    required: true,
-  },
-  type: {
-    type: String,
-    required: true,
-  },
+  chatSettings: { type: Object, required: true },
+  type: { type: String, required: true },
 });
 
 const isOpen = ref(false);
 const soundsWithFile = ref([]);
 
-onMounted(async () => {
-  soundsWithFile.value = await getSoundsWithFile();
-});
-
 const isTurnedOn = computed({
-  get() {
-    return props.chatSettings.isTurnedOn;
-  },
-  set(val) {
-    emit("update:chatSettings", {
-      ...props.chatSettings,
-      isTurnedOn: val,
-    });
-  },
+  get: () => props.chatSettings.isTurnedOn,
+  set: (val) =>
+    emit("update:chatSettings", { ...props.chatSettings, isTurnedOn: val }),
 });
 const autoplay = computed({
-  get() {
-    return props.chatSettings.autoplay;
-  },
-  set(val) {
-    emit("update:chatSettings", {
-      ...props.chatSettings,
-      autoplay: val,
-    });
-  },
+  get: () => props.chatSettings.autoplay,
+  set: (val) =>
+    emit("update:chatSettings", { ...props.chatSettings, autoplay: val }),
 });
 
 const soundSelected = computed({
-  get() {
-    return (
-      soundsWithFile.value.find(
-        ({ name }) => name === props.chatSettings.soundSelected
-      ) || {}
-    );
-  },
-  set(val) {
-    emit("update:chatSettings", {
-      ...props.chatSettings,
-      soundSelected: val,
-    });
-  },
+  get: () =>
+    soundsWithFile.value.find(
+      ({ name }) => name === props.chatSettings.soundSelected
+    ) || {},
+  set: (val) =>
+    emit("update:chatSettings", { ...props.chatSettings, soundSelected: val }),
 });
 
 function selectSound(sound) {
   soundSelected.value = sound;
   isOpen.value = false;
 }
+
+onMounted(async () => (soundsWithFile.value = await getSoundsWithFile()));
 </script>
 
 <template>

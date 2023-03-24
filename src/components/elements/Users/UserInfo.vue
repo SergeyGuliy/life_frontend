@@ -4,14 +4,8 @@ import { reactive } from "vue";
 import { ROOM_TYPES } from "@enums/index.mjs";
 
 const props = defineProps({
-  userData: {
-    required: true,
-    type: Object,
-  },
-  showUserRoomInfo: {
-    default: () => false,
-    type: Boolean,
-  },
+  userData: { required: true, type: Object },
+  showUserRoomInfo: { default: () => false, type: Boolean },
 });
 
 const getChipClass = reactive(() =>

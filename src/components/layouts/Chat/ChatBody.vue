@@ -3,20 +3,13 @@ import { defineProps, onBeforeUnmount, onMounted, ref } from "vue";
 import ResizeObserver from "resize-observer-polyfill";
 
 import ChatMessage from "./Message/ChatMessage.vue";
-
 import { useStoreChats } from "@stores/chats";
 
 const { chats, chatTabs } = useStoreChats();
 
 defineProps({
-  activeChat: {
-    required: true,
-    type: [String, Number],
-  },
-  isSmall: {
-    default: () => true,
-    type: Boolean,
-  },
+  activeChat: { required: true, type: [String, Number] },
+  isSmall: { default: () => true, type: Boolean },
 });
 
 const ro = ref(null);

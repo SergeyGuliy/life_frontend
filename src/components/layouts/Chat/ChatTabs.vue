@@ -2,28 +2,19 @@
 import { computed } from "vue";
 
 import { useStoreChats } from "@stores/chats";
-import { getChatTabName } from "../../../plugins/modules/globalFilters/filters/getChatTabName";
+import { getChatTabName } from "@plugins/modules/globalFilters/filters/getChatTabName";
+
 const { chatTabs } = useStoreChats();
 
 const emit = defineEmits(["update:modelValue"]);
 const props = defineProps({
-  modelValue: {
-    required: true,
-    type: [String, Number],
-  },
-  vertical: {
-    default: () => false,
-    type: Boolean,
-  },
+  modelValue: { required: true, type: [String, Number] },
+  vertical: { default: () => false, type: Boolean },
 });
 
 const activeChatLocal = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(val) {
-    emit("update:modelValue", val);
-  },
+  get: () => props.modelValue,
+  set: (val) => emit("update:modelValue", val),
 });
 </script>
 

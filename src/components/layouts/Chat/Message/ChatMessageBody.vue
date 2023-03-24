@@ -1,3 +1,11 @@
+<script setup>
+import ChatAudio from "../ChatAudio.vue";
+
+defineProps({
+  message: { type: Object, required: true },
+});
+</script>
+
 <template>
   <div>
     <v-card-text class="py-2" v-if="message.messageType === 'TEXT'">
@@ -11,24 +19,5 @@
     </v-card-text>
   </div>
 </template>
-
-<script>
-import { defineAsyncComponent } from "vue";
-
-export default {
-  name: "ChatMessageBody",
-
-  props: {
-    message: {
-      type: Object,
-      required: true,
-    },
-  },
-
-  components: {
-    ChatAudio: defineAsyncComponent(() => import("../ChatAudio.vue")),
-  },
-};
-</script>
 
 <style scoped></style>

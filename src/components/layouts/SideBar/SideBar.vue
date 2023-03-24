@@ -1,3 +1,60 @@
+<script setup>
+import { computed, defineProps, defineEmits, ref } from "vue";
+
+import SideBarList from "./SideBarList.vue";
+import SideBarUserBlock from "./SideBarUserBlock.vue";
+import { useAuth } from "../../../composable/useAuth";
+
+const { logOutMiddleware } = useAuth();
+
+const emit = defineEmits(["update:modelValue"]);
+const props = defineProps({
+  modelValue: { type: Boolean, required: true },
+});
+
+const itemsSettings = ref([
+  {
+    title: "layout.cabinet",
+    icon: "mdi-settings",
+    linkParams: { name: "Cabinet" },
+  },
+]);
+const itemsPrivate = ref([
+  {
+    title: "layout.main",
+    icon: "mdi-view-dashboard",
+    linkParams: { name: "Home" },
+  },
+  {
+    title: "layout.friends",
+    icon: "mdi-account-group",
+    linkParams: { name: "Friends" },
+  },
+  {
+    title: "Messages",
+    icon: "mdi-message-bulleted",
+    linkParams: { name: "Messages" },
+  },
+]);
+const itemsGlobal = ref([
+  {
+    title: "layout.users",
+    icon: "mdi-account-group",
+    linkParams: { name: "Users" },
+  },
+  {
+    title: "layout.rooms",
+    icon: "mdi-google-classroom",
+    linkParams: { name: "Rooms" },
+  },
+]);
+
+const localDrawer = computed({
+  get: () => props.modelValue,
+  set: (val) => emit("update:modelValue", val),
+});
+</script>
+
 <template>
   <v-navigation-drawer temporary v-model="localDrawer">
     <SideBarUserBlock />
@@ -21,85 +78,3 @@
     </template>
   </v-navigation-drawer>
 </template>
-
-<script>
-import { defineAsyncComponent } from "vue";
-
-import { useAuth } from "../../../composable/useAuth";
-
-export default {
-  name: "SideBar",
-  emits: ["update:modelValue"],
-
-  components: {
-    SideBarList: defineAsyncComponent(() => import("./SideBarList.vue")),
-    SideBarUserBlock: defineAsyncComponent(() =>
-      import("./SideBarUserBlock.vue")
-    ),
-  },
-
-  setup() {
-    const { logOutMiddleware } = useAuth();
-
-    return { logOutMiddleware };
-  },
-
-  computed: {
-    localDrawer: {
-      get() {
-        return this.modelValue;
-      },
-      set(val) {
-        this.$emit("update:modelValue", val);
-      },
-    },
-  },
-
-  props: {
-    modelValue: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      itemsSettings: [
-        {
-          title: "layout.cabinet",
-          icon: "mdi-settings",
-          linkParams: { name: "Cabinet" },
-        },
-      ],
-      itemsPrivate: [
-        {
-          title: "layout.main",
-          icon: "mdi-view-dashboard",
-          linkParams: { name: "Home" },
-        },
-        {
-          title: "layout.friends",
-          icon: "mdi-account-group",
-          linkParams: { name: "Friends" },
-        },
-        {
-          title: "Messages",
-          icon: "mdi-message-bulleted",
-          linkParams: { name: "Messages" },
-        },
-      ],
-      itemsGlobal: [
-        {
-          title: "layout.users",
-          icon: "mdi-account-group",
-          linkParams: { name: "Users" },
-        },
-        {
-          title: "layout.rooms",
-          icon: "mdi-google-classroom",
-          linkParams: { name: "Rooms" },
-        },
-      ],
-    };
-  },
-};
-</script>

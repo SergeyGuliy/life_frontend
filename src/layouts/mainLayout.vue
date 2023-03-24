@@ -25,7 +25,7 @@ import {
 } from "../utils/api/modules/friendship";
 import { useStoreFriends } from "../stores/friends";
 import { useChatLogic } from "../composable/useChatLogic";
-import Chat from "../components/layouts/Chat/Chat.vue";
+import Chat from "../components/layouts/Chat/ChatRoot.vue";
 import { useStoreAuth } from "../stores/user";
 import { useSocket } from "../composable/useSocket";
 

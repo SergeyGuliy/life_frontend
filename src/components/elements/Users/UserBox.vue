@@ -7,14 +7,8 @@ import { useUsers } from "@composable/useUsers";
 const { myUser } = useUsers();
 
 const props = defineProps({
-  userData: {
-    required: true,
-    type: [Object, undefined],
-  },
-  showUserRoomInfo: {
-    default: () => false,
-    type: Boolean,
-  },
+  userData: { required: true, type: [Object, undefined] },
+  showUserRoomInfo: { default: () => false, type: Boolean },
 });
 
 const timestamp = ref(new Date());
@@ -28,9 +22,7 @@ const isYou = computed(() => userDataLocal.value?.userId === myUser?.userId);
 const userIdExists = computed(() => props.userData?.userId);
 
 onMounted(() => {
-  setInterval(() => {
-    timestamp.value = new Date();
-  }, 1000);
+  setInterval(() => (timestamp.value = new Date()), 1000);
 });
 </script>
 

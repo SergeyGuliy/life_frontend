@@ -7,7 +7,6 @@ const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 import path from "path";
 const getPath = (pathUrl) => path.resolve(__dirname, pathUrl);
-
 export default defineConfig({
   plugins: [vue(), vuetify()],
   server: {

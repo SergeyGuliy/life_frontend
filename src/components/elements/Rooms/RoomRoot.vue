@@ -17,19 +17,12 @@ const gameSettings = reactive({
   gameYearsCount: 40 * 12,
 });
 
-function startGame() {
-  API_startGame(roomId, gameSettings);
-}
+const startGame = () => API_startGame(roomId, gameSettings);
 
-async function toggleLockRoom() {
-  await API_toggleLockRoom(roomId, {
-    lockState: !roomData.isBlocked,
-  });
-}
+const deleteRoom = () => API_deleteRoom(roomId);
 
-async function deleteRoom() {
-  await API_deleteRoom(roomId);
-}
+const toggleLockRoom = () =>
+  API_toggleLockRoom(roomId, { lockState: !roomData.isBlocked });
 </script>
 
 <template>

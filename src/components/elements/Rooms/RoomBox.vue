@@ -2,10 +2,7 @@
 import RoomInfo from "./RoomInfo.vue";
 
 defineProps({
-  roomData: {
-    required: true,
-    type: Object,
-  },
+  roomData: { required: true, type: Object },
 });
 </script>
 

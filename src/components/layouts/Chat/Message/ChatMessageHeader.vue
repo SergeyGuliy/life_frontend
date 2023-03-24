@@ -1,3 +1,23 @@
+<script setup>
+import { useUsers } from "@composable/useUsers";
+import { computed } from "vue";
+
+const { users } = useUsers();
+
+const props = defineProps({
+  createdAt: {},
+  isYouAuthor: {},
+  messageSender: {},
+});
+
+const getChatWriterName = computed(() => {
+  const messageSender = this.$filters.dictGetUserById(props.messageSender);
+  if (!messageSender) return "";
+
+  return props.isYouAuthor ? "Me" : this.$filters.getUserName(messageSender);
+});
+</script>
+
 <template>
   <v-list-item class="pa-0">
     <v-list-item-media color="grey darken-3 my-0">
@@ -14,34 +34,3 @@
     </v-list-item-title>
   </v-list-item>
 </template>
-
-<script>
-import { useUsers } from "@composable/useUsers";
-
-export default {
-  name: "ChatMessageHeader",
-
-  setup() {
-    const { users } = useUsers();
-    return { users };
-  },
-
-  props: {
-    createdAt: {},
-    isYouAuthor: {},
-    messageSender: {},
-  },
-
-  computed: {
-    getChatWriterName() {
-      const messageSender = this.$filters.dictGetUserById(this.messageSender);
-      if (messageSender) {
-        return this.isYouAuthor
-          ? "Me"
-          : this.$filters.getUserName(messageSender);
-      }
-      return "";
-    },
-  },
-};
-</script>

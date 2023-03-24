@@ -2,10 +2,7 @@
 import RoomBox from "./RoomBox.vue";
 
 defineProps({
-  rooms: {
-    type: Array,
-    default: () => [],
-  },
+  rooms: { type: Array, default: () => [] },
 });
 </script>
 

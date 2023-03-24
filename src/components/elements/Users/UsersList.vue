@@ -4,31 +4,18 @@ import { computed, defineProps } from "vue";
 import UserBox from "./UserBox.vue";
 
 const props = defineProps({
-  emptyText: {
-    type: String,
-    required: false,
-  },
-  users: {
-    type: Array,
-    default: () => [],
-  },
-  showUserRoomInfo: {
-    default: () => false,
-    type: Boolean,
-  },
-  sortType: {
-    default: () => null,
-    type: String,
-  },
+  emptyText: { type: String, required: false },
+  users: { type: Array, default: () => [] },
+  showUserRoomInfo: { default: () => false, type: Boolean },
+  sortType: { default: () => null, type: String },
 });
 
 const sortedUsers = computed(() => {
-  if (props.sortType === "adminFirst") {
-    return [...props.users].sort((user) =>
-      user.roomCreatedId === user.roomJoinedId ? -1 : 1
-    );
-  }
-  return props.users;
+  if (props.sortType !== "adminFirst") return props.users;
+
+  return [...props.users].sort((user) =>
+    user.roomCreatedId === user.roomJoinedId ? -1 : 1
+  );
 });
 </script>
 

@@ -8,10 +8,7 @@ import { useAuth } from "@composable/useAuth";
 
 const emit = defineEmits(["update:modelValue"]);
 defineProps({
-  modelValue: {
-    type: Boolean,
-    required: true,
-  },
+  modelValue: { type: Boolean, required: true },
 });
 
 const { changeLocale } = useLocale();
@@ -60,4 +57,3 @@ const localesWithKeys = ref(LOCALES_WITH_KEYS);
     </v-btn>
   </v-app-bar>
 </template>
-

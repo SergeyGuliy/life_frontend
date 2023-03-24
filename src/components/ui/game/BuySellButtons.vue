@@ -7,33 +7,23 @@
   </div>
 </template>
 
-<script>
-import { useModal } from "../../../composable/useModal";
+<script setup>
+import { useModal } from "@composable/useModal";
 const { openModal } = useModal();
 
-export default {
-  name: "BuySellButtons",
+const props = defineProps({
+  item: { type: Object, required: true },
+});
 
-  props: {
-    item: {
-      type: Object,
-      required: true,
-    },
-  },
+const buy = () =>
+  openModal("Game/CryptoBuySell", {
+    type: "BUY",
+    name: props.item.name,
+  }).catch(() => {});
 
-  methods: {
-    async buy() {
-      await openModal("Game/CryptoBuySell", {
-        type: "BUY",
-        name: this.item.name,
-      }).catch(() => {});
-    },
-    async sell() {
-      await openModal("Game/CryptoBuySell", {
-        type: "SELL",
-        name: this.item.name,
-      }).catch(() => {});
-    },
-  },
-};
+const sell = () =>
+  openModal("Game/CryptoBuySell", {
+    type: "SELL",
+    name: props.item.name,
+  }).catch(() => {});
 </script>

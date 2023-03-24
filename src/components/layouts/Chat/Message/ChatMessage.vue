@@ -32,23 +32,20 @@ import ChatMessageContext from "./ChatMessageContext.vue";
 import ChatMessageBody from "./ChatMessageBody.vue";
 
 import { useBus } from "@composable/useBus";
+import { useUsers } from "@composable/useUsers";
+
+const { myUser } = useUsers();
 const { busEmit } = useBus();
 
-import { useUsers } from "@composable/useUsers";
-const { myUser } = useUsers();
-
 const props = defineProps({
-  message: {
-    required: true,
-    type: Object,
-  },
+  message: { required: true, type: Object },
 });
+
+const RefChatMessageHeader = ref(null);
 
 const isYouAuthor = computed(
   () => props.message.messageSender.userId === myUser.userId
 );
-
-const RefChatMessageHeader = ref(null);
 
 function showContextMenu(e) {
   e.preventDefault();

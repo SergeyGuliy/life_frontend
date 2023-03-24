@@ -2,15 +2,12 @@
 import { computed } from "vue";
 
 import { ROOM_TYPES } from "@enums/index.mjs";
-
 import { useRooms } from "@composable/useRooms";
+
 const { usersInRoom } = useRooms();
 
 const props = defineProps({
-  roomData: {
-    required: true,
-    type: Object,
-  },
+  roomData: { required: true, type: Object },
 });
 
 const getChipClass = computed(() =>

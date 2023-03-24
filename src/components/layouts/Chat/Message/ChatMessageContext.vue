@@ -35,17 +35,6 @@ const items = ref([
   },
 ]);
 
-onUnmounted(() => {
-  busInit({
-    clickOutside: hideContextMenu,
-    openContext: openContext,
-  });
-
-  useEventsListener({
-    scroll: [hideContextMenu, document],
-  });
-});
-
 function hideContextMenu() {
   showMenu.value = false;
   coords.x = 0;
@@ -68,6 +57,17 @@ function showContextMenu(e) {
     coords.y = e.clientY;
   }, 0);
 }
+
+onUnmounted(() => {
+  busInit({
+    clickOutside: hideContextMenu,
+    openContext: openContext,
+  });
+
+  useEventsListener({
+    scroll: [hideContextMenu, document],
+  });
+});
 
 defineExpose({ showContextMenu });
 </script>

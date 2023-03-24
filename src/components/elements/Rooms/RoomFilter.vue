@@ -3,28 +3,17 @@ import { computed, defineProps } from "vue";
 
 const emit = defineEmits(["update:roomName", "update:typeOfRoom", "submit"]);
 const props = defineProps({
-  filterData: {
-    type: Object,
-    required: true,
-  },
+  filterData: { type: Object, required: true },
 });
 
 const roomName = computed({
-  set(val) {
-    emit("update:roomName", val);
-  },
-  get() {
-    return props.filterData.roomName;
-  },
+  get: () => props.filterData.roomName,
+  set: (val) => emit("update:roomName", val),
 });
 
 const typeOfRoom = computed({
-  set(val) {
-    emit("update:typeOfRoom", val);
-  },
-  get() {
-    return props.filterData.typeOfRoom;
-  },
+  get: () => props.filterData.typeOfRoom,
+  set: (val) => emit("update:typeOfRoom", val),
 });
 </script>
 

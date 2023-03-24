@@ -28,6 +28,36 @@ const supportedKeys = [
   "ignoreFriend",
 ];
 
+const props = defineProps({
+  userId: { type: [Number, null], default: null },
+  type: {
+    type: String,
+    required: true,
+    validator: (val) => supportedKeys.includes(val),
+  },
+});
+
+const getTranslation = computed(() => mapTranslations[props.type]);
+
+const kickUser = () => API_kickUser(roomId, props.userId);
+const setAdmin = () => API_setAdmin(roomId, props.userId);
+const getIndex = (friendshipsId) =>
+  connects.findIndex((i) => i.friendshipsId === friendshipsId);
+const acceptFriend = (userId) =>
+  API_acceptRequest(userId)
+    .then((data) => {
+      deleteConnection(getIndex(data.friendshipsId));
+      addFriend(data);
+    })
+    .catch(() => {});
+
+const ignoreFriend = (userId) =>
+  API_ignoreRequest(userId)
+    .then((data) =>
+      updateConnection({ indexToUpdate: getIndex(data.friendshipsId), data })
+    )
+    .catch(() => {});
+
 const mapTranslations = {
   writeMessage: t("buttons.writeMessage"),
   addToFriend: t("buttons.addToFriend"),
@@ -49,52 +79,7 @@ const mapMethods = {
   ignoreFriend: ignoreFriend,
 };
 
-const props = defineProps({
-  userId: {
-    type: [Number, null],
-    default: null,
-  },
-  type: {
-    type: String,
-    required: true,
-    validator: (val) => {
-      return supportedKeys.includes(val);
-    },
-  },
-});
-
-const getTranslation = computed(() => mapTranslations[props.type]);
 const handleClick = () => mapMethods[props.type](props.userId);
-
-async function kickUser() {
-  await API_kickUser(roomId, props.userId);
-}
-
-async function setAdmin() {
-  await API_setAdmin(roomId, props.userId);
-}
-
-async function acceptFriend(userId) {
-  await API_acceptRequest(userId)
-    .then((data) => {
-      const indexToDelete = getIndex(data.friendshipsId);
-      deleteConnection(indexToDelete);
-      addFriend(data);
-    })
-    .catch(() => {});
-}
-
-async function ignoreFriend(userId) {
-  await API_ignoreRequest(userId)
-    .then((data) => {
-      const indexToUpdate = getIndex(data.friendshipsId);
-      updateConnection({ indexToUpdate, data });
-    })
-    .catch(() => {});
-}
-
-const getIndex = (friendshipsId) =>
-  connects.findIndex((i) => i.friendshipsId === friendshipsId);
 </script>
 
 <template>
