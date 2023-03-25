@@ -1,6 +1,7 @@
 <script setup>
-import { useUsers } from "@composable/useUsers";
 import { computed } from "vue";
+
+import { useUsers } from "@composable";
 
 const { users } = useUsers();
 

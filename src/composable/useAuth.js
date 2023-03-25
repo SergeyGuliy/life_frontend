@@ -1,12 +1,13 @@
 import { useRoute, useRouter } from "vue-router";
+
 import { useModal } from "./useModal";
-import { useStoreAuth } from "../stores/user";
+import { useStoreAuth } from "@stores";
 
 import { clearLocalStorageKeys } from "../utils/localStorageKeys";
 import { API_refreshToken, API_registration, API_login } from "@api/auth";
-import { i18n } from "../plugins/modules/globalContext/modules/i18n";
+import { i18n } from "@plugins/modules/globalContext/modules/i18n";
 import { useVuetifyTheme } from "./useVuetifyTheme";
-import { router } from "../plugins/modules/globalContext/modules/router";
+import { router } from "@plugins/modules/globalContext/modules/router";
 
 export function useAuth() {
   const route = useRoute();

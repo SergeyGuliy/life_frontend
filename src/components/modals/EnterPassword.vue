@@ -34,9 +34,10 @@
 </template>
 
 <script>
-import { useModal } from "../../composable/useModal";
 import { API_joinRoom } from "@api/rooms";
-import { useStoreAuth } from "../../stores/user";
+
+import { useModal } from "@composable";
+import { useStoreAuth } from "@stores";
 
 export default {
   name: "EnterPassword",

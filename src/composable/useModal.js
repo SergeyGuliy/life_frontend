@@ -1,5 +1,6 @@
-import { useModalStore } from "../stores/modals";
 import { storeToRefs } from "pinia";
+
+import { useModalStore } from "@stores";
 
 export function useModal() {
   const store = useModalStore();

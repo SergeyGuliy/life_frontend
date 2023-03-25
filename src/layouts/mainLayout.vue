@@ -15,19 +15,17 @@
 // import chatLogic from "@mixins/chatLogic";
 // import friendsLogic from "@mixins/friendsLogic";
 
-import SideBar from "../components/layouts/SideBar/SideBar.vue";
-import NavBar from "../components/layouts/NavBar.vue";
+import SideBar from "@components/layouts/SideBar/SideBar.vue";
+import NavBar from "@components/layouts/NavBar.vue";
+import Chat from "@components/layouts/Chat/ChatRoot.vue";
+
 import { API_changeLocale, API_changeTheme } from "@api/userSettings";
-import { useUsers } from "../composable/useUsers";
+import { useUsers, useChatLogic, useSocket } from "@composable";
 import {
   API_getYourConnections,
   API_getYourFriends,
-} from "../utils/api/modules/friendship";
-import { useStoreFriends } from "../stores/friends";
-import { useChatLogic } from "../composable/useChatLogic";
-import Chat from "../components/layouts/Chat/ChatRoot.vue";
-import { useStoreAuth } from "../stores/user";
-import { useSocket } from "../composable/useSocket";
+} from "@utils/api/modules/friendship";
+import { useStoreFriends, useStoreAuth } from "@stores";
 
 export default {
   name: "mainLayout",

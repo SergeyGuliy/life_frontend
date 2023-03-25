@@ -214,17 +214,12 @@
 import { defineAsyncComponent } from "vue";
 
 import { ProfileSettingsParser } from "@utils/parsers";
-
 import { COUNTRIES, LOCALES_WITH_KEYS } from "@enums";
-
-import { useLocale } from "@composable/useLocale";
-import { useUserSettings } from "@composable/useUserSettings";
-import { useModal } from "@composable/useModal";
-const { openModal } = useModal();
-
 import { API_uploadAvatar } from "@api/uploader";
-import { useUsers } from "../composable/useUsers";
-import { useStoreAuth } from "../stores/user";
+import { useUsers, useLocale, useUserSettings, useModal } from "@composable";
+import { useStoreAuth } from "@stores";
+
+const { openModal } = useModal();
 
 export default {
   name: "Cabinet",

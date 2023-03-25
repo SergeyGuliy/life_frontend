@@ -1,7 +1,7 @@
 import { computed } from "vue";
-import { useStoreRooms } from "../stores/room";
 import { useRoute } from "vue-router";
-import { useStoreAuth } from "../stores/user";
+
+import { useStoreRooms, useStoreAuth } from "@stores";
 
 export function useRooms() {
   const {

@@ -26,16 +26,11 @@
 <script setup>
 import GameUserWork from "./GameUserWork";
 
-import { useModal } from "@composable/useModal";
+import { useModal, useUsers, useGame } from "@composable";
+
 const { openModal } = useModal();
-
-import { useUsers } from "@composable/useUsers";
 const { myUser } = useUsers();
-
-import { useGame } from "@composable/useGame";
 const { gameUserData, gameUserCash } = useGame();
 
-function openNews(type) {
-  openModal("Game/News", { type }).catch(() => {});
-}
+const openNews = (type) => openModal("Game/News", { type }).catch(() => {});
 </script>

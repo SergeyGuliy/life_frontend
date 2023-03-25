@@ -30,9 +30,7 @@
 import { defineAsyncComponent } from "vue";
 import { cloneDeep } from "lodash";
 
-import { useUserSettings } from "../../composable/useUserSettings";
-import { useModal } from "../../composable/useModal";
-
+import { useUserSettings, useModal } from "@composable";
 import { SOUNDS_WITH_FILES } from "@utils/enums";
 
 export default {

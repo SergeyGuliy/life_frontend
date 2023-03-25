@@ -7,11 +7,8 @@ import { API_uploadVoice } from "@api/uploader";
 import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "@enums";
 import { chat_messageToServer } from "@constants/ws/chats.mjs";
 
-import { useRecording } from "@composable/useRecording";
-import { useChatKeys } from "@composable/useChatKeys";
-import { useSocket } from "@composable/useSocket";
-import { useUsers } from "@composable/useUsers";
-import { useStoreChats } from "@stores/chats";
+import { useRecording, useChatKeys, useSocket, useUsers } from "@composable";
+import { useStoreChats } from "@stores";
 
 const { ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 const { TEXT, VOICE } = MESSAGE_TYPES;

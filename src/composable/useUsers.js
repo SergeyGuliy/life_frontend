@@ -1,8 +1,6 @@
 import { computed } from "vue";
 
-import { useStoreAuth } from "../stores/user";
-import { useStoreDictionaries } from "../stores/dictionares";
-import { useStoreFriends } from "../stores/friends";
+import { useStoreAuth, useStoreDictionaries, useStoreFriends } from "@stores";
 
 export function useUsers() {
   const { user: myUser } = useStoreAuth();

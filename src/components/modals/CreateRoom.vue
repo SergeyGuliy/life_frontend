@@ -60,20 +60,16 @@
 
 <script setup>
 import { computed, reactive, watch } from "vue";
+
 import { required } from "@vuelidate/validators";
 import { ROOM_TYPES } from "@enums/index.mjs";
 import { API_create } from "@api/rooms";
-
-import { useModal } from "@composable/useModal";
-const { data, component, closeModal } = useModal();
-
-import { useMyVuelidate } from "@composable/useMyVuelidate";
-
-import { useI18n } from "vue-i18n";
-const { t } = i18n.global;
-
+import { useModal, useMyVuelidate } from "@composable";
 import { helpers } from "@vuelidate/validators";
-import { i18n } from "../../plugins/modules/globalContext/modules/i18n";
+import { i18n } from "@plugins/modules/globalContext/modules/i18n";
+
+const { data, component, closeModal } = useModal();
+const { t } = i18n.global;
 
 const roomData = reactive({
   roomName: "",
@@ -99,36 +95,28 @@ const validations = {
     ),
   },
 };
-
 const { $v_validate, $v_getErrorMessage } = useMyVuelidate(
   validations,
   roomData
 );
 
 watch(roomData.typeOfRoom, async (val) => {
-  if (val) {
-    roomData.roomPassword = "";
-  }
+  if (!val) return;
+  roomData.roomPassword = "";
 });
 
 const getSwitchLabel = computed(() => t(`enums.${calculatedTypeOfRoom.value}`));
 const isRoomPublic = computed(() => roomData.typeOfRoom !== ROOM_TYPES.PUBLIC);
 const calculatedTypeOfRoom = computed({
-  get() {
-    return roomData.typeOfRoom === ROOM_TYPES.PUBLIC;
-  },
-  set(val) {
-    roomData.typeOfRoom = val ? ROOM_TYPES.PUBLIC : ROOM_TYPES.PRIVATE;
-  },
+  get: () => roomData.typeOfRoom === ROOM_TYPES.PUBLIC,
+  set: (val) =>
+    (roomData.typeOfRoom = val ? ROOM_TYPES.PUBLIC : ROOM_TYPES.PRIVATE),
 });
 
-async function createRoom() {
+const createRoom = () =>
   $v_validate(() => {
-    API_create(roomData).then((data) => {
-      closeModal(data);
-    });
+    API_create(roomData).then((data) => closeModal(data));
   });
-}
 </script>
 
 <style lang="scss">

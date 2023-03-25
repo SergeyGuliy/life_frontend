@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { clearLocalStorageKeys } from "../localStorageKeys";
-import { useAuth } from "../../composable/useAuth";
+import { useAuth } from "@composable";
 // import { index } from "../assets/utils/index";
 // import { myVue } from "@main";
 

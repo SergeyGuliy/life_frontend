@@ -2,7 +2,7 @@
 import { computed, defineProps, onMounted, ref } from "vue";
 
 import UserInfo from "./UserInfo.vue";
-import { useUsers } from "@composable/useUsers";
+import { useUsers } from "@composable";
 
 const { myUser } = useUsers();
 

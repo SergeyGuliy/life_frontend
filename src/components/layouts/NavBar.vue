@@ -2,9 +2,7 @@
 import { defineEmits, defineProps, ref } from "vue";
 
 import { LOCALES_WITH_KEYS } from "@enums";
-import { useLocale } from "@composable/useLocale";
-import { useVuetifyTheme } from "@composable/useVuetifyTheme";
-import { useAuth } from "@composable/useAuth";
+import { useLocale, useVuetifyTheme, useAuth } from "@composable";
 
 const emit = defineEmits(["update:modelValue"]);
 defineProps({
@@ -15,10 +13,6 @@ const { changeLocale } = useLocale();
 const { logOutMiddleware } = useAuth();
 const { toggleTheme } = useVuetifyTheme();
 
-const items = ref([
-  { title: "English", key: "en" },
-  { title: "Russian", key: "ru" },
-]);
 const localesWithKeys = ref(LOCALES_WITH_KEYS);
 </script>
 

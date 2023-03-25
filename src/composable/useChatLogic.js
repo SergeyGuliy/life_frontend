@@ -10,14 +10,11 @@ import {
   rooms_userJoinRoom,
 } from "@constants/ws/rooms.mjs";
 
-import { chat_messageToClient } from "@constants/ws/chats.mjs";
 import { MESSAGE_RECEIVER_TYPES } from "@enums/index.mjs";
-import { useChatKeys } from "@composable/useChatKeys";
+import { chat_messageToClient } from "@constants/ws/chats.mjs";
 
-import { useBus } from "@composable/useBus";
-import { useSocket } from "@composable/useSocket";
-import { useUsers } from "@composable/useUsers";
-import { useStoreChats } from "@stores/chats";
+import { useChatKeys, useBus, useSocket, useUsers } from "@composable";
+import { useStoreChats } from "@stores";
 
 export function useChatLogic() {
   const { busInit, busEmit } = useBus();

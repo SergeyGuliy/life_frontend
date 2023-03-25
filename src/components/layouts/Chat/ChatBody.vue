@@ -3,7 +3,7 @@ import { defineProps, onBeforeUnmount, onMounted, ref } from "vue";
 import ResizeObserver from "resize-observer-polyfill";
 
 import ChatMessage from "./Message/ChatMessage.vue";
-import { useStoreChats } from "@stores/chats";
+import { useStoreChats } from "@stores";
 
 const { chats, chatTabs } = useStoreChats();
 

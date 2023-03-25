@@ -47,7 +47,7 @@ import { defineAsyncComponent } from "vue";
 
 import { FRIENDSHIP_STATUSES } from "@enums";
 
-import { useUsers } from "@composable/useUsers";
+import { useUsers } from "@composable";
 
 const connectsIncomingPending = "connectsIncomingPending";
 const connectsIncomingIgnored = "connectsIncomingIgnored";

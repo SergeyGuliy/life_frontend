@@ -6,10 +6,10 @@ import ChatBody from "./ChatBody.vue";
 import ChatTabs from "./ChatTabs.vue";
 import ChatHeader from "./ChatHeader.vue";
 
-import { useBus } from "@composable/useBus";
-const { busInit } = useBus();
-
+import { useBus } from "@composable";
 import { MESSAGE_RECEIVER_TYPES } from "@enums";
+
+const { busInit } = useBus();
 const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
 
 const isChatOpened = ref(false);

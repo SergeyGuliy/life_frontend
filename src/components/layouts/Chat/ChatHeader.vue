@@ -3,9 +3,7 @@ import { computed } from "vue";
 
 import { ProfileSettingsParser } from "@utils/parsers";
 import { getChatTabName } from "@plugins/modules/globalFilters/filters/getChatTabName";
-import { useModal } from "@composable/useModal";
-import { useUsers } from "@composable/useUsers";
-
+import { useModal, useUsers } from "@composable";
 import { MESSAGE_RECEIVER_TYPES, MESSAGES_TYPES_MAP } from "@enums";
 
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;

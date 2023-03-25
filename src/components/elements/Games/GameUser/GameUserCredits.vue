@@ -35,7 +35,7 @@
 <script setup>
 import { computed } from "vue";
 
-import { useGame } from "@composable/useGame";
+import { useGame } from "@composable";
 const { gameUserData } = useGame();
 
 const userCredits = computed(() => gameUserData.value.credits);

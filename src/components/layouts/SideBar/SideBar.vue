@@ -3,7 +3,8 @@ import { computed, defineProps, defineEmits, ref } from "vue";
 
 import SideBarList from "./SideBarList.vue";
 import SideBarUserBlock from "./SideBarUserBlock.vue";
-import { useAuth } from "../../../composable/useAuth";
+
+import { useAuth } from "@composable";
 
 const { logOutMiddleware } = useAuth();
 

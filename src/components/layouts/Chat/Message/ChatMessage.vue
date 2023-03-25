@@ -31,8 +31,7 @@ import ChatMessageHeader from "./ChatMessageHeader.vue";
 import ChatMessageContext from "./ChatMessageContext.vue";
 import ChatMessageBody from "./ChatMessageBody.vue";
 
-import { useBus } from "@composable/useBus";
-import { useUsers } from "@composable/useUsers";
+import { useBus, useUsers } from "@composable";
 
 const { myUser } = useUsers();
 const { busEmit } = useBus();

@@ -2,7 +2,7 @@
 import { computed } from "vue";
 
 import { ROOM_TYPES } from "@enums/index.mjs";
-import { useRooms } from "@composable/useRooms";
+import { useRooms } from "@composable";
 
 const { usersInRoom } = useRooms();
 

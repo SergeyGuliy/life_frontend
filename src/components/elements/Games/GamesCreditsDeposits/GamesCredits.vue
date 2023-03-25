@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import { useModal } from "@composable/useModal";
-import { useGame } from "../../../../composable/useGame";
+import { useGame, useModal } from "@composable";
+
 const { openModal } = useModal();
 
 export default {

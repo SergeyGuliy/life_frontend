@@ -22,7 +22,8 @@
 
 <script>
 import { defineAsyncComponent } from "vue";
-import { useUsers } from "../composable/useUsers";
+
+import { useUsers } from "@composable";
 
 export default {
   name: "Home",

@@ -13,20 +13,15 @@ import mainLayout from "./layouts/mainLayout.vue";
 import authLayout from "./layouts/authLayout.vue";
 import ModalWrapper from "./components/layouts/ModalWrapper.vue";
 
-import { useSocket } from "@composable/useSocket";
-const { onSocketInit, socketEmit } = useSocket();
-
 import {
   socketSetup_callUserIdToServer,
   socketSetup_forceDisconnect,
   socketSetup_giveUserIdToServer,
 } from "@constants/ws/socketSetup.mjs";
+import { useAuth, useUsers, useBus, useSocket } from "@composable";
 
-import { useBus } from "@composable/useBus";
 const { busEmit } = useBus();
-
-import { useUsers } from "@composable/useUsers";
-import { useAuth } from "./composable/useAuth";
+const { onSocketInit, socketEmit } = useSocket();
 
 export default {
   name: "App",

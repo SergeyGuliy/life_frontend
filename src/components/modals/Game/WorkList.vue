@@ -45,8 +45,7 @@
 </template>
 
 <script>
-import { useModal } from "../../../composable/useModal";
-import { useGame } from "../../../composable/useGame";
+import { useModal, useGame } from "@composable";
 
 export default {
   name: "WorkList",

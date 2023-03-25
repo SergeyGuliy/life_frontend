@@ -81,9 +81,9 @@
 </template>
 
 <script>
-import { useNotify } from "@composable/useNotify";
-import { useModal } from "../../composable/useModal";
+import { useModal, useNotify } from "@composable";
 import { API_changePassword } from "@api/userSettings";
+
 const { notifyInfo } = useNotify();
 
 export default {

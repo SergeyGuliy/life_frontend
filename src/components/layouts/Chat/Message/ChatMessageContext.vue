@@ -1,9 +1,7 @@
 <script setup>
 import { defineProps, onUnmounted, reactive, ref } from "vue";
 
-import { useEventsListener } from "@composable/useEventsListener";
-import { useUsersActions } from "@composable/useUsersActions";
-import { useBus } from "@composable/useBus";
+import { useEventsListener, useUsersActions, useBus } from "@composable";
 import { i18n } from "@plugins/modules/globalContext/modules/i18n";
 
 const { writeMessage, addToFriend, openProfile } = useUsersActions();

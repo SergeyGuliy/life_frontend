@@ -8,7 +8,8 @@
 </template>
 
 <script setup>
-import { useModal } from "@composable/useModal";
+import { useModal } from "@composable";
+
 const { openModal } = useModal();
 
 const props = defineProps({

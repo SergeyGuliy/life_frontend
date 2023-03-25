@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import { MESSAGE_RECEIVER_TYPES } from "@enums/index.mjs";
-const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
-
 import { defineAsyncComponent } from "vue";
 
-import { useBus } from "../composable/useBus";
+import { MESSAGE_RECEIVER_TYPES } from "@enums/index.mjs";
+import { useBus } from "@composable";
+
+const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
 const { busInit } = useBus();
 
 export default {

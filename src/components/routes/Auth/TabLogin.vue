@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { useAuth } from "@composable/useAuth";
+import { useAuth } from "@composable";
 
 export default {
   name: "TabLogin",

@@ -7,8 +7,8 @@ import UserButton from "@components/elements/Users/UserButton.vue";
 
 import { API_startGame } from "@api/games";
 import { API_deleteRoom, API_toggleLockRoom } from "@api/rooms";
+import { useRooms } from "@composable";
 
-import { useRooms } from "@composable/useRooms";
 const { roomId, roomData, isRoomAdmin } = useRooms();
 
 const gameSettings = reactive({

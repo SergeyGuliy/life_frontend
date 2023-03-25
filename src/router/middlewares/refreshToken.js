@@ -2,7 +2,7 @@
 // import {API_login} from "@api/auth";
 // import { myVue } from "@main";
 
-import { useAuth } from "../../composable/useAuth";
+import { useAuth } from "@composable";
 
 export async function refreshTokenMiddleware(to) {
   const { refreshToken } = useAuth();

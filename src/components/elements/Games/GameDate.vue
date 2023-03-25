@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { useGame } from "../../../composable/useGame";
+import { useGame } from "@composable";
 
 const { gameDate } = useGame();
 

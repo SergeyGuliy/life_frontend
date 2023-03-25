@@ -1,9 +1,9 @@
 import { MESSAGE_RECEIVER_TYPES } from "@enums";
-const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
-
-import { useStoreChats } from "../../../../stores/chats";
+import { useStoreChats } from "@stores";
 import { getUserName } from "./getUserName";
 import { i18n } from "../../globalContext/modules/i18n";
+
+const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 
 export const getChatTabName = (chatTab) => {
   const { chats } = useStoreChats();

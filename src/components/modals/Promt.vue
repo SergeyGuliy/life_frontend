@@ -21,6 +21,6 @@
 </template>
 
 <script setup>
-import { useModal } from "@composable/useModal";
+import { useModal } from "@composable";
 const { data, component, closeModal } = useModal();
 </script>

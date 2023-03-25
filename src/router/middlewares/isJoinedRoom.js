@@ -1,4 +1,4 @@
-import { useUsers } from "../../composable/useUsers";
+import { useUsers } from "@composable";
 
 export function isJoinedRoom(to, from, next) {
   const { myUser } = useUsers();

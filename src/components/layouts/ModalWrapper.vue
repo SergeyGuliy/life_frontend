@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { useModal } from "../../composable/useModal";
+import { useModal } from "@composable";
 
 import ChangePassword from "../modals/ChangePassword.vue";
 import CreateRoom from "../modals/CreateRoom.vue";

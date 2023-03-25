@@ -70,10 +70,10 @@
 </template>
 
 <script>
-import { $mChain } from "@utils/mathjs";
 import { defineAsyncComponent } from "vue";
-import { useModal } from "../../../composable/useModal";
-import { useGame } from "../../../composable/useGame";
+
+import { $mChain } from "@utils/mathjs";
+import { useModal, useGame } from "@composable";
 
 export default {
   name: "News",

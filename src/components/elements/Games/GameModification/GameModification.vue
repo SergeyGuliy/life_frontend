@@ -47,7 +47,8 @@
 
 <script>
 import { defineAsyncComponent } from "vue";
-import { useGame } from "../../../../composable/useGame";
+
+import { useGame } from "@composable";
 
 export default {
   name: "GameModification",

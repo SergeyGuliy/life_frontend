@@ -1,6 +1,6 @@
 <script setup>
 import { onBeforeMount } from "vue";
-import { onBeforeRouteLeave } from "vue-router";
+import { onBeforeRouteLeave, useRouter } from "vue-router";
 
 import RoomRoot from "@components/elements/Rooms/RoomRoot.vue";
 import Game from "@components/elements/Games/Game.vue";
@@ -14,32 +14,32 @@ import {
   rooms_userKickedFromRoom,
 } from "@constants/ws/rooms.mjs";
 
-import { useI18n } from "vue-i18n";
-import { useRouter } from "vue-router";
-import { useModal } from "@composable/useModal";
-import { useSocket } from "@composable/useSocket";
-import { useRooms } from "@composable/useRooms";
-import { useUsers } from "@composable/useUsers";
-import { useGame } from "@composable/useGame";
-import { useStoreAuth } from "@stores/user";
-import { useStoreRooms } from "@stores/room";
-import { i18n } from "../../plugins/modules/globalContext/modules/i18n";
+import {
+  useModal,
+  useSocket,
+  useRooms,
+  useUsers,
+  useGame,
+  useStoreAuth,
+  useStoreRooms,
+} from "@composable";
+
+import { i18n } from "@plugins/modules/globalContext/modules/i18n";
 
 const router = useRouter();
 const { t } = i18n.global;
 const { onSocketInit, socketEmit } = useSocket();
 const { openModal } = useModal();
-
 const { myUser } = useUsers();
 const { gameId } = useGame();
 const { leaveRoom, setRoomId, leaveRoomAction } = useStoreAuth();
 const { updateUser, kickUser } = useStoreRooms();
-let { roomId, usersInRoom, roomData } = useRooms();
+const { roomId, usersInRoom, roomData } = useRooms();
 
 onBeforeMount(() => {
   API_getRoomById(roomId)
     .then((data) => {
-      roomData = data;
+      roomData.value = data;
       gameId.value = data.gameId;
 
       socketEmit(rooms_userConnectsRoom, {
@@ -78,31 +78,28 @@ onBeforeRouteLeave(async (to, from, next) => {
 });
 
 function updateUserListInRoom(argUsersInRoom) {
-  usersInRoom = argUsersInRoom;
+  usersInRoom.value = argUsersInRoom;
 }
 
 function updateRoomAdmin(newAdmin) {
-  let oldAdminId = usersInRoom.findIndex(
+  let idOldAdmin = usersInRoom.value.findIndex(
     ({ roomCreatedId }) => typeof roomCreatedId === "number"
   );
 
   updateUser({
-    index: oldAdminId,
-    userData: {
-      roomCreatedId: null,
-    },
+    index: idOldAdmin,
+    userData: { roomCreatedId: null },
   });
 
-  let indexNewAdmin = usersInRoom.findIndex(
+  let idNewAdmin = usersInRoom.value.findIndex(
     ({ userId }) => userId === newAdmin.userId
   );
 
   updateUser({
-    index: indexNewAdmin,
-    userData: {
-      roomCreatedId: roomId,
-    },
+    index: idNewAdmin,
+    userData: { roomCreatedId: roomId },
   });
+
   setRoomId(newAdmin.userId === myUser.userId ? roomId : null);
 }
 
@@ -119,11 +116,11 @@ function exitRoom() {
 }
 
 function updateToggleLockRoom(lockState) {
-  roomData = { isBlocked: lockState };
+  roomData.value = { isBlocked: lockState };
 }
 
 function gameStarted(game) {
-  roomData = { gameId: game._id };
+  roomData.value = { gameId: game._id };
   gameId.value = game._id;
 }
 </script>

@@ -5,10 +5,9 @@
 <script>
 import { options } from "./graphOptions";
 
-import { useSocket } from "@composable/useSocket";
-const { onSocketInit } = useSocket();
+import { useSocket, useGame } from "@composable";
 
-import { useGame } from "@composable/useGame";
+const { onSocketInit } = useSocket();
 
 export default {
   name: "GameCryptoGraph",

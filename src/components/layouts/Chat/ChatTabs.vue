@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
 
-import { useStoreChats } from "@stores/chats";
+import { useStoreChats } from "@stores";
 import { getChatTabName } from "@plugins/modules/globalFilters/filters/getChatTabName";
 
 const { chatTabs } = useStoreChats();
