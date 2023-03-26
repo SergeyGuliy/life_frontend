@@ -3,7 +3,6 @@ import { computed } from "vue";
 
 import { useUsersActions, useRooms, useUsers } from "@composable";
 import { useStoreFriends } from "@stores";
-import { i18n } from "@plugins/modules/globalContext/modules/i18n";
 
 import { API_acceptRequest, API_ignoreRequest } from "@api/friendship";
 import { API_kickUser, API_setAdmin } from "@api/rooms";

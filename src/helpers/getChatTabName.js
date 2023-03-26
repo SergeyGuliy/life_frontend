@@ -1,8 +1,7 @@
 import { MESSAGE_RECEIVER_TYPES } from "@enums";
 import { useStoreChats } from "@stores";
 import { getUserName } from "@helpers";
-import { i18n } from "../plugins/modules/globalContext/modules/i18n";
-import { useLocale } from "../composable";
+import { useLocale } from "@composable";
 
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 

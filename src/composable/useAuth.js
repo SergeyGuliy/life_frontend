@@ -1,76 +1,67 @@
-import { useRoute } from "vue-router";
-
+import { useVuetifyTheme, useLocale, useModal, useMyRouter } from "@composable";
 import { useStoreAuth } from "@stores";
 
-import { clearLocalStorageKeys } from "../utils/localStorageKeys";
+import { clearLocalStorageKeys } from "@utils/localStorageKeys";
 import { API_refreshToken, API_registration, API_login } from "@api/auth";
-import { useVuetifyTheme, useLocale, useModal } from "@composable";
-import { router } from "@plugins/modules/globalContext/modules/router";
 
 export function useAuth() {
-  const route = useRoute();
-  // const router = useRouter();
   const { setTheme } = useVuetifyTheme();
   const { setUser, cleanUser } = useStoreAuth();
-  const { openModal } = useModal();
 
-  async function logIn(authData) {
-    try {
-      const data = await API_login(authData);
-      await setUser(data);
-      setTheme(data.userData.userSettings.isDarkTheme);
-      await router.push({ name: "Home" });
-    } catch (e) {
-      console.log(`Error in store action 'logIn': ${e}`);
-      throw e;
-    }
-  }
+  const logIn = (authData) =>
+    API_login(authData)
+      .then((data) => {
+        setUser(data);
+        setTheme(data.userData.userSettings.isDarkTheme);
+        useMyRouter().routerPush({ name: "Home" });
+      })
+      .catch((e) => {
+        console.log(`Error in store action 'logIn': ${e}`);
+        throw e;
+      });
 
-  async function registration(authData) {
-    try {
-      const data = await API_registration(authData);
-      await setUser(data);
-      setTheme(data.userData.userSettings.isDarkTheme);
-      await router.push({ name: "Home" });
-    } catch (e) {
-      console.log(`Error in store action 'createNewUser': ${e.message}`);
-      throw e.message;
-    }
-  }
+  const registration = (authData) =>
+    API_registration(authData)
+      .then(async (data) => {
+        setUser(data);
+        setTheme(data.userData.userSettings.isDarkTheme);
+        await useMyRouter().routerPush({ name: "Home" });
+      })
+      .catch((e) => {
+        console.log(`Error in store action 'createNewUser': ${e.message}`);
+        throw e.message;
+      });
 
-  async function logOut(logoutRedirectRoute = "Auth") {
+  const logOut = (logoutRedirectRoute = "Auth") => {
     clearLocalStorageKeys();
     cleanUser();
     setTheme(false);
     // socketDisconnect();
-    await router.push({ name: logoutRedirectRoute });
-  }
+    useMyRouter().routerPush({ name: logoutRedirectRoute });
+  };
 
-  async function logOutMiddleware() {
+  const logOutMiddleware = () => {
     const { t } = useLocale();
 
-    if (route.name === "RoomId") {
-      await openModal("Promt", {
+    if (useMyRouter().routeName !== "RoomId") return logOut();
+
+    return useModal()
+      .openModal("Promt", {
         title: t("modals.wantLeaveRoom"),
         submit: t("buttons.leave"),
         cancel: t("buttons.cancel"),
       })
-        .then(logOut)
-        .catch(() => {});
-    } else {
-      await logOut();
-    }
-  }
+      .then(logOut)
+      .catch(() => {});
+  };
 
-  async function refreshToken() {
-    try {
-      const data = await API_refreshToken();
-      await setUser(data);
-      setTheme(data.userData.userSettings.isDarkTheme);
-    } catch (e) {
-      await logOut();
-    }
-  }
+  const refreshToken = () =>
+    API_refreshToken()
+      .then(async (data) => {
+        setUser(data);
+        setTheme(data.userData.userSettings.isDarkTheme);
+      })
+      .catch(logOut);
 
   return {
     logOut,

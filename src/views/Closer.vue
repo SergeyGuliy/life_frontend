@@ -1,13 +1,10 @@
 <script setup>
-import { useRouter } from "vue-router";
-
-import { useAuth } from "@composable";
+import { useAuth, useMyRouter } from "@composable";
 
 const { refreshToken } = useAuth();
-const router = useRouter();
+const { routerPush } = useMyRouter();
 
-const goForward = () =>
-  refreshToken().then(() => router.push({ name: "Home" }));
+const goForward = () => refreshToken().then(() => routerPush({ name: "Home" }));
 </script>
 
 <template>

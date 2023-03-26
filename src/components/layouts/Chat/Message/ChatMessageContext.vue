@@ -2,7 +2,6 @@
 import { defineProps, onUnmounted, reactive, ref } from "vue";
 
 import { useEventsListener, useUsersActions, useBus } from "@composable";
-import { i18n } from "@plugins/modules/globalContext/modules/i18n";
 import { useLocale } from "../../../../composable";
 
 const { writeMessage, addToFriend, openProfile } = useUsersActions();

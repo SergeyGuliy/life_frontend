@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted } from "vue";
+import { onUnmounted } from "vue";
 import mitt from "mitt";
 
 export function useBus() {

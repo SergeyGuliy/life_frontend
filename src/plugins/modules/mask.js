@@ -1,5 +1,3 @@
-import VueMask from "@devindex/vue-mask"; // <-- ADD THIS LINE
+import VueMask from "@devindex/vue-mask";
 
-export function installMask(vue) {
-  vue.use(VueMask);
-}
+export const installMask = (vue) => vue.use(VueMask);

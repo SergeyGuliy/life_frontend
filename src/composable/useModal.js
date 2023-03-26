@@ -27,8 +27,6 @@ export function useModal() {
   }
 
   function closeModal(data = null) {
-    // if (this.loading) return;
-
     window.dispatchEvent(
       new CustomEvent("modalClose", {
         detail: data,

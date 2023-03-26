@@ -1,4 +1,4 @@
-import { i18n } from "../plugins/modules/globalContext/modules/i18n";
+import { i18n } from "@plugins";
 
 export function useLocale() {
   const changeLocale = (locale) => (i18n.global.locale = locale);

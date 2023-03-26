@@ -6,6 +6,7 @@ import { useEventsListener } from "./useEventsListener";
 import { useGame } from "./useGame";
 import { useLocale } from "./useLocale";
 import { useModal } from "./useModal";
+import { useMyRouter } from "./useMyRouter";
 import { useMyVuelidate } from "./useMyVuelidate";
 import { useNotify } from "./useNotify";
 import { useRecording } from "./useRecording";
@@ -26,6 +27,7 @@ export {
   useGame,
   useLocale,
   useModal,
+  useMyRouter,
   useMyVuelidate,
   useNotify,
   useRecording,

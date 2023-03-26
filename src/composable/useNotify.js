@@ -1,38 +1,16 @@
-import { notify } from "@kyvg/vue3-notification";
+import { useNotification } from "@kyvg/vue3-notification";
 
 export function useNotify() {
-  function notifyError(message) {
-    notify({
-      group: "foo",
-      type: "error",
-      title: message,
-    });
-  }
+  const { notify } = useNotification();
 
-  function notifyWarning(message) {
-    notify({
-      group: "foo",
-      type: "warn",
-      title: message,
-    });
-  }
+  const notifyError = (title) => notify({ type: "error", title });
 
-  function notifySuccess(message) {
-    notify({
-      group: "foo",
-      type: "success",
-      title: message,
-    });
-  }
+  const notifyWarning = (title) => notify({ type: "warn", title });
 
-  function notifyInfo(message) {
-    console.warn("notifyInfo");
-    notify({
-      group: "foo",
-      type: "info",
-      title: message,
-    });
-  }
+  const notifySuccess = (title) => notify({ type: "success", title });
+
+  const notifyInfo = (title) => notify({ type: "info", title });
+
   return {
     notifyError,
     notifyWarning,

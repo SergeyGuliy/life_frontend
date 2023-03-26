@@ -1,6 +1,6 @@
 <script setup>
 import { onBeforeMount } from "vue";
-import { onBeforeRouteLeave, useRouter } from "vue-router";
+import { onBeforeRouteLeave } from "vue-router";
 
 import RoomRoot from "@components/elements/Rooms/RoomRoot.vue";
 import Game from "@components/elements/Games/Game.vue";
@@ -22,12 +22,11 @@ import {
   useGame,
   useStoreAuth,
   useStoreRooms,
+  useLocale,
+  useMyRouter,
 } from "@composable";
 
-import { i18n } from "@plugins/modules/globalContext/modules/i18n";
-import { useLocale } from "../../composable";
-
-const router = useRouter();
+const { routerPush } = useMyRouter();
 const { t } = useLocale();
 const { onSocketInit, socketEmit } = useSocket();
 const { openModal } = useModal();
@@ -113,7 +112,7 @@ async function userKickedFromRoom(userId) {
 
 function exitRoom() {
   leaveRoom();
-  router.push({ name: "Home" });
+  routerPush({ name: "Home" });
 }
 
 function updateToggleLockRoom(lockState) {

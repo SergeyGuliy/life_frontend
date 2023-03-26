@@ -7,6 +7,15 @@ import { $mChangePrise } from "@utils/mathjs";
 export function useGame() {
   const store = useStoreGame();
 
+  const gameCryptos = computed({
+    get: () =>
+      store.gameCryptos.map((crypto) => ({
+        ...crypto,
+        grow_loss: $mChangePrise(crypto.currentPrice, crypto.previousPrice),
+      })),
+    set: (val) => store.setGameCryptos(val),
+  });
+
   const gameId = computed({
     get: () => store.gameId,
     set: (val) => store.setGameId(val),
@@ -20,15 +29,6 @@ export function useGame() {
   const gameShares = computed({
     get: () => store.gameShares,
     set: (val) => store.setGameShares(val),
-  });
-
-  const gameCryptos = computed({
-    get: () =>
-      store.gameCryptos.map((crypto) => ({
-        ...crypto,
-        grow_loss: $mChangePrise(crypto.currentPrice, crypto.previousPrice),
-      })),
-    set: (val) => store.setGameCryptos(val),
   });
 
   const gameCredits = computed({

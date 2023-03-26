@@ -1,5 +1,3 @@
 import VueApexCharts from "vue-apexcharts";
 
-export function installApexCharts(vue) {
-  vue.use(VueApexCharts);
-}
+export const installApexCharts = (vue) => vue.use(VueApexCharts);

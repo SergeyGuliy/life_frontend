@@ -1,8 +1,14 @@
 import { onBeforeUnmount, onMounted, reactive, ref } from "vue";
-import { useRouter } from "vue-router";
 
 import { API_getRooms, API_joinRoom } from "@api/rooms";
-import { useModal, useUsers, useSocket, useLocale } from "@composable";
+import { useStoreAuth } from "@stores";
+import {
+  useModal,
+  useUsers,
+  useSocket,
+  useLocale,
+  useMyRouter,
+} from "@composable";
 
 import {
   rooms_subscribeRoomsUpdate,
@@ -11,14 +17,13 @@ import {
   rooms_roomInListDeleted,
   rooms_roomInListUpdated,
 } from "@constants/ws/rooms.mjs";
-import { useStoreAuth } from "@stores";
 
 export function useRoomLogic() {
   const { myUser } = useUsers();
   const { onSocketInit, socketEmit } = useSocket();
   const { openModal } = useModal();
   const { t } = useLocale();
-  const router = useRouter();
+  const { routerPush } = useMyRouter();
   const { setAdminRoom, setJoinedRoom } = useStoreAuth();
 
   const filterData = reactive({
@@ -70,7 +75,7 @@ export function useRoomLogic() {
       .then((data) => {
         setAdminRoom(data.roomId);
         setJoinedRoom(data.roomId);
-        router.push({ name: "RoomId", params: { id: data.roomId } });
+        routerPush({ name: "RoomId", params: { id: data.roomId } });
       })
       .catch(() => {});
   }
@@ -103,7 +108,7 @@ export function useRoomLogic() {
       .then(() => API_joinRoom(roomId))
       .then((data) => {
         setAdminRoom(data.roomJoinedId);
-        router.push({
+        routerPush({
           name: "RoomId",
           params: { id: data.roomJoinedId },
         });

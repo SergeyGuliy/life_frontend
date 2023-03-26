@@ -1,21 +1,15 @@
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import { aliases, mdi } from "vuetify/lib/iconsets/mdi";
-import "@mdi/font/css/materialdesignicons.css"; // Ensure you are using css-loader
+import "@mdi/font/css/materialdesignicons.css";
 
 export const vuetify = createVuetify({
-  theme: {
-    defaultTheme: "dark",
-  },
+  theme: { defaultTheme: "dark" },
   icons: {
     defaultSet: "mdi",
     aliases,
-    sets: {
-      mdi,
-    },
+    sets: { mdi },
   },
 });
 
-export function installVuetify(vue) {
-  vue.use(vuetify);
-}
+export const installVuetify = (vue) => vue.use(vuetify);

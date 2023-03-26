@@ -1,20 +1,17 @@
 import { MESSAGE_RECEIVER_TYPES } from "@enums";
+
 const { PRIVATE } = MESSAGE_RECEIVER_TYPES;
 
 export function useChatKeys() {
-  function getUserChatKey(user) {
-    if (typeof user === "number") {
-      return `${PRIVATE}_${user}`;
-    } else {
-      return `${PRIVATE}_${user.userId}`;
-    }
-  }
-  function getUserIdFromChatKey(chatKey) {
-    return chatKey.split("_")[1];
-  }
-  function getTypeFromChatKey(chatKey) {
-    return chatKey.split("_")[0];
-  }
+  const getUserChatKey = (user) =>
+    typeof user === "number"
+      ? `${PRIVATE}_${user}`
+      : `${PRIVATE}_${user.userId}`;
+
+  const getUserIdFromChatKey = (chatKey) => chatKey.split("_")[1];
+
+  const getTypeFromChatKey = (chatKey) => chatKey.split("_")[0];
+
   return {
     getUserChatKey,
     getUserIdFromChatKey,

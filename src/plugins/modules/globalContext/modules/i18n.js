@@ -1,12 +1,9 @@
 import { createI18n } from "vue-i18n";
 
-import { en } from "../../../../locales/en.js";
-import { ru } from "../../../../locales/ru.js";
+import { en } from "@locales/en";
+import { ru } from "@locales/ru";
 
-const messages = {
-  en,
-  ru,
-};
+const messages = { en, ru };
 
 export const i18n = createI18n({
   allowComposition: true, // you need to specify that!
@@ -18,6 +15,4 @@ export const i18n = createI18n({
   messages,
 });
 
-export function installI18n(vue) {
-  vue.use(i18n);
-}
+export const installI18n = (vue) => vue.use(i18n);
