@@ -21,10 +21,7 @@ import Chat from "@components/layouts/Chat/ChatRoot.vue";
 
 import { API_changeLocale, API_changeTheme } from "@api/userSettings";
 import { useUsers, useChatLogic, useSocket } from "@composable";
-import {
-  API_getYourConnections,
-  API_getYourFriends,
-} from "@utils/api/modules/friendship";
+import { API_getYourConnections, API_getYourFriends } from "@api/friendship";
 import { useStoreFriends, useStoreAuth } from "@stores";
 
 export default {

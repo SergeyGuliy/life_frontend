@@ -2,7 +2,7 @@ import { axiosWithoutAuth } from "../axios";
 import {
   clearLocalStorageKeys,
   setLocalStorageKeys,
-} from "../../localStorageKeys";
+} from "@utils/localStorageKeys";
 
 const API_login = async (body) => {
   let data = await axiosWithoutAuth.post("api/auth/login", body);

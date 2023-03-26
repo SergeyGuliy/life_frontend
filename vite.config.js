@@ -15,22 +15,20 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      // vue: getPath("node_modules/@vue/compat"),
-      "@constants": getPath("node_modules/life_shared/esm/constants"),
-      "@enums": getPath("node_modules/life_shared/esm/enums"),
-
+      "@api": getPath("src/api/modules"),
       "@assets": getPath("src/assets/"),
       "@components": getPath("src/components/"),
       "@composable": getPath("src/composable"),
       "@helpers": getPath("src/helpers"),
+      "@layouts": getPath("src/layouts"),
       "@locales": getPath("src/locales"),
       "@plugins": getPath("src/plugins"),
       "@router": getPath("src/router"),
       "@stores": getPath("src/stores"),
       "@utils": getPath("src/utils"),
 
-      "@main": getPath("src/main.js"),
-      "@api": getPath("src/utils/api/modules"),
+      "@constants": getPath("node_modules/life_shared/esm/constants"),
+      "@enums": getPath("node_modules/life_shared/esm/enums"),
     },
   },
 });

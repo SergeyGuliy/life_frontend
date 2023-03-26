@@ -1,7 +1,7 @@
 // import { store } from "../../store";
 
 import axios from "axios";
-import { clearLocalStorageKeys } from "../localStorageKeys";
+import { clearLocalStorageKeys } from "@utils/localStorageKeys";
 import { useAuth } from "@composable";
 // import { index } from "../assets/utils/index";
 // import { myVue } from "@main";
@@ -55,4 +55,5 @@ axiosWithoutAuth.interceptors.response.use(
     return error;
   }
 );
+
 export { axiosWithAuth, axiosWithoutAuth };

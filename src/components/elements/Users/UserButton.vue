@@ -6,7 +6,7 @@ import { useStoreFriends } from "@stores";
 
 import { API_acceptRequest, API_ignoreRequest } from "@api/friendship";
 import { API_kickUser, API_setAdmin } from "@api/rooms";
-import { useLocale } from "../../../composable";
+import { useLocale } from "@composable";
 
 const { roomId } = useRooms();
 const { connects } = useUsers();

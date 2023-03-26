@@ -1,6 +1,6 @@
 import { computed } from "vue";
 
-import { API_userEvent } from "@utils/api/modules/games";
+import { API_userEvent } from "@api/games";
 import { useStoreGame } from "@stores";
 import { $mChangePrise } from "@utils/mathjs";
 

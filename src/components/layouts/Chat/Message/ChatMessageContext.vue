@@ -1,8 +1,12 @@
 <script setup>
 import { defineProps, onUnmounted, reactive, ref } from "vue";
 
-import { useEventsListener, useUsersActions, useBus } from "@composable";
-import { useLocale } from "../../../../composable";
+import {
+  useEventsListener,
+  useUsersActions,
+  useBus,
+  useLocale,
+} from "@composable";
 
 const { writeMessage, addToFriend, openProfile } = useUsersActions();
 const { busInit } = useBus();

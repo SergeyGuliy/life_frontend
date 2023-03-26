@@ -9,10 +9,9 @@
 </template>
 
 <script>
-// import Notifications from "@kyvg/vue3-notification";
-import mainLayout from "./layouts/mainLayout.vue";
-import authLayout from "./layouts/authLayout.vue";
-import ModalWrapper from "./components/layouts/ModalWrapper.vue";
+import mainLayout from "@layouts/mainLayout.vue";
+import authLayout from "@layouts/authLayout.vue";
+import ModalWrapper from "@components/layouts/ModalWrapper.vue";
 
 import {
   socketSetup_callUserIdToServer,
@@ -20,7 +19,6 @@ import {
   socketSetup_giveUserIdToServer,
 } from "@constants/ws/socketSetup.mjs";
 import { useAuth, useUsers, useBus, useSocket } from "@composable";
-import { useNotify } from "./composable";
 
 const { busEmit } = useBus();
 const { onSocketInit, socketEmit } = useSocket();
@@ -52,16 +50,6 @@ export default {
 
       [socketSetup_forceDisconnect]: this.forceDisconnect,
     });
-  },
-
-  mounted() {
-    setTimeout(() => {
-      useNotify().notifyInfo("message0");
-      useNotify().notifyInfo("message1");
-      useNotify().notifyInfo("message2");
-      useNotify().notifyInfo("message3");
-      useNotify().notifyInfo("message4");
-    }, 3000);
   },
 
   methods: {

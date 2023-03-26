@@ -1,4 +1,4 @@
-import { vuetify } from "../plugins/modules/globalContext/modules/vuetify";
+import { vuetify } from "@plugins";
 
 export function useVuetifyTheme() {
   const { name, current } = vuetify.theme.global;
