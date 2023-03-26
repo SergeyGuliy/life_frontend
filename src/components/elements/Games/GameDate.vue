@@ -3,7 +3,7 @@
     <v-card-title class="py-0">
       Current date:
       <v-spacer></v-spacer>
-      {{ $filters.gameDate(gameDate) }}
+      {{ getGameDate(gameDate) }}
     </v-card-title>
 
     <v-card-actions>
@@ -17,6 +17,7 @@
 
 <script setup>
 import { useGame } from "@composable";
+import { getGameDate } from "@helpers";
 
 const { gameDate } = useGame();
 

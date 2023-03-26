@@ -1,35 +1,28 @@
-import { API_deleteFriend, API_sendRequest } from "@api/friendship";
-
-import { useBus, useUsers } from "@composable";
 import { useRouter } from "vue-router";
+
+import { API_deleteFriend, API_sendRequest } from "@api/friendship";
+import { useBus, useUsers } from "@composable";
 
 export function useUsersActions() {
   const { friendsRequests } = useUsers();
   const { busEmit } = useBus();
-  const router = useRouter();
+  const { push } = useRouter();
 
-  function writeMessage(userId) {
-    busEmit("writeMessage", userId);
-  }
+  const writeMessage = (id) => busEmit("writeMessage", id);
 
-  async function addToFriend(userId) {
-    await API_sendRequest(userId)
-      .then(() => {})
-      .catch(() => {});
-  }
-  async function deleteFriend(userId) {
-    await API_deleteFriend(userId)
+  const addToFriend = (id) => API_sendRequest(id).catch(() => {});
+
+  const openProfile = (id) => push({ name: "UserId", params: { id } });
+
+  const deleteFriend = (userId) =>
+    API_deleteFriend(userId)
       .then((data) => {
-        const indexToDelete = friendsRequests.findIndex(
+        const idToDelete = friendsRequests.findIndex(
           (i) => i.friendshipsId === data.friendshipsId
         );
-        // store.commit("friends/deleteFriend", indexToDelete);
+        // store.commit("friends/deleteFriend", idToDelete);
       })
       .catch(() => {});
-  }
-  async function openProfile(userId) {
-    await router.push({ name: "UserId", params: { id: userId } });
-  }
 
   return {
     writeMessage,

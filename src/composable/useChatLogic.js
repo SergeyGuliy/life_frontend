@@ -15,6 +15,7 @@ import { chat_messageToClient } from "@constants/ws/chats.mjs";
 
 import { useChatKeys, useBus, useSocket, useUsers } from "@composable";
 import { useStoreChats } from "@stores";
+import { getUserById } from "@helpers";
 
 export function useChatLogic() {
   const { busInit, busEmit } = useBus();
@@ -70,7 +71,7 @@ export function useChatLogic() {
         messages: [],
         key: PRIVATE,
         userId,
-        userData: await this.$filters.dictGetUserById(userId),
+        userData: await getUserById(userId),
       });
     }
   }
@@ -115,7 +116,7 @@ export function useChatLogic() {
         userData:
           user.messageReceiverUserId === myUser.userId
             ? user.messageSender
-            : await this.$filters.dictGetUserById(user.messageReceiverUserId),
+            : await getUserById(user.messageReceiverUserId),
         messages: messageWithUsers.filter(
           (message) =>
             message.messageReceiverUserId === userId ||

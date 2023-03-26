@@ -25,9 +25,10 @@ import {
 } from "@composable";
 
 import { i18n } from "@plugins/modules/globalContext/modules/i18n";
+import { useLocale } from "../../composable";
 
 const router = useRouter();
-const { t } = i18n.global;
+const { t } = useLocale();
 const { onSocketInit, socketEmit } = useSocket();
 const { openModal } = useModal();
 const { myUser } = useUsers();

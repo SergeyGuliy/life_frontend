@@ -11,12 +11,14 @@
 </template>
 
 <script>
+import { getUserById } from "@helpers";
+
 export default {
   name: "UserId",
 
   computed: {
     userData() {
-      return this.$filters.dictGetUserById(this.$route.params.id);
+      return getUserById(this.$route.params.id);
     },
   },
 };

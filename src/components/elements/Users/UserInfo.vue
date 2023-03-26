@@ -2,6 +2,7 @@
 import { reactive } from "vue";
 
 import { ROOM_TYPES } from "@enums/index.mjs";
+import { getUserName } from "@helpers";
 
 const props = defineProps({
   userData: { required: true, type: Object },
@@ -16,9 +17,7 @@ const getChipClass = reactive(() =>
 <template>
   <div class="UserInfo">
     <div class="d-flex align-center">
-      <v-card-title class="py-0"
-        >{{ $filters.getUserName(userData) }}
-      </v-card-title>
+      <v-card-title class="py-0">{{ getUserName(userData) }} </v-card-title>
       <v-spacer></v-spacer>
 
       <v-chip

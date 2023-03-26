@@ -2,6 +2,7 @@
 import { computed } from "vue";
 
 import { useUsers } from "@composable";
+import { getChatDate, getUserById, getUserName } from "@helpers";
 
 const { users } = useUsers();
 
@@ -12,10 +13,10 @@ const props = defineProps({
 });
 
 const getChatWriterName = computed(() => {
-  const messageSender = this.$filters.dictGetUserById(props.messageSender);
+  const messageSender = getUserById(props.messageSender);
   if (!messageSender) return "";
 
-  return props.isYouAuthor ? "Me" : this.$filters.getUserName(messageSender);
+  return props.isYouAuthor ? "Me" : getUserName(messageSender);
 });
 </script>
 
@@ -30,7 +31,7 @@ const getChatWriterName = computed(() => {
     <v-list-item-title>
       <v-list-item-title class="d-flex justify-space-between">
         <span>{{ getChatWriterName }}</span>
-        <span>{{ $filters.chatDate(createdAt) }}</span>
+        <span>{{ getChatDate(createdAt) }}</span>
       </v-list-item-title>
     </v-list-item-title>
   </v-list-item>

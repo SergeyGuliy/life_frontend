@@ -1,6 +1,6 @@
 // import { store } from "../../../../store";
 
-export const dictGetUserById = (user) => {
+export const getUserById = (user) => {
   // if (typeof user === "number") {
   //   store.commit("dictionaries/getUserById", user);
   //   return store.state.dictionaries.users[user];

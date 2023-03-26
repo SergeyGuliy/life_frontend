@@ -1,14 +1,14 @@
 import { MESSAGE_RECEIVER_TYPES } from "@enums";
 import { useStoreChats } from "@stores";
-import { getUserName } from "./getUserName";
-import { i18n } from "../../globalContext/modules/i18n";
+import { getUserName } from "@helpers";
+import { i18n } from "../plugins/modules/globalContext/modules/i18n";
+import { useLocale } from "../composable";
 
 const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 
 export const getChatTabName = (chatTab) => {
   const { chats } = useStoreChats();
-
-  const { t } = i18n.global;
+  const { t } = useLocale();
 
   if (chats[chatTab].key === GLOBAL) {
     return t(`enums.${GLOBAL}`);

@@ -8,7 +8,7 @@
               <v-avatar width="200" height="200" class="mx-auto d-flex">
                 <v-img :src="imgSrc" alt="" v-if="imgSrc" cover />
                 <v-img
-                  :src="$filters.avatarLink(profileSettings.avatarBig)"
+                  :src="getAvatarLink(profileSettings.avatarBig)"
                   alt=""
                   cover
                   v-else-if="profileSettings.avatarBig"
@@ -218,6 +218,7 @@ import { COUNTRIES, LOCALES_WITH_KEYS } from "@enums";
 import { API_uploadAvatar } from "@api/uploader";
 import { useUsers, useLocale, useUserSettings, useModal } from "@composable";
 import { useStoreAuth } from "@stores";
+import { getAvatarLink } from "@helpers";
 
 const { openModal } = useModal();
 
@@ -286,6 +287,7 @@ export default {
   },
 
   methods: {
+    getAvatarLink,
     parseDefaultData() {
       let profileSettings = new ProfileSettingsParser(this.myUser);
       this.profileSettings = profileSettings.getProfileSettings;

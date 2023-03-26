@@ -2,7 +2,7 @@
 import { computed } from "vue";
 
 import { useStoreChats } from "@stores";
-import { getChatTabName } from "@plugins/modules/globalFilters/filters/getChatTabName";
+import { getChatTabName } from "@helpers";
 
 const { chatTabs } = useStoreChats();
 

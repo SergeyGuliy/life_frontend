@@ -67,9 +67,10 @@ import { API_create } from "@api/rooms";
 import { useModal, useMyVuelidate } from "@composable";
 import { helpers } from "@vuelidate/validators";
 import { i18n } from "@plugins/modules/globalContext/modules/i18n";
+import { useLocale } from "../../composable";
 
 const { data, component, closeModal } = useModal();
-const { t } = i18n.global;
+const { t } = useLocale();
 
 const roomData = reactive({
   roomName: "",

@@ -2,7 +2,7 @@ import { onBeforeUnmount, onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 
 import { API_getRooms, API_joinRoom } from "@api/rooms";
-import { useModal, useUsers, useSocket } from "@composable";
+import { useModal, useUsers, useSocket, useLocale } from "@composable";
 
 import {
   rooms_subscribeRoomsUpdate,
@@ -11,14 +11,13 @@ import {
   rooms_roomInListDeleted,
   rooms_roomInListUpdated,
 } from "@constants/ws/rooms.mjs";
-import { i18n } from "@plugins/modules/globalContext/modules/i18n";
 import { useStoreAuth } from "@stores";
 
 export function useRoomLogic() {
   const { myUser } = useUsers();
   const { onSocketInit, socketEmit } = useSocket();
   const { openModal } = useModal();
-  const { t } = i18n.global;
+  const { t } = useLocale();
   const router = useRouter();
   const { setAdminRoom, setJoinedRoom } = useStoreAuth();
 

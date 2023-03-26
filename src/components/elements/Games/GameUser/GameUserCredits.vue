@@ -16,7 +16,7 @@
           <tr v-for="(credit, index) in userCredits" :key="index">
             <td width="16%" class="text-center">{{ credit.duration }}</td>
             <td width="20%" class="text-center">
-              {{ $filters.gameDate(credit.end) }}
+              {{ getGameDate(credit.end) }}
             </td>
             <td width="16%" class="text-center">{{ credit.percent }} %</td>
             <td width="16%" class="text-center">{{ credit.cash }} $</td>
@@ -36,6 +36,7 @@
 import { computed } from "vue";
 
 import { useGame } from "@composable";
+import { getGameDate } from "@helpers";
 const { gameUserData } = useGame();
 
 const userCredits = computed(() => gameUserData.value.credits);

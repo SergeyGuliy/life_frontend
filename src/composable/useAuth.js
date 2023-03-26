@@ -1,12 +1,10 @@
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
-import { useModal } from "./useModal";
 import { useStoreAuth } from "@stores";
 
 import { clearLocalStorageKeys } from "../utils/localStorageKeys";
 import { API_refreshToken, API_registration, API_login } from "@api/auth";
-import { i18n } from "@plugins/modules/globalContext/modules/i18n";
-import { useVuetifyTheme } from "./useVuetifyTheme";
+import { useVuetifyTheme, useLocale, useModal } from "@composable";
 import { router } from "@plugins/modules/globalContext/modules/router";
 
 export function useAuth() {
@@ -45,13 +43,11 @@ export function useAuth() {
     cleanUser();
     setTheme(false);
     // socketDisconnect();
-    console.log(router);
-    console.log(router.currentRoute.value);
     await router.push({ name: logoutRedirectRoute });
   }
 
   async function logOutMiddleware() {
-    const { t } = i18n.global;
+    const { t } = useLocale();
 
     if (route.name === "RoomId") {
       await openModal("Promt", {

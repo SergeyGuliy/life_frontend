@@ -16,7 +16,7 @@
           <tr v-for="(deposit, index) in userDeposits" :key="index">
             <td width="16%" class="text-center">{{ deposit.duration }}</td>
             <td width="20%" class="text-center">
-              {{ $filters.gameDate(deposit.end) }}
+              {{ getGameDate(deposit.end) }}
             </td>
             <td width="16%" class="text-center">{{ deposit.percent }} %</td>
             <td width="16%" class="text-center">{{ deposit.cash }} $</td>
@@ -36,6 +36,7 @@
 import { computed } from "vue";
 
 import { useGame } from "@composable";
+import { getGameDate } from "@helpers";
 const { gameUserData } = useGame();
 
 const userDeposits = computed(() => gameUserData.value.deposits);

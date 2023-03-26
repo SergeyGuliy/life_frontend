@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from "vue";
 
+import { getAvatarLink } from "@helpers";
+
 const props = defineProps({
   userData: { required: true },
 });
@@ -26,7 +28,7 @@ const getAbs = computed(() => {
   <v-avatar color="indigo" size="40">
     <v-img
       v-if="userData && userData.avatarSmall"
-      :src="$filters.avatarLink(userData.avatarSmall)"
+      :src="getAvatarLink(userData.avatarSmall)"
     />
     <span v-else class="white--text">{{ getAbs }}</span>
   </v-avatar>

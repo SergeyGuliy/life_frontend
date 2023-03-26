@@ -1,5 +1,7 @@
 <script setup>
 import { useUsers } from "@composable";
+import { getUserName } from "@helpers";
+
 const { myUser } = useUsers();
 </script>
 
@@ -10,7 +12,7 @@ const { myUser } = useUsers();
     </template>
 
     <v-list-item-title>
-      <v-list-item-title>{{ $filters.getUserName(myUser) }}</v-list-item-title>
+      <v-list-item-title>{{ getUserName(myUser) }}</v-list-item-title>
       <v-list-item-subtitle>Logged In</v-list-item-subtitle>
     </v-list-item-title>
   </v-list-item>

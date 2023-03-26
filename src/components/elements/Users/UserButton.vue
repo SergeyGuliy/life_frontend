@@ -7,10 +7,11 @@ import { i18n } from "@plugins/modules/globalContext/modules/i18n";
 
 import { API_acceptRequest, API_ignoreRequest } from "@api/friendship";
 import { API_kickUser, API_setAdmin } from "@api/rooms";
+import { useLocale } from "../../../composable";
 
 const { roomId } = useRooms();
 const { connects } = useUsers();
-const { t } = i18n.global;
+const { t } = useLocale();
 const { deleteConnection, addFriend, updateConnection } = useStoreFriends();
 const { writeMessage, addToFriend, deleteFriend, openProfile } =
   useUsersActions();

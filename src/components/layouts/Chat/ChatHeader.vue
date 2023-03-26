@@ -2,7 +2,7 @@
 import { computed } from "vue";
 
 import { ProfileSettingsParser } from "@utils/parsers";
-import { getChatTabName } from "@plugins/modules/globalFilters/filters/getChatTabName";
+import { getChatTabName } from "@helpers";
 import { useModal, useUsers } from "@composable";
 import { MESSAGE_RECEIVER_TYPES, MESSAGES_TYPES_MAP } from "@enums";
 

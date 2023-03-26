@@ -8,13 +8,9 @@ const socket = io("ws://localhost:3000", {
 
 const socketConnected = ref(socket.connected);
 
-socket.on("connect", () => {
-  socketConnected.value = true;
-});
+socket.on("connect", () => (socketConnected.value = true));
 
-socket.on("disconnect", () => {
-  socketConnected.value = false;
-});
+socket.on("disconnect", () => (socketConnected.value = false));
 
 export function useSocket() {
   const socketConnect = socket.connect.bind(socket);

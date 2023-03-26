@@ -3,7 +3,7 @@
     <v-card-title class="py-0">
       User data
       <v-spacer></v-spacer>
-      {{ $filters.getUserName(myUser) }}
+      {{ getUserName(myUser) }}
     </v-card-title>
     <v-card-title>
       Cash:
@@ -27,6 +27,7 @@
 import GameUserWork from "./GameUserWork";
 
 import { useModal, useUsers, useGame } from "@composable";
+import { getUserName } from "@helpers";
 
 const { openModal } = useModal();
 const { myUser } = useUsers();
