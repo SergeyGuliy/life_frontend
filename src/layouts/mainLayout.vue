@@ -19,9 +19,8 @@ import SideBar from "@components/layouts/SideBar/SideBar.vue";
 import NavBar from "@components/layouts/NavBar.vue";
 import Chat from "@components/layouts/Chat/ChatRoot.vue";
 
-import { API_changeLocale, API_changeTheme } from "@api/userSettings";
 import { useUsers, useChatLogic, useSocket } from "@composable";
-import { API_getYourConnections, API_getYourFriends } from "@api/friendship";
+import { API_getYourConnections, API_getYourFriends, API_changeLocale, API_changeTheme } from "@api";
 import { useStoreFriends, useStoreAuth } from "@stores";
 
 export default {

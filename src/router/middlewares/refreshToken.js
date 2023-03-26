@@ -1,5 +1,5 @@
 // import { store } from "../../store/index";
-// import {API_login} from "@api/auth";
+// import {API_login} from "@api";
 // import { myVue } from "@main";
 
 import { useAuth } from "@composable";

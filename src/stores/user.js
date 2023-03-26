@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { API_leaveRoom } from "@api/rooms";
+import { API_leaveRoom } from "@api";
 
 export const useStoreAuth = defineStore("auth", {
   state: () => ({

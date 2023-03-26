@@ -3,7 +3,7 @@ import { defineProps, ref } from "vue";
 
 import ChatAudio from "./ChatAudio.vue";
 
-import { API_uploadVoice } from "@api/uploader";
+import { API_uploadVoice } from "@api";
 import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "@enums";
 import { chat_messageToServer } from "@constants/ws/chats.mjs";
 

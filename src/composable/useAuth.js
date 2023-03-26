@@ -2,7 +2,7 @@ import { useVuetifyTheme, useLocale, useModal, useMyRouter } from "@composable";
 import { useStoreAuth } from "@stores";
 
 import { clearLocalStorageKeys } from "@utils/localStorageKeys";
-import { API_refreshToken, API_registration, API_login } from "@api/auth";
+import { API_refreshToken, API_registration, API_login } from "@api";
 
 export function useAuth() {
   const { setTheme } = useVuetifyTheme();

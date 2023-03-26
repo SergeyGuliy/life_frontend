@@ -82,7 +82,7 @@
 
 <script>
 import { useModal, useNotify } from "@composable";
-import { API_changePassword } from "@api/userSettings";
+import { API_changePassword } from "@api";
 
 const { notifyInfo } = useNotify();
 

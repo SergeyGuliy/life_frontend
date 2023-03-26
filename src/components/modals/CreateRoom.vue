@@ -63,7 +63,7 @@ import { computed, reactive, watch } from "vue";
 
 import { required } from "@vuelidate/validators";
 import { ROOM_TYPES } from "@enums/index.mjs";
-import { API_create } from "@api/rooms";
+import { API_create } from "@api";
 import { useModal, useMyVuelidate, useLocale } from "@composable";
 import { helpers } from "@vuelidate/validators";
 

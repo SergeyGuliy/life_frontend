@@ -4,7 +4,7 @@ import {
   API_getGlobalMessages,
   API_getPrivateMessages,
   API_getRoomMessages,
-} from "@api/chats";
+} from "@api";
 import {
   rooms_userLeaveRoom,
   rooms_userJoinRoom,

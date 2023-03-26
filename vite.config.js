@@ -15,9 +15,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@api": getPath("src/api/modules"),
-      "@assets": getPath("src/assets/"),
-      "@components": getPath("src/components/"),
+      "@api": getPath("src/api"),
+      "@assets": getPath("src/assets"),
+      "@components": getPath("src/components"),
       "@composable": getPath("src/composable"),
       "@helpers": getPath("src/helpers"),
       "@layouts": getPath("src/layouts"),

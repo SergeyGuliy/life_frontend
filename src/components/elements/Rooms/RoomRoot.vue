@@ -5,8 +5,7 @@ import RoomInfo from "@components/elements/Rooms/RoomInfo.vue";
 import UsersList from "@components/elements/Users/UsersList.vue";
 import UserButton from "@components/elements/Users/UserButton.vue";
 
-import { API_startGame } from "@api/games";
-import { API_deleteRoom, API_toggleLockRoom } from "@api/rooms";
+import { API_deleteRoom, API_toggleLockRoom, API_startGame } from "@api";
 import { useRooms } from "@composable";
 
 const { roomId, roomData, isRoomAdmin } = useRooms();

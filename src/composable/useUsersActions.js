@@ -1,6 +1,6 @@
 import { useRouter } from "vue-router";
 
-import { API_deleteFriend, API_sendRequest } from "@api/friendship";
+import { API_deleteFriend, API_sendRequest } from "@api";
 import { useBus, useUsers } from "@composable";
 
 export function useUsersActions() {

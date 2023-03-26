@@ -1,12 +1,15 @@
 <script setup>
 import { computed } from "vue";
 
-import { useUsersActions, useRooms, useUsers } from "@composable";
+import { useUsersActions, useRooms, useUsers, useLocale } from "@composable";
 import { useStoreFriends } from "@stores";
 
-import { API_acceptRequest, API_ignoreRequest } from "@api/friendship";
-import { API_kickUser, API_setAdmin } from "@api/rooms";
-import { useLocale } from "@composable";
+import {
+  API_acceptRequest,
+  API_ignoreRequest,
+  API_kickUser,
+  API_setAdmin,
+} from "@api";
 
 const { roomId } = useRooms();
 const { connects } = useUsers();

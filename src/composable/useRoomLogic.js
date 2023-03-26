@@ -1,6 +1,6 @@
 import { onBeforeUnmount, onMounted, reactive, ref } from "vue";
 
-import { API_getRooms, API_joinRoom } from "@api/rooms";
+import { API_getRooms, API_joinRoom } from "@api";
 import { useStoreAuth } from "@stores";
 import {
   useModal,

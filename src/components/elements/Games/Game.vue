@@ -14,7 +14,7 @@
 <script>
 import { defineAsyncComponent } from "vue";
 
-import { API_getGameById, API_getInGameUserData } from "@api/games";
+import { API_getGameById, API_getInGameUserData } from "@api";
 import { useGame, useSocket } from "@composable";
 
 const { onSocketInit } = useSocket();

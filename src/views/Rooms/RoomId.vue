@@ -5,7 +5,7 @@ import { onBeforeRouteLeave } from "vue-router";
 import RoomRoot from "@components/elements/Rooms/RoomRoot.vue";
 import Game from "@components/elements/Games/Game.vue";
 
-import { API_getRoomById } from "@api/rooms";
+import { API_getRoomById } from "@api";
 import {
   rooms_updateRoomAdmin,
   rooms_updateToggleLockRoom,

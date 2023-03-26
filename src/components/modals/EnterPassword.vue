@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { API_joinRoom } from "@api/rooms";
+import { API_joinRoom } from "@api";
 
 import { useModal } from "@composable";
 import { useStoreAuth } from "@stores";

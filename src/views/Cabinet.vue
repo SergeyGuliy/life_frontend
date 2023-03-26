@@ -215,7 +215,7 @@ import { defineAsyncComponent } from "vue";
 
 import { ProfileSettingsParser } from "@utils/parsers";
 import { COUNTRIES, LOCALES_WITH_KEYS } from "@enums";
-import { API_uploadAvatar } from "@api/uploader";
+import { API_uploadAvatar } from "@api";
 import { useUsers, useLocale, useUserSettings, useModal } from "@composable";
 import { useStoreAuth } from "@stores";
 import { getAvatarLink } from "@helpers";
