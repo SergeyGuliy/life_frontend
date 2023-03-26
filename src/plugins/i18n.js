@@ -1,12 +1,9 @@
 import { createI18n } from "vue-i18n";
 
-import { en } from "@locales/en";
-import { ru } from "@locales/ru";
-
-const messages = { en, ru };
+import { messages } from "@locales";
 
 export const i18n = createI18n({
-  allowComposition: true, // you need to specify that!
+  allowComposition: true,
   silentTranslationWarn: true,
 
   locale: "en",

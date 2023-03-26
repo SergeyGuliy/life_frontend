@@ -1,13 +1,13 @@
-import { installPinia } from "./modules/pinia";
-import { installVuetify, vuetify } from "./modules/vuetify";
-import { installI18n, i18n } from "./modules/i18n";
-import { installRouter, router } from "./modules/router";
+import { installPinia } from "./pinia";
+import { installVuetify, vuetify } from "./vuetify";
+import { installI18n, i18n } from "./i18n";
+import { installRouter, router } from "./router";
 
-import { installGlobalComponents } from "./modules/globalComponents";
-import { installGlobalDirectives } from "./modules/globalDirectives";
+import { installGlobalComponents } from "./globalComponents";
+import { installGlobalDirectives } from "./globalDirectives";
 
-import { installNotify } from "./modules/notify";
-import { installMask } from "./modules/mask";
+import { installNotify } from "./notify";
+import { installMask } from "./mask";
 // import { installApexCharts } from "./modules/apexCharts";
 
 export function installPlugins(vue) {
