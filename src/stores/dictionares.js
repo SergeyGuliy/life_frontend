@@ -13,26 +13,22 @@ export const useStoreDictionaries = defineStore("dictionaries", {
       this.users[userData.userId] = { ...userData, serverTime: new Date() };
     },
 
-    fetchUserById(userId) {},
-
     getUserById(user) {
       if (typeof user === "number") {
-        this.getUserById(user);
+        this.isUserExistsAndNeedToUpdate(user, () => this.fetchUserData(user));
       } else if (typeof user === "object") {
-        this.setUser(user);
+        this.isUserExistsAndNeedToUpdate(user.userId, () => this.setUser(user));
       }
       return this.users[user.userId];
     },
 
-    IsUserExistsAndNeedToUpdate(userId, callback) {
+    isUserExistsAndNeedToUpdate(userId, callback) {
       const userNotExists = !this.users[userId];
-
       if (userNotExists) return callback();
 
       const needToUpdate =
         Math.abs(this.users[userId].serverTime - new Date()) >
         UPDATE_TIME_DELTA;
-
       if (needToUpdate) callback();
     },
 
@@ -49,24 +45,3 @@ export const useStoreDictionaries = defineStore("dictionaries", {
     },
   },
 });
-
-// export default {
-//   namespaced: true,
-//   state: {
-//     users: {},
-//     rooms: {}
-//   },
-//   mutations: {
-//     setUser(state, userData) {
-//       IsUserExistsAndNeedToUpdate(userData.userId, () => {
-//         Vue.set(state.users, userData.userId, {
-//           ...userData,
-//           serverTime: new Date()
-//         });
-//       });
-//     },
-//     getUserById(state, userId) {
-//       IsUserExistsAndNeedToUpdate(userId, () => fetchUserData(userId));
-//     }
-//   }
-// };
