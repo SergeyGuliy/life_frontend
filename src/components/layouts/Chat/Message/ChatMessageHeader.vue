@@ -2,8 +2,10 @@
 import { computed } from "vue";
 
 import { useUsers } from "@composable";
-import { getChatDate, getUserById, getUserName } from "@helpers";
+import { getChatDate, getUserName } from "@helpers";
+import { useStoreDictionaries } from "@stores";
 
+const { getUserById } = useStoreDictionaries();
 const { users } = useUsers();
 
 const props = defineProps({

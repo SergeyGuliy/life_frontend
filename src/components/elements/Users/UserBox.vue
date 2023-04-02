@@ -2,9 +2,11 @@
 import { computed, defineProps, onMounted, ref } from "vue";
 
 import UserInfo from "./UserInfo.vue";
-import { useUsers } from "@composable";
-import { getUserById } from "@helpers";
 
+import { useUsers } from "@composable";
+import { useStoreDictionaries } from "@stores";
+
+const { getUserById } = useStoreDictionaries();
 const { myUser } = useUsers();
 
 const props = defineProps({
@@ -15,7 +17,7 @@ const props = defineProps({
 const timestamp = ref(new Date());
 
 const userDataLocal = computed(() => {
-  const userData = getUserById(this.userData?.userId);
+  const userData = getUserById(props.userData?.userId);
   if (timestamp.value) return userData;
   return userData;
 });

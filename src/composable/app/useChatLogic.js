@@ -14,16 +14,17 @@ import { MESSAGE_RECEIVER_TYPES } from "@enums/index.mjs";
 import { chat_messageToClient } from "@constants/ws/chats.mjs";
 
 import { useChatKeys, useBus, useSocket, useUsers } from "@composable";
-import { useStoreChats } from "@stores";
-import { getUserById } from "@helpers";
+import { useStoreChats, useStoreDictionaries } from "@stores";
+
+const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 
 export function useChatLogic() {
   const { busInit, busEmit } = useBus();
   const { getUserChatKey } = useChatKeys();
   const { onSocketInit } = useSocket();
   const { myUser } = useUsers();
+  const { getUserById } = useStoreDictionaries();
   const { chats, pushMessageToChatChat, setChat, deleteChat } = useStoreChats();
-  const { GLOBAL, ROOM, PRIVATE } = MESSAGE_RECEIVER_TYPES;
 
   onMounted(async () => {
     await fetchGlobalMessages();

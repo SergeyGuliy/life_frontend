@@ -39,6 +39,7 @@ export const useStoreDictionaries = defineStore("dictionaries", {
   state: () => ({
     users: {},
   }),
+
   actions: {
     setUser(userData) {
       this.users[userData.userId] = { ...userData, serverTime: new Date() };

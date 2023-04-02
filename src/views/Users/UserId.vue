@@ -1,3 +1,14 @@
+<script setup>
+import { computed } from "vue";
+
+import { useMyRouter } from "@composable";
+import { useStoreDictionaries } from "@stores";
+
+const { getUserById } = useStoreDictionaries();
+
+const userData = computed(() => getUserById(useMyRouter.routeParams()));
+</script>
+
 <template>
   <Grid>
     <template #leftCol>
@@ -9,20 +20,6 @@
     </template>
   </Grid>
 </template>
-
-<script>
-import { getUserById } from "@helpers";
-
-export default {
-  name: "UserId",
-
-  computed: {
-    userData() {
-      return getUserById(this.$route.params.id);
-    },
-  },
-};
-</script>
 
 <style lang="scss">
 .UserId {
