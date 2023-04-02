@@ -43,7 +43,7 @@ export function useAuth() {
   const logOutMiddleware = () => {
     const { t } = useLocale();
 
-    if (useMyRouter().routeName !== "RoomId") return logOut();
+    if (useMyRouter().routeName() !== "RoomId") return logOut();
 
     return useModal()
       .openModal("Promt", {

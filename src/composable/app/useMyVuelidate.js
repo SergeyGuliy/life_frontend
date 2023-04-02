@@ -1,5 +1,5 @@
-import { get } from "lodash";
 import { useVuelidate } from "@vuelidate/core";
+import { get } from "lodash";
 
 export function useMyVuelidate(validations, formData) {
   const $v = useVuelidate(validations, formData);

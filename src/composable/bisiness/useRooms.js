@@ -22,7 +22,7 @@ export function useRooms() {
     set: (val) => setUsersInRoom(val),
   });
 
-  const roomId = computed(() => routeParams.id);
+  const roomId = computed(() => routeParams().id);
 
   const isRoomAdmin = computed(() => user.roomCreatedId === roomId.value);
 

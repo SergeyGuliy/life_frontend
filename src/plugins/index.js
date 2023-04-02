@@ -1,7 +1,7 @@
 import { installPinia } from "./pinia";
-import { installVuetify, vuetify } from "./vuetify";
-import { installI18n, i18n } from "./i18n";
-import { installRouter, router } from "./router";
+import { installVuetify } from "./vuetify";
+import { installI18n } from "./i18n";
+import { installRouter } from "./router";
 
 import { installGlobalComponents } from "./globalComponents";
 import { installGlobalDirectives } from "./globalDirectives";
@@ -24,4 +24,6 @@ export function installPlugins(vue) {
   // installApexCharts(vue);
 }
 
-export { i18n, router, vuetify };
+export { vuetify } from "./vuetify";
+export { i18n } from "./i18n";
+export { router } from "./router";

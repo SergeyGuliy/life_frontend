@@ -108,10 +108,7 @@ export function useRoomLogic() {
       .then(() => API_joinRoom(roomId))
       .then((data) => {
         setAdminRoom(data.roomJoinedId);
-        routerPush({
-          name: "RoomId",
-          params: { id: data.roomJoinedId },
-        });
+        routerPush({ name: "RoomId", params: { id: data.roomJoinedId } });
       })
       .catch(() => {});
   }

@@ -5,8 +5,8 @@ import { router } from "@plugins";
 export function useMyRouter() {
   return {
     routerPush: router.push,
-    routeName: useRoute().name,
-    routeMeta: useRoute().meta,
-    routeParams: useRoute().params,
+    routeName: () => useRoute().name,
+    routeMeta: () => useRoute().meta,
+    routeParams: () => useRoute().params,
   };
 }

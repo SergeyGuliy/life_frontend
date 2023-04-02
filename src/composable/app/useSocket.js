@@ -1,5 +1,5 @@
-import { io } from "socket.io-client";
 import { onUnmounted, ref, watch } from "vue";
+import { io } from "socket.io-client";
 
 const socket = io("ws://localhost:3000", {
   transports: ["websocket"],
@@ -7,9 +7,7 @@ const socket = io("ws://localhost:3000", {
 });
 
 const socketConnected = ref(socket.connected);
-
 socket.on("connect", () => (socketConnected.value = true));
-
 socket.on("disconnect", () => (socketConnected.value = false));
 
 export function useSocket() {
