@@ -4,6 +4,37 @@ import { API_getById } from "@api";
 let requestUsersOrders = [];
 const UPDATE_TIME_DELTA = 100000;
 
+const resolver = {
+  requests: [],
+
+  addRequest(userId) {
+    this.requests.push(userId);
+  },
+  removeRequest(userId) {
+    this.requests = this.requests.filter((i) => i !== userId);
+  },
+
+  fetchUser(storeContext, userId) {
+    if (requestUsersOrders.includes(userId)) return;
+    this.addRequest(userId);
+
+    API_getById(userId)
+      .then(storeContext.setUser)
+      .finally(this.removeRequest(userId));
+  },
+
+  isNeedUpdate(storeContext, userId, callback) {
+    const userNotExists = !storeContext.users[userId];
+    if (userNotExists) return callback();
+
+    const userServerTime = Math.abs(
+      storeContext.users[userId].serverTime - new Date()
+    );
+    const needToUpdate = userServerTime > UPDATE_TIME_DELTA;
+    if (needToUpdate) callback();
+  },
+};
+
 export const useStoreDictionaries = defineStore("dictionaries", {
   state: () => ({
     users: {},
@@ -15,33 +46,11 @@ export const useStoreDictionaries = defineStore("dictionaries", {
 
     getUserById(user) {
       if (typeof user === "number") {
-        this.isUserExistsAndNeedToUpdate(user, () => this.fetchUserData(user));
+        resolver.isNeedUpdate(this, user, () => resolver.fetchUser(this, user));
       } else if (typeof user === "object") {
-        this.isUserExistsAndNeedToUpdate(user.userId, () => this.setUser(user));
+        resolver.isNeedUpdate(this, user.userId, () => this.setUser(user));
       }
       return this.users[user.userId];
-    },
-
-    isUserExistsAndNeedToUpdate(userId, callback) {
-      const userNotExists = !this.users[userId];
-      if (userNotExists) return callback();
-
-      const needToUpdate =
-        Math.abs(this.users[userId].serverTime - new Date()) >
-        UPDATE_TIME_DELTA;
-      if (needToUpdate) callback();
-    },
-
-    fetchUserData(userId) {
-      if (requestUsersOrders.includes(userId)) return;
-
-      requestUsersOrders.push(userId);
-
-      API_getById(userId)
-        .then(this.setUser)
-        .finally(() => {
-          requestUsersOrders = requestUsersOrders.filter((i) => i !== userId);
-        });
     },
   },
 });
