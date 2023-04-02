@@ -1,4 +1,4 @@
-import { axiosWithoutAuth } from "@utils";
+import { axiosWithoutAuth } from "@utils/axios";
 import { LS_auth, LS_refreshToken, LS_userId } from "@helpers";
 
 const API_login = async (body) => {

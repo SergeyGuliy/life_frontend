@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "@utils";
+import { axiosWithAuth } from "@utils/axios";
 
 const API_changePassword = async (formData) =>
   axiosWithAuth.post("api/users-settings/change-password", formData);

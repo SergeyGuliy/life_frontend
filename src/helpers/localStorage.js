@@ -1,4 +1,4 @@
-import { LocalStorageService } from "../utils/localStorageService";
+import { LocalStorageService } from "@utils/localStorageService";
 
 export const LS_accessToken = new LocalStorageService("accessToken");
 export const LS_refreshToken = new LocalStorageService("refreshToken");

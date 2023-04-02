@@ -213,7 +213,7 @@
 <script>
 import { defineAsyncComponent } from "vue";
 
-import { ProfileSettingsParser } from "@utils/parsers";
+import { ProfileSettingsParser } from "@utils/profileSettingsParser";
 import { COUNTRIES, LOCALES_WITH_KEYS } from "@enums";
 import { API_uploadAvatar } from "@api";
 import { useUsers, useLocale, useUserSettings, useModal } from "@composable";

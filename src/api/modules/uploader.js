@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "@utils";
+import { axiosWithAuth } from "@utils/axios";
 
 const API_uploadVoice = async (formData) =>
   axiosWithAuth.post(`api/uploader/uploadVoice`, formData);
