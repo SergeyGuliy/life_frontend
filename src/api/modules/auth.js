@@ -1,18 +1,15 @@
 import { axiosWithoutAuth } from "../axios";
-import {
-  clearLocalStorageKeys,
-  setLocalStorageKeys,
-} from "@utils/localStorageKeys";
+import { LS_auth } from "@utils/localStorageKeys";
 
 const API_login = async (body) => {
   let data = await axiosWithoutAuth.post("api/auth/login", body);
-  setLocalStorageKeys(data);
+  LS_auth.set(data);
   return data;
 };
 
 const API_registration = async (body) => {
   let data = await axiosWithoutAuth.post("api/auth/registration", body);
-  setLocalStorageKeys(data);
+  LS_auth.set(data);
   return data;
 };
 
@@ -25,10 +22,10 @@ const API_refreshToken = async () => {
       userId,
       refreshToken,
     });
-    setLocalStorageKeys(data);
+    LS_auth.set(data);
     return data;
   } else {
-    clearLocalStorageKeys();
+    LS_auth.clear();
     return new Promise((res, rej) => rej("failed"));
   }
 };

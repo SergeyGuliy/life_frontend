@@ -1,7 +1,7 @@
 // import { store } from "../../store";
 
 import axios from "axios";
-import { clearLocalStorageKeys } from "@utils/localStorageKeys";
+import { LS_auth } from "@utils/localStorageKeys";
 import { useAuth } from "@composable";
 // import { index } from "../assets/utils/index";
 // import { myVue } from "@main";
