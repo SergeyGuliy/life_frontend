@@ -2,7 +2,7 @@
 import { computed, defineProps, onMounted, ref } from "vue";
 
 import ChatAudio from "@components/layouts/Chat/ChatAudio.vue";
-import { getSoundsWithFile } from "@utils/enums";
+import { getSoundsWithFile } from "@enums";
 
 const emit = defineEmits(["update:chatSettings"]);
 const props = defineProps({

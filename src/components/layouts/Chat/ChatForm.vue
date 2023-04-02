@@ -5,7 +5,7 @@ import ChatAudio from "./ChatAudio.vue";
 
 import { API_uploadVoice } from "@api";
 import { MESSAGE_RECEIVER_TYPES, MESSAGE_TYPES } from "@enums";
-import { chat_messageToServer } from "@constants/ws/chats.mjs";
+import { chat_messageToServer } from "@constants";
 
 import { useRecording, useChatKeys, useSocket, useUsers } from "@composable";
 import { useStoreChats } from "@stores";

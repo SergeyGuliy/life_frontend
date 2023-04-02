@@ -12,7 +12,7 @@ import {
   rooms_updateUsersListInRoom,
   rooms_userConnectsRoom,
   rooms_userKickedFromRoom,
-} from "@constants/ws/rooms.mjs";
+} from "@constants";
 
 import {
   useModal,

@@ -9,9 +9,9 @@ import {
 import {
   rooms_userLeaveRoom,
   rooms_userJoinRoom,
-} from "@constants/ws/rooms.mjs";
-import { MESSAGE_RECEIVER_TYPES } from "@enums/index.mjs";
-import { chat_messageToClient } from "@constants/ws/chats.mjs";
+  chat_messageToClient,
+} from "@constants";
+import { MESSAGE_RECEIVER_TYPES } from "@enums";
 
 import { useChatKeys, useBus, useSocket, useUsers } from "@composable";
 import { useStoreChats, useStoreDictionaries } from "@stores";

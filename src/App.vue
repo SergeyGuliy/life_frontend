@@ -17,7 +17,7 @@ import {
   socketSetup_callUserIdToServer,
   socketSetup_forceDisconnect,
   socketSetup_giveUserIdToServer,
-} from "@constants/ws/socketSetup.mjs";
+} from "@constants";
 import { useAuth, useUsers, useBus, useSocket } from "@composable";
 
 const { busEmit } = useBus();

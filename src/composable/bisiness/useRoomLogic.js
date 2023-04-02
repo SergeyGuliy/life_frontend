@@ -16,7 +16,7 @@ import {
   rooms_roomInListCreated,
   rooms_roomInListDeleted,
   rooms_roomInListUpdated,
-} from "@constants/ws/rooms.mjs";
+} from "@constants";
 import { LS_typeOfRoom } from "@helpers";
 
 export function useRoomLogic() {

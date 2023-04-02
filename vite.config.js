@@ -13,14 +13,10 @@ export default defineConfig({
     port: 8080,
     host: true,
   },
-  define: {
-    __VUE_I18N_FULL_INSTALL__: true,
-    __VUE_I18N_LEGACY_API__: false,
-    __INTLIFY_PROD_DEVTOOLS__: false,
-  },
   resolve: {
     alias: {
-      // "vue-i18n": "vue-i18n/dist/vue-i18n.runtime.esm-bundler.js",
+      "@lib_constants": getPath("node_modules/life_shared/esm/constants"),
+      "@lib_enums": getPath("node_modules/life_shared/esm/enums"),
 
       "@api": getPath("src/api"),
       "@assets": getPath("src/assets"),
@@ -32,10 +28,10 @@ export default defineConfig({
       "@plugins": getPath("src/plugins"),
       "@router": getPath("src/router"),
       "@stores": getPath("src/stores"),
-      "@utils": getPath("src/utils"),
 
-      "@constants": getPath("node_modules/life_shared/esm/constants"),
-      "@enums": getPath("node_modules/life_shared/esm/enums"),
+      "@constants": getPath("src/assets/js/constants"),
+      "@enums": getPath("src/assets/js/enums"),
+      "@utils": getPath("src/assets/js/utils"),
     },
   },
 });

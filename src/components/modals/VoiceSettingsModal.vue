@@ -31,7 +31,6 @@ import { defineAsyncComponent } from "vue";
 import { cloneDeep } from "lodash";
 
 import { useUserSettings, useModal } from "@composable";
-import { SOUNDS_WITH_FILES } from "@utils/enums";
 
 export default {
   name: "VoiceSettingsModal",
@@ -50,7 +49,6 @@ export default {
   },
   data() {
     return {
-      SOUNDS_WITH_FILES,
       chatSettings: null,
     };
   },
