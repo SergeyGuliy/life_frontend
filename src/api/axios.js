@@ -1,7 +1,7 @@
-// import { store } from "../../store";
-
 import axios from "axios";
-import { LS_auth } from "@utils/localStorageKeys";
+
+// import { store } from "../../store";
+import { LS_accessToken } from "@utils/localStorageKeys";
 import { useAuth } from "@composable";
 // import { index } from "../assets/utils/index";
 // import { myVue } from "@main";
@@ -15,7 +15,7 @@ const axiosWithoutAuth = axios.create(config);
 
 axiosWithAuth.interceptors.request.use(
   function (config) {
-    const token = localStorage.getItem("accessToken");
+    const token = LS_accessToken.value;
     if (token) {
       config.headers["Authorization"] = "Bearer " + token;
     }

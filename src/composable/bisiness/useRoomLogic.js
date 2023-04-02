@@ -17,6 +17,7 @@ import {
   rooms_roomInListDeleted,
   rooms_roomInListUpdated,
 } from "@constants/ws/rooms.mjs";
+import { LS_typeOfRoom } from "@utils/localStorageKeys";
 
 export function useRoomLogic() {
   const { myUser } = useUsers();
@@ -33,10 +34,9 @@ export function useRoomLogic() {
   const rooms = ref([]);
 
   onMounted(async () => {
-    const typeOfRoom = localStorage.getItem("typeOfRoom");
-    if (typeOfRoom) {
-      filterData.typeOfRoom = typeOfRoom.split(",");
-    }
+    const typeOfRoom = LS_typeOfRoom.value;
+    if (typeOfRoom) filterData.typeOfRoom = typeOfRoom.split(",");
+
     await fetchRooms();
 
     socketEmit(rooms_subscribeRoomsUpdate, { userId: myUser.userId });
@@ -81,24 +81,20 @@ export function useRoomLogic() {
   }
 
   async function fetchRooms() {
-    localStorage.setItem("typeOfRoom", filterData.typeOfRoom);
-    API_getRooms(filterData).then((data) => {
-      rooms.value = data;
-    });
+    LS_typeOfRoom.value = filterData.typeOfRoom;
+    API_getRooms(filterData).then((data) => (rooms.value = data));
   }
 
   async function joinRoom(roomData) {
     let { typeOfRoom, roomName, roomId } = roomData;
 
     if (typeOfRoom === "PRIVATE") {
-      await openModal("EnterPassword", {
+      return await openModal("EnterPassword", {
         title: "To enter room you need to input its password",
         submit: "enter",
         cancel: "cancel",
         roomId,
       }).catch(() => {});
-
-      return;
     }
     await openModal("Promt", {
       title: `${t("modals.enterRoom")} ${roomName} ?`,

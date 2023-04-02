@@ -1,5 +1,5 @@
 import { axiosWithoutAuth } from "../axios";
-import { LS_auth } from "@utils/localStorageKeys";
+import { LS_auth, LS_refreshToken, LS_userId } from "@utils/localStorageKeys";
 
 const API_login = async (body) => {
   let data = await axiosWithoutAuth.post("api/auth/login", body);
@@ -14,8 +14,8 @@ const API_registration = async (body) => {
 };
 
 const API_refreshToken = async () => {
-  const userId = localStorage.getItem("userId");
-  const refreshToken = localStorage.getItem("refreshToken");
+  const userId = LS_userId.value;
+  const refreshToken = LS_refreshToken.value;
 
   if (userId && refreshToken) {
     const data = await axiosWithoutAuth.post("api/auth/refresh-token", {
