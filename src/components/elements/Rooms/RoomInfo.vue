@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
 
-import { ROOM_TYPES } from "@enums/index.mjs";
+import { ROOM_TYPES } from "@enums";
 import { useRooms } from "@composable";
 
 const { usersInRoom } = useRooms();

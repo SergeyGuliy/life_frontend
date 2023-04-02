@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from "vue";
 
-import { ROOM_TYPES } from "@enums/index.mjs";
+import { ROOM_TYPES } from "@enums";
 import { getUserName } from "@helpers";
 
 const props = defineProps({

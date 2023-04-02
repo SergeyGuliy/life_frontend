@@ -1,12 +1,6 @@
-import { SOUNDS } from "@enums/index.mjs";
+import { SOUNDS } from "@lib_enums/index.mjs";
 
-export const SOUNDS_WITH_FILES = Object.keys(SOUNDS).map(async (soundName) => {
-  return {
-    name: "soundName",
-    sound: await import(`../assets/sounds/${soundName}.mp3`),
-  };
-});
-
+export * from "@lib_enums/index.mjs";
 export function getSoundsWithFile() {
   let promises = [];
   let soundsWithFiles = Object.keys(SOUNDS).map((soundName) => {

@@ -50,6 +50,13 @@ export default {
 
       [socketSetup_forceDisconnect]: this.forceDisconnect,
     });
+    console.warn(this.$route);
+  },
+
+  mounted() {
+    setTimeout(() => {
+      console.warn(this.$route);
+    }, 1000);
   },
 
   methods: {

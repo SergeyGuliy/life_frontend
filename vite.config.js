@@ -1,11 +1,11 @@
 import { defineConfig } from "vite";
+import vuetify from "vite-plugin-vuetify";
 import vue from "@vitejs/plugin-vue";
 
-import vuetify from "vite-plugin-vuetify";
+import path from "path";
 import * as url from "url";
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
-import path from "path";
 const getPath = (pathUrl) => path.resolve(__dirname, pathUrl);
 export default defineConfig({
   plugins: [vue(), vuetify()],

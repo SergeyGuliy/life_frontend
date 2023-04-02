@@ -17,7 +17,7 @@
 <script>
 import { defineAsyncComponent } from "vue";
 
-import { MESSAGE_RECEIVER_TYPES } from "@enums/index.mjs";
+import { MESSAGE_RECEIVER_TYPES } from "@enums";
 import { useBus } from "@composable";
 
 const { GLOBAL, ROOM } = MESSAGE_RECEIVER_TYPES;
