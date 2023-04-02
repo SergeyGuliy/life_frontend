@@ -6,7 +6,7 @@
       <v-container>
         <slot />
       </v-container>
-      <Chat v-if="$route.name !== 'Messages'" />
+      <ChatRoot v-if="$route.name !== 'Messages'" />
     </v-main>
   </div>
 </template>
@@ -17,10 +17,15 @@
 
 import SideBar from "@components/layouts/SideBar/SideBar.vue";
 import NavBar from "@components/layouts/NavBar.vue";
-import Chat from "@components/layouts/Chat/ChatRoot.vue";
+import ChatRoot from "@components/layouts/Chat/ChatRoot.vue";
 
 import { useUsers, useChatLogic, useSocket } from "@composable";
-import { API_getYourConnections, API_getYourFriends, API_changeLocale, API_changeTheme } from "@api";
+import {
+  API_getYourConnections,
+  API_getYourFriends,
+  API_changeLocale,
+  API_changeTheme,
+} from "@api";
 import { useStoreFriends, useStoreAuth } from "@stores";
 
 export default {
@@ -44,7 +49,7 @@ export default {
   components: {
     SideBar,
     NavBar,
-    Chat,
+    ChatRoot,
   },
   data() {
     return {

@@ -1,17 +1,17 @@
+<script setup>
+import { onMounted } from "vue";
+import { useVuetifyTheme } from "@composable";
+
+const { setTheme } = useVuetifyTheme();
+
+onMounted(() => setTheme(false));
+</script>
+
 <template>
   <v-app class="auth-layout">
     <slot />
   </v-app>
 </template>
-
-<script>
-export default {
-  name: "authLayout",
-  mounted() {
-    // this.$vuetify.theme.dark = false;
-  },
-};
-</script>
 
 <style lang="scss">
 .auth-layout {
