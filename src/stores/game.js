@@ -18,7 +18,7 @@ export const useStoreGame = defineStore("auth", {
       this.gameId = gameId;
     },
     setGameDate(gameDate) {
-      this.getGameDate = gameDate;
+      this.gameDate = gameDate;
     },
     setGameShares(gameShares) {
       this.gameShares = gameShares;

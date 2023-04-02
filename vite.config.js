@@ -13,8 +13,15 @@ export default defineConfig({
     port: 8080,
     host: true,
   },
+  define: {
+    __VUE_I18N_FULL_INSTALL__: true,
+    __VUE_I18N_LEGACY_API__: false,
+    __INTLIFY_PROD_DEVTOOLS__: false,
+  },
   resolve: {
     alias: {
+      // "vue-i18n": "vue-i18n/dist/vue-i18n.runtime.esm-bundler.js",
+
       "@api": getPath("src/api"),
       "@assets": getPath("src/assets"),
       "@components": getPath("src/components"),

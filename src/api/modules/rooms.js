@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "../axios";
+import { axiosWithAuth } from "@utils";
 
 const API_getRooms = async (params) =>
   axiosWithAuth.get("api/rooms/", { params });

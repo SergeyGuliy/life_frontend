@@ -20,11 +20,10 @@ import {
   useRooms,
   useUsers,
   useGame,
-  useStoreAuth,
-  useStoreRooms,
   useLocale,
   useMyRouter,
 } from "@composable";
+import { useStoreAuth, useStoreRooms } from "@stores";
 
 const { routerPush } = useMyRouter();
 const { t } = useLocale();

@@ -41,7 +41,7 @@ import BuySellButtons from "../../../ui/game/BuySellButtons.vue";
 import { useGame } from "@composable";
 const { gameUserData, gameCryptos } = useGame();
 
-import { $mChain } from "@utils/mathjs";
+import { $mChain } from "@helpers";
 import { computed } from "vue";
 
 const userCrypto = computed(() => {

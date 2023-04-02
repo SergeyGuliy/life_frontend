@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { $mChain, $mGetPrice } from "@utils/mathjs";
+import { $mChain, $mGetPrice } from "@helpers";
 import { defineAsyncComponent } from "vue";
 
 export default {

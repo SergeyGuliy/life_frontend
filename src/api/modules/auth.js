@@ -1,5 +1,5 @@
-import { axiosWithoutAuth } from "../axios";
-import { LS_auth, LS_refreshToken, LS_userId } from "@utils/localStorageKeys";
+import { axiosWithoutAuth } from "@utils";
+import { LS_auth, LS_refreshToken, LS_userId } from "@helpers";
 
 const API_login = async (body) => {
   let data = await axiosWithoutAuth.post("api/auth/login", body);

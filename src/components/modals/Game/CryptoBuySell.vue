@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { $mChain } from "@utils/mathjs";
+import { $mChain } from "@helpers";
 import { useModal, useGame } from "@composable";
 
 export default {

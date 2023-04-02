@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "../axios";
+import { axiosWithAuth } from "@utils";
 
 const API_getGlobalMessages = async () => axiosWithAuth.get("api/chats/global");
 

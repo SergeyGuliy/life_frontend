@@ -1,7 +1,7 @@
 import { useVuetifyTheme, useLocale, useModal, useMyRouter } from "@composable";
 import { useStoreAuth } from "@stores";
 
-import { LS_auth } from "@utils/localStorageKeys";
+import { LS_auth } from "@helpers";
 import { API_refreshToken, API_registration, API_login } from "@api";
 
 export function useAuth() {

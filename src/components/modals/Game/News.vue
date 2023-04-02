@@ -72,7 +72,7 @@
 <script>
 import { defineAsyncComponent } from "vue";
 
-import { $mChain } from "@utils/mathjs";
+import { $mChain } from "@helpers";
 import { useModal, useGame } from "@composable";
 
 export default {

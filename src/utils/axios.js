@@ -1,14 +1,12 @@
 import axios from "axios";
 
 // import { store } from "../../store";
-import { LS_accessToken } from "@utils/localStorageKeys";
+import { LS_accessToken } from "@helpers";
 import { useAuth } from "@composable";
 // import { index } from "../assets/utils/index";
 // import { myVue } from "@main";
 
-let config = {
-  baseURL: "http://localhost:3000/",
-};
+let config = { baseURL: "http://localhost:3000/" };
 
 const axiosWithAuth = axios.create(config);
 const axiosWithoutAuth = axios.create(config);

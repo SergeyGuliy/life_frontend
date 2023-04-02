@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "../axios";
+import { axiosWithAuth } from "@utils";
 
 const API_getById = (userId) => axiosWithAuth.get(`api/users/${userId}`);
 

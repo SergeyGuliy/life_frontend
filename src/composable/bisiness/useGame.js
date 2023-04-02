@@ -2,7 +2,7 @@ import { computed } from "vue";
 
 import { API_userEvent } from "@api";
 import { useStoreGame } from "@stores";
-import { $mChangePrise } from "@utils/mathjs";
+import { $mChangePrise } from "@helpers";
 
 export function useGame() {
   const storeGame = useStoreGame();

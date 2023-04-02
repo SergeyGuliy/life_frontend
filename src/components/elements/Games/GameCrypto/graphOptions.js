@@ -1,10 +1,5 @@
 import moment from "moment/moment";
-import {
-  $mChain,
-  $mChangePrise,
-  $mGetPercent,
-  $mGetPrice,
-} from "@utils/mathjs";
+import { $mChain, $mChangePrise, $mGetPercent, $mGetPrice } from "@helpers";
 
 function generateTooltip({ seriesIndex, dataPointIndex, w }) {
   let { y, x } = w.globals.initialSeries[seriesIndex].data[dataPointIndex];

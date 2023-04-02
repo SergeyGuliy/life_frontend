@@ -17,7 +17,7 @@ import {
   rooms_roomInListDeleted,
   rooms_roomInListUpdated,
 } from "@constants/ws/rooms.mjs";
-import { LS_typeOfRoom } from "@utils/localStorageKeys";
+import { LS_typeOfRoom } from "@helpers";
 
 export function useRoomLogic() {
   const { myUser } = useUsers();

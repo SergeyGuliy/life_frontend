@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "../axios";
+import { axiosWithAuth } from "@utils";
 
 const API_startGame = async (roomId, gameSettings) =>
   axiosWithAuth.post(`api/games/start`, { roomId, gameSettings });
