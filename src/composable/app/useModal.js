@@ -3,12 +3,12 @@ import { storeToRefs } from "pinia";
 import { useModalStore } from "@stores";
 
 export function useModal() {
-  const store = useModalStore();
+  const modalStore = useModalStore();
 
-  const { component, data } = storeToRefs(store);
+  const { component, data } = storeToRefs(modalStore);
 
   function openModal(modalName, data = {}) {
-    store.setModal({
+    modalStore.setModal({
       component: modalName,
       data: data,
     });
@@ -32,7 +32,7 @@ export function useModal() {
         detail: data,
       })
     );
-    store.closeModal();
+    modalStore.closeModal();
   }
 
   return { openModal, closeModal, component, data };

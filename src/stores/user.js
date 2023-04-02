@@ -28,35 +28,21 @@ export const useStoreAuth = defineStore("auth", {
       this.user.roomJoinedId = null;
     },
     setProfileSettings(settings) {
-      this.user = {
-        ...this.user,
-        ...settings,
-      };
+      this.user = { ...this.user, ...settings };
     },
     setUserSettings(settings) {
-      this.user.userSettings = {
-        ...this.user.userSettings,
-        ...settings,
-      };
+      this.user.userSettings = { ...this.user.userSettings, ...settings };
     },
-
     setRoomId(roomId) {
       this.user.roomCreatedId = roomId;
     },
-
     async updateUserSettings({ profileSettings, userSettings }) {
-      if (profileSettings) {
-        this.setProfileSettings(profileSettings);
-      }
-      if (userSettings) {
-        this.setUserSettings(userSettings);
-      }
+      if (profileSettings) this.setProfileSettings(profileSettings);
+      if (userSettings) this.setUserSettings(userSettings);
     },
     async leaveRoomAction() {
       let { roomJoinedId } = await API_leaveRoom();
-      if (!roomJoinedId) {
-        this.leaveRoom();
-      }
+      if (!roomJoinedId) this.leaveRoom();
     },
   },
 });

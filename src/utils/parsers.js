@@ -1,7 +1,7 @@
 import { cloneDeep } from "lodash";
 
 import { API_updateUserSettings } from "@api";
-// import { store } from "../store";
+import { useStoreAuth } from "@stores";
 
 export class ProfileSettingsParser {
   constructor(userData) {
@@ -71,45 +71,40 @@ export class ProfileSettingsParser {
 
   static parseUserSettings(data) {
     const dataToReturn = {};
-    Object.entries(data).forEach(([key1, value1]) => {
-      if (this.nameMap[key1] && typeof this.nameMap[key1] === "object") {
-        Object.entries(value1).forEach(([key2, value2]) => {
-          if (
-            this.nameMap[key1][key2] &&
-            typeof this.nameMap[key1][key2] === "object"
-          ) {
-            Object.entries(value2).forEach(([key3]) => {
-              const keys = this.nameMap[key1][key2][key3].split(".");
-              dataToReturn[keys[0]] = {
-                ...dataToReturn[keys[0]],
-                [keys[1]]: value2[key3],
-              };
-            });
-          }
-          if (
-            this.nameMap[key1][key2] &&
-            typeof this.nameMap[key1][key2] === "string"
-          ) {
-            const keys = this.nameMap[key1][key2].split(".");
+    const entries = (obj) => Object.entries(obj);
+
+    entries(data).forEach(([key1, value1]) => {
+      if (!this.nameMap[key1] && typeof this.nameMap[key1] !== "object") return;
+
+      entries(value1).forEach(([key2, value2]) => {
+        const field = this.nameMap[key1][key2];
+
+        if (field && typeof field === "object") {
+          entries(value2).forEach(([key3]) => {
+            const keys = this.nameMap[key1][key2][key3].split(".");
             dataToReturn[keys[0]] = {
               ...dataToReturn[keys[0]],
-              [keys[1]]: value2,
+              [keys[1]]: value2[key3],
             };
-          }
-        });
-      }
+          });
+        }
+        if (field && typeof field === "string") {
+          const keys = this.nameMap[key1][key2].split(".");
+          dataToReturn[keys[0]] = {
+            ...dataToReturn[keys[0]],
+            [keys[1]]: value2,
+          };
+        }
+      });
     });
     return dataToReturn;
   }
 
   static async pushNewUserSettings(data) {
     const dataToReturn = this.parseUserSettings(data);
+
     return await API_updateUserSettings(dataToReturn)
-      .then((data) => {
-        // store.dispatch("user/updateUserSettings", data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+      .then((data) => useStoreAuth().updateUserSettings(data))
+      .catch((e) => console.log(e));
   }
 }

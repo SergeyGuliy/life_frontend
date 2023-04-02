@@ -15,14 +15,14 @@ export const useStoreFriends = defineStore("friends", {
     addFriend(friend) {
       this.friends.push(friend);
     },
-    deleteConnection(indexToDelete) {
-      this.connects = this.connects.filter((_, id) => id !== indexToDelete);
+    deleteConnection(idToDelete) {
+      this.connects = this.connects.filter((_, id) => id !== idToDelete);
     },
     updateConnection({ indexToUpdate, data }) {
       this.connects[indexToUpdate] = data;
     },
-    deleteFriend(indexToDelete) {
-      this.friends = this.friends.filter((_, id) => id !== indexToDelete);
+    deleteFriend(idToDelete) {
+      this.friends = this.friends.filter((_, id) => id !== idToDelete);
     },
   },
 });

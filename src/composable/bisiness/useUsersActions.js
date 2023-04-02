@@ -2,11 +2,13 @@ import { useRouter } from "vue-router";
 
 import { API_deleteFriend, API_sendRequest } from "@api";
 import { useBus, useUsers } from "@composable";
+import { useStoreFriends } from "@stores";
 
 export function useUsersActions() {
   const { friendsRequests } = useUsers();
   const { busEmit } = useBus();
   const { push } = useRouter();
+  const storeFriends = useStoreFriends();
 
   const writeMessage = (id) => busEmit("writeMessage", id);
 
@@ -16,11 +18,11 @@ export function useUsersActions() {
 
   const deleteFriend = (userId) =>
     API_deleteFriend(userId)
-      .then((data) => {
+      .then(({ friendshipsId: serverId }) => {
         const idToDelete = friendsRequests.findIndex(
-          (i) => i.friendshipsId === data.friendshipsId
+          ({ friendshipsId: clientId }) => clientId === serverId
         );
-        // store.commit("friends/deleteFriend", idToDelete);
+        storeFriends.deleteFriend(idToDelete);
       })
       .catch(() => {});
 

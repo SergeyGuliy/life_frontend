@@ -5,55 +5,55 @@ import { useStoreGame } from "@stores";
 import { $mChangePrise } from "@utils/mathjs";
 
 export function useGame() {
-  const store = useStoreGame();
+  const storeGame = useStoreGame();
 
   const gameCryptos = computed({
     get: () =>
-      store.gameCryptos.map((crypto) => ({
+      storeGame.gameCryptos.map((crypto) => ({
         ...crypto,
         grow_loss: $mChangePrise(crypto.currentPrice, crypto.previousPrice),
       })),
-    set: (val) => store.setGameCryptos(val),
+    set: (val) => storeGame.setGameCryptos(val),
   });
 
   const gameId = computed({
-    get: () => store.gameId,
-    set: (val) => store.setGameId(val),
+    get: () => storeGame.gameId,
+    set: (val) => storeGame.setGameId(val),
   });
 
   const gameDate = computed({
-    get: () => store.gameDate,
-    set: (val) => store.setGameDate(val),
+    get: () => storeGame.gameDate,
+    set: (val) => storeGame.setGameDate(val),
   });
 
   const gameShares = computed({
-    get: () => store.gameShares,
-    set: (val) => store.setGameShares(val),
+    get: () => storeGame.gameShares,
+    set: (val) => storeGame.setGameShares(val),
   });
 
   const gameCredits = computed({
-    get: () => store.credits,
-    set: (val) => store.setGameCredits(val),
+    get: () => storeGame.credits,
+    set: (val) => storeGame.setGameCredits(val),
   });
 
   const gameDeposits = computed({
-    get: () => store.deposits,
-    set: (val) => store.setGameDeposits(val),
+    get: () => storeGame.deposits,
+    set: (val) => storeGame.setGameDeposits(val),
   });
 
   const gameModifiers = computed({
-    get: () => store.modifiers,
-    set: (val) => store.setGameModifiers(val),
+    get: () => storeGame.modifiers,
+    set: (val) => storeGame.setGameModifiers(val),
   });
 
   const gameUserData = computed({
-    get: () => store.gameUserData,
-    set: (val) => store.setGameUserData(val),
+    get: () => storeGame.gameUserData,
+    set: (val) => storeGame.setGameUserData(val),
   });
 
   const gameUserNews = computed({
-    get: () => store.gameUserNews,
-    set: (val) => store.setGameUserNews(val),
+    get: () => storeGame.gameUserNews,
+    set: (val) => storeGame.setGameUserNews(val),
   });
 
   const gameUserWork = computed({
