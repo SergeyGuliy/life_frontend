@@ -1,5 +1,8 @@
 import { defineStore } from "pinia";
-import { getUserById } from "../helpers";
+import { API_getById } from "@api";
+
+let requestUsersOrders = [];
+const UPDATE_TIME_DELTA = 100000;
 
 export const useStoreDictionaries = defineStore("dictionaries", {
   state: () => ({
@@ -7,7 +10,7 @@ export const useStoreDictionaries = defineStore("dictionaries", {
   }),
   actions: {
     setUser(userData) {
-      this.users[userData.userId] = userData;
+      this.users[userData.userId] = { ...userData, serverTime: new Date() };
     },
 
     fetchUserById(userId) {},
@@ -20,33 +23,50 @@ export const useStoreDictionaries = defineStore("dictionaries", {
       }
       return this.users[user.userId];
     },
+
+    IsUserExistsAndNeedToUpdate(userId, callback) {
+      const userNotExists = !this.users[userId];
+
+      if (userNotExists) return callback();
+
+      const needToUpdate =
+        Math.abs(this.users[userId].serverTime - new Date()) >
+        UPDATE_TIME_DELTA;
+
+      if (needToUpdate) callback();
+    },
+
+    fetchUserData(userId) {
+      if (requestUsersOrders.includes(userId)) return;
+
+      requestUsersOrders.push(userId);
+
+      API_getById(userId)
+        .then(this.setUser)
+        .finally(() => {
+          requestUsersOrders = requestUsersOrders.filter((i) => i !== userId);
+        });
+    },
   },
 });
 
-const requestUsersOrders = [];
-const UPDATE_TIME_DELTA = 100000;
-
-function IsUserExistsAndNeedToUpdate(userId, callback) {
-  const userNotExists = !store.state.dictionaries.users[userId];
-
-  if (userNotExists) return callback();
-
-  const { serverTime } = store.state.dictionaries.users[userId];
-  const needToUpdate = Math.abs(serverTime - new Date()) > UPDATE_TIME_DELTA;
-
-  if (needToUpdate) callback();
-}
-
-function fetchUserData(userId) {
-  if (requestUsersOrders.includes(userId)) return;
-
-  requestUsersOrders.push(userId);
-  API_getById(userId)
-    .then((userData) => {
-      if (userData) store.commit("dictionaries/setUser", userData);
-    })
-    .finally(() => {
-      const userIdToDelete = requestUsersOrders.findIndex((i) => i === userId);
-      requestUsersOrders.splice(userIdToDelete, 1);
-    });
-}
+// export default {
+//   namespaced: true,
+//   state: {
+//     users: {},
+//     rooms: {}
+//   },
+//   mutations: {
+//     setUser(state, userData) {
+//       IsUserExistsAndNeedToUpdate(userData.userId, () => {
+//         Vue.set(state.users, userData.userId, {
+//           ...userData,
+//           serverTime: new Date()
+//         });
+//       });
+//     },
+//     getUserById(state, userId) {
+//       IsUserExistsAndNeedToUpdate(userId, () => fetchUserData(userId));
+//     }
+//   }
+// };
