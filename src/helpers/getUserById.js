@@ -1,8 +1,12 @@
 // import { store } from "../../../../store";
 
+import { useStoreDictionaries } from "../stores";
+
 export const getUserById = (user) => {
+  // const storeDictionaries = useStoreDictionaries();
+  //
   // if (typeof user === "number") {
-  //   store.commit("dictionaries/getUserById", user);
+  //   storeDictionaries.commit("dictionaries/getUserById", user);
   //   return store.state.dictionaries.users[user];
   // } else if (typeof user === "object") {
   //   store.commit("dictionaries/setUser", user);
