@@ -65,8 +65,6 @@ async function sendMessage(event) {
   if (activeChat === PRIVATE) {
     messageData.messageReceiverUserId = getUserIdFromChatKey(props.activeChat);
   }
-  console.log(messageData);
-
   socketEmit(chat_messageToServer, messageData);
   newMessage.value = "";
   audio.value = null;

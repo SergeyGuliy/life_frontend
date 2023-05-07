@@ -5,7 +5,7 @@ export function getSoundsWithFile() {
   let promises = [];
   let soundsWithFiles = Object.keys(SOUNDS).map((soundName) => {
     promises.push(
-      import(`../assets/sounds/${soundName}.mp3`).then((file) => ({
+      import(`../../sounds/${soundName}.mp3`).then((file) => ({
         file,
         soundNameAsync: soundName,
       }))

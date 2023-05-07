@@ -11,34 +11,32 @@ const props = defineProps({
 });
 
 const isOpen = ref(false);
-const soundsWithFile = ref([]);
+const sounds = ref([]);
 
 const isTurnedOn = computed({
   get: () => props.chatSettings.isTurnedOn,
-  set: (val) =>
-    emit("update:chatSettings", { ...props.chatSettings, isTurnedOn: val }),
+  set: (val) => updateChatSettings({ isTurnedOn: val }),
 });
 const autoplay = computed({
   get: () => props.chatSettings.autoplay,
-  set: (val) =>
-    emit("update:chatSettings", { ...props.chatSettings, autoplay: val }),
+  set: (val) => updateChatSettings({ autoplay: val }),
 });
 
 const soundSelected = computed({
   get: () =>
-    soundsWithFile.value.find(
-      ({ name }) => name === props.chatSettings.soundSelected
-    ) || {},
-  set: (val) =>
-    emit("update:chatSettings", { ...props.chatSettings, soundSelected: val }),
+    sounds.value.find((i) => i.name === props.chatSettings.soundSelected),
+  set: (val) => updateChatSettings({ soundSelected: val }),
 });
+
+const updateChatSettings = (updateObj) =>
+  emit("update:chatSettings", { ...props.chatSettings, ...updateObj });
 
 function selectSound(sound) {
   soundSelected.value = sound;
   isOpen.value = false;
 }
 
-onMounted(async () => (soundsWithFile.value = await getSoundsWithFile()));
+onMounted(async () => (sounds.value = await getSoundsWithFile()));
 </script>
 
 <template>
@@ -97,7 +95,7 @@ onMounted(async () => (soundsWithFile.value = await getSoundsWithFile()));
             <v-list-item
               link
               class="pa-0"
-              v-for="(item, index) in soundsWithFile.filter(
+              v-for="(item, index) in sounds.filter(
                 (i) => i.name !== soundSelected.name
               )"
               :key="index"
