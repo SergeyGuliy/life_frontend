@@ -37,13 +37,13 @@
 import { API_joinRoom } from "@api";
 
 import { useModal } from "@composable";
-import { useStoreAuth } from "@stores";
+import { useStoreUser } from "@stores";
 
 export default {
   name: "EnterPassword",
 
   setup() {
-    const { setJoinedRoom } = useStoreAuth();
+    const { setJoinedRoom } = useStoreUser();
     const { data, component, closeModal } = useModal();
     return { data, component, closeModal, setJoinedRoom };
   },

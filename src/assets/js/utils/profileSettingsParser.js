@@ -1,7 +1,7 @@
 import { cloneDeep } from "lodash";
 
 import { API_updateUserSettings } from "@api";
-import { useStoreAuth } from "@stores";
+import { useStoreUser } from "@stores";
 
 export class ProfileSettingsParser {
   constructor(userData) {
@@ -104,7 +104,7 @@ export class ProfileSettingsParser {
     const dataToReturn = this.parseUserSettings(data);
 
     return await API_updateUserSettings(dataToReturn)
-      .then((data) => useStoreAuth().updateUserSettings(data))
+      .then((data) => useStoreUser().updateUserSettings(data))
       .catch((e) => console.log(e));
   }
 }

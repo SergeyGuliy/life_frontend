@@ -18,7 +18,10 @@ export function useGame() {
 
   const gameId = computed({
     get: () => storeGame.gameId,
-    set: (val) => storeGame.setGameId(val),
+    set: (val) => {
+      console.log(val);
+      storeGame.setGameId(val);
+    },
   });
 
   const gameDate = computed({

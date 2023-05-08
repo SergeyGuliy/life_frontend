@@ -4,4 +4,4 @@ export { useStoreFriends } from "./friends";
 export { useStoreGame } from "./game";
 export { useModalStore } from "./modals";
 export { useStoreRooms } from "./room";
-export { useStoreAuth } from "./user";
+export { useStoreUser } from "./user";

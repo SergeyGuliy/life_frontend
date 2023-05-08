@@ -5,8 +5,7 @@ export function loginStatusMiddleware(to, from, next) {
 
   if (myUser && ["Auth", "Closer"].includes(to.name)) {
     next({ name: "Home" });
-  }
-  if (!myUser && !["Auth", "Closer"].includes(to.name)) {
+  } else if (!myUser && !["Auth", "Closer"].includes(to.name)) {
     next({ name: "Auth" });
   } else {
     next();

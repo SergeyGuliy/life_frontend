@@ -1,7 +1,7 @@
 import { onBeforeUnmount, onMounted, reactive, ref } from "vue";
 
 import { API_getRooms, API_joinRoom } from "@api";
-import { useStoreAuth } from "@stores";
+import { useStoreUser } from "@stores";
 import {
   useModal,
   useUsers,
@@ -25,7 +25,7 @@ export function useRoomLogic() {
   const { openModal } = useModal();
   const { t } = useLocale();
   const { routerPush } = useMyRouter();
-  const { setAdminRoom, setJoinedRoom } = useStoreAuth();
+  const { setAdminRoom, setJoinedRoom } = useStoreUser();
 
   const filterData = reactive({
     roomName: "",

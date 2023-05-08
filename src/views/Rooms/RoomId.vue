@@ -1,5 +1,4 @@
 <script setup>
-import { onBeforeMount } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 
 import RoomRoot from "@components/elements/Rooms/RoomRoot.vue";
@@ -23,7 +22,7 @@ import {
   useLocale,
   useMyRouter,
 } from "@composable";
-import { useStoreAuth, useStoreRooms } from "@stores";
+import { useStoreUser, useStoreRooms } from "@stores";
 
 const { routerPush } = useMyRouter();
 const { t } = useLocale();
@@ -31,31 +30,30 @@ const { onSocketInit, socketEmit } = useSocket();
 const { openModal } = useModal();
 const { myUser } = useUsers();
 const { gameId } = useGame();
-const { leaveRoom, setRoomId, leaveRoomAction } = useStoreAuth();
+const { leaveRoom, setRoomId, leaveRoomAction } = useStoreUser();
 const { updateUser, kickUser } = useStoreRooms();
 const { roomId, usersInRoom, roomData } = useRooms();
+console.log(myUser.userId);
+console.log(roomId.value);
+API_getRoomById(roomId.value)
+  .then((data) => {
+    roomData.value = data;
+    gameId.value = data.gameId;
 
-onBeforeMount(() => {
-  API_getRoomById(roomId)
-    .then((data) => {
-      roomData.value = data;
-      gameId.value = data.gameId;
+    socketEmit(rooms_userConnectsRoom, {
+      userId: myUser.userId,
+      roomId: roomId.value,
+    });
 
-      socketEmit(rooms_userConnectsRoom, {
-        userId: myUser.userId,
-        roomId: roomId,
-      });
-
-      onSocketInit({
-        [rooms_updateUsersListInRoom]: updateUserListInRoom,
-        [rooms_updateRoomAdmin]: updateRoomAdmin,
-        [rooms_userKickedFromRoom]: userKickedFromRoom,
-        [rooms_updateToggleLockRoom]: updateToggleLockRoom,
-        games_gameStarted: gameStarted,
-      });
-    })
-    .catch(exitRoom);
-});
+    onSocketInit({
+      [rooms_updateUsersListInRoom]: updateUserListInRoom,
+      [rooms_updateRoomAdmin]: updateRoomAdmin,
+      [rooms_userKickedFromRoom]: userKickedFromRoom,
+      [rooms_updateToggleLockRoom]: updateToggleLockRoom,
+      games_gameStarted: gameStarted,
+    });
+  })
+  .catch(exitRoom);
 
 onBeforeRouteLeave(async (to, from, next) => {
   if (!myUser || +myUser?.roomJoinedId !== roomId) {

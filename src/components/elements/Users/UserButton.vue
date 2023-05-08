@@ -1,3 +1,16 @@
+<script>
+const supportedKeys = [
+  "writeMessage",
+  "addToFriend",
+  "deleteFriend",
+  "openProfile",
+  "kickUser",
+  "setAdmin",
+  "acceptFriend",
+  "ignoreFriend",
+];
+</script>
+
 <script setup>
 import { computed } from "vue";
 
@@ -17,17 +30,6 @@ const { t } = useLocale();
 const { deleteConnection, addFriend, updateConnection } = useStoreFriends();
 const { writeMessage, addToFriend, deleteFriend, openProfile } =
   useUsersActions();
-
-const supportedKeys = [
-  "writeMessage",
-  "addToFriend",
-  "deleteFriend",
-  "openProfile",
-  "kickUser",
-  "setAdmin",
-  "acceptFriend",
-  "ignoreFriend",
-];
 
 const props = defineProps({
   userId: { type: [Number, null], default: null },

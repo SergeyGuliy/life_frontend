@@ -1,6 +1,6 @@
 import { computed } from "vue";
 
-import { useStoreRooms, useStoreAuth } from "@stores";
+import { useStoreRooms, useStoreUser } from "@stores";
 import { useMyRouter } from "@composable";
 
 export function useRooms() {
@@ -9,7 +9,7 @@ export function useRooms() {
     setRoomData,
     setUsersInRoom,
   } = useStoreRooms();
-  const { user } = useStoreAuth();
+  const { user } = useStoreUser();
   const { routeParams } = useMyRouter();
 
   const roomData = computed({
@@ -22,7 +22,7 @@ export function useRooms() {
     set: (val) => setUsersInRoom(val),
   });
 
-  const roomId = computed(() => routeParams().id);
+  const roomId = computed(() => +routeParams().id);
 
   const isRoomAdmin = computed(() => user.roomCreatedId === roomId.value);
 

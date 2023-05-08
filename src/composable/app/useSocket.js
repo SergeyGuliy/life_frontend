@@ -13,7 +13,7 @@ socket.on("disconnect", () => (socketConnected.value = false));
 export function useSocket() {
   const socketConnect = socket.connect.bind(socket);
   const socketDisconnect = socket.close.bind(socket);
-  const socketEmit = socket.emit.bind(socket);
+  const socketEmit = (method, payload) => socket.emit(method, payload);
   const socketOn = socket.on.bind(socket);
   const socketOff = socket.off.bind(socket);
 

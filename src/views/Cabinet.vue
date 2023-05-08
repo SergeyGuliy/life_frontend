@@ -217,10 +217,8 @@ import { ProfileSettingsParser } from "@utils/profileSettingsParser";
 import { COUNTRIES, LOCALES_WITH_KEYS } from "@enums";
 import { API_uploadAvatar } from "@api";
 import { useUsers, useLocale, useUserSettings, useModal } from "@composable";
-import { useStoreAuth } from "@stores";
+import { useStoreUser } from "@stores";
 import { getAvatarLink } from "@helpers";
-
-const { openModal } = useModal();
 
 export default {
   name: "Cabinet",
@@ -234,7 +232,8 @@ export default {
     const { changeLocale, currentLocale } = useLocale();
     const { updateUserSettings } = useUserSettings();
     const { myUser } = useUsers();
-    const { setProfileSettings } = useStoreAuth();
+    const { setProfileSettings } = useStoreUser();
+    const { openModal } = useModal();
 
     return {
       changeLocale,
@@ -242,6 +241,7 @@ export default {
       myUser,
       setProfileSettings,
       currentLocale,
+      openModal,
     };
   },
 
@@ -309,7 +309,7 @@ export default {
       this.setProfileSettings(data);
     },
     async changePassword() {
-      await openModal("ChangePassword").catch(() => {});
+      await this.openModal("ChangePassword").catch(() => {});
     },
     async saveSettings() {
       await this.updateUserSettings({

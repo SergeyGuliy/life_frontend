@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 import { API_leaveRoom } from "@api";
 
-export const useStoreAuth = defineStore("auth", {
+export const useStoreUser = defineStore("user", {
   state: () => ({
     user: null,
   }),

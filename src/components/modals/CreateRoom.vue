@@ -71,7 +71,7 @@ const { data, component, closeModal } = useModal();
 const { t } = useLocale();
 
 const roomData = reactive({
-  roomName: "",
+  roomName: "123",
   roomPassword: "",
   typeOfRoom: ROOM_TYPES.PUBLIC,
   minCountOfUsers: 1,
@@ -99,10 +99,13 @@ const { $v_validate, $v_getErrorMessage } = useMyVuelidate(
   roomData
 );
 
-watch(roomData.typeOfRoom, async (val) => {
-  if (!val) return;
-  roomData.roomPassword = "";
-});
+watch(
+  () => roomData.typeOfRoom,
+  (val) => {
+    if (!val) return;
+    roomData.roomPassword = "";
+  }
+);
 
 const getSwitchLabel = computed(() => t(`enums.${calculatedTypeOfRoom.value}`));
 const isRoomPublic = computed(() => roomData.typeOfRoom !== ROOM_TYPES.PUBLIC);

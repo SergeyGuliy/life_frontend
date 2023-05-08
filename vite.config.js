@@ -15,6 +15,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      "vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
+
       "@lib_constants": getPath("node_modules/life_shared/esm/constants"),
       "@lib_enums": getPath("node_modules/life_shared/esm/enums"),
 

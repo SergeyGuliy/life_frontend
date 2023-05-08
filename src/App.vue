@@ -19,6 +19,7 @@ import {
   socketSetup_giveUserIdToServer,
 } from "@constants";
 import { useAuth, useUsers, useBus, useSocket } from "@composable";
+import { ref } from "vue";
 
 const { busEmit } = useBus();
 const { onSocketInit, socketEmit } = useSocket();
@@ -27,9 +28,10 @@ export default {
   name: "App",
 
   setup() {
-    const { logOut } = useAuth();
+    const { logOut, refreshToken } = useAuth();
     const { myUser } = useUsers();
-    return { myUser, logOut };
+
+    return { myUser, logOut, refreshToken };
   },
 
   components: {
@@ -44,7 +46,7 @@ export default {
     },
   },
 
-  created() {
+  async created() {
     onSocketInit({
       [socketSetup_callUserIdToServer]: this.callUserIdToServer,
 

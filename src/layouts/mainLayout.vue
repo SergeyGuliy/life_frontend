@@ -26,7 +26,7 @@ import {
   API_changeLocale,
   API_changeTheme,
 } from "@api";
-import { useStoreFriends, useStoreAuth } from "@stores";
+import { useStoreFriends, useStoreUser } from "@stores";
 
 export default {
   name: "mainLayout",
@@ -35,7 +35,7 @@ export default {
     useChatLogic();
     const { myUser } = useUsers();
     const { setFriends, setConnections } = useStoreFriends();
-    const { setUserSettings } = useStoreAuth();
+    const { setUserSettings } = useStoreUser();
     const { socketConnect } = useSocket();
 
     return {
