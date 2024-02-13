@@ -3,6 +3,7 @@ import { defineEmits, defineProps, ref } from "vue";
 
 import { LOCALES_WITH_KEYS } from "@enums";
 import { useLocale, useVuetifyTheme, useAuth } from "@composable";
+import { useMyRouter } from "../../composable";
 
 const emit = defineEmits(["update:modelValue"]);
 defineProps({
@@ -12,6 +13,7 @@ defineProps({
 const { changeLocale } = useLocale();
 const { logOutMiddleware } = useAuth();
 const { toggleTheme } = useVuetifyTheme();
+const { routeName } = useMyRouter();
 
 const localesWithKeys = ref(LOCALES_WITH_KEYS);
 </script>
@@ -20,6 +22,7 @@ const localesWithKeys = ref(LOCALES_WITH_KEYS);
   <v-app-bar app class="NavBar">
     <v-btn icon @click="emit('update:modelValue', !modelValue)">
       <v-icon icon="mdi-menu" />
+      {{ routeName() }}
     </v-btn>
 
     <v-spacer />

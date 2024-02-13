@@ -3,6 +3,7 @@ import { useStoreUser } from "@stores";
 
 import { LS_auth } from "@helpers";
 import { API_refreshToken, API_registration, API_login } from "@api";
+import { useRoute } from "vue-router";
 
 export function useAuth() {
   const { setTheme } = useVuetifyTheme();
@@ -42,17 +43,18 @@ export function useAuth() {
 
   const logOutMiddleware = () => {
     const { t } = useLocale();
+    console.log(useRoute());
 
-    if (useMyRouter().routeName() !== "RoomId") return logOut();
-
-    return useModal()
-      .openModal("Promt", {
-        title: t("modals.wantLeaveRoom"),
-        submit: t("buttons.leave"),
-        cancel: t("buttons.cancel"),
-      })
-      .then(logOut)
-      .catch(() => {});
+    // if (useMyRouter().routeName() !== "RoomId") return logOut();
+    //
+    // return useModal()
+    //   .openModal("Promt", {
+    //     title: t("modals.wantLeaveRoom"),
+    //     submit: t("buttons.leave"),
+    //     cancel: t("buttons.cancel"),
+    //   })
+    //   .then(logOut)
+    //   .catch(() => {});
   };
 
   const refreshToken = () => {
